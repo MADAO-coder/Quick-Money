@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -45,11 +46,12 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void checkIfTaskTitleEmpty() {
-        onView(withId(R.id.inputTaskTitle)).check(matches(withText("")));
-        onView(withId(R.id.inputTaskDescription)).check(matches(withText("Here is a description")));
-        onView(withId(R.id.inputUrgency)).check(matches(withText("1")));
-        onView(withId(R.id.enterDate)).check(matches(withText("20/10/2021")));
-        onView(withId(R.id.inputPay)).check(matches(withText("20")));
+        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.inputTaskTitle)).perform(typeText(""));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
         onView(withId(R.id.submitTask)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("Empty Task Title")));
     }

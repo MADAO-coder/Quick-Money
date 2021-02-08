@@ -65,7 +65,9 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="322dp"
+        android:layout_marginBottom="64dp"
         android:text="Add Image"
+        app:layout_constraintBottom_toTopOf="@+id/submitTask"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,33 +140,18 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <Button
-        android:id="@+id/addMoreDetails"
-        android:layout_width="130dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="268dp"
-        android:layout_marginBottom="10dp"
-        android:text="Add More Details"
-        app:layout_constraintBottom_toTopOf="@+id/submitTask"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image" />
-
-    <Button
         android:id="@+id/submitTask"
         android:layout_width="151dp"
         android:layout_height="54dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="59dp"
         android:layout_marginEnd="147dp"
         android:layout_marginBottom="169dp"
         android:text="Submit Task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addMoreDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
 
     <EditText
         android:id="@+id/inputTaskTitle"
