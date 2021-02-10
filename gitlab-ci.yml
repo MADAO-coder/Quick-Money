@@ -26,29 +26,29 @@ before_script:
 lintDebug:
   stage: build
   script:
-    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - /code/gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
   tags:
     - dalfcs_gitlab_docker_ci
 
 assembleDebug:
   stage: build
   script:
-    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint && ./gradlew assembleDebug
+    - /code/gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint && ./gradlew assembleDebug
   artifacts:
     paths:
-      - app/build/outputs/
+      - code/app/build/outputs/
   tags:
     - dalfcs_gitlab_docker_ci
     
 unit_tests:
   stage: test
   script:
-    - ./gradlew test
+    - /code/gradlew test
   artifacts:
     when: always
     expire_in: 3 days
     paths:
-      - app/build/reports/tests/
+      - code/app/build/reports/tests/
   tags:
     - dalfcs_gitlab_docker_ci
 
