@@ -7,8 +7,6 @@ variables:
 before_script:
   # - apt-get --quiet update --yes
   # - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
-  - pwd
-  - ls -lrt
   - cd Code
   - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
   - unzip -d android-sdk-linux android-sdk.zip
@@ -25,7 +23,7 @@ before_script:
 lintDebug:
   stage: build
   script:
-    - .Code/gradlew -Pci --console=plain :Code/app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :/app:lintDebug -PbuildDir=lint
   tags:
     - dalfcs_gitlab_docker_ci
 assembleDebug:
@@ -41,11 +39,11 @@ assembleDebug:
 unit_tests:
   stage: test
   script:
-    - ./Code/gradlew test
+    - ./gradlew test
   artifacts:
     when: always
     expire_in: 3 days
     paths:
-      - Code/app/build/reports/tests/
+      - app/build/reports/tests/
   tags:
     - dalfcs_gitlab_docker_ci
