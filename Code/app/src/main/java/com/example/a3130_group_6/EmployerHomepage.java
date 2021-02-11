@@ -27,9 +27,8 @@ public class EmployerHomepage extends AppCompatActivity {
         employeeList.setAdapter(adapter);
     }
 
-    protected String getSearchView(){
-        SearchView searchView = (SearchView) findViewById(R.id.searchBar);
-        return searchView.getQuery().toString().trim();
+    protected boolean onClickAddTask(){
+
     }
 
     protected boolean searchFunctioning(String search){
