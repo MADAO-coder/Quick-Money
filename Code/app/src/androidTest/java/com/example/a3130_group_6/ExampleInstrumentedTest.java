@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -54,5 +56,10 @@ public class ExampleInstrumentedTest {
     public void checkEmployeeList(){
         //in debug its clear to see items are updating on page as well :)
         onView(withId(R.id.employeeList)).check(matches(isDisplayed()));
+    }
+    @Test
+    public void checkEmployeeListScroll(){
+        onView(withId(R.id.employeeList)).perform(swipeUp());
+        onView(withId(R.id.employeeList)).perform(swipeDown());
     }
 }

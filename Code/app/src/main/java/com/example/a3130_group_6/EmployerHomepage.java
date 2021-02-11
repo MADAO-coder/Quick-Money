@@ -21,7 +21,7 @@ public class EmployerHomepage extends AppCompatActivity {
     }
 
     protected void setEmployeeList(){
-        String[] employees = new String[] { "Noback Endintegration", "Potter Weasley", "Henry Harry", "Jim Jones", "Granger Jones Jr."};
+        String[] employees = new String[] { "Noback Endintegration", "Potter Weasley", "Henry Harry", "Jim Jones", "Granger Jones Jr.", "asdasdasdasd", "asdasdasdas", "asdasdasdasdasdas"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employees);
         ListView employeeList = (ListView) findViewById(R.id.employeeList);
         employeeList.setAdapter(adapter);

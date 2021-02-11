@@ -1,5 +1,6 @@
 package com.example.a3130_group_6;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,5 +17,7 @@ public class MainActivity extends AppCompatActivity {
         myRef.setValue("Hello, World!");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent switchIntent = new Intent(MainActivity.this, EmployerHomepage.class);
+        startActivity(switchIntent);
     }
 }
