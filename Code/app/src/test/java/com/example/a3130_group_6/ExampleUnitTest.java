@@ -38,7 +38,14 @@ public class ExampleUnitTest {
     //employee details elements
     @Test
     public void employeeDetails(){
-        assertTrue(employerHomepage.checkEmployeeList());
+        String[] employees = new String[]{};
+        assertFalse(employerHomepage.checkEmployeeList(employees));
+    }
+    //employee with elements
+    @Test
+    public void employeeWithDetails(){
+        String[] employees = new String[] { "Noback Endintegration", "Potter Weasley", "Henry Harry", "Jim Jones", "Granger Jones Jr."};
+        assertTrue(employerHomepage.checkEmployeeList(employees));
     }
     // add task button test
     @Test

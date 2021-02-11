@@ -40,9 +40,8 @@ public class EmployerHomepage extends AppCompatActivity {
         return !search.isEmpty();
     }
 
-    protected boolean checkEmployeeList(){
-        //return employeeList!=null;
-        return false;
+    protected boolean checkEmployeeList(String[] employees){
+        return employees.length>0;
     }
 
 }
