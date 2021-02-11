@@ -14,6 +14,8 @@
         android:layout_marginTop="86dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="581dp"
+        android:clickable="true"
+        android:focusable="true"
         android:inputType="textPersonName|text"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,4 +23,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

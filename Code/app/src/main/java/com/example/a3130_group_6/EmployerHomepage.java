@@ -1,29 +1,34 @@
 package com.example.a3130_group_6;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
-import java.io.Console;
+import java.util.ArrayList;
 
 public class EmployerHomepage extends AppCompatActivity {
-    SearchView searchBar;
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_homepage);
-        setSearchBar();
+        setSearchView();
     }
-    protected void setSearchBar(){
-        searchBar =  findViewById(R.id.searchBar);
+
+    protected void setSearchView(){
+        searchView = (SearchView) findViewById(R.id.searchBar);
     }
+
     protected boolean searchFunctioning(){
-        return searchBar!=null;
+        //empty searchview without data list to follow
+        return searchView==null;
+    }
+    protected String searchQuery(){
+        return searchView.getQuery().toString().trim();
     }
 
 }
