@@ -1,15 +1,13 @@
 # This file is a template, and might need editing before it works on your project.
-
 image: openjdk:8-jdk
-
 variables:
   ANDROID_COMPILE_SDK: "30"
   ANDROID_BUILD_TOOLS: "30.0.1"
   ANDROID_SDK_TOOLS: "4333796"
-
 before_script:
   # - apt-get --quiet update --yes
   # - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+  - cd Code
   - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
   - unzip -d android-sdk-linux android-sdk.zip
   - echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
@@ -22,14 +20,12 @@ before_script:
   - set +o pipefail
   - yes | android-sdk-linux/tools/bin/sdkmanager --licenses
   - set -o pipefail
-
 lintDebug:
   stage: build
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
   tags:
     - dalfcs_gitlab_docker_ci
-
 assembleDebug:
   stage: build
   script:
