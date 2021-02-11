@@ -42,9 +42,11 @@ public class EmployerHomepage extends AppCompatActivity {
         for(String individual : employees) {
             if(individual.isEmpty()){
                 return false;
+            }else{
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void addTaskSwitch(View view) {
