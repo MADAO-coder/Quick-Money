@@ -51,6 +51,11 @@ public class ExampleInstrumentedTest {
         //check correct element being interacted with. retrieving query unobtainable at this time
         onView(withId(R.id.searchBar)).check(matches(withId(2131231018)));
     }
+    /** AT-3*/
+    @Test
+    public void checkHeader(){
+        onView(withId(R.id.employeeHeader)).check(matches(isDisplayed()));
+    }
     /** AT-5**/
     @Test
     public void checkEmployeeList(){

@@ -25,14 +25,16 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:visibility="visible" />
 
     <ListView
         android:id="@+id/employeeList"
-        android:layout_width="315dp"
-        android:layout_height="305dp"
+        android:layout_width="405dp"
+        android:layout_height="311dp"
         android:isScrollContainer="true"
         android:nestedScrollingEnabled="true"
         android:scrollIndicators="right"
@@ -44,9 +46,23 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.807"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        app:layout_constraintVertical_bias="0.289" />
+        app:layout_constraintVertical_bias="0.593" />
+
+    <TextView
+        android:id="@+id/employeeHeader"
+        android:layout_width="411dp"
+        android:layout_height="19dp"
+        android:clickable="false"
+        android:text="Available Workers In Your Area"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/employeeList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        app:layout_constraintVertical_bias="0.678" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

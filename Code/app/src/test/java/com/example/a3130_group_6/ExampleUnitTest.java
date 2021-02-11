@@ -52,10 +52,4 @@ public class ExampleUnitTest {
     public void addTask(){
 
     }
-    // available workers heading
-    @Test
-    public void headerWorkers(){
-
-    }
-
 }
