@@ -77,4 +77,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0027FF"
+        android:text="Home"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:theme="@android:style/Theme.Holo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

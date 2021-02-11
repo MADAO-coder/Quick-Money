@@ -47,9 +47,4 @@ public class ExampleUnitTest {
         String[] employees = new String[] { "Noback Endintegration", "Potter Weasley", "Henry Harry", "Jim Jones", "Granger Jones Jr."};
         assertTrue(employerHomepage.checkEmployeeList(employees));
     }
-    // add task button test
-    @Test
-    public void addTask(){
-
-    }
 }

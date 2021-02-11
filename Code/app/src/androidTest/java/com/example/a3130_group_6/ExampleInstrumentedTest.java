@@ -57,8 +57,14 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.searchBar)).check(matches(withId(2131231018)));
     }
 
-    /** AT-3*/
+    /** AT-3**/
 
+    /** AT-4**/
+    @Test
+    public void checkHomeButton(){
+        onView(withId(R.id.homeButton)).perform(click());
+        intended(hasComponent(EmployerHomepage.class.getName()));
+    }
     /** AT-5**/
     @Test
     public void checkHeader(){
