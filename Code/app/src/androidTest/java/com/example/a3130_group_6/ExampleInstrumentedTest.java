@@ -52,6 +52,7 @@ public class ExampleInstrumentedTest {
     /** AT-2**/
     @Test
     public void checkEmployeeList(){
-        
+        //in debug its clear to see items are updating on page as well :)
+        onView(withId(R.id.employeeList)).check(matches(isDisplayed()));
     }
 }
