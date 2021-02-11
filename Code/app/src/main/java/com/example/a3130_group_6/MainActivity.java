@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         registerButton.setOnClickListener((View.OnClickListener) this);
     }
 
-    protected void switch2WelcomeWindow() {
+    protected void switchToAddListing() {
         //your business logic goes here!
         Intent switchIntent = new Intent(this, add_listing.class);
         startActivity(switchIntent);
@@ -32,6 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View view) {
-        switch2WelcomeWindow();
+        switchToAddListing();
     }
 }

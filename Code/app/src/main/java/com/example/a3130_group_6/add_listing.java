@@ -1,16 +1,25 @@
 package com.example.a3130_group_6;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.View;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.IOException;
 
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,6 +29,9 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
+
+        ImageButton imageButton = findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(this);
 
         Button submitButton = findViewById(R.id.submitTask);
         submitButton.setOnClickListener(this);
@@ -77,21 +89,43 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         EditText date = findViewById(R.id.enterDate);
         EditText pay = findViewById(R.id.inputPay);
 
-        if (isEmptyTaskTitle(taskTitle.getText().toString())) {
-            setStatusMessage("Error: Empty Task Title");
+        switch (view.getId()) {
+            case R.id.submitTask:
+                if (isEmptyTaskTitle(taskTitle.getText().toString())) {
+                    setStatusMessage("Error: Empty Task Title");
+                }
+                else if (isEmptyTaskDescription(taskDescription.getText().toString().trim())) {
+                    setStatusMessage("Error: Empty Task Description");
+                }
+                else if (isEmptyUrgency(urgency.getText().toString().trim())) {
+                    setStatusMessage("Error: Please fill in Urgency");
+                }
+                else if (isEmptyDate(date.getText().toString().trim())) {
+                    setStatusMessage("Error: Please fill in Date");
+                }
+                else if (isEmptyPay(pay.getText().toString().trim())) {
+                    setStatusMessage("Error: Please fill in Pay");
+                }
+                break;
+            case R.id.imageButton:
+                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
         }
-        else if (isEmptyTaskDescription(taskDescription.getText().toString().trim())) {
-            setStatusMessage("Error: Empty Task Description");
-        }
-        else if (isEmptyUrgency(urgency.getText().toString().trim())) {
-            setStatusMessage("Error: Please fill in Urgency");
-        }
-        else if (isEmptyDate(date.getText().toString().trim())) {
-            setStatusMessage("Error: Please fill in Date");
-        }
-        else if (isEmptyPay(pay.getText().toString().trim())) {
-            setStatusMessage("Error: Please fill in Pay");
-        }
+    }
 
+    public static final int GET_FROM_GALLERY = 1;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
