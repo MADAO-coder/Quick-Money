@@ -8,15 +8,17 @@
 
     <SearchView
         android:id="@+id/searchBar"
-        android:layout_width="280dp"
-        android:layout_height="64dp"
+        android:layout_width="297dp"
+        android:layout_height="77dp"
         android:layout_marginStart="96dp"
         android:layout_marginTop="86dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="581dp"
-        android:inputType="text"
+        android:inputType="textPersonName|text"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

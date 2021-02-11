@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">3130_Group_6</string>
     <string name="EMPTY_STRING"></string>
+    <string name="TEST_STRING">Jim Jones</string>
 </resources>

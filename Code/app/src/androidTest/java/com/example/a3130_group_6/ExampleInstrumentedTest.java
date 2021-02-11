@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -36,5 +37,11 @@ public class ExampleInstrumentedTest {
     public void checkIfSearchBarIsShown() {
         ActivityScenario<EmployerHomepage> scenario = employerRule.getScenario();
         onView(withId(R.id.searchBar)).check(matches(withText(R.string.EMPTY_STRING)));
+    }
+    @Test
+    public void checkIfSearchTextIsCaught(){
+        ActivityScenario<EmployerHomepage> scenario = employerRule.getScenario();
+        onView(withId(R.id.searchBar)).perform(typeText("Jim Jones"));
+        onView(withId(R.id.searchBar)).check(matches(withText(R.string.TEST_STRING)));
     }
 }

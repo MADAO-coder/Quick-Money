@@ -1,5 +1,7 @@
 package com.example.a3130_group_6;
 
+import android.widget.SearchView;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
  * AT 2: Given that I click the search button, as an employer I expect to see a list of employees who can do the task and as an employee I expect to see available tasks
  * AT 3: Given that I am on the homepage, I expect to see the app’s banner/logo on the top
  * AT 4: Given that I am on the homepage, I expect to see a home button which refreshes the page
- * AT 5: Given that I am an employee/employer I expect to see available tasks/available taskers in my local area
+ * AT 5: Given that I am an employee/employer I expect to see available tasks/available taskers in my local
  */
 public class ExampleUnitTest {
     static EmployerHomepage employerHomepage;
@@ -26,7 +28,7 @@ public class ExampleUnitTest {
     // search bar test check
     @Test
     public void searchBar(){
-        assertTrue(employerHomepage.isFunctionalSearch());
+        assertTrue(employerHomepage.searchFunctioning());
     }
     // add task button test
     @Test
