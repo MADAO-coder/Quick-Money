@@ -1,23 +1,12 @@
 package com.example.a3130_group_6;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.widget.SearchView;
-
-import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import org.hamcrest.text.IsEmptyString;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
@@ -39,6 +28,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class ExampleInstrumentedTest {
     @Rule
     public ActivityScenarioRule<EmployerHomepage>employerRule = new ActivityScenarioRule<>(EmployerHomepage.class);
+    public ActivityScenarioRule<loginPage> loginRule = new ActivityScenarioRule<>(loginPage.class);
 
     @BeforeClass
     public static void setup(){
@@ -89,8 +79,55 @@ public class ExampleInstrumentedTest {
     }
     /** Add task intent check**/
     @Test
-    public void checkAddTask(){
+    public void checkAddTask() {
         onView(withId(R.id.addTaskButton)).perform(click());
         intended(hasComponent(addTask.class.getName()));
+    }
+    @Test
+    public void checkIfLoginPageIsShown() {
+        onView(withId(R.id.userNameEt)).check(matches(withText(R.string.EMPTY_STRING)));
+        onView(withId(R.id.passwordEt)).check(matches(withText(R.string.EMPTY_STRING)));
+        onView(withId(R.id.loginBt)).check(matches(withText("login")));
+        onView(withId(R.id.registerBt)).check(matches(withText("registration")));
+    }
+
+    @Test
+    public void checkIfUserNameIsEmpty(){
+        onView(withId(R.id.userNameEt)).perform(typeText(""));
+        onView(withId(R.id.passwordEt)).perform(typeText("Password_123456"));
+        onView(withId(R.id.loginBt)).perform(click());
+        onView(withId(R.id.loginStatus)).check(matches(withText(R.string.EMPTY_USER_NAME)));
+    }
+
+    @Test
+    public void checkIfPasswordIsEmpty(){
+        onView(withId(R.id.userNameEt)).perform(typeText("userName"));
+        onView(withId(R.id.passwordEt)).perform(typeText(""));
+        onView(withId(R.id.loginBt)).perform(click());
+        onView(withId(R.id.loginStatus)).check(matches(withText(R.string.EMPTY_PASSWORD)));
+    }
+
+    @Test
+    public void checkIfUserNameIsCorrect() {
+        onView(withId(R.id.userNameEt)).perform(typeText("!#$^&*123"));
+        onView(withId(R.id.passwordEt)).perform(typeText("Password_123456"));
+        onView(withId(R.id.loginBt)).perform(click());
+        onView(withId(R.id.loginStatus)).check(matches(withText(R.string.INCORRECT_LOGIN_INFO)));
+    }
+
+    @Test
+    public void checkIfPasswordIsCorrect() {
+        onView(withId(R.id.userNameEt)).perform(typeText("userName"));
+        onView(withId(R.id.passwordEt)).perform(typeText("123"));
+        onView(withId(R.id.loginBt)).perform(click());
+        onView(withId(R.id.loginStatus)).check(matches(withText(R.string.INCORRECT_LOGIN_INFO)));
+    }
+
+    @Test
+    public void checkUserNameAndPasswordIsNotMatch(){
+        onView(withId(R.id.userNameEt)).perform(typeText("!#$^&*123"));
+        onView(withId(R.id.passwordEt)).perform(typeText("123"));
+        onView(withId(R.id.loginBt)).perform(click());
+        onView(withId(R.id.loginStatus)).check(matches(withText(R.string.INCORRECT_LOGIN_INFO)));
     }
 }
