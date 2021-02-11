@@ -1,34 +1,39 @@
 package com.example.a3130_group_6;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class EmployerHomepage extends AppCompatActivity {
-    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_homepage);
-        setSearchView();
     }
 
-    protected void setSearchView(){
-        searchView = (SearchView) findViewById(R.id.searchBar);
+    protected void setEmployeeList(){
+        ListView employeeList = (ListView) findViewById(R.id.searchBar);
     }
-
-    protected boolean searchFunctioning(){
-        //empty searchview without data list to follow
-        return searchView==null;
-    }
-    protected String searchQuery(){
+    protected String getSearchView(){
+        SearchView searchView = (SearchView) findViewById(R.id.searchBar);
         return searchView.getQuery().toString().trim();
+    }
+
+    protected boolean searchFunctioning(String search){
+        /* irrelevant testing process for unit tests.
+        searchView.setQuery(search, true);
+        return searchView.getQuery().toString().equals(search);
+        */
+        return !search.isEmpty();
+    }
+
+    protected boolean checkEmployeeList(){
+        //return employeeList!=null;
+        return false;
     }
 
 }

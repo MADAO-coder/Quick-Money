@@ -46,8 +46,12 @@ public class ExampleInstrumentedTest {
         //ActivityScenario<EmployerHomepage> scenario = employerRule.getScenario();
         onView(withId(R.id.searchBar)).perform(click());
         onView(withId(R.id.searchBar)).perform(typeText("jim"));
-        onView(withId(R.id.searchBar)).perform(click());
         //check correct element being interacted with. retrieving query unobtainable at this time
         onView(withId(R.id.searchBar)).check(matches(withId(2131231018)));
+    }
+    /** AT-2**/
+    @Test
+    public void checkEmployeeList(){
+        
     }
 }

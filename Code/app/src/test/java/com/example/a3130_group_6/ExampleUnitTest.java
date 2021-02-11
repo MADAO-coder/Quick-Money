@@ -28,7 +28,17 @@ public class ExampleUnitTest {
     // search bar test check
     @Test
     public void searchBar(){
-        assertTrue(employerHomepage.searchFunctioning());
+        assertFalse((employerHomepage.searchFunctioning("")));
+    }
+    // search bar typed test check
+    @Test
+    public void searchBarType(){
+        assertTrue(employerHomepage.searchFunctioning("Jim"));
+    }
+    //employee details elements
+    @Test
+    public void employeeDetails(){
+        assertTrue(employerHomepage.checkEmployeeList());
     }
     // add task button test
     @Test
@@ -40,9 +50,5 @@ public class ExampleUnitTest {
     public void headerWorkers(){
 
     }
-    //employee details elements
-    @Test
-    public void employeeDetails(){
 
-    }
 }
