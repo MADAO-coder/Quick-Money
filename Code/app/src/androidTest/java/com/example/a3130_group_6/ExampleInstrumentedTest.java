@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -52,52 +53,61 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.inputUrgency)).perform(typeText("1"));
         onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
         onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
-        onView(withId(R.id.statusLabel)).check(matches(withText("Empty Task Title")));
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Empty Task Title")));
     }
 
     @Test
     public void checkIfTaskDescriptionEmpty() {
-        onView(withId(R.id.inputTaskTitle)).check(matches(withText("Awesome Task Title")));
-        onView(withId(R.id.inputTaskDescription)).check(matches(withText("")));
-        onView(withId(R.id.inputUrgency)).check(matches(withText("1")));
-        onView(withId(R.id.enterDate)).check(matches(withText("20/10/2021")));
-        onView(withId(R.id.inputPay)).check(matches(withText("20")));
+        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText(""));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
-        onView(withId(R.id.statusLabel)).check(matches(withText("Empty Description")));
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Empty Task Description")));
     }
 
     @Test
     public void checkIfUrgencyEmpty() {
-        onView(withId(R.id.inputTaskTitle)).check(matches(withText("Awesome Task Title")));
-        onView(withId(R.id.inputTaskDescription)).check(matches(withText("Here is a description")));
-        onView(withId(R.id.inputUrgency)).check(matches(withText("")));
-        onView(withId(R.id.enterDate)).check(matches(withText("20/10/2021")));
-        onView(withId(R.id.inputPay)).check(matches(withText("20")));
+        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText(""));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
-        onView(withId(R.id.statusLabel)).check(matches(withText("Please fill in urgency")));
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Urgency")));
     }
 
     @Test
     public void checkIfDateIsEmpty() {
-        onView(withId(R.id.inputTaskTitle)).check(matches(withText("Awesome Task Title")));
-        onView(withId(R.id.inputTaskDescription)).check(matches(withText("Here is a description")));
-        onView(withId(R.id.inputUrgency)).check(matches(withText("1")));
-        onView(withId(R.id.enterDate)).check(matches(withText("")));
-        onView(withId(R.id.inputPay)).check(matches(withText("20")));
+        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText(""));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
-        onView(withId(R.id.statusLabel)).check(matches(withText("Please fill in date")));
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Date")));
     }
 
     @Test
     public void checkIfPayIsEmpty() {
-        onView(withId(R.id.inputTaskTitle)).check(matches(withText("Awesome Task Title")));
-        onView(withId(R.id.inputTaskDescription)).check(matches(withText("Here is a description")));
-        onView(withId(R.id.inputUrgency)).check(matches(withText("1")));
-        onView(withId(R.id.enterDate)).check(matches(withText("20/10/2021")));
-        onView(withId(R.id.inputPay)).check(matches(withText("")));
+        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText(""));
+        closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
-        onView(withId(R.id.statusLabel)).check(matches(withText("Empty Pay")));
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Pay")));
     }
 
 }

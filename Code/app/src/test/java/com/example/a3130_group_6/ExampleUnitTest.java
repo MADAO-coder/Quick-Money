@@ -51,7 +51,7 @@ public class ExampleUnitTest {
 
     @Test
     public void checkIfPayIsEmpty() {
-        assertTrue(addListing.isPayEmpty(""));
-        assertFalse(addListing.isPayEmpty("20"));
+        assertTrue(addListing.isEmptyPay(""));
+        assertFalse(addListing.isEmptyPay("20"));
     }
 }
