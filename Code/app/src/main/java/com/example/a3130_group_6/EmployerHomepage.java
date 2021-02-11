@@ -41,7 +41,12 @@ public class EmployerHomepage extends AppCompatActivity {
     }
 
     protected boolean checkEmployeeList(String[] employees){
-        return employees.length>0;
+        for(String individual : employees) {
+            if(individual.isEmpty()){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
