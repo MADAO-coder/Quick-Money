@@ -6,21 +6,77 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.PatternsCompat;
 
-public class registrationForEmployees extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
+    private Employee employee;
     Button homeBt,addPayment,submitBt, employeeBt;
     TextView registrationStatus;
+    DatabaseReference employerRef = null;
+    DatabaseReference employeeRef = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_employee);
-        Button home =  findViewById(R.id.home2);
 
+        name = findViewById(R.id.name);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        vpassword = findViewById(R.id.vpassword);
+        phone= findViewById(R.id.phone);
+        email = findViewById(R.id.email);
+        addPayment = findViewById(R.id.AddPayment);
+        submitBt = findViewById(R.id.Submit);
+        employeeBt = findViewById(R.id.Employer);
+        homeBt =  findViewById(R.id.home2);
+
+        employeeBt.setOnClickListener(this);
+        homeBt.setOnClickListener(this);
+        submitBt.setOnClickListener(this);
+
+    }
+
+    protected boolean isUserNameEmpty(){
+        return getInputUserName().equals("");
+    }
+
+    protected boolean isNameEmpty(){
+        return getName().equals("");
+    }
+
+    protected boolean isPasswordEmpty(){
+        return getInputPassword().equals("");
+    }
+
+    protected boolean isVerifyPasswordEmpty(){
+        return vpassword.getText().toString().trim().equals("");
+    }
+
+    protected boolean isPhoneEmpty(){ return getPhoneNumber().equals(""); }
+
+    protected boolean isValidEmail(String email){
+        return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    protected boolean validRegistrationInformation() {
+        return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
+                && isValidEmail(getInputEmailAddress());
+    }
+
+    protected void saveEmployeeToDataBase(Object Employers) {
+        //save object user to database to Firebase
+        employeeRef  = FirebaseDatabase.getInstance().getReference();
+        employeeRef.child(String.valueOf(System.currentTimeMillis())).setValue(Employers);
     }
 
 
@@ -53,17 +109,25 @@ public class registrationForEmployees extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        String statusMsg = "";
-        if(R.id.Submit == v.getId())
-            registrationStatus = (TextView) findViewById(R.id.registrationStatus);
-
-        switch (v.getId()){
-            case (R.id.Employer):
-                switchToEmployer();
-                break;
-            case (R.id.home2):
+        if (R.id.Submit==v.getId()){
+            if(validRegistrationInformation()){
+                Employee employees = new Employee();
+                employees.setUserName(getInputUserName());
+                employees.setPassword(getInputPassword());
+                employees.setEmailAddress(getInputEmailAddress());
+                employees.setPhone(getPhoneNumber());
+                employees.setName(getName());
+                saveEmployeeToDataBase(employees);
                 switchToHome();
-                break;
+            }
+        }
+
+        else if(R.id.home2 == v.getId()){
+            switchToHome();
+        }
+
+        else if(R.id.Employer == v.getId()){
+            switchToEmployer();
         }
     }
 }
