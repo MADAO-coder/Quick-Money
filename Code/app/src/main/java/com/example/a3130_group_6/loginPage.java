@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class loginPage extends AppCompatActivity {
+    public static String userParent;
     protected EditText userNameEt;
     protected EditText passwordEt;
     protected Button regBt;

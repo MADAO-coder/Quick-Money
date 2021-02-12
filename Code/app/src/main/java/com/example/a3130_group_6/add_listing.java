@@ -27,6 +27,8 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
 
@@ -35,11 +37,6 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
         Button submitButton = findViewById(R.id.submitTask);
         submitButton.setOnClickListener(this);
-
-        initializeDatabase();
-    }
-
-    private void initializeDatabase() {
     }
 
     protected boolean isEmptyTaskTitle(String task) {
@@ -105,6 +102,15 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 }
                 else if (isEmptyPay(pay.getText().toString().trim())) {
                     setStatusMessage("Error: Please fill in Pay");
+                } else {
+                    DatabaseReference listing = FirebaseDatabase.getInstance().getReference();
+                    Listing list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString());
+                    String getTaskTitle = list.getTaskTitle();
+                    String getTaskDescription = list.getTaskDescription();
+                    String getUrgency = list.getUrgency();
+                    String getDate = list.getDate();
+                    String getPay = list.getPay();
+                    listing.setValue(getTaskTitle);
                 }
                 break;
             case R.id.imageButton:
