@@ -1,5 +1,6 @@
 package com.example.a3130_group_6;
 
+import org.junit.BeforeClass;
 import android.widget.SearchView;
 
 import org.junit.BeforeClass;
@@ -19,11 +20,21 @@ import static org.junit.Assert.*;
  * AT 5: Given that I am an employee/employer I expect to see available tasks/available taskers in my local
  */
 public class ExampleUnitTest {
+    static add_listing addListing;
     static EmployerHomepage employerHomepage;
+
     @BeforeClass
     public static void setup() {
+        addListing = new add_listing();
         employerHomepage = new EmployerHomepage();
     }
+
+    @Test
+    public void checkIfTaskTitleEmpty() {
+        assertTrue(addListing.isEmptyTaskTitle(""));
+        assertFalse(addListing.isEmptyTaskTitle("Good Task Title"));
+    }
+
 
     // search bar test check
     @Test
@@ -32,6 +43,35 @@ public class ExampleUnitTest {
     }
     // search bar typed test check
     @Test
+    public void checkIfTaskDescriptionEmpty() {
+        assertTrue(addListing.isEmptyTaskDescription(""));
+        assertFalse(addListing.isEmptyTaskDescription("Good Task Description"));
+    }
+
+    @Test
+    public void checkIfUrgencyIsEmpty() {
+        assertTrue(addListing.isEmptyUrgency(""));
+        assertFalse(addListing.isEmptyUrgency("2"));
+    }
+
+    @Test
+    public void checkIfUrgencyCorrectRange() {
+        assertTrue(addListing.checkUrgencyRange("2"));
+        assertFalse(addListing.checkUrgencyRange("6"));
+        // add a check or a test for invalid input
+    }
+
+    @Test
+    public void checkIfDateIsEmpty() {
+        assertTrue(addListing.isEmptyDate(""));
+        assertFalse(addListing.isEmptyDate("20/02/2020"));
+    }
+
+    @Test
+    public void checkIfPayIsEmpty() {
+        assertTrue(addListing.isEmptyPay(""));
+        assertFalse(addListing.isEmptyPay("20"));
+    }
     public void searchBarType(){
         assertTrue(employerHomepage.searchFunctioning("Jim"));
     }

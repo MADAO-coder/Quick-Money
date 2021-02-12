@@ -7,6 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
@@ -129,5 +131,65 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.passwordEt)).perform(typeText("123"));
         onView(withId(R.id.loginBt)).perform(click());
         onView(withId(R.id.loginStatus)).check(matches(withText(R.string.INCORRECT_LOGIN_INFO)));
+    }
+
+    @Test
+    public void checkIfTaskTitleEmpty() {
+        onView(withId(R.id.inputTaskTitle)).perform(typeText(""));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
+        onView(withId(R.id.submitTask)).perform(click());
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Empty Task Title")));
+    }
+
+    @Test
+    public void checkIfTaskDescriptionEmpty() {
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText(""));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
+        onView(withId(R.id.submitTask)).perform(click());
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Empty Task Description")));
+    }
+
+    @Test
+    public void checkIfUrgencyEmpty() {
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText(""));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
+        onView(withId(R.id.submitTask)).perform(click());
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Urgency")));
+    }
+
+    @Test
+    public void checkIfDateIsEmpty() {
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText(""));
+        onView(withId(R.id.inputPay)).perform(typeText("20"));
+        closeSoftKeyboard();
+        onView(withId(R.id.submitTask)).perform(click());
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Date")));
+    }
+
+    @Test
+    public void checkIfPayIsEmpty() {
+        onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.inputPay)).perform(typeText(""));
+        closeSoftKeyboard();
+        onView(withId(R.id.submitTask)).perform(click());
+        onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Pay")));
     }
 }
