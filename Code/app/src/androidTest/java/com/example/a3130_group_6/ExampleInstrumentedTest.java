@@ -12,6 +12,8 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.google.android.gms.tasks.Task;
+
 import org.hamcrest.text.IsEmptyString;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -36,6 +38,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
     @Rule
     public ActivityScenarioRule<MainActivity> employee = new ActivityScenarioRule<>(MainActivity.class);
 
@@ -79,6 +82,11 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void checkTaskListScroll() {
+        onView(withId(R.id.taskList)).perform(swipeUp());
+        onView(withId(R.id.taskList)).perform(swipeDown());
+    }
+    @Test
+    public void taskDes(){
         onView(withId(R.id.taskList)).perform(swipeUp());
         onView(withId(R.id.taskList)).perform(swipeDown());
     }
