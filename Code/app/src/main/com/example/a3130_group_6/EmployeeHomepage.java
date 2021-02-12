@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -27,7 +26,7 @@ public class EmployeeHomepage extends AppCompatActivity {
     protected void setEmployeeList(){
         String[] employees = new String[] { "Noback Endintegration", "Potter Weasley", "Henry Harry", "Jim Jones", "Granger Jones Jr.", "asdasdasdasd", "asdasdasdas", "asdasdasdasdasdas"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employees);
-        ListView employeeList = (ListView) findViewById(R.id.employeeList);
+        ListView employeeList = (ListView) findViewById(R.id.TaskList);
         employeeList.setAdapter(adapter);
     }
 

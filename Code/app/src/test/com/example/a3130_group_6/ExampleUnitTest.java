@@ -61,11 +61,11 @@ public class ExampleInstrumentedTest {
     @Test
     public void checkEmployeeList(){
         //in debug its clear to see items are updating on page as well :)
-        onView(withId(R.id.employeeList)).check(matches(isDisplayed()));
+        onView(withId(R.id.TaskList)).check(matches(isDisplayed()));
     }
     @Test
     public void checkEmployeeListScroll(){
-        onView(withId(R.id.employeeList)).perform(swipeUp());
-        onView(withId(R.id.employeeList)).perform(swipeDown());
+        onView(withId(R.id.TaskList)).perform(swipeUp());
+        onView(withId(R.id.TaskList)).perform(swipeDown());
     }
 }

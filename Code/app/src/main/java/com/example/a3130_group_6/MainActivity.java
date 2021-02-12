@@ -36,20 +36,15 @@ public class MainActivity extends AppCompatActivity {
         return !search.isEmpty();
     }
 
-    protected boolean checkEmployeeList(String[] employees){
-        for(String individual : employees) {
-            if(individual.isEmpty()){
-                return false;
-            }else{
+    protected boolean checkTaskList(String[] Task){
+        for(String Task1 : Task) {
+            if(!(Task1.isEmpty())){
                 return true;
+            }else{
+                return false;
             }
         }
         return false;
-    }
-
-    public void addTaskSwitch(View view) {
-        Intent switchIntent = new Intent(this, addTask.class);
-        startActivity(switchIntent);
     }
     public void homepageSwitch(View view) {
         Intent switchIntent = new Intent(this, MainActivity.class);
