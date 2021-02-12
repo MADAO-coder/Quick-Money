@@ -45,11 +45,16 @@ public class registrationForEmployers extends AppCompatActivity implements View.
 
 
 
+    /*
+    Switch to login page
+     */
     protected void switchToHome(){
         Intent back = new Intent(this, loginPage.class);
         startActivity(back);
     }
-
+    /*
+    Changing pages to see employer registration
+     */
     protected void switchToEmployee(){
         Intent employee = new Intent(this, registrationForEmployees.class);
         startActivity(employee);
@@ -76,12 +81,16 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     protected boolean isValidEmail(String email){
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
-
+    /*
+    Checking registration information
+     */
     protected boolean validRegistrationInformation() {
        return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
                && isValidEmail(getInputEmailAddress());
     }
-
+    /*
+    Saving employee information to the database
+     */
     protected void saveEmployerToDataBase(Object Employers) {
         //save object user to database to Firebase
         employerRef = FirebaseDatabase.getInstance().getReference();

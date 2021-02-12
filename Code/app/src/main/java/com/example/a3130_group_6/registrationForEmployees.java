@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
     private Employee employee;
-    Button homeBt,addPayment,submitBt, employeeBt;
+    Button homeBt,addPayment,submitBt, employeeBt;//creating buttons and display variables
     TextView registrationStatus;
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
@@ -33,7 +33,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         vpassword = findViewById(R.id.vpassword);
-        phone= findViewById(R.id.phone);
+        phone= findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
         email = findViewById(R.id.email);
         addPayment = findViewById(R.id.AddPayment);
         submitBt = findViewById(R.id.Submit);
@@ -45,7 +45,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         submitBt.setOnClickListener(this);
 
     }
-
     protected boolean isUserNameEmpty(){
         return getInputUserName().equals("");
     }
@@ -58,21 +57,23 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         return getInputPassword().equals("");
     }
 
-    protected boolean isVerifyPasswordEmpty(){
-        return vpassword.getText().toString().trim().equals("");
-    }
+    protected boolean isVerifyPasswordEmpty(){ return vpassword.getText().toString().trim().equals(""); }
 
     protected boolean isPhoneEmpty(){ return getPhoneNumber().equals(""); }
 
     protected boolean isValidEmail(String email){
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
-
+/*
+Checking registration information
+ */
     protected boolean validRegistrationInformation() {
         return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
                 && isValidEmail(getInputEmailAddress());
     }
-
+/*
+Saving employee information to the database
+ */
     protected void saveEmployeeToDataBase(Object Employers) {
         //save object user to database to Firebase
         employeeRef  = FirebaseDatabase.getInstance().getReference();
@@ -97,19 +98,23 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     }
 
     public String getName() { return name.getText().toString().trim(); }
-
+/*
+Changing pages to see employer registration
+ */
     protected void switchToEmployer(){
         Intent employer = new Intent(this, registrationForEmployers.class);
         startActivity(employer);
     }
-
+/*
+Switch to login page
+ */
     protected void switchToHome(){
         Intent back = new Intent(this, loginPage.class);
         startActivity(back);
     }
 
     public void onClick(View v) {
-        if (R.id.Submit==v.getId()){
+        if (R.id.Submit==v.getId()){//when the submit button is clicked, add employee
             if(validRegistrationInformation()){
                 Employee employees = new Employee();
                 employees.setUserName(getInputUserName());
@@ -121,11 +126,9 @@ public class registrationForEmployees extends AppCompatActivity implements View.
                 switchToHome();
             }
         }
-
         else if(R.id.home2 == v.getId()){
             switchToHome();
         }
-
         else if(R.id.Employer == v.getId()){
             switchToEmployer();
         }
