@@ -83,7 +83,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void checkAddTask() {
         onView(withId(R.id.addTaskButton)).perform(click());
-        intended(hasComponent(addTask.class.getName()));
+        intended(hasComponent(add_listing.class.getName()));
     }
     @Test
     public void checkIfLoginPageIsShown() {
