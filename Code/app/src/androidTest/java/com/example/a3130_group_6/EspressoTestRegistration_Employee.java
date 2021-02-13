@@ -27,7 +27,6 @@ public class EspressoTestRegistration_Employee {
 
     @Test
     public void checkIfRegistrationEmployeeShows() {
-        onView(withId(R.id.Employer)).check(matches(withText("Home")));
         onView(withId(R.id.AddPayment)).check(matches(withText("Add Paypal")));
         onView(withId(R.id.Submit)).check(matches(withText("Submit")));
         onView(withId(R.id.Name)).check(matches(withText("Name")));

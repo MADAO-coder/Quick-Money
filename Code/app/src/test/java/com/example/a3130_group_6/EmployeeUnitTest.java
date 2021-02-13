@@ -15,7 +15,8 @@ public class EmployeeUnitTest {
     private final String passWord = "password1";
     private final String emailAddress = "email@dal.ca";
     private final String phone = "123456";
-    Employee employee = new Employee(userName, passWord, emailAddress, phone);
+    private final String name = "people";
+    Employee employee = new Employee(userName, passWord, phone, emailAddress, name);
 
     @Test
     public void getUserName_test(){
