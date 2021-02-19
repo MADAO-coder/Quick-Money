@@ -21,7 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class loginPage extends AppCompatActivity {
-    public static String userParent;
+    public static String[] validEmployer = new String[2];
+
     protected EditText userNameEt;
     protected EditText passwordEt;
     protected Button regBt;
@@ -98,7 +99,7 @@ public class loginPage extends AppCompatActivity {
                     employerRef= FirebaseDatabase.getInstance().getReference();
                     dbReadEmployer(employerRef);//Get data from database
                     if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
-                        Intent intent = new Intent(loginPage.this, registrationHome.class);//Switch to new intent.
+                        Intent intent = new Intent(loginPage.this, EmployerHomepage.class);//Switch to new intent.
                         startActivity(intent);
                     }
                     else {
@@ -131,6 +132,10 @@ public class loginPage extends AppCompatActivity {
                     String employerPassword = employer.getPassword();
                     employer_userName_list.add(employerUserName);
                     employer_password_list.add(employerPassword);
+
+                    // saving the current username and password in a list
+                    validEmployer[0] = employerUserName;
+                    validEmployer[1] = employerPassword;
                 }
 
             }

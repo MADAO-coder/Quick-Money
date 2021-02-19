@@ -21,6 +21,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     DatabaseReference employerRef = null;
     DatabaseReference passWordRef = null;
 
+    Employer employers = new Employer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     protected void saveEmployerToDataBase(Object Employers) {
         //save object user to database to Firebase
         employerRef = FirebaseDatabase.getInstance().getReference();
-        employerRef.child(String.valueOf(System.currentTimeMillis())).setValue(Employers);
+        employerRef.child("Employer").child(String.valueOf(employers.getUserName())).setValue(Employers);
     }
 
     protected String getInputUserName(){
@@ -123,7 +124,6 @@ public class registrationForEmployers extends AppCompatActivity implements View.
                 break;
             case (R.id.Submit):
                 if(validRegistrationInformation()) {
-                    Employer employers = new Employer();
                     employers.setUserName(getInputUserName());
                     employers.setPassword(getInputPassword());
                     employers.setEmailAddress(getInputEmailAddress());
