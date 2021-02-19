@@ -9,6 +9,7 @@ public class Listing {
     private String urgency;
     private String date;
     private String pay;
+    private static int count = 0;
 
     public Listing() {
     }
@@ -19,6 +20,11 @@ public class Listing {
         this.urgency = urgency;
         this.date = date;
         this.pay = pay;
+        count ++;
+    }
+
+    public int  increment(){
+        return count;
     }
     public String getTaskTitle() {
         return taskTitle;

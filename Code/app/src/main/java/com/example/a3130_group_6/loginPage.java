@@ -31,6 +31,7 @@ public class loginPage extends AppCompatActivity {
     private Employee employee;
     private Employer employer;
     DatabaseReference employerRef = null;
+    DatabaseReference employeeRef = null;
     private List<String> employee_userName_list = new ArrayList<>();//List to store userName getting from db for Employee object
     private List<String> employee_password_list = new ArrayList<>();//List to store password getting from db for Employee object
     private List<String> employer_userName_list = new ArrayList<>();//List to store password getting from db for Employee object
@@ -42,7 +43,7 @@ public class loginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button regBt = (Button) findViewById(R.id.registerBt);
-        loginBt = findViewById(R.id.loginBt);
+        loginBt = findViewById(R.id.loginBt_employee);
     }
 
     protected boolean isUserNameEmpty(String userNameInput){
@@ -74,6 +75,16 @@ public class loginPage extends AppCompatActivity {
         }
         return false;
     }
+
+    protected boolean isPasswordCorrect_employee(){
+        for(int i = 0; i<employee_userName_list.size(); i++){
+            if(employee_userName_list.get(i).equals(getUserName()) && employee_password_list.get(i).equals(getPassword())){//When can not find matched userInfo from database.
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void switchToReg(){
         Intent intent = new Intent(loginPage.this, registrationHome.class);
         startActivity(intent);
@@ -87,7 +98,30 @@ public class loginPage extends AppCompatActivity {
     public void onClick(View v) {
         String statusMsg = "";
         loginStatus = (TextView) findViewById(R.id.loginStatus);
-            if (R.id.loginBt==v.getId()){
+        employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+            if (R.id.loginBt_employer==v.getId()){
+                if (!isUserNameEmpty(getUserName()) && !isPasswordEmpty(getPassword())){//When password or userName is not empty.
+                    dbReadEmployer(employerRef);//Get data from database
+                    if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
+                        Intent intent = new Intent(loginPage.this, EmployerHomepage.class);//Switch to new intent.
+                        startActivity(intent);
+                        validEmployer[0] = getUserName();
+                    }
+                    else {
+                        statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
+                    }
+                }
+                else if (isUserNameEmpty(getUserName())){
+                    statusMsg = getResources().getString(R.string.EMPTY_USER_NAME);//Show empty message userName is empty
+                }
+                else if (isPasswordEmpty(getPassword())){//Show empty message password is empty
+                    statusMsg = getResources().getString(R.string.EMPTY_PASSWORD);
+
+                }
+                loginStatus.setText(statusMsg);
+            }
+
+            else if(R.id.loginBt_employee == v.getId()){
                 if (isUserNameEmpty(getUserName())){
                     statusMsg = getResources().getString(R.string.EMPTY_USER_NAME);//Show empty message userName is empty
                 }
@@ -96,10 +130,10 @@ public class loginPage extends AppCompatActivity {
 
                 }
                 else if(!isUserNameEmpty(getUserName()) && !isPasswordEmpty(getPassword())){//When password or userName is not empty.
-                    employerRef= FirebaseDatabase.getInstance().getReference();
-                    dbReadEmployer(employerRef);//Get data from database
-                    if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
-                        Intent intent = new Intent(loginPage.this, EmployerHomepage.class);//Switch to new intent.
+                    employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
+                    dbReadEmployee(employeeRef);//Get data from database
+                    if( isPasswordCorrect_employee() ){//When password or userName is not empty and user's info matched
+                        Intent intent = new Intent(loginPage.this, registrationHome.class);//Switch to new intent.
                         startActivity(intent);
                     }
                     else {
@@ -133,9 +167,6 @@ public class loginPage extends AppCompatActivity {
                     employer_userName_list.add(employerUserName);
                     employer_password_list.add(employerPassword);
 
-                    // saving the current username and password in a list
-                    validEmployer[0] = employerUserName;
-                    validEmployer[1] = employerPassword;
                 }
 
             }

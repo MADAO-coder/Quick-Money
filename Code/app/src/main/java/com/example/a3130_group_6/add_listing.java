@@ -30,6 +30,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
     FirebaseDatabase database = null;
     Listing list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -108,11 +109,11 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 else if (isEmptyPay(pay.getText().toString().trim())) {
                     setStatusMessage("Error: Please fill in Pay");
                 } else {
-                    DatabaseReference listing = FirebaseDatabase.getInstance().getReference();
+                    DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
                     list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString());
+                    System.out.println(loginPage.validEmployer[0]);
 
-                    listing.child("Employer").child(loginPage.validEmployer[0]).child("Listing").setValue(list);
-
+                    listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").push().setValue(list);
                 }
                 break;
             case R.id.imageButton:
