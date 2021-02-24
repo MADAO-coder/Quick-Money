@@ -29,6 +29,7 @@ public class loginPage extends AppCompatActivity {
     private Employee employee;
     private Employer employer;
     DatabaseReference employerRef = null;
+    DatabaseReference employeeRef = null;
     private List<String> employee_userName_list = new ArrayList<>();//List to store userName getting from db for Employee object
     private List<String> employee_password_list = new ArrayList<>();//List to store password getting from db for Employee object
     private List<String> employer_userName_list = new ArrayList<>();//List to store password getting from db for Employee object
@@ -72,6 +73,14 @@ public class loginPage extends AppCompatActivity {
         }
         return false;
     }
+    protected boolean isPasswordCorrect_employee(){
+        for(int i = 0; i<employee_userName_list.size(); i++){
+            if(employee_userName_list.get(i).equals(getUserName()) && employee_password_list.get(i).equals(getPassword())){//When can not find matched userInfo from database.
+                return true;
+            }
+        }
+        return false;
+    }
     protected void switchToReg(){
         Intent intent = new Intent(loginPage.this, registrationHome.class);
         startActivity(intent);
@@ -98,6 +107,19 @@ public class loginPage extends AppCompatActivity {
                     dbReadEmployer(employerRef);//Get data from database
                     if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
                         Intent intent = new Intent(loginPage.this, registrationHome.class);//Switch to new intent.
+
+                        startActivity(intent);
+                    }
+                    else {
+                        statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
+                    }
+                }
+                else if(!isUserNameEmpty(getUserName()) && !isPasswordEmpty(getPassword())){//When password or userName is not empty.
+                    employeeRef= FirebaseDatabase.getInstance().getReference();
+                    dbReadEmployee(employeeRef);//Get data from database
+                    if( isPasswordCorrect_employee() ){//When password or userName is not empty and user's info matched
+                        Intent intent = new Intent(loginPage.this, registrationHome.class);//Switch to new intent.
+
                         startActivity(intent);
                     }
                     else {
@@ -111,6 +133,7 @@ public class loginPage extends AppCompatActivity {
             }
 
         }
+
 
 
     //Read data from dataBase and make employers' userName and password into ArrayList.
@@ -143,7 +166,6 @@ public class loginPage extends AppCompatActivity {
 
 
     }
-
     public void dbReadEmployee(DatabaseReference db){
 
         db.addValueEventListener(new ValueEventListener() {

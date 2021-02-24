@@ -2,4 +2,5 @@
 <resources>
     <item name="taskList" type="id" />
     <item name="homeButton" type="id" />
+    <item name="Employee" type="id">10009</item>
 </resources>

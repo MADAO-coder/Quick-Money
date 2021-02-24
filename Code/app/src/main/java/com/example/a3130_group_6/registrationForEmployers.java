@@ -17,7 +17,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
 
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
-    private Employer employes;
+    private Employer employees;
     DatabaseReference employerRef = null;
     DatabaseReference passWordRef = null;
 

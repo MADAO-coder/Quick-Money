@@ -27,5 +27,9 @@ public class EmployeeHomepage extends AppCompatActivity {
         ListView employeeList = (ListView) findViewById(R.id.TaskList);
         employeeList.setAdapter(adapter);
     }
+    public void homepageSwitch(View view) {
+        Intent switchIntent = new Intent(this, EmployeeHomepage.class);
+        startActivity(switchIntent);
+    }
 
 }
