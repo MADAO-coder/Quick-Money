@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import java.util.*;
 
-import org.junit.runner.RunWith;
-
 public class EmployeeHomepage extends AppCompatActivity {
 
     @Override
