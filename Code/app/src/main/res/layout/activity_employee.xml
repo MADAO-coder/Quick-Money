@@ -132,7 +132,9 @@
         android:layout_height="36dp"
         android:layout_marginStart="57dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="11dp"
         android:text="Phone"
+        app:layout_constraintBottom_toTopOf="@+id/Email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/VPassword"
         tools:ignore="MissingConstraints" />
