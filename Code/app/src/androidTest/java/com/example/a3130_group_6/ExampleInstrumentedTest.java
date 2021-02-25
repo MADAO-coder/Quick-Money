@@ -1,5 +1,20 @@
 package com.example.a3130_group_6;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.SearchView;
+
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.ViewInteraction;
+
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import com.google.android.gms.tasks.Task;
+
+import org.hamcrest.text.IsEmptyString;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;

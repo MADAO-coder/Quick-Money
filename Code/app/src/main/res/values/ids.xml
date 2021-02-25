@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="taskList" type="id" />
+    <item name="homeButton" type="id" />
+    <item name="Employee" type="id" />
+</resources>
