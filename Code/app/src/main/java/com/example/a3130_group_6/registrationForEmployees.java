@@ -25,16 +25,17 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_employee);
         name = findViewById(R.id.name);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         vpassword = findViewById(R.id.vpassword);
         phone= findViewById(R.id.phone);
         email = findViewById(R.id.email);
-        homeBt = findViewById(R.id.Employee);
+        homeBt = findViewById(R.id.home2);
         addPayment = findViewById(R.id.AddPayment);
         submitBt = findViewById(R.id.Submit);
+        employeeBt= findViewById(R.id.Employer);
 
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
