@@ -198,7 +198,7 @@ public class loginPage extends AppCompatActivity {
 
     public void moveToEmployeePage(String statusMsg){
         if( isPasswordCorrect_employee() ){//When password or userName is not empty and user's info matched
-            Intent intent = new Intent(loginPage.this, registrationHome.class);//Switch to new intent.
+            Intent intent = new Intent(loginPage.this, EmployeeHomepage.class);//Switch to new intent.
             startActivity(intent);
         }
         else {
