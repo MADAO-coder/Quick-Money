@@ -105,6 +105,13 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         return phone.getText().toString().trim();
     }
 
+    protected String getInputVpassword(){
+        return vpassword.getText().toString().trim();
+    }
+
+    protected boolean isPasswordMatched(){
+        return (getInputPassword().equals(getInputVpassword()));
+    }
 
     protected String getBuissnessName() {
         return business.getText().toString().trim();
@@ -123,7 +130,16 @@ public class registrationForEmployers extends AppCompatActivity implements View.
                 switchToHome();
                 break;
             case (R.id.Submit):
-                if(validRegistrationInformation()) {
+                if(!validRegistrationInformation()) {
+                    Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if(!isPasswordMatched()){
+                    Toast toast = Toast.makeText(this,"password is not matched",Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                else {
                     employers.setUserName(getInputUserName());
                     employers.setPassword(getInputPassword());
                     employers.setEmailAddress(getInputEmailAddress());
@@ -133,10 +149,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
                     saveEmployerToDataBase(employers);
                     switchToHome();//Once all registration info correct, switch to loginPage
                     break;
-                }
-                else {
-                    Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
-                    toast.show();
+
                 }
 
         }
