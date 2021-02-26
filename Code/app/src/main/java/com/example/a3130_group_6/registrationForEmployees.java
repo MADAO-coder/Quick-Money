@@ -64,6 +64,15 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     protected boolean isValidEmail(String email){
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
+
+    protected String getInputVpassword(){
+        return vpassword.getText().toString().trim();
+    }
+
+    protected boolean isPasswordMatched(){
+        return (getInputPassword().equals(getInputVpassword()));
+    }
+
     /*
     Checking registration information
      */
@@ -115,7 +124,17 @@ public class registrationForEmployees extends AppCompatActivity implements View.
 
     public void onClick(View v) {
         if (R.id.Submit==v.getId()){//when the submit button is clicked, add employee
-            if(validRegistrationInformation()){
+            if(!validRegistrationInformation()){
+                Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
+                toast.show();
+            }
+            else if(!isPasswordMatched()){
+                Toast toast = Toast.makeText(this,"password is not matched",Toast.LENGTH_LONG);
+                toast.show();
+            }
+
+            else {
+
                 employees.setUserName(getInputUserName());
                 employees.setPassword(getInputPassword());
                 employees.setEmailAddress(getInputEmailAddress());
