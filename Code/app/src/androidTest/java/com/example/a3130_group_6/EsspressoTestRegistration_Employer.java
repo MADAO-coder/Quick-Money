@@ -26,7 +26,6 @@ public class EsspressoTestRegistration_Employer {
 
     @Test
     public void checkIfRegistrationEmployerShows() {
-        onView(withId(R.id.employer)).check(matches(withText("Home")));
         onView(withId(R.id.AddPayment)).check(matches(withText("Add Paypal")));
         onView(withId(R.id.Submit)).check(matches(withText("Submit")));
         onView(withId(R.id.Name)).check(matches(withText("Name")));
@@ -34,7 +33,7 @@ public class EsspressoTestRegistration_Employer {
         onView(withId(R.id.Password)).check(matches(withText("Password")));
         onView(withId(R.id.VPassword)).check(matches(withText("Verify Password")));
         onView(withId(R.id.Email)).check(matches(withText("Email")));
-        onView(withId(R.id.business)).check(matches(withText("Business Name")));
+        onView(withId(R.id.BName)).check(matches(withText("Business Name")));
         onView(withId(R.id.emp)).check(matches(withText("Employee")));
     }
 }
