@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 "Development branch"
+=======
+dev branch working fine
+>>>>>>> latest_working

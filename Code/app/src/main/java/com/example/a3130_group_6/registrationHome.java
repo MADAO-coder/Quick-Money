@@ -12,11 +12,10 @@ public class registrationHome extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_registration_home);
 
         Button employee =  findViewById(R.id.employeeBtn);
-        Button employer =  findViewById(R.id.employer);
+        Button employer =  findViewById(R.id.employer);//getting info from view
         Button back =  findViewById(R.id.back);
 
         employee.setOnClickListener(this);
@@ -24,6 +23,7 @@ public class registrationHome extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
     }
 
+    //Switching between pages
     protected void switchToEmployer(){
         Intent employer = new Intent(this, registrationForEmployers.class);
         startActivity(employer);

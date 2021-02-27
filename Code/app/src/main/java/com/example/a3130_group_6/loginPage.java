@@ -39,7 +39,6 @@ public class loginPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button regBt = (Button) findViewById(R.id.registerBt);
@@ -127,6 +126,13 @@ public class loginPage extends AppCompatActivity {
                     employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
                     dbReadEmployee(employeeRef, statusMsg);//Get data from database
 
+                    if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
+                        Intent intent = new Intent(loginPage.this, EmployerHomepage.class);//Switch to new intent.
+                        startActivity(intent);
+                    }
+                    else {
+                        statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
+                    }
                 }
                 loginStatus.setText(statusMsg);
             }
