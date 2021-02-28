@@ -67,4 +67,9 @@ public class Employer {
     public void setBuisnessName(String buisnessName) {
         this.buisnessName = buisnessName;
     }
+
+    // Method to check if the username already exists
+    public boolean validateUserName(String userName) {
+        return true;
+    }
 }

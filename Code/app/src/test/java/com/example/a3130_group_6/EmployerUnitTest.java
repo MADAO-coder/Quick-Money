@@ -41,6 +41,12 @@ public class EmployerUnitTest {
         employer.setPassword("password2");
         assertEquals("password2", employer.getPassword());
     }
+
+    @Test
+    public void validUserName() {
+        assertEquals(true, employer.validateUserName(employer.getUserName()));
+    }
+
     @Test
     public void setEmailAddress_test(){
 
