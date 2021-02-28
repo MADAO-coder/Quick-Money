@@ -2,22 +2,33 @@ package com.example.a3130_group_6;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.PatternsCompat;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class registrationForEmployers extends AppCompatActivity implements View.OnClickListener{
 
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
     private Employer employees;
+    static registrationForEmployers emp = new registrationForEmployers();
     DatabaseReference employerRef = null;
     DatabaseReference passWordRef = null;
 
@@ -38,13 +49,11 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         submitBt = findViewById(R.id.Submit);
         employeeBt = findViewById(R.id.emp);
         business = findViewById(R.id.business);
-
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
+        username.setOnClickListener(this);
     }
-
-
 
     /*
     Switch to login page
@@ -82,6 +91,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     protected boolean isValidEmail(String email){
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
+
     /*
     Checking registration information
      */
@@ -89,6 +99,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
        return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
                && isValidEmail(getInputEmailAddress());
     }
+
     /*
     Saving employee information to the database
      */
@@ -101,6 +112,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     protected String getInputUserName(){
         return username.getText().toString().trim();
     }
+
 
     protected String getInputPassword(){
         return password.getText().toString().trim();
@@ -122,7 +134,61 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         return (getInputPassword().equals(getInputVpassword()));
     }
 
-    protected String getBuissnessName() {
+    public ArrayList getUserNameList(DatabaseReference db, ArrayList list){
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> employerItr = dataSnapshot.getChildren().iterator();
+                //Read data from data base.
+
+                while (employerItr.hasNext()) {
+                    Employer employer = employerItr.next().getValue(Employer.class);
+                    String employerUserName = employer.getUserName();
+                    list.add(employerUserName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        return list;
+    }
+    public void checkUserNameInDatabase(DatabaseReference db1, DatabaseReference db2, String userName){
+        ArrayList employeeList = new ArrayList<>();
+        ArrayList employerList = new ArrayList<>();
+        TextView error = (TextView) findViewById(R.id.error);
+
+        employeeList = emp.getUserNameList(db1, employeeList);
+        employerList = emp.getUserNameList(db2, employerList);
+
+        if(employeeList.contains(userName) || employerList.contains(userName)){
+            error.setText("Username already taken. Please enter a different username");
+        }
+        else error.setText("Username valid");
+    }
+
+    // Method to check if the username already exists
+    protected void validateUserName() {
+        username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DatabaseReference employer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+                DatabaseReference employee = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
+                emp.checkUserNameInDatabase(employer, employee, String.valueOf(s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    protected String getBusinessName() {
         return business.getText().toString().trim();
     }
 
@@ -139,6 +205,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
                 switchToHome();
                 break;
             case (R.id.Submit):
+                validateUserName();
                 if(!validRegistrationInformation()) {
                     Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
                     toast.show();
@@ -147,19 +214,17 @@ public class registrationForEmployers extends AppCompatActivity implements View.
                     Toast toast = Toast.makeText(this,"password is not matched",Toast.LENGTH_LONG);
                     toast.show();
                 }
-
                 else {
                     employers.setUserName(getInputUserName());
                     employers.setPassword(getInputPassword());
                     employers.setEmailAddress(getInputEmailAddress());
                     employers.setPhone(getPhoneNumber());
                     employers.setName(getName());
-                    employers.setBuisnessName(getBuissnessName());
+                    employers.setBuisnessName(getBusinessName());
                     saveEmployerToDataBase(employers);
                     switchToHome();//Once all registration info correct, switch to loginPage
                     break;
                 }
-
         }
     }
 }

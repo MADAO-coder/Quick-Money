@@ -18,6 +18,7 @@ public class EmployerUnitTest {
     private final String name = "People";
     private final String businessName = "boss";
     Employer employer = new Employer(userName, passWord, phone, emailAddress, name, businessName);
+    registrationForEmployers reg = new registrationForEmployers();
 
     @Test
     public void getUserName_test(){
@@ -44,7 +45,7 @@ public class EmployerUnitTest {
 
     @Test
     public void validUserName() {
-        assertEquals(true, employer.validateUserName(employer.getUserName()));
+        assertEquals(true, registrationForEmployers.validateUserName(employer.getUserName()));
     }
 
     @Test
