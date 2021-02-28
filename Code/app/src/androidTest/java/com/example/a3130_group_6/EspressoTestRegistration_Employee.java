@@ -7,8 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -34,6 +34,20 @@ public class EspressoTestRegistration_Employee {
         onView(withId(R.id.Password)).check(matches(withText("Password")));
         onView(withId(R.id.VPassword)).check(matches(withText("Verify Password")));
         onView(withId(R.id.Email)).check(matches(withText("Email")));
+    }
+
+    @Test
+    public void checkIfDuplicateUserName() {
+        onView(withId(R.id.username)).perform(typeText("333"));
+        closeSoftKeyboard();
+        onView(withId(R.id.userNameError)).check(matches(withText("Username already taken. Please enter a different username")));
+    }
+
+    @Test
+    public void checkIfValidUserName() {
+        onView(withId(R.id.username)).perform(typeText("new_worker"));
+        closeSoftKeyboard();
+        onView(withId(R.id.userNameError)).check(matches(withText("Username valid")));
     }
 }
 
