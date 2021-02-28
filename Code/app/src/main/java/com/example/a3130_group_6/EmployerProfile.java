@@ -30,7 +30,7 @@ public class EmployerProfile extends AppCompatActivity {
 
     public void onCLick(View v){
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-        //dbReadEmployer(employerRef, biography);//Get data from database
+        dbReadEmployer(employerRef, biography);//Get data from database
     }
 
     //code from loginPage
