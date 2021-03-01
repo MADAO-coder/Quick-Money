@@ -77,7 +77,8 @@
         android:background="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@+id/vpassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/vpassword"
@@ -88,7 +89,8 @@
         android:background="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@+id/phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/phone"
@@ -100,7 +102,8 @@
         app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vpassword"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        />
 
     <TextView
         android:id="@+id/Username"
