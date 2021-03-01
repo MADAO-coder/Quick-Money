@@ -1,10 +1,12 @@
 package com.example.a3130_group_6;
 
+import android.text.InputType;
 import android.widget.EditText;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EspressoTestRegistration_Employee {
     @Rule
     public ActivityScenarioRule<registrationForEmployees> RuleRegistration = new ActivityScenarioRule<>(registrationForEmployees.class);
+    public EditText password,vPassword;
+
+    @BeforeClass
+    public static void setup() {
+
+    }
 
     @Test
     public void checkIfRegistrationEmployeeShows() {
@@ -38,8 +46,12 @@ public class EspressoTestRegistration_Employee {
         onView(withId(R.id.Email)).check(matches(withText("Email")));
     }
     @Test
-    public void isPasswordHidden(){
-        onView(withId(R.id.password)).check(matches(withInputType(0)));
+    public void isPasswordVerified(){
+        onView(withId(R.id.password)).perform(typeText("password"));
+        onView(withId(R.id.vpassword)).perform(typeText("password"));
+        onView(withId(R.id.password)).check(matches(withText("password")));
+        onView(withId(R.id.vpassword)).check(matches(withText("password")));
+
     }
 }
 
