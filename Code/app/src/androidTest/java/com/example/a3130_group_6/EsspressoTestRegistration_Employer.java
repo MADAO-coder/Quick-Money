@@ -39,4 +39,8 @@ public class EsspressoTestRegistration_Employer {
         onView(withId(R.id.business)).check(matches(withText("Business Name")));
         onView(withId(R.id.emp)).check(matches(withText("Employee")));
     }
+    @Test
+    public void isPasswordHidden(){
+      //  onView(withId(R.id.password)).check())
+    }
 }

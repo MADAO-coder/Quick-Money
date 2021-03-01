@@ -1,5 +1,7 @@
 package com.example.a3130_group_6;
 
+import android.widget.EditText;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -12,6 +14,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withInputType;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 /**
@@ -21,7 +24,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
  */
 @RunWith(AndroidJUnit4.class)
 public class EspressoTestRegistration_Employee {
-
     @Rule
     public ActivityScenarioRule<registrationForEmployees> RuleRegistration = new ActivityScenarioRule<>(registrationForEmployees.class);
 
@@ -34,6 +36,10 @@ public class EspressoTestRegistration_Employee {
         onView(withId(R.id.Password)).check(matches(withText("Password")));
         onView(withId(R.id.VPassword)).check(matches(withText("Verify Password")));
         onView(withId(R.id.Email)).check(matches(withText("Email")));
+    }
+    @Test
+    public void isPasswordHidden(){
+        onView(withId(R.id.password)).check(matches(withInputType(0)));
     }
 }
 
