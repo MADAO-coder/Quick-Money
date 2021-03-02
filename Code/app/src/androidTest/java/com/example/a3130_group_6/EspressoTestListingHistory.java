@@ -31,7 +31,8 @@ public class EspressoTestListingHistory {
     /** AT-2**/
     @Test
     public void checkVisibilityNoListing(){
-        onView(withId(R.id.noListingMessage)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+        // should be visible as test situation doesn't contain login information
+        onView(withId(R.id.noListingMessage)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
     /** AT-3**/
     @Test
