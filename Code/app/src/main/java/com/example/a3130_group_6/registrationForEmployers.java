@@ -24,13 +24,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class registrationForEmployers extends AppCompatActivity implements View.OnClickListener{
-
+    ArrayList employeeList = new ArrayList<>();
+    ArrayList employerList = new ArrayList<>();
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
-    private Employer employees;
     static registrationForEmployers emp = new registrationForEmployers();
     DatabaseReference employerRef = null;
-    DatabaseReference passWordRef = null;
+    DatabaseReference employer = null;
+    DatabaseReference employee = null;
 
     Employer employers = new Employer();
 
@@ -55,9 +56,50 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         username.setOnClickListener(this);
         // call the database
         // validate username
+        initializeDatabase();
+        saveUserNamesInLists();
         validateUsername();
     }
 
+    // method to initialize the reference for
+    // employer and employee
+    private void initializeDatabase() {
+        employer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        employee = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
+    }
+
+    // method to save the usenames of employer
+    // and employee in lists
+    private void saveUserNamesInLists() {
+        employeeList = getUserNameList(employer, employeeList);
+        employerList = getUserNameList(employee, employerList);
+    }
+
+    // method to retrieve the list of usernames
+    // from the database
+    public ArrayList getUserNameList(DatabaseReference db, ArrayList list){
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> employerItr = dataSnapshot.getChildren().iterator();
+                //Read data from data base.
+
+                while (employerItr.hasNext()) {
+                    Employer employer = employerItr.next().getValue(Employer.class);
+                    String employerUserName = employer.getUserName();
+                    list.add(employerUserName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        return list;
+    }
+
+    // method to check if the username exists in any of the lists
+    // from the database and print an error in realtime
     private void validateUsername() {
         username.addTextChangedListener(new TextWatcher() {
             @Override
@@ -66,18 +108,24 @@ public class registrationForEmployers extends AppCompatActivity implements View.
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // fetch usernames on create instead of doing multiple times.
                 // set a constraint on username - for example at least it has to be three characters - once it has that then validate it
-/*                DatabaseReference employer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-                DatabaseReference employee = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
-                checkUserNameInDatabase(employer, employee, String.valueOf(s));*/
-                System.out.println(String.valueOf(s));
+                checkUserNameInDatabase(employerList, employeeList, String.valueOf(s));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    // method to check if the username exists in the database
+    // and set the error text in the statusLabel
+    public void checkUserNameInDatabase(ArrayList employeeList, ArrayList employerList, String userName){
+        TextView error = (TextView) findViewById(R.id.error);
+        if(employeeList.contains(userName) || employerList.contains(userName)){
+            error.setText("Username already taken. Please enter a different username.");
+        }
+        else error.setText("Username valid");
     }
 
     /*
@@ -157,40 +205,6 @@ public class registrationForEmployers extends AppCompatActivity implements View.
 
     protected boolean isPasswordMatched(){
         return (getInputPassword().equals(getInputVpassword()));
-    }
-
-    public ArrayList getUserNameList(DatabaseReference db, ArrayList list){
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> employerItr = dataSnapshot.getChildren().iterator();
-                //Read data from data base.
-
-                while (employerItr.hasNext()) {
-                    Employer employer = employerItr.next().getValue(Employer.class);
-                    String employerUserName = employer.getUserName();
-                    list.add(employerUserName);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        return list;
-    }
-    public void checkUserNameInDatabase(DatabaseReference db1, DatabaseReference db2, String userName){
-        ArrayList employeeList = new ArrayList<>();
-        ArrayList employerList = new ArrayList<>();
-        TextView error = (TextView) findViewById(R.id.error);
-
-        employeeList = getUserNameList(db1, employeeList);
-        employerList = getUserNameList(db2, employerList);
-
-        if(employeeList.contains(userName) || employerList.contains(userName)){
-            error.setText("Username already taken. Please enter a different username");
-        }
-        else error.setText("Username valid");
     }
 
     protected String getBusinessName() {

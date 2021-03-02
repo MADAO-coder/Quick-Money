@@ -46,7 +46,7 @@ public class EspressoTestRegistration_Employee {
     public void checkIfDuplicateUserName() {
         onView(withId(R.id.username)).perform(typeText("333"));
         closeSoftKeyboard();
-        onView(withId(R.id.userNameError)).check(matches(withText("Username already taken. Please enter a different username")));
+        onView(withId(R.id.userNameError)).check(matches(withText("Username already taken. Please enter a different username.")));
     }
 
     @Test

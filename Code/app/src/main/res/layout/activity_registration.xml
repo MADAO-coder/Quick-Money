@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="160dp"
         android:layout_marginEnd="63dp"
         android:layout_marginBottom="213dp"
         android:text="Submit"
@@ -221,7 +221,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
-        android:layout_marginTop="99dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="211dp"
         android:text="Add Paypal"
@@ -244,13 +244,13 @@
         android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="223dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginBottom="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/Submit"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="211dp"
+        android:layout_marginBottom="230dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/business" />
+        app:layout_constraintTop_toBottomOf="@id/BName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

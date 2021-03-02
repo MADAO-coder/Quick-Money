@@ -43,13 +43,19 @@ public class EsspressoTestRegistration_Employer {
     public void checkIfDuplicateUserName() {
         onView(withId(R.id.username)).perform(typeText("123"));
         closeSoftKeyboard();
-        onView(withId(R.id.userNameError)).check(matches(withText("Username already taken. Please enter a different username")));
+        onView(withId(R.id.error)).check(matches(withText("Username already taken. Please enter a different username.")));
     }
 
     @Test
     public void checkIfValidUserName() {
         onView(withId(R.id.username)).perform(typeText("new_employer"));
         closeSoftKeyboard();
-        onView(withId(R.id.userNameError)).check(matches(withText("Username valid")));
+        onView(withId(R.id.error)).check(matches(withText("Username valid")));
+    }
+
+    @Test
+    public void checkIfUserNameShort() {
+        onView(withId(R.id.username)).perform(typeText("a"));
+        onView(withId(R.id.userNameError)).check(matches(withText("UserName less than 3 characters")));
     }
 }
