@@ -39,21 +39,21 @@ public class EspressoTestRegistration_Employee {
     @Test
     public void checkIfUserNameShort() {
         onView(withId(R.id.username)).perform(typeText("a"));
-        onView(withId(R.id.userNameError)).check(matches(withText("UserName less than 3 characters")));
+        onView(withId(R.id.registrationEmployer)).check(matches(withText("UserName less than 3 characters")));
     }
 
     @Test
     public void checkIfDuplicateUserName() {
         onView(withId(R.id.username)).perform(typeText("333"));
         closeSoftKeyboard();
-        onView(withId(R.id.userNameError)).check(matches(withText("Username already taken. Please enter a different username.")));
+        onView(withId(R.id.registrationEmployer)).check(matches(withText("Username already taken. Please enter a different username.")));
     }
 
     @Test
     public void checkIfValidUserName() {
         onView(withId(R.id.username)).perform(typeText("new_worker"));
         closeSoftKeyboard();
-        onView(withId(R.id.userNameError)).check(matches(withText("Username valid")));
+        onView(withId(R.id.registrationEmployer)).check(matches(withText("Username valid")));
     }
 }
 
