@@ -33,20 +33,25 @@ public class EmployerProfile extends AppCompatActivity {
     String business;
     EditText nameView;
 
+    // use upload profile button to
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_employer_profile);
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployer(employerRef);//Get data from database
-        nameView = new EditText(this, findViewById(R.id.editName));
+        nameView = findViewById(R.id.editName);
         nameView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                loadProfile();
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                // business logic for changing the db profile data
+                // dont call db, will update every time smth changes
+                // use button function to call db one time when all changes in form are desired to be submitted
             }
 
             @Override
@@ -54,16 +59,14 @@ public class EmployerProfile extends AppCompatActivity {
 
             }
         });
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employer_profile);
+        // asynchronous task function enables front end thread to wait for backend thread
+        // need to setup so UI thread waits for backend thread
+        // google resources + ask vikash
+
     }
 
     public void loadProfile(){
-        EditText tran = new EditText(this.nameView.getContext());
-        tran.setText(name);
-        nameView = tran;
-        //nameView.setText(name);
-        //
+        nameView.setText(name);
     }
 
     //code from loginPage
@@ -80,17 +83,16 @@ public class EmployerProfile extends AppCompatActivity {
                     Employer employer = employerItr.next().getValue(Employer.class);
                         //need to check against correct value to retrieve the correct location
                         if (employer.getUserName().equals(validEmployer[0])){
-                            String username = employer.getUserName();
-                            String password = employer.getPassword();
-                            String phone = employer.getPhone();
-                            String email = employer.getEmailAddress();
-                            String name = employer.getName();
-                            String business = employer.getBuisnessName();
-                            loadProfile();
+                            username = employer.getUserName();
+                            password = employer.getPassword();
+                            phone = employer.getPhone();
+                            email = employer.getEmailAddress();
+                            name = employer.getName();
+                            business = employer.getBuisnessName();
                             break;
                     }
                 }
-
+                loadProfile();
             }
 
             @Override
