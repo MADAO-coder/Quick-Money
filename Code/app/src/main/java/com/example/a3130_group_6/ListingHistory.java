@@ -29,6 +29,8 @@ public class ListingHistory extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_listing_history);
         NoListing = findViewById(R.id.noListingMessage);
         check = getIntent().getExtras().getInt("listing");
         if(check==0){
@@ -44,8 +46,6 @@ public class ListingHistory extends AppCompatActivity {
             employerRef = FirebaseDatabase.getInstance().getReferenceFromUrl(fireRef);
             dbReadEmployer(employerRef);
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listing_history);
     }
 
 
