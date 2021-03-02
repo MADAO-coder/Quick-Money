@@ -32,7 +32,7 @@ public class EmployerProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        nameView = findViewById(R.id.editName);
+        nameView = new EditText(this, findViewById(R.id.editName));
         setContentView(R.layout.activity_employer_profile);
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployer(employerRef);//Get data from database
