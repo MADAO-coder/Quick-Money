@@ -28,6 +28,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     ArrayList employerList = new ArrayList<>();
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
+    TextView error;
     static registrationForEmployers emp = new registrationForEmployers();
     DatabaseReference employerRef = null;
     DatabaseReference employer = null;
@@ -54,6 +55,8 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
         username.setOnClickListener(this);
+        error = findViewById(R.id.error);
+
         // call the database
         // validate username
         initializeDatabase();
@@ -77,7 +80,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
 
     // method to retrieve the list of usernames
     // from the database
-    public ArrayList getUserNameList(DatabaseReference db, ArrayList list){
+    private ArrayList getUserNameList(DatabaseReference db, ArrayList list){
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,6 +101,15 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         return list;
     }
 
+    private boolean checkUserNameLength() {
+        if (getInputUserName().length() < 3){
+            TextView error = (TextView) findViewById(R.id.error);
+            error.setText("Username too short");
+            return false;
+        }
+        return true;
+    }
+
     // method to check if the username exists in any of the lists
     // from the database and print an error in realtime
     private void validateUsername() {
@@ -109,7 +121,9 @@ public class registrationForEmployers extends AppCompatActivity implements View.
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // set a constraint on username - for example at least it has to be three characters - once it has that then validate it
-                checkUserNameInDatabase(employerList, employeeList, String.valueOf(s));
+                if (checkUserNameLength()) {
+                    checkUserNameInDatabase(employerList, employeeList, String.valueOf(s));
+                }
             }
 
             @Override
@@ -120,12 +134,25 @@ public class registrationForEmployers extends AppCompatActivity implements View.
 
     // method to check if the username exists in the database
     // and set the error text in the statusLabel
-    public void checkUserNameInDatabase(ArrayList employeeList, ArrayList employerList, String userName){
+    private void checkUserNameInDatabase(ArrayList employeeList, ArrayList employerList, String userName){
         TextView error = (TextView) findViewById(R.id.error);
         if(employeeList.contains(userName) || employerList.contains(userName)){
             error.setText("Username already taken. Please enter a different username.");
         }
         else error.setText("Username valid");
+    }
+
+    // method to check if the user changed the username or not
+    private boolean checkUserNameError() {
+        String text = String.valueOf(error.getText());
+        String error1 = "Username already taken. Please enter a different username.";
+        String error2 = "Username too short";
+        System.out.println(text.equals(error1));
+        System.out.println(text.equals(error2));
+        if (text.equals(error1) || text.equals(error2)) {
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -135,6 +162,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         Intent back = new Intent(this, loginPage.class);
         startActivity(back);
     }
+
     /*
     Changing pages to see employer registration
      */
@@ -186,7 +214,6 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         return username.getText().toString().trim();
     }
 
-
     protected String getInputPassword(){
         return password.getText().toString().trim();
     }
@@ -211,8 +238,14 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         return business.getText().toString().trim();
     }
 
-    public String getName() {
+    protected String getName() {
         return name.getText().toString().trim();
+    }
+
+    // method to create a Toast
+    private void createToast(String message){
+        Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public void onClick(View v) {
@@ -225,12 +258,13 @@ public class registrationForEmployers extends AppCompatActivity implements View.
                 break;
             case (R.id.Submit):
                 if(!validRegistrationInformation()) {
-                    Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
-                    toast.show();
+                    createToast("Empty or invalid registration information");
                 }
                 else if(!isPasswordMatched()){
-                    Toast toast = Toast.makeText(this,"password is not matched",Toast.LENGTH_LONG);
-                    toast.show();
+                    createToast("password is not matched");
+                }
+                else if(checkUserNameError()){
+                    createToast("Please change the username");
                 }
                 else {
                     employers.setUserName(getInputUserName());

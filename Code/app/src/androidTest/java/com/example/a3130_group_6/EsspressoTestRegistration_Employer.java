@@ -56,6 +56,6 @@ public class EsspressoTestRegistration_Employer {
     @Test
     public void checkIfUserNameShort() {
         onView(withId(R.id.username)).perform(typeText("a"));
-        onView(withId(R.id.userNameError)).check(matches(withText("UserName less than 3 characters")));
+        onView(withId(R.id.error)).check(matches(withText("Username too short")));
     }
 }
