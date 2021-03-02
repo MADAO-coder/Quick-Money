@@ -16,7 +16,8 @@
         <activity android:name=".registrationForEmployers" />
         <activity android:name=".EmployerHomepage" />
         <activity android:name=".add_listing" />
-        <activity android:name=".loginPage">
+        <activity android:name=".loginPage"/>
+            <activity android:name=".ListingHistory">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
