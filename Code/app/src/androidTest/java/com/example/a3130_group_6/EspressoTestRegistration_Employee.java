@@ -37,6 +37,12 @@ public class EspressoTestRegistration_Employee {
     }
 
     @Test
+    public void checkIfUserNameShort() {
+        onView(withId(R.id.username)).perform(typeText("a"));
+        onView(withId(R.id.userNameError)).check(matches(withText("UserName less than 3 characters")));
+    }
+
+    @Test
     public void checkIfDuplicateUserName() {
         onView(withId(R.id.username)).perform(typeText("333"));
         closeSoftKeyboard();

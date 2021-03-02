@@ -53,6 +53,31 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
         username.setOnClickListener(this);
+        // call the database
+        // validate username
+        validateUsername();
+    }
+
+    private void validateUsername() {
+        username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // fetch usernames on create instead of doing multiple times.
+                // set a constraint on username - for example at least it has to be three characters - once it has that then validate it
+/*                DatabaseReference employer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+                DatabaseReference employee = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
+                checkUserNameInDatabase(employer, employee, String.valueOf(s));*/
+                System.out.println(String.valueOf(s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     /*
@@ -159,33 +184,13 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         ArrayList employerList = new ArrayList<>();
         TextView error = (TextView) findViewById(R.id.error);
 
-        employeeList = emp.getUserNameList(db1, employeeList);
-        employerList = emp.getUserNameList(db2, employerList);
+        employeeList = getUserNameList(db1, employeeList);
+        employerList = getUserNameList(db2, employerList);
 
         if(employeeList.contains(userName) || employerList.contains(userName)){
             error.setText("Username already taken. Please enter a different username");
         }
         else error.setText("Username valid");
-    }
-
-    // Method to check if the username already exists
-    protected void validateUserName() {
-        username.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                DatabaseReference employer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-                DatabaseReference employee = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
-                emp.checkUserNameInDatabase(employer, employee, String.valueOf(s));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
     }
 
     protected String getBusinessName() {
@@ -205,7 +210,6 @@ public class registrationForEmployers extends AppCompatActivity implements View.
                 switchToHome();
                 break;
             case (R.id.Submit):
-                validateUserName();
                 if(!validRegistrationInformation()) {
                     Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
                     toast.show();

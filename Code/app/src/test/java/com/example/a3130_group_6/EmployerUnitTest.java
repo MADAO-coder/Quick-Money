@@ -43,10 +43,10 @@ public class EmployerUnitTest {
         assertEquals("password2", employer.getPassword());
     }
 
-    @Test
+/*    @Test
     public void validUserName() {
         assertEquals(true, registrationForEmployers.validateUserName(employer.getUserName()));
-    }
+    }*/
 
     @Test
     public void setEmailAddress_test(){
