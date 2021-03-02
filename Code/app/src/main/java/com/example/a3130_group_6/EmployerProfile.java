@@ -1,6 +1,8 @@
 package com.example.a3130_group_6;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,20 +28,46 @@ public class EmployerProfile extends AppCompatActivity {
     DatabaseReference employerRef = null;
     private List<String> employer_userName_list = new ArrayList<>();//List to store password getting from db for Employee object
     private List<String> employer_password_list = new ArrayList<>();//List to store password getting from db for Employee object
-    String biography;
+    String biography, username, password, phone, email, name;
+
+    String business;
     EditText nameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        nameView = new EditText(this, findViewById(R.id.editName));
-        setContentView(R.layout.activity_employer_profile);
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployer(employerRef);//Get data from database
+        nameView = new EditText(this, findViewById(R.id.editName));
+        nameView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                loadProfile();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_employer_profile);
+    }
+
+    public void loadProfile(){
+        EditText tran = new EditText(this.nameView.getContext());
+        tran.setText(name);
+        nameView = tran;
+        //nameView.setText(name);
+        //
     }
 
     //code from loginPage
-    //Read data from dataBase and make employers' userName and password into ArrayList.
+    //Read data from dataBase and retrieve employer information
     public void dbReadEmployer(DatabaseReference db){
 
         db.addValueEventListener(new ValueEventListener() {
@@ -48,16 +76,17 @@ public class EmployerProfile extends AppCompatActivity {
                 Iterator<DataSnapshot> employerItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
                 while (employerItr.hasNext()) {
+                    //assume there will always be at least one employer
                     Employer employer = employerItr.next().getValue(Employer.class);
                         //need to check against correct value to retrieve the correct location
                         if (employer.getUserName().equals(validEmployer[0])){
                             String username = employer.getUserName();
                             String password = employer.getPassword();
-                            String phone = employer.getPassword();
-                            String email = employer.getPassword();
-                            String name = employer.getPassword();
-                            nameView.setText(name);
-                            String business = employer.getPassword();
+                            String phone = employer.getPhone();
+                            String email = employer.getEmailAddress();
+                            String name = employer.getName();
+                            String business = employer.getBuisnessName();
+                            loadProfile();
                             break;
                     }
                 }
