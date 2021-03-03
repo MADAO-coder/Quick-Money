@@ -21,8 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeePassword" />
 
-    <TextView
-        android:id="@+id/employeePassInput"
+    <EditText
+        android:id="@+id/editEmployeePass"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
@@ -31,11 +31,10 @@
         android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/uploadResume"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeePassword"
-        app:layout_constraintTop_toBottomOf="@+id/employeePhoneNumInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmployeePhoneNum" />
 
     <TextView
         android:id="@+id/employeePassword"
@@ -48,7 +47,7 @@
         android:text="Password"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeResume"
-        app:layout_constraintEnd_toStartOf="@+id/employeePassInput"
+        app:layout_constraintEnd_toStartOf="@+id/editEmployeePass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeePhoneNum" />
 
@@ -56,19 +55,19 @@
         android:id="@+id/employeePhoneNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="55dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="1dp"
         android:text="Phone Number"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeePassword"
-        app:layout_constraintEnd_toStartOf="@+id/employeePhoneNumInput"
+        app:layout_constraintEnd_toStartOf="@+id/editEmployeePhoneNum"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeEmail" />
 
-    <TextView
-        android:id="@+id/employeePhoneNumInput"
+    <EditText
+        android:id="@+id/editEmployeePhoneNum"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
@@ -77,14 +76,13 @@
         android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeePassInput"
+        app:layout_constraintBottom_toTopOf="@+id/editEmployeePass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeePhoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/employeeEmailInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmployeeEmail" />
 
-    <TextView
-        android:id="@+id/employeeEmailInput"
+    <EditText
+        android:id="@+id/editEmployeeEmail"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="23dp"
@@ -93,11 +91,10 @@
         android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeePhoneNumInput"
+        app:layout_constraintBottom_toTopOf="@+id/editEmployeePhoneNum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeEmail"
-        app:layout_constraintTop_toBottomOf="@+id/employeeUsernameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmployeeUsername" />
 
     <TextView
         android:id="@+id/employeeEmail"
@@ -110,12 +107,12 @@
         android:text="Email"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeePhoneNum"
-        app:layout_constraintEnd_toStartOf="@+id/employeeEmailInput"
+        app:layout_constraintEnd_toStartOf="@+id/editEmployeeEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeUserName" />
 
-    <TextView
-        android:id="@+id/employeeUsernameInput"
+    <EditText
+        android:id="@+id/editEmployeeUsername"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
@@ -124,11 +121,10 @@
         android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeeEmailInput"
+        app:layout_constraintBottom_toTopOf="@+id/editEmployeeEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeUserName"
-        app:layout_constraintTop_toBottomOf="@+id/employeeNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmployeeName" />
 
     <TextView
         android:id="@+id/employeeUserName"
@@ -141,7 +137,7 @@
         android:text="Username"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeEmail"
-        app:layout_constraintEnd_toStartOf="@+id/employeeUsernameInput"
+        app:layout_constraintEnd_toStartOf="@+id/editEmployeeUsername"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeName" />
 
@@ -174,8 +170,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/descriptionBox"
+    <EditText
+        android:id="@+id/editDescriptionBox"
         android:layout_width="187dp"
         android:layout_height="84dp"
         android:layout_marginStart="28dp"
@@ -194,33 +190,31 @@
         android:id="@+id/employeeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="51dp"
         android:layout_marginTop="53dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="1dp"
         android:text="Name"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeUserName"
-        app:layout_constraintEnd_toStartOf="@+id/employeeNameInput"
+        app:layout_constraintEnd_toStartOf="@+id/editEmployeeName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <TextView
-        android:id="@+id/employeeNameInput"
+    <EditText
+        android:id="@+id/editEmployeeName"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeeUsernameInput"
+        app:layout_constraintBottom_toTopOf="@+id/editEmployeeUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeName"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionBox"
-        app:layout_constraintVertical_bias="0.65999997" />
+        app:layout_constraintTop_toBottomOf="@+id/editDescriptionBox" />
 
     <Button
         android:id="@+id/uploadResume"
@@ -234,7 +228,7 @@
         app:layout_constraintBottom_toTopOf="@+id/updateEmployeeProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeResume"
-        app:layout_constraintTop_toBottomOf="@+id/employeePassInput" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmployeePass" />
 
     <Button
         android:id="@+id/updateEmployeeProfile"

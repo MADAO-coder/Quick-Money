@@ -42,7 +42,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     public void employeeProfileSwitch() {
         Intent switchIntent = new Intent(this, EmployeeProfile.class);
         startActivity(switchIntent);
-        setContentView(R.layout.activity_employee_profile);
+        setContentView(R.layout.activity_edit_employee_profile);
     }
 
     /**

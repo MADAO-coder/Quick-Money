@@ -29,16 +29,27 @@ public class EmployeeProfile extends AppCompatActivity {
     private List<String> employee_password_list = new ArrayList<>();//List to store password getting from db for Employee object
     String description, username, password, phone, email, name;
 
-    EditText nameView;
+    TextView nameView;
+    TextView usernameView;
+    TextView emailView;
+    TextView phoneView;
+    TextView passView;
 
     // use upload profile button to
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
+
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         dbReadEmployer(employeeRef);//Get data from database
+
         nameView = findViewById(R.id.employeeNameInput);
+        usernameView = findViewById(R.id.employeeUsernameInput);
+        emailView = findViewById(R.id.employeeEmailInput);
+        phoneView = findViewById(R.id.employeePhoneNumInput);
+        passView = findViewById(R.id.employeePassInput);
+
         nameView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -61,10 +72,91 @@ public class EmployeeProfile extends AppCompatActivity {
         // need to setup so UI thread waits for backend thread
         // google resources + ask vikash
 
+        usernameView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // business logic for changing the db profile data
+                // dont call db, will update every time smth changes
+                // use button function to call db one time when all changes in form are desired to be submitted
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        emailView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // business logic for changing the db profile data
+                // dont call db, will update every time smth changes
+                // use button function to call db one time when all changes in form are desired to be submitted
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        phoneView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // business logic for changing the db profile data
+                // dont call db, will update every time smth changes
+                // use button function to call db one time when all changes in form are desired to be submitted
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        passView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // business logic for changing the db profile data
+                // dont call db, will update every time smth changes
+                // use button function to call db one time when all changes in form are desired to be submitted
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
+
 
     public void loadProfile(){
         nameView.setText(name);
+        usernameView.setText(username);
+        emailView.setText(email);
+        phoneView.setText(phone);
+        passView.setText(password);
     }
 
     //code from loginPage
