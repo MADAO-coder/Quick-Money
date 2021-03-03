@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,7 +29,8 @@ public class EmployerProfile extends AppCompatActivity {
     DatabaseReference employerRef = null;
     String biography, username, password, phone, email, name, business;
     EditText nameView, biographyView, usernameView, passwordView, phoneView, emailView, businessView;
-
+    TextView statusView;
+    Button submitButton, refreshButton;
     // use upload profile button to
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class EmployerProfile extends AppCompatActivity {
         dbReadEmployer(employerRef);
 
         // set all views
+        statusView = findViewById(R.id.statusView);
         nameView = findViewById(R.id.editName);
         biographyView = findViewById(R.id.editBiography);
         usernameView = findViewById(R.id.editUsername);
@@ -47,6 +50,24 @@ public class EmployerProfile extends AppCompatActivity {
         phoneView = findViewById(R.id.editPhone);
         emailView = findViewById(R.id.editEmail);
         businessView = findViewById(R.id.editBusiness);
+        submitButton = (Button) findViewById(R.id.submitBtn);
+        refreshButton = (Button) findViewById(R.id.refreshBtn);
+
+        // set button to update to database on click
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+                updateToDatabase();
+            }
+        });
+        // set button to refresh profile fields on click
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+                refreshPage();
+            }
+        });
+
         //attach listeners to all views for when they change
         nameView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,11 +90,28 @@ public class EmployerProfile extends AppCompatActivity {
         // asynchronous task function enables front end thread to wait for backend thread
         // need to setup so UI thread waits for backend thread
         // google resources + ask vikash
-
     }
-    public void updateToDatabase(){
-        //put code for updating to database here
 
+    public void updateToDatabase(){
+        // define new employer object and set fields
+        Employer employers = new Employer();
+        employers.setBuisnessName(name);
+        //employers.setBiography(biography);
+        employers.setUserName(username);
+        employers.setPassword(password);
+        employers.setPhone(phone);
+        employers.setEmailAddress(email);
+        employers.setBuisnessName(business);
+        // save object user to database to Firebase
+        employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + name);
+        employerRef.setValue(employers);
+        statusView.setText("Profile updated to database!");
+    }
+    public void refreshPage(){
+        // save object user to database to Firebase
+        employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        dbReadEmployer(employerRef);
+        statusView.setText("Profile changes refreshed");
     }
 
     public void loadProfile(){

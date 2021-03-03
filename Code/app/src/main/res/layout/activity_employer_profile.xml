@@ -7,8 +7,8 @@
 
     <EditText
         android:id="@+id/editUsername"
-        android:layout_width="159dp"
-        android:layout_height="45dp"
+        android:layout_width="172dp"
+        android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Username"
@@ -21,8 +21,8 @@
 
     <EditText
         android:id="@+id/editBusiness"
-        android:layout_width="159dp"
-        android:layout_height="45dp"
+        android:layout_width="175dp"
+        android:layout_height="43dp"
         android:ems="10"
         android:inputType="text"
         android:text="Business Name"
@@ -130,15 +130,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="446dp" />
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"
+        app:layout_constraintEnd_toStartOf="@+id/editEmail"
+        app:layout_constraintHorizontal_bias="0.764"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/submitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp"
-        android:onClick="updateToDatabase"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/refreshBtn"
@@ -159,5 +161,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmail"
         app:layout_constraintVertical_bias="0.126" />
+
+    <TextView
+        android:id="@+id/statusView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:textColor="#4CAF50"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submitBtn"
+        app:layout_constraintVertical_bias="0.115" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
