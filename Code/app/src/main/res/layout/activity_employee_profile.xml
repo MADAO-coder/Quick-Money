@@ -124,7 +124,7 @@
         app:layout_constraintBottom_toTopOf="@+id/employeeEmailInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeUserName"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmployeeName" />
+        app:layout_constraintTop_toBottomOf="@+id/employeeNameInput" />
 
     <TextView
         android:id="@+id/employeeUserName"
@@ -143,8 +143,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="118dp"
-        android:layout_height="121dp"
+        android:layout_width="99dp"
+        android:layout_height="92dp"
         android:layout_marginStart="22dp"
         android:layout_marginTop="61dp"
         android:layout_marginEnd="261dp"
@@ -172,8 +172,8 @@
 
     <EditText
         android:id="@+id/descriptionBox"
-        android:layout_width="216dp"
-        android:layout_height="121dp"
+        android:layout_width="187dp"
+        android:layout_height="84dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="17dp"
         android:layout_marginEnd="16dp"
@@ -197,12 +197,12 @@
         android:text="Name"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeUserName"
-        app:layout_constraintEnd_toStartOf="@+id/inputEmployeeName"
+        app:layout_constraintEnd_toStartOf="@+id/employeeNameInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <EditText
-        android:id="@+id/inputEmployeeName"
+        android:id="@+id/employeeNameInput"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
@@ -244,4 +244,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadResume" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="164dp"
+        tools:layout_editor_absoluteY="65dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
