@@ -18,6 +18,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EmployerProfileTest {
     @Rule
     public ActivityScenarioRule<EmployerProfile> employerProfileRule = new ActivityScenarioRule<>(EmployerProfile.class);
+    /** Test Profile Elements below **/
+    @Test
+    public void testRefresh(){
+        onView(withId(R.id.editBiography)).perform(typeText("Biography words, please do not be there"));
+        onView(withId(R.id.refreshBtn)).perform(click());
+        onView(withId(R.id.editBiography)).check(matches(withText("")));
+        onView(withId(R.id.statusView)).check(matches(withText("")));
+    }
 
     /** Test Profile Elements below **/
     @Test
