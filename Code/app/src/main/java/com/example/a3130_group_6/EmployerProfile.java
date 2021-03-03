@@ -26,21 +26,28 @@ import static com.example.a3130_group_6.loginPage.validEmployer;
 
 public class EmployerProfile extends AppCompatActivity {
     DatabaseReference employerRef = null;
-    private List<String> employer_userName_list = new ArrayList<>();//List to store password getting from db for Employee object
-    private List<String> employer_password_list = new ArrayList<>();//List to store password getting from db for Employee object
-    String biography, username, password, phone, email, name;
-
-    String business;
-    EditText nameView;
+    String biography, username, password, phone, email, name, business;
+    EditText nameView, biographyView, usernameView, passwordView, phoneView, emailView, businessView;
 
     // use upload profile button to
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_profile);
+
+        // get data from database
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-        dbReadEmployer(employerRef);//Get data from database
+        dbReadEmployer(employerRef);
+
+        // set all views
         nameView = findViewById(R.id.editName);
+        biographyView = findViewById(R.id.editBiography);
+        usernameView = findViewById(R.id.editUsername);
+        passwordView = findViewById(R.id.editPassword);
+        phoneView = findViewById(R.id.editPhone);
+        emailView = findViewById(R.id.editEmail);
+        businessView = findViewById(R.id.editBusiness);
+        //attach listeners to all views for when they change
         nameView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,9 +71,19 @@ public class EmployerProfile extends AppCompatActivity {
         // google resources + ask vikash
 
     }
+    public void updateToDatabase(){
+        //put code for updating to database here
+
+    }
 
     public void loadProfile(){
         nameView.setText(name);
+        biographyView.setText(biography);
+        usernameView.setText(username);
+        passwordView.setText(password);
+        phoneView.setText(phone);
+        emailView.setText(email);
+        businessView.setText(business);
     }
 
     //code from loginPage

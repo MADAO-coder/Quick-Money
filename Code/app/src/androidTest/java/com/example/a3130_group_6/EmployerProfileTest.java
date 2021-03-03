@@ -19,25 +19,33 @@ public class EmployerProfileTest {
     @Rule
     public ActivityScenarioRule<EmployerProfile> employerProfileRule = new ActivityScenarioRule<>(EmployerProfile.class);
 
-    @Test
-    public void testProfile(){
-
-    }
     /** Test Profile Elements below **/
     @Test
-    public void testProfileDetails(){
-    //biography
+    public void testBiography(){
         onView(withId(R.id.editBiography)).check(matches(withText("")));
-
-    //business name
-
-    //email
-
-    //name
-
-    //phone
-
-    //pass
-
+    }
+    @Test
+    public void testName(){
+        onView(withId(R.id.editName)).check(matches(withText("")));
+    }
+    @Test
+    public void testUsername(){
+        onView(withId(R.id.editUsername)).check(matches(withText("")));
+    }
+    @Test
+    public void testPassword(){
+        onView(withId(R.id.editPassword)).check(matches(withText("")));
+    }
+    @Test
+    public void testPhone(){
+        onView(withId(R.id.editPhone)).check(matches(withText("")));
+    }
+    @Test
+    public void testEmail(){
+        onView(withId(R.id.editEmail)).check(matches(withText("")));
+    }
+    @Test
+    public void testBusiness(){
+        onView(withId(R.id.editBusiness)).check(matches(withText("")));
     }
 }
