@@ -7,7 +7,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -35,5 +37,25 @@ public class EsspressoTestRegistration_Employer {
         onView(withId(R.id.Email)).check(matches(withText("Email")));
         onView(withId(R.id.BName)).check(matches(withText("Business Name")));
         onView(withId(R.id.emp)).check(matches(withText("Employee")));
+    }
+
+    @Test
+    public void checkIfDuplicateUserName() {
+        onView(withId(R.id.username)).perform(typeText("123"));
+        closeSoftKeyboard();
+        onView(withId(R.id.error)).check(matches(withText("Username already taken. Please enter a different username.")));
+    }
+
+    @Test
+    public void checkIfValidUserName() {
+        onView(withId(R.id.username)).perform(typeText("new_employer"));
+        closeSoftKeyboard();
+        onView(withId(R.id.error)).check(matches(withText("Username valid")));
+    }
+
+    @Test
+    public void checkIfUserNameShort() {
+        onView(withId(R.id.username)).perform(typeText("a"));
+        onView(withId(R.id.error)).check(matches(withText("Username too short")));
     }
 }

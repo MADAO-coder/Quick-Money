@@ -16,12 +16,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
-    private Employee employee;
     Button homeBt,addPayment,submitBt, employeeBt;//creating buttons and display variables
-    TextView registrationStatus;
-    DatabaseReference employerRef = null;
+    TextView employeeUsernameError;
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
+    checkExistingUserName user = new checkExistingUserName();
 
 
     @Override
@@ -39,10 +38,12 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         submitBt = findViewById(R.id.Submit);
         employeeBt = findViewById(R.id.Employer);
         homeBt =  findViewById(R.id.home2);
-
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
+        employeeUsernameError = findViewById(R.id.employeeUserError);
+
+        user.validateUsername(username, employeeUsernameError);
 
     }
     protected boolean isUserNameEmpty(){
@@ -122,19 +123,24 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         startActivity(back);
     }
 
+    // method to create a Toast
+    private void createToast(String message){
+        Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
+        toast.show();
+    }
+
     public void onClick(View v) {
         if (R.id.Submit==v.getId()){//when the submit button is clicked, add employee
             if(!validRegistrationInformation()){
-                Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
-                toast.show();
+                createToast("Empty or invalid registration information");
             }
             else if(!isPasswordMatched()){
-                Toast toast = Toast.makeText(this,"password is not matched",Toast.LENGTH_LONG);
-                toast.show();
+                createToast("password is not matched");
             }
-
+            else if(user.checkUserNameError(employeeUsernameError)){
+                createToast("Please change the username");
+            }
             else {
-
                 employees.setUserName(getInputUserName());
                 employees.setPassword(getInputPassword());
                 employees.setEmailAddress(getInputEmailAddress());

@@ -28,8 +28,6 @@ public class loginPage extends AppCompatActivity {
     protected Button regBt;
     protected Button loginBt;
     protected TextView loginStatus;
-    private Employee employee;
-    private Employer employer;
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
     private List<String> employee_userName_list = new ArrayList<>();//List to store userName getting from db for Employee object
