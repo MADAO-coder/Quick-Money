@@ -32,7 +32,7 @@
         tools:visibility="visible" />
 
     <ListView
-        android:id="@+id/employeeList"
+        android:id="@+id/listingHistoryView"
         android:layout_width="405dp"
         android:layout_height="311dp"
         android:isScrollContainer="true"
@@ -58,7 +58,7 @@
         android:clickable="false"
         android:text="Available Workers In Your Area"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeeList"
+        app:layout_constraintBottom_toTopOf="@+id/listingHistoryView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
