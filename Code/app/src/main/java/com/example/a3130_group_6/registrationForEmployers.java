@@ -17,8 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class registrationForEmployers extends AppCompatActivity implements View.OnClickListener{
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
+
     TextView error;
-    static registrationForEmployers emp = new registrationForEmployers();
+    TextView statusLabel;
     DatabaseReference employerRef = null;
     Employer employers = new Employer();
     checkExistingUserName user = new checkExistingUserName();
@@ -35,9 +36,11 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         email = findViewById(R.id.email);
         homeBt = findViewById(R.id.Employer);
         addPayment = findViewById(R.id.AddPayment);
-        submitBt = findViewById(R.id.Submit);
+        submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.emp);
         business = findViewById(R.id.business);
+        statusLabel = findViewById(R.id.statusLabel);
+
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
@@ -122,8 +125,8 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         return vpassword.getText().toString().trim();
     }
 
-    protected boolean isPasswordMatched(){
-        return (getInputPassword().equals(getInputVpassword()));
+    protected boolean isPasswordMatched(String password, String vPassword){
+       return (password.equals(vPassword));
     }
 
     protected String getBusinessName() {
@@ -148,15 +151,15 @@ public class registrationForEmployers extends AppCompatActivity implements View.
             case (R.id.Employer):
                 switchToHome();
                 break;
-            case (R.id.Submit):
+            case (R.id.Submit1):
                 if(!validRegistrationInformation()) {
                     createToast("Empty or invalid registration information");
                 }
-                else if(!isPasswordMatched()){
-                    createToast("password is not matched");
-                }
                 else if(user.checkUserNameError(error)){
                     createToast("Please change the username");
+                }
+                else if(!isPasswordMatched(getInputPassword(), getInputVpassword())){//when the password and verification password are not matched
+                    statusLabel.setText("password is not matched");
                 }
                 else {
                     employers.setUserName(getInputUserName());

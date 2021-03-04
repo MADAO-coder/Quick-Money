@@ -30,12 +30,12 @@
         android:layout_marginEnd="34dp"
         android:layout_marginBottom="90dp"
         android:background="@color/purple_500"
-        app:layout_constraintBottom_toTopOf="@+id/Submit"
+        app:layout_constraintBottom_toTopOf="@+id/Submit1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phone" />
 
     <Button
-        android:id="@+id/Submit"
+        android:id="@+id/Submit1"
         android:layout_width="149dp"
         android:layout_height="46dp"
         android:layout_marginStart="41dp"
@@ -210,5 +210,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <TextView
+        android:id="@+id/statusLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="568dp"
+        android:layout_marginEnd="192dp"
+        android:layout_marginBottom="125dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationStatus" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,7 @@
         android:autofillHints="" />
 
     <Button
-        android:id="@+id/Submit"
+        android:id="@+id/Submit1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
@@ -223,7 +223,7 @@
         android:layout_marginBottom="211dp"
         android:text="Add Paypal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Submit"
+        app:layout_constraintEnd_toStartOf="@+id/Submit1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BName" />
 
@@ -249,5 +249,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/BName" />
+
+    <TextView
+        android:id="@+id/statusLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="568dp"
+        android:layout_marginEnd="192dp"
+        android:layout_marginBottom="125dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationStatus" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
