@@ -41,7 +41,7 @@ public class loginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button regBt = (Button) findViewById(R.id.registerBt);
+        Button regBt = findViewById(R.id.registerBt);
         loginBt = findViewById(R.id.loginBt_employee);
     }
 
