@@ -29,35 +29,38 @@ import static com.example.a3130_group_6.loginPage.validEmployer;
 public class EmployerHomepage extends AppCompatActivity {
 
     private List<Employee> employeeList = new ArrayList<>();
+    DatabaseReference employeeRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_homepage);
+        employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
     }
-
     protected void setEmployeeList(){
-        DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
-        dbReadEmployer(employeeRef);
-        List<String> employees = new ArrayList<String>();
-        for (Employee employee : employeeList) {
-            employees.add(employee.getName() + "\t" + employee.getEmail() + "\t" + employee.getPassword() + "\t" + employee.getPhone() + "\t" + employee.getUserName());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employees);
-        ListView employeeListView = (ListView) findViewById(R.id.employeeList);
-        employeeListView.setAdapter(adapter);
+        // connect to db, retrieve employees
+        ArrayList<Employee> employees = new ArrayList<>();
+        dbReadEmployees(employeeRef, employees);
+        String[] employeesString = new String[employees.size()];
+        employees.toArray(employeesString);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employeesString);
+        ListView employeeList = (ListView) findViewById(R.id.employeeList);
+        employeeList.setAdapter(adapter);
     }
-    public void dbReadEmployer(DatabaseReference db) {
+
+    public void dbReadEmployees(DatabaseReference db, ArrayList<Employee> employees){
+        final Employee[] employee = {new Employee()};
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> employeeItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
                 while (employeeItr.hasNext()) {
-                    Employee employee = employeeItr.next().getValue(Employee.class);
-                    employeeList.add(employee);
+                    employee[0] = employeeItr.next().getValue(Employee.class);
+                    employees.add(employee[0]);
                 }
+
             }
 
             @Override
@@ -66,6 +69,7 @@ public class EmployerHomepage extends AppCompatActivity {
 
             }
         });
+
     }
     protected boolean searchFunctioning(String search){
         /* irrelevant testing process for unit tests.
