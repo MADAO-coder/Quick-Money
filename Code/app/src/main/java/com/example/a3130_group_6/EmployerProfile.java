@@ -40,8 +40,41 @@ public class EmployerProfile extends AppCompatActivity {
         // get data from database
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployer(employerRef);
-
         // set all views
+        setViews();
+
+        // set button to update to database on click
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Do something in response to button click
+                // define new employer object and set fields
+                Employer employer = new Employer();
+                employer.setName(nameView.getText().toString());
+                //employers.setBiography(biography);
+                employer.setUserName(usernameView.getText().toString());
+                employer.setPassword(passwordView.getText().toString());
+                employer.setPhone(phoneView.getText().toString());
+                employer.setEmailAddress(emailView.getText().toString());
+                employer.setBuisnessName(businessView.getText().toString());
+                // updates to db, but deletes associated listings
+
+                updateToDatabase(employer);
+            }
+        });
+        // set button to refresh profile fields on click
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Do something in response to button click
+                refreshPage();
+            }
+        });
+        // asynchronous task function enables front end thread to wait for backend thread
+        // need to setup so UI thread waits for backend thread
+        // google resources + ask vikash
+    }
+    public void setViews(){
         statusView = findViewById(R.id.statusView);
         nameView = findViewById(R.id.editName);
         biographyView = findViewById(R.id.editBiography);
@@ -52,59 +85,13 @@ public class EmployerProfile extends AppCompatActivity {
         businessView = findViewById(R.id.editBusiness);
         submitButton = (Button) findViewById(R.id.submitBtn);
         refreshButton = (Button) findViewById(R.id.refreshBtn);
-
-        // set button to update to database on click
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Do something in response to button click
-                updateToDatabase();
-            }
-        });
-        // set button to refresh profile fields on click
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Do something in response to button click
-                refreshPage();
-            }
-        });
-
-        //attach listeners to all views for when they change
-        nameView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // business logic for changing the db profile data
-                // dont call db, will update every time smth changes
-                // use button function to call db one time when all changes in form are desired to be submitted
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        // asynchronous task function enables front end thread to wait for backend thread
-        // need to setup so UI thread waits for backend thread
-        // google resources + ask vikash
     }
 
-    public void updateToDatabase(){
-        // define new employer object and set fields
-        Employer employers = new Employer();
-        employers.setBuisnessName(name);
-        //employers.setBiography(biography);
-        employers.setUserName(username);
-        employers.setPassword(password);
-        employers.setPhone(phone);
-        employers.setEmailAddress(email);
-        employers.setBuisnessName(business);
+    public void updateToDatabase(Employer employer){
+
         // save object user to database to Firebase
-        employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + name);
-        employerRef.setValue(employers);
+        employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + username);
+        employerRef.setValue(employer);
         statusView.setText("Profile updated to database!");
     }
     public void refreshPage(){
