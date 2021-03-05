@@ -16,12 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
-    Button homeBt,addPayment,submitBt, employeeBt;//creating buttons and display variables
+    Button homeBt,addPayment,submitBt, employeeBt, addLocationButton;//creating buttons and display variables
     TextView employeeUsernameError;
     TextView statusLabel;
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
     checkExistingUserName user = new checkExistingUserName();
+
 
 
     @Override
@@ -40,9 +41,11 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         employeeBt = findViewById(R.id.Employer);
         homeBt =  findViewById(R.id.home2);
         statusLabel = findViewById(R.id.statusLabel);
+        addLocationButton = findViewById(R.id.addLocationButton);
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
+        addLocationButton.setOnClickListener(this);
         employeeUsernameError = findViewById(R.id.employeeUserError);
 
         user.validateUsername(username, employeeUsernameError);
@@ -125,6 +128,11 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         startActivity(back);
     }
 
+    protected void switchToEmployeeMap(){
+        Intent map = new Intent(this, EmployeeMapActivity.class);
+        startActivity(map);
+    }
+
     // method to create a Toast
     private void createToast(String message){
         Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
@@ -160,6 +168,9 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         }
         else if(R.id.Employer == v.getId()){
             switchToEmployer();
+        }
+        else if(R.id.addLocationButton == v.getId()){
+
         }
     }
 }
