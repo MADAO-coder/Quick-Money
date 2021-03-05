@@ -20,8 +20,10 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.a3130_group_6.loginPage.validEmployer;
 
@@ -47,7 +49,7 @@ public class EmployerProfile extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Do something in response to button click
+                // Update fields
                 // define new employer object and set fields
                 Employer employer = new Employer();
                 employer.setName(nameView.getText().toString());
@@ -58,7 +60,6 @@ public class EmployerProfile extends AppCompatActivity {
                 employer.setEmailAddress(emailView.getText().toString());
                 employer.setBuisnessName(businessView.getText().toString());
                 // updates to db, but deletes associated listings
-
                 updateToDatabase(employer);
             }
         });
@@ -88,10 +89,19 @@ public class EmployerProfile extends AppCompatActivity {
     }
 
     public void updateToDatabase(Employer employer){
-
         // save object user to database to Firebase
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + username);
-        employerRef.setValue(employer);
+        // 95 to 102 attempts to update without overwriting
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(username, employer.getUserName());
+        updates.put("password", employer.getPassword());
+        updates.put("emailAddress", employer.getEmailAddress());
+        updates.put("name", employer.getName());
+        updates.put("businessName", employer.getBuisnessName());
+        updates.put("phone", employer.getPhone());
+        employerRef.updateChildren(updates);
+        // below sets entirely new employer object
+        //employerRef.setValue(employer);
         statusView.setText("Profile updated to database!");
     }
     public void refreshPage(){
