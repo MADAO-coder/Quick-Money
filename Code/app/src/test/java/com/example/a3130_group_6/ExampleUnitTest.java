@@ -72,6 +72,13 @@ public class ExampleUnitTest {
         assertTrue(addListing.isEmptyPay(""));
         assertFalse(addListing.isEmptyPay("20"));
     }
+
+    @Test
+    public void checkIfLocationEmpty(){
+        assertTrue(addListing.isEmptyLocation(""));
+        assertFalse(addListing.isEmptyPay("Halifax"));
+    }
+
     public void searchBarType(){
         assertTrue(employerHomepage.searchFunctioning("Jim"));
     }
@@ -87,4 +94,5 @@ public class ExampleUnitTest {
         String[] employees = new String[] { "Noback Endintegration", "Potter Weasley", "Henry Harry", "Jim Jones", "Granger Jones Jr."};
         assertTrue(employerHomepage.checkEmployeeList(employees));
     }
+
 }

@@ -72,6 +72,10 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         return pay.isEmpty();
     }
 
+    protected boolean isEmptyLocation(String location){
+        return true;
+    }
+
     protected void setStatusMessage(String message) {
         TextView statusLabel = findViewById(R.id.statusLabel);
         statusLabel.setText(message);
@@ -84,6 +88,8 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         EditText urgency = findViewById(R.id.inputUrgency);
         EditText date = findViewById(R.id.enterDate);
         EditText pay = findViewById(R.id.inputPay);
+        EditText locationEt = findViewById(R.id.locationEt);
+        Button addLocationBt = findViewById(R.id.add_locationBt);
 
         switch (view.getId()) {
             case R.id.submitTask:
@@ -101,6 +107,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 }
                 else if (isEmptyPay(pay.getText().toString().trim())) {
                     setStatusMessage("Error: Please fill in Pay");
+
                 } else {
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
                     list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString());
