@@ -28,7 +28,7 @@
         android:layout_height="37dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="34dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="120dp"
         android:background="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@+id/Submit1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_height="46dp"
         android:layout_marginStart="41dp"
         android:layout_marginEnd="63dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="170dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +120,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="57dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="120dp"
         android:text="Email"
         app:layout_constraintBottom_toTopOf="@+id/AddPayment"
         app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +193,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="170dp"
         android:text="Add Paypal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -224,6 +224,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationStatus" />
+
+    <Button
+        android:id="@+id/addLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="20dp"
+        android:text="Add Location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Email" />
+
+    <EditText
+        android:id="@+id/currentLocation"
+        android:layout_width="159dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="34dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
