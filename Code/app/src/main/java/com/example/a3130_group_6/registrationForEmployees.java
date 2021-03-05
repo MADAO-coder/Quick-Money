@@ -170,7 +170,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
             switchToEmployer();
         }
         else if(R.id.addLocationButton == v.getId()){
-
+            switchToEmployeeMap();
         }
     }
 }
