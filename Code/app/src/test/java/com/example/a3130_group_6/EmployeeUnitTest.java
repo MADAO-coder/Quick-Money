@@ -29,4 +29,5 @@ public class EmployeeUnitTest {
         assertEquals(passWord, employee.getPassword());
         assertNotEquals("password2",employee.getPassword());
     }
+
 }
