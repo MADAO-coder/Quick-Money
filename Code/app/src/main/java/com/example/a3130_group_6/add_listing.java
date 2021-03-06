@@ -129,7 +129,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 
             case R.id.add_locationBt:
-                employeeMapSwitch();
+                //employeeMapSwitch();
 
         }
     }
