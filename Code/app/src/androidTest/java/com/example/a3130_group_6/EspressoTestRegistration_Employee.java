@@ -69,10 +69,16 @@ public class EspressoTestRegistration_Employee {
 
     @Test
     public void checkRegistrationEmployeePasswordInvalidation(){
+        onView(withId(R.id.name)).perform(typeText("testing"));
+        onView(withId(R.id.username)).perform(typeText("new_worker"));
         onView(withId(R.id.password)).perform(typeText("123"));
         onView(withId(R.id.vpassword)).perform(typeText("1234"));
+        onView(withId(R.id.phone)).perform(typeText("999000111"));
+        onView(withId(R.id.email)).perform(typeText("345@dal.ca"));
+        closeSoftKeyboard();
         onView(withId(R.id.Submit1)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("password is not matched")));
+
     }
 
     @Test

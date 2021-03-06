@@ -99,6 +99,7 @@ public class EmployeeMapActivity extends AppCompatActivity implements OnMapReady
         context = EmployeeMapActivity.this;
         activity = EmployeeMapActivity.this;
 
+        // spinner created to create a dropdown menu with the radius array
         spinner = findViewById(R.id.spinner);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, radius_array));
 

@@ -56,6 +56,7 @@ public class PermissionUtil {
                 }
             }
         } else {
+            // if permission granted
             listener.onPermissionGranted();
         }
     }
