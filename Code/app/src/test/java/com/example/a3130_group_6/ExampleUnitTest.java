@@ -76,7 +76,7 @@ public class ExampleUnitTest {
     @Test
     public void checkIfLocationEmpty(){
         assertTrue(addListing.isEmptyLocation(""));
-        assertFalse(addListing.isEmptyPay("Halifax"));
+        assertFalse(addListing.isEmptyLocation("Halifax"));
     }
 
     public void searchBarType(){

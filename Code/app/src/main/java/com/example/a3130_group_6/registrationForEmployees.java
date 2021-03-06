@@ -139,6 +139,10 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         toast.show();
     }
 
+    protected boolean isEmptyLocation(String location){
+        return true;
+    }
+
     public void onClick(View v) {
         if (R.id.Submit1 ==v.getId()){//when the submit button is clicked, add employee
             if(!validRegistrationInformation()){

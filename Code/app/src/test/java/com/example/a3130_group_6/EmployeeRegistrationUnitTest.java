@@ -13,4 +13,9 @@ public class EmployeeRegistrationUnitTest {
         assertTrue( regEmployee.isPasswordMatched("123456789", "123456789"));
         assertFalse(regEmployee.isPasswordMatched("123456789", "12345678"));
     }
+    @Test
+    public void checkIfLocationEmpty(){
+        assertTrue(regEmployee.isEmptyLocation(""));
+        assertFalse(regEmployee.isEmptyLocation("Halifax"));
+    }
 }

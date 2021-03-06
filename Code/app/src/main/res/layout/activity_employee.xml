@@ -235,7 +235,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Email" />
 
-    <EditText
+    <TextView
         android:id="@+id/currentLocation"
         android:layout_width="159dp"
         android:layout_height="45dp"
