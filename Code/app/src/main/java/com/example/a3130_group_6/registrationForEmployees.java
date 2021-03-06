@@ -1,7 +1,14 @@
 package com.example.a3130_group_6;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.util.PatternsCompat;
 
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +30,9 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
     checkExistingUserName user;
+    AddListingMap location;
+    Context context;
+    Activity activity;
 
 
     @Override
@@ -33,12 +44,12 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         vpassword = findViewById(R.id.vpassword);
-        phone= findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
+        phone = findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
         email = findViewById(R.id.email);
         addPayment = findViewById(R.id.AddPayment);
         submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.Employer);
-        homeBt =  findViewById(R.id.home2);
+        homeBt = findViewById(R.id.home2);
         statusLabel = findViewById(R.id.statusLabel);
         addLocationButton = findViewById(R.id.addLocationButton);
         employeeBt.setOnClickListener(this);
@@ -46,11 +57,14 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         submitBt.setOnClickListener(this);
         addLocationButton.setOnClickListener(this);
         employeeUsernameError = findViewById(R.id.employeeUserError);
+        context = registrationForEmployees.this;
+        activity = registrationForEmployees.this;
 
         user = new checkExistingUserName();
+        location = new AddListingMap();
         user.validateUsername(username, employeeUsernameError);
-
     }
+
     protected boolean isUserNameEmpty(){
         return getInputUserName().equals("");
     }
@@ -94,6 +108,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         employeeRef  = FirebaseDatabase.getInstance().getReference();
         employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
     }
+
 
 
     protected String getInputUserName(){
@@ -143,6 +158,93 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         return location.isEmpty();
     }
 
+    // Map Code Start
+    protected void checkPermissions() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkLocationPermission(activity, context, location.LOCATION_PERMISSION, location.LOCATION_PREF);
+        } else {
+        }
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private void checkLocationPermission(final Activity activity, final Context context, final String Permission, final String prefName) {
+
+        PermissionUtil.checkPermission(activity, context, Permission, prefName,
+                new PermissionUtil.PermissionAskListener() {
+                    @Override
+                    public void onPermissionAsk() {
+                        ActivityCompat.requestPermissions(activity,
+                                new String[]{Permission},
+                                location.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                    }
+
+                    @Override
+                    public void onPermissionPreviouslyDenied() {
+                        //show a dialog explaining is permission denied previously , but app require it and then request permission
+
+                        showToast("Permission previously Denied.");
+
+                        ActivityCompat.requestPermissions(activity,
+                                new String[]{Permission},
+                                location.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                    }
+
+                    @Override
+                    public void onPermissionDisabled() {
+                        // permission check box checked and permission denied previously .
+                        askUserToAllowPermissionFromSetting();
+                    }
+
+                    @Override
+                    public void onPermissionGranted() {
+                        showToast("Permission Granted.");
+                    }
+                });
+    }
+
+    private void askUserToAllowPermissionFromSetting() {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        // set title
+        alertDialogBuilder.setTitle("Permission Required:");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Kindly allow Permission from App Setting, without this permission app could not show maps.")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivityForResult(intent, location.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                        showToast("Permission forever Disabled.");
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+    // Map Code end
+
+
     public void onClick(View v) {
         if (R.id.Submit1 ==v.getId()){//when the submit button is clicked, add employee
             if(!validRegistrationInformation()){
@@ -162,16 +264,23 @@ public class registrationForEmployees extends AppCompatActivity implements View.
                 employees.setName(getName());
                 saveEmployeeToDataBase(employees);
                 switchToHome();
-            }
-        }
-        else if(R.id.home2 == v.getId()){
-            switchToHome();
-        }
-        else if(R.id.Employer == v.getId()){
-            switchToEmployer();
-        }
-        else if(R.id.addLocationButton == v.getId()){
-            switchToEmployeeMap();
         }
     }
+        else if(R.id.home2 == v.getId()){
+        switchToHome();
+    }
+        else if(R.id.Employer == v.getId()){
+        switchToEmployer();
+    }
+        else if(R.id.addLocationButton == v.getId()){
+            // ask for permissions
+            checkPermissions();
+
+            // add method to get the current lat long
+            // show the address in the textview
+        }
+    }
+
+
+
 }

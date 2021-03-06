@@ -49,6 +49,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     public static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     public static final String LOCATION_PERMISSION = android.Manifest.permission.ACCESS_FINE_LOCATION;
     public static final String LOCATION_PREF = "locationPref";
+    checkExistingUserName user;
 
     Context context;
     Activity activity;
@@ -68,16 +69,6 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     ArrayList<Places> placesList = new ArrayList<>();
     PlacesAdapter adapter;
     ListView list;
-
-    //test inside
-    /*double mLatitude = 22.9809425;
-    double mLongitude = 72.6051794;*/
-    /*double mLatitude = 45.44837;
-    double mLongitude = -75.7170234;*/
-
-    //test outside
-   /* double mLatitude = 3.182180;
-    double mLongitude = 101.688777;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +91,8 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         spinner = findViewById(R.id.spinner);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, radius_array));
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            checkLocationPermission(activity, context, LOCATION_PERMISSION, LOCATION_PREF);
-        } else {
-        }
+        user = new checkExistingUserName();
+        checkPermissions();
 
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -113,11 +102,6 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-             // public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                        int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
@@ -146,9 +130,20 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         list.setAdapter(adapter);
     }
 
+    protected void checkPermissions() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkLocationPermission(activity, context, LOCATION_PERMISSION, LOCATION_PREF);
+        } else {
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     private void checkLocationPermission(final Activity activity, final Context context, final String Permission, final String prefName) {
@@ -157,7 +152,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
                 new PermissionUtil.PermissionAskListener() {
                     @Override
                     public void onPermissionAsk() {
-                        ActivityCompat.requestPermissions(AddListingMap.this,
+                        ActivityCompat.requestPermissions(activity,
                                 new String[]{Permission},
                                 MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                     }
@@ -168,7 +163,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
 
                         showToast("Permission previously Denied.");
 
-                        ActivityCompat.requestPermissions(AddListingMap.this,
+                        ActivityCompat.requestPermissions(activity,
                                 new String[]{Permission},
                                 MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                     }
@@ -233,7 +228,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
                     // permission was granted, yay! Do the task you need to do.
                     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
                 } else {
-                    showToast("Permission denied,without permission can't access maps.");
+                     showToast("Permission denied,without permission can't access maps.");
                     // permission denied, boo! Disable the functionality that depends on this permission.
                 }
                 return;
@@ -241,31 +236,15 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
-    public void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-    }
-
     @Override
     public void onMapReady(GoogleMap map) {
         googleMap = map;
-
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(22.9809425, 72.6051794);
-       /* googleMap.addMarker(new MarkerOptions().position(sydney));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
-        // Changing map type
-//        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         // Showing / hiding your current location
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         googleMap.setMyLocationEnabled(true);
@@ -304,8 +283,6 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
                 .strokeWidth(8);
         mCircle = googleMap.addCircle(circleOptions);
 
-       /* MarkerOptions markerOptions = new MarkerOptions().position(position);
-        mMarker = googleMap.addMarker(markerOptions);*/
     }
 
     LocationListener listener = new LocationListener() {
@@ -338,13 +315,6 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
             adapter.notifyDataSetChanged();
 
             if (googleMap != null) {
-               /* if (isFirstLaunch) {
-                    MarkerOptions mOptions = new MarkerOptions().position(currentLocation);
-                    myMarker = mMap.addMarker(mOptions);
-                    isFirstLaunch = false;
-                } else {
-                    myMarker.setPosition(currentLocation);
-                }*/
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
             }
         }

@@ -20,8 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
-
-    FirebaseDatabase database = null;
     Listing list;
 
     @Override
@@ -39,7 +37,6 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
         Button addLocationBt = findViewById(R.id.add_locationBt);
         addLocationBt.setOnClickListener(this);
-
     }
 
     protected boolean isEmptyTaskTitle(String task) {
