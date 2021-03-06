@@ -1,20 +1,18 @@
 package com.example.a3130_group_6;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,9 +22,12 @@ import java.io.IOException;
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseDatabase database = null;
+    Listing list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
 
@@ -35,11 +36,6 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
         Button submitButton = findViewById(R.id.submitTask);
         submitButton.setOnClickListener(this);
-
-        initializeDatabase();
-    }
-
-    private void initializeDatabase() {
     }
 
     protected boolean isEmptyTaskTitle(String task) {
@@ -105,12 +101,19 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 }
                 else if (isEmptyPay(pay.getText().toString().trim())) {
                     setStatusMessage("Error: Please fill in Pay");
+                } else {
+                    DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString());
+                    System.out.println(loginPage.validEmployer[0]);
+
+                    listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").push().setValue(list);
                 }
                 break;
             case R.id.imageButton:
                 startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
         }
     }
+
 
     public static final int GET_FROM_GALLERY = 1;
 

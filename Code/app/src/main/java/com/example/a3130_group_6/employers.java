@@ -23,7 +23,7 @@ public class employers extends AppCompatActivity {
         email = findViewById(R.id.email);
         home = findViewById(R.id.Employer);
         addPayment = findViewById(R.id.AddPayment);
-        submit = findViewById(R.id.Submit);
+        submit = findViewById(R.id.Submit1);
         switchToEmployee = findViewById(R.id.emp);
         switchToEmployee.setOnClickListener(this::onClick);
         home.setOnClickListener(this::onClick);

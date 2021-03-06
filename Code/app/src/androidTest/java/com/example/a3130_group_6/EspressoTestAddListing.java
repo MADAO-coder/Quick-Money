@@ -55,7 +55,7 @@ public class EspressoTestAddListing {
     }
 
     @Test
-    public void checkIfDateIsEmpty() {
+    public void checkIfDateIsEmpty() throws InterruptedException {
         onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
         onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
         onView(withId(R.id.inputUrgency)).perform(typeText("1"));
@@ -69,9 +69,13 @@ public class EspressoTestAddListing {
     @Test
     public void checkIfPayIsEmpty() {
         onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        closeSoftKeyboard();
         onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        closeSoftKeyboard();
         onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        closeSoftKeyboard();
         onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        closeSoftKeyboard();
         onView(withId(R.id.inputPay)).perform(typeText(""));
         closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());

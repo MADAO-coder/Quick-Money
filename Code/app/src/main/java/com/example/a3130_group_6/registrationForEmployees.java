@@ -16,12 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
-    private Employee employee;
     Button homeBt,addPayment,submitBt, employeeBt;//creating buttons and display variables
-    TextView registrationStatus;
-    DatabaseReference employerRef = null;
+    TextView employeeUsernameError;
+    TextView statusLabel;
     DatabaseReference employeeRef = null;
-
+    Employee employees = new Employee();
+    checkExistingUserName user = new checkExistingUserName();
 
 
     @Override
@@ -36,13 +36,16 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         phone= findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
         email = findViewById(R.id.email);
         addPayment = findViewById(R.id.AddPayment);
-        submitBt = findViewById(R.id.Submit);
+        submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.Employer);
         homeBt =  findViewById(R.id.home2);
-
+        statusLabel = findViewById(R.id.statusLabel);
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
+        employeeUsernameError = findViewById(R.id.employeeUserError);
+
+        user.validateUsername(username, employeeUsernameError);
 
     }
     protected boolean isUserNameEmpty(){
@@ -64,20 +67,29 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     protected boolean isValidEmail(String email){
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
-/*
-Checking registration information
- */
+
+    protected String getInputVpassword(){
+        return vpassword.getText().toString().trim();
+    }
+
+    protected boolean isPasswordMatched(String password, String vPassword){
+        return (password.equals(vPassword));
+    }
+
+    /*
+    Checking registration information
+     */
     protected boolean validRegistrationInformation() {
         return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
                 && isValidEmail(getInputEmailAddress());
     }
-/*
-Saving employee information to the database
- */
-    protected void saveEmployeeToDataBase(Object Employers) {
+    /*
+    Saving employee information to the database
+     */
+    protected void saveEmployeeToDataBase(Object Employee) {
         //save object user to database to Firebase
         employeeRef  = FirebaseDatabase.getInstance().getReference();
-        employeeRef.child(String.valueOf(System.currentTimeMillis())).setValue(Employers);
+        employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
     }
 
 
@@ -98,25 +110,42 @@ Saving employee information to the database
     }
 
     public String getName() { return name.getText().toString().trim(); }
-/*
-Changing pages to see employer registration
- */
+    /*
+    Changing pages to see employer registration
+     */
     protected void switchToEmployer(){
         Intent employer = new Intent(this, registrationForEmployers.class);
         startActivity(employer);
     }
-/*
-Switch to login page
- */
+    /*
+    Switch to login page
+     */
     protected void switchToHome(){
         Intent back = new Intent(this, loginPage.class);
         startActivity(back);
     }
 
+    // method to create a Toast
+    private void createToast(String message){
+        Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
+        toast.show();
+    }
+
     public void onClick(View v) {
-        if (R.id.Submit==v.getId()){//when the submit button is clicked, add employee
-            if(validRegistrationInformation()){
-                Employee employees = new Employee();
+        if (R.id.Submit1 ==v.getId()){//when the submit button is clicked, add employee
+            if(!validRegistrationInformation()){
+                createToast("Empty or invalid registration information");
+            }
+            else if(!isPasswordMatched(getInputPassword(), getInputVpassword())){
+                createToast("password is not matched");
+            }
+            else if(user.checkUserNameError(employeeUsernameError)){
+                createToast("Please change the username");
+            }
+            else if(!isPasswordMatched(getInputPassword(), getInputVpassword())){//when the password and verification password are not matched
+                statusLabel.setText("password is not matched");
+            }
+            else {
                 employees.setUserName(getInputUserName());
                 employees.setPassword(getInputPassword());
                 employees.setEmailAddress(getInputEmailAddress());

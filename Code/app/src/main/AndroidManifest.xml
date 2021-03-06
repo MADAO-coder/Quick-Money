@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3130_Group_6">
+        <activity android:name=".EmployeeHomepage"/>
+           
         <activity android:name=".registrationForEmployees"></activity>
         <activity android:name=".registrationHome" />
         <activity android:name=".registrationForEmployers" />
