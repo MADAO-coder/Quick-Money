@@ -14,6 +14,8 @@ import androidx.core.util.PatternsCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
     Button homeBt,addPayment,submitBt, employeeBt;//creating buttons and display variables
@@ -136,9 +138,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         if (R.id.Submit1 ==v.getId()){//when the submit button is clicked, add employee
             if(!validRegistrationInformation()){
                 createToast("Empty or invalid registration information");
-            }
-            else if(!isPasswordMatched(getInputPassword(), getInputVpassword())){
-                createToast("password is not matched");
             }
             else if(user.checkUserNameError(employeeUsernameError)){
                 createToast("Please change the username");
