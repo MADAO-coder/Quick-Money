@@ -36,6 +36,10 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
         Button submitButton = findViewById(R.id.submitTask);
         submitButton.setOnClickListener(this);
+
+        Button addLocationBt = findViewById(R.id.add_locationBt);
+        addLocationBt.setOnClickListener(this);
+
     }
 
     protected boolean isEmptyTaskTitle(String task) {
@@ -73,12 +77,17 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
     }
 
     protected boolean isEmptyLocation(String location){
-        return true;
+        return location.isEmpty();
     }
 
     protected void setStatusMessage(String message) {
         TextView statusLabel = findViewById(R.id.statusLabel);
         statusLabel.setText(message);
+    }
+
+    public void employeeMapSwitch() {
+        Intent EmployeeMapIntent = new Intent(this, AddListingMap.class);
+        startActivity(EmployeeMapIntent);
     }
 
     @Override
@@ -118,6 +127,10 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.imageButton:
                 startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+
+            case R.id.add_locationBt:
+                employeeMapSwitch();
+
         }
     }
 

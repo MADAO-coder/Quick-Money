@@ -81,10 +81,5 @@ public class EspressoTestRegistration_Employee {
 
     }
 
-    @Test
-    public void checkIFMovedToEmployeeMap(){
-        onView(withId(R.id.addLocationButton)).perform(click());
-        intended(hasComponent(EmployeeMapActivity.class.getName()));
-    }
 }
 

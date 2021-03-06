@@ -11,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,8 +32,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import com.example.a3130_group_6.PermissionUtil;
-import com.example.a3130_group_6.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -47,7 +44,7 @@ import com.google.android.gms.maps.model.Marker;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EmployeeMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class AddListingMap extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     public static final String LOCATION_PERMISSION = android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -96,8 +93,8 @@ public class EmployeeMapActivity extends AppCompatActivity implements OnMapReady
         placesList.add(new Places("Clayton Park", new LatLng(44.6541640, -63.6503307), 0));
 
 
-        context = EmployeeMapActivity.this;
-        activity = EmployeeMapActivity.this;
+        context = AddListingMap.this;
+        activity = AddListingMap.this;
 
         // spinner created to create a dropdown menu with the radius array
         spinner = findViewById(R.id.spinner);
@@ -117,8 +114,8 @@ public class EmployeeMapActivity extends AppCompatActivity implements OnMapReady
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
+             // public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                        int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             return;
@@ -160,7 +157,7 @@ public class EmployeeMapActivity extends AppCompatActivity implements OnMapReady
                 new PermissionUtil.PermissionAskListener() {
                     @Override
                     public void onPermissionAsk() {
-                        ActivityCompat.requestPermissions(EmployeeMapActivity.this,
+                        ActivityCompat.requestPermissions(AddListingMap.this,
                                 new String[]{Permission},
                                 MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                     }
@@ -171,7 +168,7 @@ public class EmployeeMapActivity extends AppCompatActivity implements OnMapReady
 
                         showToast("Permission previously Denied.");
 
-                        ActivityCompat.requestPermissions(EmployeeMapActivity.this,
+                        ActivityCompat.requestPermissions(AddListingMap.this,
                                 new String[]{Permission},
                                 MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                     }
@@ -260,7 +257,8 @@ public class EmployeeMapActivity extends AppCompatActivity implements OnMapReady
 //        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         // Showing / hiding your current location
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding

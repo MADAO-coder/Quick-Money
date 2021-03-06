@@ -129,7 +129,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     }
 
     protected void switchToEmployeeMap(){
-        Intent map = new Intent(this, EmployeeMapActivity.class);
+        Intent map = new Intent(this, AddListingMap.class);
         startActivity(map);
     }
 
@@ -140,7 +140,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     }
 
     protected boolean isEmptyLocation(String location){
-        return true;
+        return location.isEmpty();
     }
 
     public void onClick(View v) {

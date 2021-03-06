@@ -32,7 +32,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".EmployeeMapActivity" />
+        <activity android:name=".AddListingMap" />
         <activity android:name=".EmployeeHomepage" />
         <activity android:name=".registrationForEmployees" />
         <activity android:name=".registrationHome" />
