@@ -21,7 +21,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     TextView statusLabel;
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
-    checkExistingUserName user = new checkExistingUserName();
+    checkExistingUserName user;
 
 
     @Override
@@ -45,6 +45,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         submitBt.setOnClickListener(this);
         employeeUsernameError = findViewById(R.id.employeeUserError);
 
+        user = new checkExistingUserName();
         user.validateUsername(username, employeeUsernameError);
 
     }

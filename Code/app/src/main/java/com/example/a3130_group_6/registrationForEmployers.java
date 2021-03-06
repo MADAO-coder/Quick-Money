@@ -22,7 +22,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     TextView statusLabel;
     DatabaseReference employerRef = null;
     Employer employers = new Employer();
-    checkExistingUserName user = new checkExistingUserName();
+    checkExistingUserName user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         username.setOnClickListener(this);
         error = findViewById(R.id.error);
 
+        user = new checkExistingUserName();
         user.validateUsername(username, error);
     }
 
