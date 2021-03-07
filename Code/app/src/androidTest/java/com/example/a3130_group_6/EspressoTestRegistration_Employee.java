@@ -78,7 +78,6 @@ public class EspressoTestRegistration_Employee {
         closeSoftKeyboard();
         onView(withId(R.id.Submit1)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("password is not matched")));
-
     }
 
 }

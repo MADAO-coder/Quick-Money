@@ -39,6 +39,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     Button homeBt, addPayment, submitBt, employeeBt, addLocationButton;//creating buttons and display variables
     TextView employeeUsernameError;
     TextView statusLabel;
+    TextView currentLocationView;
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
 
@@ -75,6 +76,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         employeeUsernameError = findViewById(R.id.employeeUserError);
         context = registrationForEmployees.this;
         activity = registrationForEmployees.this;
+        currentLocationView = findViewById(R.id.currentLocationView);
 
         user = new checkExistingUserName();
         location = new AddListingMap();
@@ -299,7 +301,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     private void getAddressFromLocation(LatLng currentLocation) throws IOException {
         exactAddress = new GetExactAddress(currentLocation, activity);
         exactAddress.createAddress();
-        statusLabel.setText(exactAddress.getAddress());
+        currentLocationView.setText(exactAddress.getAddress());
     }
 
     protected void getCurrentLocation() {

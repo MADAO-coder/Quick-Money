@@ -94,7 +94,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         EditText urgency = findViewById(R.id.inputUrgency);
         EditText date = findViewById(R.id.enterDate);
         EditText pay = findViewById(R.id.inputPay);
-        TextView currentLocation = findViewById(R.id.currentLocation);
+        TextView currentLocation = findViewById(R.id.currentLocationView);
         Button addLocationBt = findViewById(R.id.add_locationBt);
 
         switch (view.getId()) {
