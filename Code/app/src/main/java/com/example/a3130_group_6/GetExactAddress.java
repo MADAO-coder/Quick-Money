@@ -26,7 +26,13 @@ public class GetExactAddress {
 
     protected void createAddress() throws IOException {
         geocoder = new Geocoder(activity,Locale.getDefault());
+        addresses = geocoder.getFromLocation(latitude, longitude, 1);
         address = addresses.get(0).getAddressLine(0);
+        city = addresses.get(0).getLocality();
+        state = addresses.get(0).getAdminArea();
+        country = addresses.get(0).getCountryName();
+        postalCode = addresses.get(0).getPostalCode();
+        knownName = addresses.get(0).getFeatureName();
     }
 
     protected String getAddress() {
