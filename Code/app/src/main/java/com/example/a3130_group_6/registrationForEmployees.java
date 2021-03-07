@@ -82,6 +82,9 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         location = new AddListingMap();
 
         user.validateUsername(username, employeeUsernameError);
+
+        // to ask for permissions from user to share location
+        checkPermissions();
     }
 
     protected boolean isUserNameEmpty() {
@@ -298,12 +301,14 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         }
     };
 
+    // method to get the exact address from latitude and longitude
     private void getAddressFromLocation(LatLng currentLocation) throws IOException {
         exactAddress = new GetExactAddress(currentLocation, activity);
         exactAddress.createAddress();
         currentLocationView.setText(exactAddress.getAddress());
     }
 
+    // method to get the current location
     protected void getCurrentLocation() {
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -348,14 +353,8 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         switchToEmployer();
     }
         else if(R.id.addLocationButton == v.getId()){
-            // ask for permissions
-            checkPermissions();
-
             // add method to get the current lat long
             getCurrentLocation();
-
-
-            // show the address in the textview
         }
     }
 
