@@ -107,6 +107,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
                 5, listener);
 
+
         mapFragment.getMapAsync(this);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
