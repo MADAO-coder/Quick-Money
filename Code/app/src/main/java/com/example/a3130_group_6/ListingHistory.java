@@ -56,21 +56,34 @@ public class ListingHistory extends AppCompatActivity {
         if(listings.size()>0){
             listingsString = new String[listings.size()];
             for(int i=0; i<listingsString.length; i++){
-                listingsString[i] = listings.get(i).getTaskTitle();
+                listingsString[i] = "Task: " + listings.get(i).getTaskTitle() + "\tStatus: " + listings.get(i).getStatus();
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    
+                    doSomething(position);
                 }
             });
         }else{
             NoListing.setVisibility(View.VISIBLE);
         }
     }
-
+    public void doSomething(int position){
+        // sendExtras() listing properties to listing detail page
+        Listing temp = listings.get(position);
+        // 6 == num properties of a listing
+        String[] details = new String[6];
+        details[0] = temp.getTaskTitle();
+        details[1] = temp.getTaskDescription();
+        details[2] = temp.getUrgency();
+        details[3] = temp.getDate();
+        details[4] = temp.getPay();
+        details[5] = temp.getStatus();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, details);
+        listView.setAdapter(adapter);
+    }
     // function is asynchronous, causing issues
     //Read data from dataBase and make employers' userName and password into ArrayList.
     public void dbReadEmployer(DatabaseReference db){
