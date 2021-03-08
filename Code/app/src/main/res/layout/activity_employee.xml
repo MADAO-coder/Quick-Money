@@ -78,7 +78,8 @@
         android:background="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@+id/vpassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/vpassword"
@@ -89,7 +90,9 @@
         android:background="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@+id/phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        android:inputType="textPassword"/>
+
 
     <EditText
         android:id="@+id/phone"
@@ -101,7 +104,8 @@
         app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vpassword"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        />
 
     <TextView
         android:id="@+id/Username"
@@ -133,6 +137,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="57dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="11dp"
         android:text="Phone"
         app:layout_constraintBottom_toTopOf="@+id/Email"
         app:layout_constraintStart_toStartOf="parent"
@@ -216,14 +221,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="568dp"
         android:layout_marginEnd="192dp"
         android:layout_marginBottom="125dp"
-        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrationStatus" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

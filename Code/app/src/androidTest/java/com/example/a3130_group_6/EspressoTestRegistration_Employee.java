@@ -1,8 +1,12 @@
 package com.example.a3130_group_6;
 
+import android.text.InputType;
+import android.widget.EditText;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +17,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withInputType;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 /**
@@ -22,9 +27,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
  */
 @RunWith(AndroidJUnit4.class)
 public class EspressoTestRegistration_Employee {
-
     @Rule
     public ActivityScenarioRule<registrationForEmployees> RuleRegistration = new ActivityScenarioRule<>(registrationForEmployees.class);
+    public EditText password,vPassword;
+
+    @BeforeClass
+    public static void setup() {
+
+    }
 
     @Test
     public void checkIfRegistrationEmployeeShows() {
@@ -36,6 +46,15 @@ public class EspressoTestRegistration_Employee {
         onView(withId(R.id.VPassword)).check(matches(withText("Verify Password")));
         onView(withId(R.id.Email)).check(matches(withText("Email")));
     }
+
+    @Test
+    public void isPasswordVerified(){
+        onView(withId(R.id.password)).perform(typeText("password"));
+        onView(withId(R.id.vpassword)).perform(typeText("password"));
+        onView(withId(R.id.password)).check(matches(withText("password")));
+        onView(withId(R.id.vpassword)).check(matches(withText("password")));
+    }
+
 
     @Test
     public void checkIfUserNameShort() {
@@ -59,10 +78,16 @@ public class EspressoTestRegistration_Employee {
 
     @Test
     public void checkRegistrationEmployeePasswordInvalidation(){
+        onView(withId(R.id.name)).perform(typeText("testing"));
+        onView(withId(R.id.username)).perform(typeText("new_worker"));
         onView(withId(R.id.password)).perform(typeText("123"));
         onView(withId(R.id.vpassword)).perform(typeText("1234"));
+        onView(withId(R.id.phone)).perform(typeText("999000111"));
+        onView(withId(R.id.email)).perform(typeText("345@dal.ca"));
+        closeSoftKeyboard();
         onView(withId(R.id.Submit1)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("password is not matched")));
+        
     }
 }
 

@@ -37,6 +37,7 @@
          android:layout_above="@+id/registerBt"
         android:layout_marginTop="3dp"
         android:paddingLeft="15dp"
+        android:inputType="textPassword"
 
         />
 
