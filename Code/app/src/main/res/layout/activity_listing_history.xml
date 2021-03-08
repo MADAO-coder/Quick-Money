@@ -19,7 +19,7 @@
         tools:visibility="invisible" />
 
     <ListView
-        android:id="@+id/listingHistoryView"
+        android:id="@+id/employeeList"
         android:layout_width="348dp"
         android:layout_height="97dp"
         android:layout_marginTop="40dp"

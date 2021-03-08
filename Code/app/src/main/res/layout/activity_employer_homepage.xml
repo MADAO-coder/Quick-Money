@@ -32,7 +32,7 @@
         tools:visibility="visible" />
 
     <ListView
-        android:id="@+id/listingHistoryView"
+        android:id="@+id/employeeList"
         android:layout_width="405dp"
         android:layout_height="311dp"
         android:isScrollContainer="true"
@@ -58,7 +58,7 @@
         android:clickable="false"
         android:text="Available Workers In Your Area"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/listingHistoryView"
+        app:layout_constraintBottom_toTopOf="@+id/employeeList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,17 +108,16 @@
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <Button
-        android:id="@+id/ListingHistory"
-        android:layout_width="141dp"
-        android:layout_height="84dp"
-        android:layout_marginBottom="2dp"
-        android:onClick="switchListingHistory"
-        android:text="Switch Listing History"
+        android:id="@+id/profileButton"
+        android:layout_width="98dp"
+        android:layout_height="45dp"
+        android:onClick="profileSwitch"
+        android:text="Profile"
         app:layout_constraintBottom_toTopOf="@+id/searchBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBanner"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/homeButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.073" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,12 +63,12 @@ public class EspressoTestEmployerHomePage {
     @Test
     public void checkEmployeeList(){
         //in debug its clear to see items are updating on page as well :)
-        onView(withId(R.id.listingHistoryView)).check(matches(isDisplayed()));
+        onView(withId(R.id.employeeList)).check(matches(isDisplayed()));
     }
     @Test
     public void checkEmployeeListScroll(){
-        onView(withId(R.id.listingHistoryView)).perform(swipeUp());
-        onView(withId(R.id.listingHistoryView)).perform(swipeDown());
+        onView(withId(R.id.employeeList)).perform(swipeUp());
+        onView(withId(R.id.employeeList)).perform(swipeDown());
     }
     /** Add task intent check**/
     @Test

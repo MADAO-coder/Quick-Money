@@ -39,7 +39,7 @@ public class ListingHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_history);
         NoListing = findViewById(R.id.noListingMessage);
-        listView = findViewById(R.id.listingHistoryView);
+        listView = findViewById(R.id.employeeList);
         listings = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
