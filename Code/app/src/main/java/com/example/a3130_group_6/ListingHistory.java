@@ -2,6 +2,7 @@ package com.example.a3130_group_6;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +45,12 @@ public class ListingHistory extends AppCompatActivity {
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
         dbReadEmployer(employerRef);
+        /* To-Do
+        * change size of list view to fill more of screen
+        * add listings label so know what loaded element is
+        * add open/close status to a listing
+        * add routing to listing history page on each element
+        * */
     }
     public void updateListing(){
         if(listings.size()>0){
@@ -53,6 +60,12 @@ public class ListingHistory extends AppCompatActivity {
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    
+                }
+            });
         }else{
             NoListing.setVisibility(View.VISIBLE);
         }
