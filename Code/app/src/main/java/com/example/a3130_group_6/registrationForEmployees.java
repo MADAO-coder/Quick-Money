@@ -25,10 +25,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
@@ -231,6 +229,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
 //        else if((requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)){
 //            Bundle extras = data.getExtras();
