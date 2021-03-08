@@ -27,8 +27,8 @@ public class EmployeeHomepage extends AppCompatActivity {
         setContentView(R.layout.activity_employee_homepage);
         setEmployeeList();
 
-        Button logout = findViewById(R.id.logout);
-        logout.setOnClickListener(this::logout);
+//        Button logout = findViewById(R.id.logout);
+//        logout.setOnClickListener(this::logout);
     }
 
     protected void setEmployeeList(){
@@ -47,13 +47,13 @@ public class EmployeeHomepage extends AppCompatActivity {
     }
 
 
-    public void logout(View view){
-    String username =employee.
-        if (!employee.equals(null)){
-            employee.getDatabase().getReference().
-        }
-
-
-    }
+//    public void logout(View view){
+//    String username =employee.
+//        if (!employee.equals(null)){
+//            employee.getDatabase().getReference().
+//        }
+//
+//
+//    }
 
 }

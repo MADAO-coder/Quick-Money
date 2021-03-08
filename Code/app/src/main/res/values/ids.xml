@@ -3,4 +3,7 @@
     <item name="taskList" type="id" />
     <item name="homeButton" type="id" />
     <item name="Employee" type="id" />
+    <item name="selfDescription" type="id" />
+    <item name="SelfDescription" type="id" />
+    <item name="Resume" type="id" />
 </resources>
