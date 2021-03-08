@@ -92,7 +92,7 @@ public class EmployeeProfile extends AppCompatActivity {
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
         // 95 to 102 attempts to update without overwriting
         Map<String, Object> updates = new HashMap<>();
-        updates.put(username, employee.getUserName());
+        updates.put("userName", employee.getUserName());
         updates.put("password", employee.getPassword());
         updates.put("emailAddress", employee.getEmail());
         updates.put("name", employee.getName());
