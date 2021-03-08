@@ -3,9 +3,11 @@ package com.example.a3130_group_6;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,147 +18,104 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import android.view.View;
+
 
 import static com.example.a3130_group_6.loginPage.validEmployee;
-
 
 public class EmployeeProfile extends AppCompatActivity {
 
     DatabaseReference employeeRef = null;
-    private List<String> employee_userName_list = new ArrayList<>();//List to store password getting from db for Employee object
-    private List<String> employee_password_list = new ArrayList<>();//List to store password getting from db for Employee object
+
     String description, username, password, phone, email, name;
-
-    TextView nameView;
-    TextView usernameView;
-    TextView emailView;
-    TextView phoneView;
-    TextView passView;
-
+    EditText descriptionBox, nameView, usernameView, emailView, phoneView, passView;
+    TextView statusView;
+    Button submitButton, refreshButton;
     // use upload profile button to
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
 
+        // get data from database
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
-        dbReadEmployer(employeeRef);//Get data from database
+        dbReadEmployer(employeeRef);
+        // set all views
+        setViews();
 
-        nameView = findViewById(R.id.employeeNameInput);
-        usernameView = findViewById(R.id.employeeUsernameInput);
-        emailView = findViewById(R.id.employeeEmailInput);
-        phoneView = findViewById(R.id.employeePhoneNumInput);
-        passView = findViewById(R.id.employeePassInput);
-
-        nameView.addTextChangedListener(new TextWatcher() {
+        // set button to update to database on click
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // business logic for changing the db profile data
-                // dont call db, will update every time smth changes
-                // use button function to call db one time when all changes in form are desired to be submitted
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+                // Update fields
+                // define new employer object and set fields
+                Employee employee = new Employee();
+                employee.setName(nameView.getText().toString());
+                //employers.setBiography(biography);
+                employee.setUserName(usernameView.getText().toString());
+                employee.setPassword(passView.getText().toString());
+                employee.setPhone(phoneView.getText().toString());
+                employee.setEmailAddress(emailView.getText().toString());
+                // updates to db, but deletes associated listings
+                updateToDatabase(employee);
             }
         });
-        // asynchronous task function enables front end thread to wait for backend thread
-        // need to setup so UI thread waits for backend thread
-        // google resources + ask vikash
-
-        usernameView.addTextChangedListener(new TextWatcher() {
+        // set button to refresh profile fields on click
+        refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // business logic for changing the db profile data
-                // dont call db, will update every time smth changes
-                // use button function to call db one time when all changes in form are desired to be submitted
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        emailView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // business logic for changing the db profile data
-                // dont call db, will update every time smth changes
-                // use button function to call db one time when all changes in form are desired to be submitted
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        phoneView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // business logic for changing the db profile data
-                // dont call db, will update every time smth changes
-                // use button function to call db one time when all changes in form are desired to be submitted
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        passView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // business logic for changing the db profile data
-                // dont call db, will update every time smth changes
-                // use button function to call db one time when all changes in form are desired to be submitted
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+                // Do something in response to button click
+                refreshPage();
             }
         });
 
     }
+    public void setViews(){
+        //statusView = findViewById(R.id.statusView);
+        nameView = findViewById(R.id.employeeNameInput);
+        descriptionBox = findViewById(R.id.descriptionBox);
+        usernameView = findViewById(R.id.employeeUsernameInput);
+        passView = findViewById(R.id.employeePassInput);
+        phoneView = findViewById(R.id.employeePhoneNumInput);
+        emailView = findViewById(R.id.employeeEmailInput);
+        submitButton = (Button) findViewById(R.id.saveProfileUpdate);
+        refreshButton = (Button) findViewById(R.id.refreshButton);
+    }
 
+    public void updateToDatabase(Employee employee){
+        // save object user to database to Firebase
+        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
+        // 95 to 102 attempts to update without overwriting
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(username, employee.getUserName());
+        updates.put("password", employee.getPassword());
+        updates.put("emailAddress", employee.getEmail());
+        updates.put("name", employee.getName());
+        updates.put("phone", employee.getPhone());
+        employeeRef.updateChildren(updates);
+        // below sets entirely new employee object
+        //employeeRef.setValue(employer);
+        //statusView.setText("Profile updated to database!");
+    }
+    public void refreshPage(){
+        // save object user to database to Firebase
+        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        dbReadEmployer(employeeRef);
+        //statusView.setText("Profile changes refreshed");
+    }
 
     public void loadProfile(){
         nameView.setText(name);
+        descriptionBox.setText(description);
         usernameView.setText(username);
-        emailView.setText(email);
-        phoneView.setText(phone);
         passView.setText(password);
+        phoneView.setText(phone);
+        emailView.setText(email);
     }
 
     //code from loginPage
@@ -166,18 +125,18 @@ public class EmployeeProfile extends AppCompatActivity {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> employeeItr = dataSnapshot.getChildren().iterator();
+                Iterator<DataSnapshot> employerItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
-                while (employeeItr.hasNext()) {
+                while (employerItr.hasNext()) {
                     //assume there will always be at least one employer
-                    Employee employee = employeeItr.next().getValue(Employee.class);
+                    Employer employer = employerItr.next().getValue(Employer.class);
                     //need to check against correct value to retrieve the correct location
-                    if (employee.getUserName().equals(validEmployee[0])){
-                        username = employee.getUserName();
-                        password = employee.getPassword();
-                        phone = employee.getPhone();
-                        email = employee.getEmail();
-                        name = employee.getName();
+                    if (employer.getUserName().equals(validEmployee[0])){
+                        username = employer.getUserName();
+                        password = employer.getPassword();
+                        phone = employer.getPhone();
+                        email = employer.getEmailAddress();
+                        name = employer.getName();
                         break;
                     }
                 }
@@ -192,5 +151,6 @@ public class EmployeeProfile extends AppCompatActivity {
         });
 
     }
+
 
 }
