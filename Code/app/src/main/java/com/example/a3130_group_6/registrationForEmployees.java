@@ -14,14 +14,16 @@ import androidx.core.util.PatternsCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
-    private Employee employee;
     Button homeBt,addPayment,submitBt, employeeBt;//creating buttons and display variables
-    TextView registrationStatus;
-    DatabaseReference employerRef = null;
+    TextView employeeUsernameError;
+    TextView statusLabel;
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
+    checkExistingUserName user;
 
 
     @Override
@@ -36,13 +38,17 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         phone= findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
         email = findViewById(R.id.email);
         addPayment = findViewById(R.id.AddPayment);
-        submitBt = findViewById(R.id.Submit);
+        submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.Employer);
         homeBt =  findViewById(R.id.home2);
-
+        statusLabel = findViewById(R.id.statusLabel);
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
+        employeeUsernameError = findViewById(R.id.employeeUserError);
+
+        user = new checkExistingUserName();
+        user.validateUsername(username, employeeUsernameError);
 
     }
     protected boolean isUserNameEmpty(){
@@ -69,8 +75,8 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         return vpassword.getText().toString().trim();
     }
 
-    protected boolean isPasswordMatched(){
-        return (getInputPassword().equals(getInputVpassword()));
+    protected boolean isPasswordMatched(String password, String vPassword){
+        return (password.equals(vPassword));
     }
 
     /*
@@ -122,19 +128,24 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         startActivity(back);
     }
 
+    // method to create a Toast
+    private void createToast(String message){
+        Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
+        toast.show();
+    }
+
     public void onClick(View v) {
-        if (R.id.Submit==v.getId()){//when the submit button is clicked, add employee
+        if (R.id.Submit1 ==v.getId()){//when the submit button is clicked, add employee
             if(!validRegistrationInformation()){
-                Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
-                toast.show();
+                createToast("Empty or invalid registration information");
             }
-            else if(!isPasswordMatched()){
-                Toast toast = Toast.makeText(this,"password is not matched",Toast.LENGTH_LONG);
-                toast.show();
+            else if(user.checkUserNameError(employeeUsernameError)){
+                createToast("Please change the username");
             }
-
+            else if(!isPasswordMatched(getInputPassword(), getInputVpassword())){//when the password and verification password are not matched
+                statusLabel.setText("password is not matched");
+            }
             else {
-
                 employees.setUserName(getInputUserName());
                 employees.setPassword(getInputPassword());
                 employees.setEmailAddress(getInputEmailAddress());

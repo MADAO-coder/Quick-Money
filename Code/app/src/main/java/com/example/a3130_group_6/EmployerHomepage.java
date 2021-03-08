@@ -76,7 +76,7 @@ public class EmployerHomepage extends AppCompatActivity {
         for(String individual : employees) {
             if(individual.isEmpty()){
                 return false;
-            }else{
+            } else {
                 return true;
             }
         }

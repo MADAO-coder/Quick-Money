@@ -1,30 +1,23 @@
 package com.example.a3130_group_6;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
 
@@ -122,35 +115,6 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-//    public void dbRead(DatabaseReference db) {
-//        db.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                Iterator<DataSnapshot> employerItr = dataSnapshot.getChildren().iterator();
-//                //Read data from data base.
-//
-//                // details of the current user
-//                String employerUserName = loginPage.validEmployer[0];
-//                String employerPassword = loginPage.validEmployer[1];
-//
-//                while (employerItr.hasNext()) {
-//                    Employer employer = employerItr.next().getValue(Employer.class);
-//                    if (employer.getUserName() == employerUserName &&
-//                    employer.getPassword() == employerPassword) {
-//                        db.child(String.valueOf(employer)).child("Listing").setValue(list);
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//
-//            }
-//        });
-//    }
 
     public static final int GET_FROM_GALLERY = 1;
 
