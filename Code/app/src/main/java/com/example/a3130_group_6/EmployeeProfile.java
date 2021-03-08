@@ -3,10 +3,7 @@ package com.example.a3130_group_6;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,10 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import android.view.View;
@@ -94,7 +89,7 @@ public class EmployeeProfile extends AppCompatActivity {
         Map<String, Object> updates = new HashMap<>();
         updates.put("userName", employee.getUserName());
         updates.put("password", employee.getPassword());
-        updates.put("emailAddress", employee.getEmail());
+        updates.put("email", employee.getEmail());
         updates.put("name", employee.getName());
         updates.put("phone", employee.getPhone());
         employeeRef.updateChildren(updates);
@@ -125,18 +120,18 @@ public class EmployeeProfile extends AppCompatActivity {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> employerItr = dataSnapshot.getChildren().iterator();
+                Iterator<DataSnapshot> employeeItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
-                while (employerItr.hasNext()) {
+                while (employeeItr.hasNext()) {
                     //assume there will always be at least one employer
-                    Employer employer = employerItr.next().getValue(Employer.class);
+                    Employee employee = employeeItr.next().getValue(Employee.class);
                     //need to check against correct value to retrieve the correct location
-                    if (employer.getUserName().equals(validEmployee[0])){
-                        username = employer.getUserName();
-                        password = employer.getPassword();
-                        phone = employer.getPhone();
-                        email = employer.getEmailAddress();
-                        name = employer.getName();
+                    if (employee.getUserName().equals(validEmployee[0])){
+                        username = employee.getUserName();
+                        password = employee.getPassword();
+                        phone = employee.getPhone();
+                        email = employee.getEmail();
+                        name = employee.getName();
                         break;
                     }
                 }

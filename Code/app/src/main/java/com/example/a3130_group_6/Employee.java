@@ -4,7 +4,7 @@ public class Employee {
     private String userName;
     private String password;
     private String phone;
-    private String emailAddress;
+    private String email;
     private String name;
     public Employee(){
 
@@ -13,7 +13,7 @@ public class Employee {
         this.userName = userName;
         this.password = password;
         this.phone = phone;
-        this.emailAddress = emailAddress;
+        this.email = emailAddress;
         this.name = name;
     }
 
@@ -30,7 +30,7 @@ public class Employee {
     }
 
     public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+        this.email = emailAddress;
     }
 
     public void setUserName(String userName) {
@@ -49,7 +49,7 @@ public class Employee {
         this.name = name;
     }
 
-    public String getEmail(){return this.emailAddress;}
+    public String getEmail(){return this.email;}
 
     public String getPhone(){return this.phone;}
 }
