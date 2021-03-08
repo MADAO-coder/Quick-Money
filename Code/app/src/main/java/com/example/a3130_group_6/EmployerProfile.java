@@ -91,17 +91,18 @@ public class EmployerProfile extends AppCompatActivity {
     public void updateToDatabase(Employer employer){
         // save object user to database to Firebase
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + username);
-        // 95 to 102 attempts to update without overwriting
-        Map<String, Object> updates = new HashMap<>();
-        updates.put(username, employer.getUserName());
-        updates.put("password", employer.getPassword());
-        updates.put("emailAddress", employer.getEmailAddress());
-        updates.put("name", employer.getName());
-        updates.put("businessName", employer.getBuisnessName());
-        updates.put("phone", employer.getPhone());
-        employerRef.updateChildren(updates);
-        // below sets entirely new employer object
-        //employerRef.setValue(employer);
+
+        /* Map<String, Object> updates = new HashMap<>();
+         * updates.put(username, employer.getUserName());
+         * updates.put("password", employer.getPassword());
+         * updates.put("emailAddress", employer.getEmailAddress());
+         * updates.put("name", employer.getName());
+         * updates.put("businessName", employer.getBuisnessName());
+         * updates.put("phone", employer.getPhone());
+         * employerRef.updateChildren(updates);
+         */
+        // below sets entirely new employer object - overwriting any listings
+        employerRef.setValue(employer);
         statusView.setText("Profile updated to database!");
     }
     public void refreshPage(){
