@@ -9,17 +9,19 @@ public class Listing {
     private String urgency;
     private String date;
     private String pay;
+    private String status;
     private static int count = 0;
 
     public Listing() {
     }
 
-    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay) {
+    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.urgency = urgency;
         this.date = date;
         this.pay = pay;
+        this.status = status;
         count ++;
     }
 
@@ -28,6 +30,13 @@ public class Listing {
     }
     public String getTaskTitle() {
         return taskTitle;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getStatus(){
+        return (String) status;
     }
 
     public void setTaskTitle(String taskTitle) {

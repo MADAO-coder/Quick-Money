@@ -84,6 +84,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         EditText urgency = findViewById(R.id.inputUrgency);
         EditText date = findViewById(R.id.enterDate);
         EditText pay = findViewById(R.id.inputPay);
+        EditText status = findViewById(R.id.enterStatus);
 
         switch (view.getId()) {
             case R.id.submitTask:
@@ -103,7 +104,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                     setStatusMessage("Error: Please fill in Pay");
                 } else {
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString());
+                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString(), status.getText().toString());
                     System.out.println(loginPage.validEmployer[0]);
 
                     listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").push().setValue(list);
