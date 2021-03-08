@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,11 +30,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.InternalHelpers;
 
 import java.io.IOException;
 
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
-    EditText name, username, password, vpassword, phone, email;
+    EditText name, username, password, vpassword, phone, email, inputRadius;
     Button homeBt, addPayment, submitBt, employeeBt, addLocationButton;//creating buttons and display variables
     TextView employeeUsernameError;
     TextView statusLabel;
@@ -49,7 +49,9 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     Context context;
     Activity activity;
     LocationManager manager;
-    GetExactAddress exactAddress;
+    UserLocation exactAddress;
+    LatLng userCurrentLocation;
+    String radius;
 
 
     @Override
@@ -69,6 +71,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         homeBt = findViewById(R.id.home2);
         statusLabel = findViewById(R.id.statusLabel);
         addLocationButton = findViewById(R.id.addLocationButton);
+        inputRadius = findViewById(R.id.inputRadius);
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
@@ -77,10 +80,11 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         context = registrationForEmployees.this;
         activity = registrationForEmployees.this;
         currentLocationView = findViewById(R.id.currentLocationView);
+        exactAddress = new UserLocation();
+
 
         user = new checkExistingUserName();
         location = new AddListingMap();
-
         user.validateUsername(username, employeeUsernameError);
 
         // to ask for permissions from user to share location
@@ -134,6 +138,8 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         //save object user to database to Firebase
         employeeRef = FirebaseDatabase.getInstance().getReference();
         employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
+        UserLocation present = new UserLocation(userCurrentLocation.latitude, userCurrentLocation.longitude, getInputRadius());
+        employeeRef.child("Employee").child(employees.getUserName()).child("Location").setValue(present);
     }
 
 
@@ -156,6 +162,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     public String getName() {
         return name.getText().toString().trim();
     }
+
 
     /*
     Changing pages to see employer registration
@@ -188,7 +195,10 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         return location.isEmpty();
     }
 
+    //***************
     // Map Code Start
+    // Code for map has been taken from tutorials on Google Map Integration
+    //***************
     protected void checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             checkLocationPermission(activity, context, location.LOCATION_PERMISSION, location.LOCATION_PREF);
@@ -273,11 +283,13 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         alertDialog.show();
     }
 
+
     LocationListener listener = new LocationListener() {
 
         @Override
         public void onLocationChanged(@NonNull Location locate) {
             currentLocation = new LatLng(locate.getLatitude(), locate.getLongitude());
+            userCurrentLocation = currentLocation;
             String message =  "Current location " + currentLocation.latitude + "," + currentLocation.latitude;
             try {
                 getAddressFromLocation(currentLocation);
@@ -303,7 +315,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
 
     // method to get the exact address from latitude and longitude
     private void getAddressFromLocation(LatLng currentLocation) throws IOException {
-        exactAddress = new GetExactAddress(currentLocation, activity);
+        exactAddress = new UserLocation(currentLocation, activity);
         exactAddress.createAddress();
         currentLocationView.setText(exactAddress.getAddress());
     }
@@ -320,9 +332,39 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
                 5, listener);
     }
-
+    //***************
     // Map Code end
+    //***************
 
+    protected String getInputRadius(){
+        return inputRadius.getText().toString();
+    }
+
+    protected String getInputLocation() {return currentLocationView.getText().toString(); }
+
+    // method to check if radius is a valid number
+    protected boolean validateRadius(String radius){
+        int check = 0;
+        try {
+            check = Integer.valueOf(radius);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    // method to check if radius is in a valid range
+    protected boolean validateRadiusRange(String radius){
+        int check= Integer.valueOf(radius);
+        if(check < 0|| check> 25) {
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean isEmptyRadius(String radius){
+        return radius.isEmpty();
+    }
 
     public void onClick(View v) {
 
@@ -336,12 +378,28 @@ public class registrationForEmployees extends AppCompatActivity implements View.
             else if(!isPasswordMatched(getInputPassword(), getInputVpassword())){//when the password and verification password are not matched
                 statusLabel.setText("password is not matched");
             }
+            else if(isEmptyLocation(getInputLocation()) && isEmptyRadius(getInputRadius())){
+                createToast("Please add location and radius");
+            }
+            else if(isEmptyLocation(getInputLocation()) && !isEmptyRadius(getInputRadius())){
+                createToast("Please add location.");
+            }
+            else if(!isEmptyLocation(getInputLocation()) && isEmptyRadius(getInputRadius())){
+                createToast("Please add radius.");
+            }
+            else if(!validateRadius(getInputRadius())){
+                createToast("Radius not a number.");
+            }
+            else if(!validateRadiusRange(getInputRadius())){
+                createToast("Radius should be between 1 and 25");
+            }
             else {
                 employees.setUserName(getInputUserName());
                 employees.setPassword(getInputPassword());
                 employees.setEmailAddress(getInputEmailAddress());
                 employees.setPhone(getPhoneNumber());
                 employees.setName(getName());
+                exactAddress.setRadius(getInputRadius());
                 saveEmployeeToDataBase(employees);
                 switchToHome();
         }

@@ -20,4 +20,20 @@ public class EmployeeRegistrationUnitTest {
         assertTrue(regEmployee.isEmptyLocation(""));
         assertFalse(regEmployee.isEmptyLocation("Halifax"));
     }
+    @Test
+    public void checkIfRadiusNum(){
+        assertFalse(regEmployee.validateRadius("1a"));
+        assertTrue(regEmployee.validateRadius("15"));
+
+    }
+    @Test
+    public void checkIfRadiusRange(){
+        assertTrue(regEmployee.validateRadiusRange("10"));
+        assertFalse(regEmployee.validateRadiusRange("-3"));
+        assertFalse(regEmployee.validateRadiusRange("30"));
+    }
+    @Test
+    public void checkIfRadiusEmpty(){
+        assertTrue(regEmployee.isEmptyRadius(""));
+    }
 }
