@@ -1,33 +1,40 @@
 package com.example.a3130_group_6;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.core.util.PatternsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name,username,password,vpassword,phone,email;
     TextInputEditText selfDef;
     private Employee employee;
-    Button homeBt,addPayment,submitBt, employeeBt, resumeBt;//creating buttons and display variables
+    Button homeBt,addPayment,submitBt, employeeBt, resumeBt, imageBtn;//creating buttons and display variables
     TextView registrationStatus;
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
@@ -55,11 +62,13 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         employeeBt = findViewById(R.id.Employer);
         homeBt =  findViewById(R.id.home2);
         resumeBt = findViewById(R.id.Resume);
+        imageBtn = findViewById(R.id.Image);
 
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
         resumeBt.setOnClickListener(this);
+        imageBtn.setOnClickListener(this);
 
     }
     protected boolean isUserNameEmpty(){
@@ -136,6 +145,10 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         Intent employer = new Intent(this, registrationForEmployers.class);
         startActivity(employer);
     }
+    protected void switchtoImage(){
+        Intent Image = new Intent(this, imageCapture.class);
+        startActivity(Image);
+    }
     /*
     Switch to login page
      */
@@ -173,12 +186,38 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         else if(R.id.Employer == v.getId()){
             switchToEmployer();
         }
-        if (R.id.imageButton == v.getId()){
+        else if(R.id.Image == v.getId()){
+            switchtoImage();
+
+        }        if (R.id.imageButton == v.getId()){
             startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 
         }
     }
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     public static final int GET_FROM_GALLERY = 1;
+
+//    private void dispatchTakePictureIntent() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        // Ensure that there's a camera activity to handle the intent
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            // Create the File where the photo should go
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                Uri photoURI = FileProvider.getUriForFile(this,
+//                        "com.example.android.fileprovider",
+//                        photoFile);
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//            }
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -193,5 +232,36 @@ public class registrationForEmployees extends AppCompatActivity implements View.
                 e.printStackTrace();
             }
         }
+//        else if((requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)){
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            ImageView imageView = null;
+//            imageView.setImageBitmap(imageBitmap);
+//        }
     }
+//    String currentPhotoPath;
+//    private File createImageFile() throws IOException {
+//        // Create an image file name
+//        String timeStamp = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
+//        String imageFileName = "JPEG_" + timeStamp + "_";
+//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File image = File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",         /* suffix */
+//                storageDir      /* directory */
+//        );
+//
+//        // Save a file: path for use with ACTION_VIEW intents
+//        currentPhotoPath = image.getAbsolutePath();
+//        return image;
+//    }
+//
+//    private void galleryAddPic() {
+//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//        File f = new File(currentPhotoPath);
+//        Uri contentUri = Uri.fromFile(f);
+//        mediaScanIntent.setData(contentUri);
+//        this.sendBroadcast(mediaScanIntent);
+//    }
+
 }

@@ -6,4 +6,5 @@
     <item name="selfDescription" type="id" />
     <item name="SelfDescription" type="id" />
     <item name="Resume" type="id" />
+    <item name="Image" type="id" />
 </resources>

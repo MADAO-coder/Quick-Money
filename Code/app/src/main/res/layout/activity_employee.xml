@@ -76,7 +76,7 @@
         app:layout_constraintEnd_toStartOf="@+id/AddPayment"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/AddPayment"
-        app:layout_constraintTop_toBottomOf="@+id/Resume" />
+        app:layout_constraintTop_toBottomOf="@+id/Image" />
 
     <EditText
         android:id="@+id/username"
@@ -239,13 +239,10 @@
         android:id="@+id/Resume"
         android:layout_width="357dp"
         android:layout_height="35dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginStart="28dp"
         android:layout_marginBottom="200dp"
         android:text="Upload Resume"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Submit"
-        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selfDescription"
         app:layout_constraintVertical_bias="0.0" />
@@ -258,9 +255,24 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="200dp"
         android:text="Add Paypal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/Submit"
         app:layout_constraintEnd_toStartOf="@+id/Submit"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Image"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/Image"
+        android:layout_width="357dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="200dp"
+        android:text="Capture Image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Submit"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Resume"
         app:layout_constraintVertical_bias="0.0" />
@@ -279,3 +291,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
