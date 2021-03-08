@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="39dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="1dp"
         android:text="Working Radius"
@@ -128,17 +128,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeUserName" />
 
-    <EditText
+    <TextView
         android:id="@+id/employeeUsernameInput"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeEmailInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeUserName"
@@ -263,5 +265,22 @@
         app:layout_constraintEnd_toStartOf="@+id/refreshButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadResume" />
+
+    <TextView
+        android:id="@+id/employeeStatusLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="564dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="148dp"
+        android:textAlignment="viewStart"
+        android:textColor="#E60D0D"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

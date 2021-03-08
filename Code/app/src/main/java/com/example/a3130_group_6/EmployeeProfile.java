@@ -3,6 +3,7 @@ package com.example.a3130_group_6;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +29,10 @@ public class EmployeeProfile extends AppCompatActivity {
     DatabaseReference employeeRef = null;
 
     String description, username, password, phone, email, name;
-    EditText descriptionBox, nameView, usernameView, emailView, phoneView, passView;
-    TextView statusView;
+    EditText descriptionBox, nameView, emailView, phoneView, passView;
+    TextView usernameView, statusView;
     Button submitButton, refreshButton;
+
     // use upload profile button to
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +50,32 @@ public class EmployeeProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Update fields
-                // define new employer object and set fields
+                // define new employee object and set fields
                 Employee employee = new Employee();
-                employee.setName(nameView.getText().toString());
-                //employers.setBiography(biography);
-                employee.setUserName(usernameView.getText().toString());
-                employee.setPassword(passView.getText().toString());
-                employee.setPhone(phoneView.getText().toString());
-                employee.setEmailAddress(emailView.getText().toString());
-                // updates to db, but deletes associated listings
-                updateToDatabase(employee);
+                setStatusMessage(true, "");
+                if (isNameEmpty(nameView.getText().toString())) {
+                    setStatusMessage(false, "Error: Please fill in name");
+                }
+                else if (isEmailEmpty(emailView.getText().toString().trim())) {
+                    setStatusMessage(false, "Error: Please fill in email");
+                }
+                else if (isPhoneNumEmpty(phoneView.getText().toString().trim())) {
+                    setStatusMessage(false, "Error: Please fill in phone number");
+                }
+                else if (isPasswordEmpty(passView.getText().toString().trim())) {
+                    setStatusMessage(false,"Error: Please fill in password");
+                }
+                else {
+                    employee.setName(nameView.getText().toString());
+                    //employees.setDescription(description);
+                    employee.setUserName(usernameView.getText().toString());
+                    employee.setPassword(passView.getText().toString());
+                    employee.setPhone(phoneView.getText().toString());
+                    employee.setEmailAddress(emailView.getText().toString());
+                    // updates to db
+                    updateToDatabase(employee);
+                }
+
             }
         });
         // set button to refresh profile fields on click
@@ -66,12 +84,13 @@ public class EmployeeProfile extends AppCompatActivity {
             public void onClick(View v) {
                 // Do something in response to button click
                 refreshPage();
+                setStatusMessage(true, "");
             }
         });
 
     }
     public void setViews(){
-        //statusView = findViewById(R.id.statusView);
+        statusView = findViewById(R.id.employeeStatusLabel);
         nameView = findViewById(R.id.employeeNameInput);
         descriptionBox = findViewById(R.id.descriptionBox);
         usernameView = findViewById(R.id.employeeUsernameInput);
@@ -85,7 +104,6 @@ public class EmployeeProfile extends AppCompatActivity {
     public void updateToDatabase(Employee employee){
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
-        // 95 to 102 attempts to update without overwriting
         Map<String, Object> updates = new HashMap<>();
         updates.put("userName", employee.getUserName());
         updates.put("password", employee.getPassword());
@@ -94,12 +112,12 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("phone", employee.getPhone());
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
-        //employeeRef.setValue(employer);
-        //statusView.setText("Profile updated to database!");
+        employeeRef.setValue(employee);
+        setStatusMessage(true, "Profile updated to database!");
     }
     public void refreshPage(){
         // save object user to database to Firebase
-        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         dbReadEmployer(employeeRef);
         //statusView.setText("Profile changes refreshed");
     }
@@ -145,6 +163,32 @@ public class EmployeeProfile extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected boolean isNameEmpty (String name) {
+        return name.isEmpty();
+    }
+
+    protected boolean isEmailEmpty (String email) {
+        return email.isEmpty();
+    }
+
+    protected boolean isPhoneNumEmpty (String phoneNum) {
+        return phoneNum.isEmpty();
+    }
+
+    protected boolean isPasswordEmpty (String password) {
+        return password.isEmpty();
+    }
+
+    protected void setStatusMessage(Boolean success, String message) {
+        TextView statusLabel = findViewById(R.id.employeeStatusLabel);
+        if (success) {
+            statusLabel.setTextColor(Color.parseColor("#4CAF50"));
+        } else {
+            statusLabel.setTextColor(Color.RED);
+        }
+        statusLabel.setText(message);
     }
 
 
