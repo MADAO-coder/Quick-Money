@@ -30,11 +30,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.InternalHelpers;
 
 import java.io.IOException;
 
-public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
+public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener{
     EditText name, username, password, vpassword, phone, email, inputRadius;
     Button homeBt, addPayment, submitBt, employeeBt, addLocationButton;//creating buttons and display variables
     TextView employeeUsernameError;
@@ -51,7 +50,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     LocationManager manager;
     UserLocation exactAddress;
     LatLng userCurrentLocation;
-    String radius;
 
 
     @Override
@@ -72,17 +70,17 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         statusLabel = findViewById(R.id.statusLabel);
         addLocationButton = findViewById(R.id.addLocationButton);
         inputRadius = findViewById(R.id.inputRadius);
+        employeeUsernameError = findViewById(R.id.employeeUserError);
+        currentLocationView = findViewById(R.id.currentLocationView);
+
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
         addLocationButton.setOnClickListener(this);
-        employeeUsernameError = findViewById(R.id.employeeUserError);
         context = registrationForEmployees.this;
         activity = registrationForEmployees.this;
-        currentLocationView = findViewById(R.id.currentLocationView);
+
         exactAddress = new UserLocation();
-
-
         user = new checkExistingUserName();
         location = new AddListingMap();
         user.validateUsername(username, employeeUsernameError);
@@ -101,10 +99,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
 
     protected boolean isPasswordEmpty() {
         return getInputPassword().equals("");
-    }
-
-    protected boolean isVerifyPasswordEmpty() {
-        return vpassword.getText().toString().trim().equals("");
     }
 
     protected boolean isPhoneEmpty() {
@@ -136,6 +130,11 @@ public class registrationForEmployees extends AppCompatActivity implements View.
      */
     protected void saveEmployeeToDataBase(Object Employee) {
         //save object user to database to Firebase
+        employees.setUserName(getInputUserName());
+        employees.setPassword(getInputPassword());
+        employees.setEmailAddress(getInputEmailAddress());
+        employees.setPhone(getPhoneNumber());
+        employees.setName(getName());
         employeeRef = FirebaseDatabase.getInstance().getReference();
         employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
         UserLocation present = new UserLocation(userCurrentLocation.latitude, userCurrentLocation.longitude, getInputRadius());
@@ -284,15 +283,14 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     }
 
 
-    LocationListener listener = new LocationListener() {
+    LocationListener locationListener = new LocationListener() {
 
         @Override
         public void onLocationChanged(@NonNull Location locate) {
             currentLocation = new LatLng(locate.getLatitude(), locate.getLongitude());
-            userCurrentLocation = currentLocation;
-            String message =  "Current location " + currentLocation.latitude + "," + currentLocation.latitude;
+            userCurrentLocation = currentLocation;//get currentLocation from local, copy it to a global variable
             try {
-                getAddressFromLocation(currentLocation);
+                getAddressFromLocation();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -314,8 +312,8 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     };
 
     // method to get the exact address from latitude and longitude
-    private void getAddressFromLocation(LatLng currentLocation) throws IOException {
-        exactAddress = new UserLocation(currentLocation, activity);
+    private void getAddressFromLocation() throws IOException {
+        exactAddress = new UserLocation(userCurrentLocation, activity);
         exactAddress.createAddress();
         currentLocationView.setText(exactAddress.getAddress());
     }
@@ -330,7 +328,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
             return;
         }
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-                5, listener);
+                5, locationListener);
     }
     //***************
     // Map Code end
@@ -394,12 +392,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
                 createToast("Radius should be between 1 and 25");
             }
             else {
-                employees.setUserName(getInputUserName());
-                employees.setPassword(getInputPassword());
-                employees.setEmailAddress(getInputEmailAddress());
-                employees.setPhone(getPhoneNumber());
-                employees.setName(getName());
-                exactAddress.setRadius(getInputRadius());
                 saveEmployeeToDataBase(employees);
                 switchToHome();
         }
@@ -416,9 +408,4 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         }
     }
 
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-    }
 }
