@@ -287,6 +287,10 @@ public class registrationForEmployees extends AppCompatActivity implements View.
 
         @Override
         public void onLocationChanged(@NonNull Location locate) {
+<<<<<<< HEAD
+=======
+            currentLocation = new LatLng(locate.getLatitude(), locate.getLongitude());
+>>>>>>> 95402225839e75f24991f2ef9e81980ccac57d1a
             userCurrentLocation = currentLocation;//get currentLocation from local, copy it to a global variable
             try {
                 getAddressFromLocation();
