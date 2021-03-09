@@ -8,6 +8,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -41,6 +42,7 @@ public class EmployeeProfile extends AppCompatActivity {
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
 
     String description, username, password, phone, email, name, radius;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
@@ -61,7 +63,7 @@ public class EmployeeProfile extends AppCompatActivity {
         // set all views
         setViews();
 
-        imageView = (ImageView)findViewById(R.id.imageView);
+        imageView = findViewById(R.id.profilePicture);
         imageButton = findViewById(R.id.profileImageButton);
 
         // set button to update to database on click
@@ -114,7 +116,7 @@ public class EmployeeProfile extends AppCompatActivity {
                     if(checkSelfPermission(Manifest.permission.CAMERA) ==
                             PackageManager.PERMISSION_DENIED ||
                             checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED ){
+                                    PackageManager.PERMISSION_DENIED ){
                         //request permission
                         String [] permission  = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                         requestPermissions(permission, PERMISSION_CODE);
@@ -123,12 +125,12 @@ public class EmployeeProfile extends AppCompatActivity {
                         //permission granted
                         openCamera();
 
+
                     }
                 }
                 else{
                     openCamera();
                 }
-
             }
         });
 
@@ -225,6 +227,7 @@ public class EmployeeProfile extends AppCompatActivity {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
     }
+
     //handle permission result
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -242,15 +245,25 @@ public class EmployeeProfile extends AppCompatActivity {
             }
         }
     }
+    public void TakePicture(View view){
+        Intent imageTakeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if(imageTakeIntent.resolveActivity(getPackageManager())!= null){
+            startActivityForResult(imageTakeIntent,REQUEST_IMAGE_CAPTURE);
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            //imageView.setImageURI(image_uri);
-//        }
+        if (resultCode == RESULT_OK) {
+            imageView.setImageURI(image_uri);
+        }
     }
+
 
 
     protected static boolean isNameEmpty(String name) {
