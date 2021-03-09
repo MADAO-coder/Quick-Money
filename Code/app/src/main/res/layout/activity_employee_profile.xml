@@ -6,6 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/selectResume"
+        android:layout_width="160dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="28dp"
+        android:text="Select Resume"
+        app:layout_constraintBottom_toTopOf="@+id/saveProfileUpdate"
+        app:layout_constraintEnd_toStartOf="@+id/uploadResume"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radiusInput" />
+
     <EditText
         android:id="@+id/radiusInput"
         android:layout_width="272dp"
@@ -258,49 +272,44 @@
 
     <Button
         android:id="@+id/uploadResume"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="45dp"
+        android:layout_width="167dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="90dp"
         android:text="Upload Resume"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/saveProfileUpdate"
+        app:layout_constraintStart_toEndOf="@+id/selectResume"
         app:layout_constraintTop_toBottomOf="@+id/radiusInput" />
 
     <Button
         android:id="@+id/saveProfileUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="133dp"
         android:text="Save Updates"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/uploadResume"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/employeeRadius" />
 
     <TextView
         android:id="@+id/employeeStatusLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="67dp"
-        android:textAlignment="viewStart"
+        android:layout_width="355dp"
+        android:layout_height="25dp"
+        android:textAlignment="center"
         android:textColor="#E60D0D"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.932" />
 
     <Button
         android:id="@+id/profileImageButton"

@@ -3,8 +3,11 @@ package com.example.a3130_group_6;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,13 +20,22 @@ import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,6 +51,8 @@ import static com.example.a3130_group_6.loginPage.validEmployee;
 public class EmployeeProfile extends AppCompatActivity {
 
     DatabaseReference employeeRef = null;
+    FirebaseStorage storage;
+    FirebaseDatabase database;
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
@@ -47,15 +61,19 @@ public class EmployeeProfile extends AppCompatActivity {
     String description, username, password, phone, email, name, radius;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
     TextView usernameView, statusView;
-    Button submitButton, refreshButton, imageButton;
+    Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
     ImageView imageView;
     Uri image_uri;
+    Uri pdf;
+    ProgressDialog progress;
 
     // use upload profile button to
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
+
+        storage = FirebaseStorage.getInstance();
 
         // get data from database
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
@@ -65,6 +83,9 @@ public class EmployeeProfile extends AppCompatActivity {
 
         imageView = findViewById(R.id.profilePicture);
         imageButton = findViewById(R.id.profileImageButton);
+
+        uploadResume = findViewById(R.id.uploadResume);
+        selectResume = findViewById(R.id.selectResume);
 
         // set button to update to database on click
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +155,83 @@ public class EmployeeProfile extends AppCompatActivity {
             }
         });
 
+        selectResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(EmployeeProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    selectPDF();
+                }
+                else {
+                    ActivityCompat.requestPermissions(EmployeeProfile.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
+                }
+            }
+        });
+
+        uploadResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (pdf != null) {
+                    uploadFile(pdf);
+                }
+                else {
+                    Toast.makeText(EmployeeProfile.this, "Please select a file", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
+    private void selectPDF() {
+        Intent intent = new Intent();
+        intent.setType("application/pdf");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 86);
+    }
+
+    private void uploadFile(Uri pdf) {
+        progress = new ProgressDialog(this);
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.setTitle("Uploading file...");
+        progress.setProgress(0);
+        progress.show();
+
+        String fileName = System.currentTimeMillis() + "";
+        StorageReference storageReference = storage.getReference();
+
+        storageReference.child("Uploads").child(fileName).putFile(pdf).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                if (taskSnapshot.getMetadata().getReference() != null) {
+                    Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+                            DatabaseReference reference = database.getReference();
+
+                            reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(EmployeeProfile.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        Toast.makeText(EmployeeProfile.this, "File failed to upload", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                int currentProgress = (int) (100*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                progress.setProgress(currentProgress);
+            }
+        });
+    }
+
     public void setViews(){
         statusView = findViewById(R.id.employeeStatusLabel);
         nameView = findViewById(R.id.employeeNameInput);
@@ -244,14 +341,12 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
             }
         }
-    }
-    public void TakePicture(View view){
-        Intent imageTakeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        if(imageTakeIntent.resolveActivity(getPackageManager())!= null){
-            startActivityForResult(imageTakeIntent,REQUEST_IMAGE_CAPTURE);
+        if (requestCode == 9 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            selectPDF();
         }
-
+        else {
+            Toast.makeText(EmployeeProfile.this, "Please grant permission", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -261,6 +356,12 @@ public class EmployeeProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             imageView.setImageURI(image_uri);
+        }
+        if (requestCode == 86 && resultCode == RESULT_OK && data != null) {
+            pdf = data.getData();
+        }
+        else {
+            Toast.makeText(EmployeeProfile.this, "Please select a file", Toast.LENGTH_SHORT).show();
         }
     }
 
