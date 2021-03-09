@@ -173,6 +173,8 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     }
 
     public void onClick(View v) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
         if (R.id.Submit==v.getId()){//when the submit button is clicked, add employee
             if(!validRegistrationInformation()){
                 Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);

@@ -23,6 +23,7 @@ public class imageCapture extends AppCompatActivity {
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
+    private static final int REQUEST_IMAGE_CAPTURE = 101;
     Button mCaptureBtn;
     ImageView mImageView;
     Uri image_uri;
@@ -89,6 +90,15 @@ public class imageCapture extends AppCompatActivity {
             }
         }
     }
+    public void TakePicture(View view){
+        Intent imageTakeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if(imageTakeIntent.resolveActivity(getPackageManager())!= null){
+            startActivityForResult(imageTakeIntent,REQUEST_IMAGE_CAPTURE);
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
