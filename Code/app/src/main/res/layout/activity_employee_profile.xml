@@ -302,7 +302,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/profileImageButton"
         android:layout_width="67dp"
         android:layout_height="33dp"
@@ -310,6 +310,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="10dp"
+        app:icon="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toTopOf="@+id/employeeName"
         app:layout_constraintEnd_toStartOf="@+id/employeeNameInput"
         app:layout_constraintHorizontal_bias="0.6"

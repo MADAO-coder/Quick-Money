@@ -31,9 +31,9 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" ></activity>
         <activity android:name=".AddListingMap" />
-        <activity android:name=".EmployeeProfile" />
+        <activity android:name=".EmployeeProfile"/>
         <activity android:name=".EmployeeHomepage" />
         <activity android:name=".registrationForEmployees" />
         <activity android:name=".registrationHome" />

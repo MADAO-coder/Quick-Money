@@ -6,6 +6,8 @@ public class Employee {
     private String phone;
     private String email;
     private String name;
+    private String description;
+
     public Employee(){
 
     }
@@ -52,5 +54,11 @@ public class Employee {
     public String getEmail(){return this.email;}
 
     public String getPhone(){return this.phone;}
+
+    public void setDescription(String description) { this.description = description;
+    }
+
+    public String getDescription() { return description;
+    }
 }
 
