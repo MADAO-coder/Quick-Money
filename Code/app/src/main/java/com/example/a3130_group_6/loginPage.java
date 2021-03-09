@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,8 +30,6 @@ public class loginPage extends AppCompatActivity {
     protected Button regBt;
     protected Button loginBt;
     protected TextView loginStatus;
-    private Employee employee;
-    private Employer employer;
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
     private List<String> employee_userName_list = new ArrayList<>();//List to store userName getting from db for Employee object
@@ -133,6 +132,7 @@ public class loginPage extends AppCompatActivity {
                     }
                     else {
                         statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
+
                     }
                 }
                 loginStatus.setText(statusMsg);

@@ -1,7 +1,9 @@
 package com.example.a3130_group_6;
 
+import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -10,6 +12,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -17,6 +21,11 @@ public class EspressoTestAddListing {
 
     @Rule
     public ActivityScenarioRule<add_listing> employerRule = new ActivityScenarioRule<>(add_listing.class);
+
+    @BeforeClass
+    public static void setup(){
+        Intents.init();
+    }
 
     @Test
     public void checkIfTaskTitleEmpty() {
@@ -55,7 +64,7 @@ public class EspressoTestAddListing {
     }
 
     @Test
-    public void checkIfDateIsEmpty() {
+    public void checkIfDateIsEmpty() throws InterruptedException {
         onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
         onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
         onView(withId(R.id.inputUrgency)).perform(typeText("1"));
@@ -69,13 +78,23 @@ public class EspressoTestAddListing {
     @Test
     public void checkIfPayIsEmpty() {
         onView(withId(R.id.inputTaskTitle)).perform(typeText("Awesome Task Title"));
+        closeSoftKeyboard();
         onView(withId(R.id.inputTaskDescription)).perform(typeText("Here is a description"));
+        closeSoftKeyboard();
         onView(withId(R.id.inputUrgency)).perform(typeText("1"));
+        closeSoftKeyboard();
         onView(withId(R.id.enterDate)).perform(typeText("20/10/2021"));
+        closeSoftKeyboard();
         onView(withId(R.id.inputPay)).perform(typeText(""));
         closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Pay")));
+    }
+
+    @Test
+    public void checkIFMovedToAddListingMap(){
+        onView(withId(R.id.add_locationBt)).perform(click());
+        intended(hasComponent(AddListingMap.class.getName()));
     }
 }
 
