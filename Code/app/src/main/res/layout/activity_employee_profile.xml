@@ -6,34 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/radiusInput"
+        android:layout_width="272dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/uploadResume"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/employeeRadius"
+        app:layout_constraintTop_toBottomOf="@+id/employeePassInput" />
+
+    <TextView
+        android:id="@+id/employeeRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="1dp"
+        android:text="Working Radius"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/saveProfileUpdate"
+        app:layout_constraintEnd_toStartOf="@+id/radiusInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/employeePassword" />
+
     <Button
         android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="625dp"
         android:text="Refresh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/saveProfileUpdate"
-        app:layout_constraintTop_toBottomOf="@+id/radiusButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/radiusButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="1dp"
-        android:text="Working Radius"
-        app:layout_constraintBottom_toTopOf="@+id/refreshButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/saveProfileUpdate"
-        app:layout_constraintTop_toBottomOf="@+id/employeePassInput" />
+        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintStart_toStartOf="@+id/navBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/employeePassInput"
@@ -42,11 +59,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/radiusButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeePassword"
         app:layout_constraintTop_toBottomOf="@+id/employeePhoneNumInput" />
@@ -61,7 +76,7 @@
         android:layout_marginBottom="1dp"
         android:text="Password"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/uploadResume"
+        app:layout_constraintBottom_toTopOf="@+id/employeeRadius"
         app:layout_constraintEnd_toStartOf="@+id/employeePassInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeePhoneNum" />
@@ -133,7 +148,7 @@
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="1dp"
         android:ems="10"
@@ -187,8 +202,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/descriptionBox"
@@ -211,7 +228,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="1dp"
         android:text="Name"
@@ -226,7 +243,7 @@
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="1dp"
         android:ems="10"
@@ -241,45 +258,44 @@
     <Button
         android:id="@+id/uploadResume"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="45dp"
         android:text="Upload Resume"
-        app:layout_constraintBottom_toTopOf="@+id/saveProfileUpdate"
-        app:layout_constraintEnd_toStartOf="@+id/radiusButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/employeePassword" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/saveProfileUpdate"
+        app:layout_constraintTop_toBottomOf="@+id/radiusInput" />
 
     <Button
         android:id="@+id/saveProfileUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="14dp"
         android:text="Save Updates"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/refreshButton"
+        app:layout_constraintEnd_toStartOf="@+id/uploadResume"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uploadResume" />
+        app:layout_constraintTop_toBottomOf="@id/employeeRadius" />
 
     <TextView
         android:id="@+id/employeeStatusLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="564dp"
+        android:layout_marginTop="640dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginBottom="148dp"
         android:textAlignment="viewStart"
         android:textColor="#E60D0D"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

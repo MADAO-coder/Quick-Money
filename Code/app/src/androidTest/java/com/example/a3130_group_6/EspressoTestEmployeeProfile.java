@@ -74,5 +74,6 @@ public class EspressoTestEmployeeProfile {
         onView(withId(R.id.employeeStatusLabel)).check(matches(withText("Error: Please fill in password")));
     }
 
+
 }
 
