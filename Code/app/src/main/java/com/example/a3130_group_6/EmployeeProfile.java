@@ -165,19 +165,19 @@ public class EmployeeProfile extends AppCompatActivity {
 
     }
 
-    protected boolean isNameEmpty (String name) {
+    protected static boolean isNameEmpty(String name) {
         return name.isEmpty();
     }
 
-    protected boolean isEmailEmpty (String email) {
+    protected static boolean isEmailEmpty (String email) {
         return email.isEmpty();
     }
 
-    protected boolean isPhoneNumEmpty (String phoneNum) {
+    protected static boolean isPhoneNumEmpty (String phoneNum) {
         return phoneNum.isEmpty();
     }
 
-    protected boolean isPasswordEmpty (String password) {
+    protected static boolean isPasswordEmpty (String password) {
         return password.isEmpty();
     }
 
