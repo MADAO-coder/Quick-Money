@@ -74,6 +74,7 @@ public class EmployeeProfile extends AppCompatActivity {
         setContentView(R.layout.activity_employee_profile);
 
         storage = FirebaseStorage.getInstance();
+        database=FirebaseDatabase.getInstance();
 
         // get data from database
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
