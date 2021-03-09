@@ -75,7 +75,7 @@
         tools:layout_editor_absoluteY="614dp"
         tools:ignore="MissingConstraints" />
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/imageToUpload"
         android:layout_width="116dp"
         android:layout_height="38dp"
         android:layout_marginStart="40dp"

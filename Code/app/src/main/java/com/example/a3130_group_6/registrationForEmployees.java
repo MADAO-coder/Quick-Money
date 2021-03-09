@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.core.util.PatternsCompat;
@@ -37,6 +38,10 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
+    ImageView imageToUpload;
+    Button bUploadImage;
+    EditText uploadImage;
+    private static final int RESULT_LOAD_IMAGE = 1;
 
 
 
@@ -48,6 +53,16 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(this);
         selfDef = findViewById(R.id.SelfDescription);
+
+
+        imageToUpload = (ImageView) findViewById(R.id.imageToUpload);
+        ImageView downloadedImage = (ImageView) findViewById(R.id.downloadedImage);
+
+        bUploadImage = (Button) findViewById(R.id.bUploadImage);
+        Button bDownloadedImage = (Button) findViewById(R.id.bDownloadedImage);
+
+        uploadImage = (EditText) findViewById(R.id.etloadImageName);
+        EditText downloadImageName = (EditText) findViewById(R.id.etDownloadName);
 
         name = findViewById(R.id.name);
         username = findViewById(R.id.username);
@@ -67,6 +82,8 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         submitBt.setOnClickListener(this);
         resumeBt.setOnClickListener(this);
         imageBtn.setOnClickListener(this);
+        imageToUpload.setOnClickListener(this);
+        //bUploadImage.setOnClickListener(this);
 
     }
     protected boolean isUserNameEmpty(){
@@ -191,6 +208,21 @@ public class registrationForEmployees extends AppCompatActivity implements View.
             startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 
         }
+
+        switch(v.getId()){
+            case R.id.imageToUpload:
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+            break;
+
+            case R.id.bUploadImage:
+
+            break;
+
+            case R.id.bDownloadedImage:
+
+            break;
+        }
     }
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public static final int GET_FROM_GALLERY = 1;
@@ -221,22 +253,11 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+        if(requestCode== RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
-            Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            imageToUpload.setImageURI(selectedImage);
 
         }
-//        else if((requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)){
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            ImageView imageView = null;
-//            imageView.setImageBitmap(imageBitmap);
-//        }
     }
 //    String currentPhotoPath;
 //    private File createImageFile() throws IOException {
