@@ -117,7 +117,7 @@
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="1dp"
         android:ems="10"
@@ -177,13 +177,14 @@
         app:layout_constraintTop_toBottomOf="@+id/employeeName" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/profilePicture"
         android:layout_width="99dp"
         android:layout_height="92dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="261dp"
         android:layout_marginBottom="542dp"
+        android:background="@android:drawable/ic_menu_gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -200,7 +201,7 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/profilePicture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +221,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/navBar" />
 
     <TextView
@@ -228,7 +229,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="1dp"
         android:text="Name"
@@ -236,7 +237,7 @@
         app:layout_constraintBottom_toTopOf="@+id/employeeUserName"
         app:layout_constraintEnd_toStartOf="@+id/employeeNameInput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
 
     <EditText
         android:id="@+id/employeeNameInput"
@@ -260,7 +261,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="45dp"
         android:text="Upload Resume"
@@ -288,15 +289,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="640dp"
+        android:layout_marginTop="600dp"
         android:layout_marginEnd="35dp"
+        android:layout_marginBottom="67dp"
         android:textAlignment="viewStart"
         android:textColor="#E60D0D"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/profileImageButton"
+        android:layout_width="67dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/employeeName"
+        app:layout_constraintEnd_toStartOf="@+id/employeeNameInput"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/employeeName"
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

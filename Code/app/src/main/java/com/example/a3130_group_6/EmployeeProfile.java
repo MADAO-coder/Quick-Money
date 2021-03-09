@@ -31,7 +31,7 @@ public class EmployeeProfile extends AppCompatActivity {
     String description, username, password, phone, email, name;
     EditText descriptionBox, nameView, emailView, phoneView, passView;
     TextView usernameView, statusView;
-    Button submitButton, refreshButton;
+    Button submitButton, refreshButton, imageButton;
 
     // use upload profile button to
     @Override
@@ -85,6 +85,14 @@ public class EmployeeProfile extends AppCompatActivity {
                 // Do something in response to button click
                 refreshPage();
                 setStatusMessage(true, "");
+            }
+        });
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Do something in response to button click
+
             }
         });
 
