@@ -93,8 +93,8 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     Checking registration information
      */
     protected boolean validRegistrationInformation() {
-       return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
-               && isValidEmail(getInputEmailAddress());
+        return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
+                && isValidEmail(getInputEmailAddress());
     }
 
     /*
@@ -127,7 +127,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     }
 
     protected boolean isPasswordMatched(String password, String vPassword){
-       return (password.equals(vPassword));
+        return (password.equals(vPassword));
     }
 
     protected String getBusinessName() {

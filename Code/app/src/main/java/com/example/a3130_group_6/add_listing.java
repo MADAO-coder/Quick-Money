@@ -20,8 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
-
-    FirebaseDatabase database = null;
     Listing list;
 
     @Override
@@ -36,6 +34,9 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
         Button submitButton = findViewById(R.id.submitTask);
         submitButton.setOnClickListener(this);
+
+        Button addLocationBt = findViewById(R.id.add_locationBt);
+        addLocationBt.setOnClickListener(this);
     }
 
     protected boolean isEmptyTaskTitle(String task) {
@@ -72,9 +73,18 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         return pay.isEmpty();
     }
 
+    protected boolean isEmptyLocation(String location){
+        return location.isEmpty();
+    }
+
     protected void setStatusMessage(String message) {
         TextView statusLabel = findViewById(R.id.statusLabel);
         statusLabel.setText(message);
+    }
+
+    public void employeeMapSwitch() {
+        Intent EmployeeMapIntent = new Intent(this, AddListingMap.class);
+        startActivity(EmployeeMapIntent);
     }
 
     @Override
@@ -85,6 +95,8 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         EditText date = findViewById(R.id.enterDate);
         EditText pay = findViewById(R.id.inputPay);
         EditText status = findViewById(R.id.enterStatus);
+        TextView currentLocation = findViewById(R.id.currentLocationView);
+        Button addLocationBt = findViewById(R.id.add_locationBt);
 
         switch (view.getId()) {
             case R.id.submitTask:
@@ -102,6 +114,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 }
                 else if (isEmptyPay(pay.getText().toString().trim())) {
                     setStatusMessage("Error: Please fill in Pay");
+
                 } else {
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
                     list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString(), status.getText().toString());
@@ -112,6 +125,10 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.imageButton:
                 startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+
+            case R.id.add_locationBt:
+                employeeMapSwitch();
+
         }
     }
 

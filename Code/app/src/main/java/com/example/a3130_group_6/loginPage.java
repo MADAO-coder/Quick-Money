@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -130,6 +131,7 @@ public class loginPage extends AppCompatActivity {
                     }
                     else {
                         statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
+
                     }
                 }
                 loginStatus.setText(statusMsg);

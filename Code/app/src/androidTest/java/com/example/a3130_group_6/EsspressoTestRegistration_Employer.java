@@ -60,7 +60,7 @@ public class EsspressoTestRegistration_Employer {
         onView(withId(R.id.username)).perform(typeText("a"));
         onView(withId(R.id.error)).check(matches(withText("Username too short")));
     }
-/*
+
     @Test
     public void checkRegistrationEmployeePasswordInvalidation(){
         onView(withId(R.id.name)).perform(typeText("Han"));
@@ -72,5 +72,6 @@ public class EsspressoTestRegistration_Employer {
         closeSoftKeyboard();
         onView(withId(R.id.Submit1)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("password is not matched")));
-    }*/
+    }
+
 }
