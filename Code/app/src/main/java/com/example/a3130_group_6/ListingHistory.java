@@ -36,8 +36,7 @@ public class ListingHistory extends AppCompatActivity {
     String[] listingsString;
     DataSnapshot listingData;
     Iterator<DataSnapshot> listingItr;
-    Button editListing;
-
+    String [] details;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,13 @@ public class ListingHistory extends AppCompatActivity {
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
         dbReadEmployer(employerRef);
-        
+        listView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editListing(v);
+            }
+        });
+
 
         /* To-Do
         * change size of list view to fill more of screen
@@ -82,15 +87,13 @@ public class ListingHistory extends AppCompatActivity {
         // sendExtras() listing properties to listing detail page
         Listing temp = listings.get(position);
         // 6 == num properties of a listing
-        String[] details = new String[6];
+        details = new String[6];
         details[0] = temp.getTaskTitle();
         details[1] = temp.getTaskDescription();
         details[2] = temp.getUrgency();
         details[3] = temp.getDate();
         details[4] = temp.getPay();
         details[5] = temp.getStatus();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, details);
-        listView.setAdapter(adapter);
     }
     // function is asynchronous, causing issues
     //Read data from dataBase and make employers' userName and password into ArrayList.
@@ -129,7 +132,7 @@ public class ListingHistory extends AppCompatActivity {
     }
     public void editListing(View view){
         Intent intent = new Intent(this, EditEmployerListing.class);
-        intent.putExtra("identifier",);
+        intent.putExtra("identifier",details);
         startActivity(intent);
     }
 
