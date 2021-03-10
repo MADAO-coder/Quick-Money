@@ -23,7 +23,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class EspressoTestLoginPage {
     @Rule
-    public ActivityScenarioRule<loginPage> loginRule = new ActivityScenarioRule<>(loginPage.class);
+    public ActivityScenarioRule<LoginPage> loginRule = new ActivityScenarioRule<>(LoginPage.class);
 
     @Test
     public void checkIfLoginPageIsShown() {

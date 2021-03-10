@@ -36,7 +36,7 @@ public class employers extends AppCompatActivity {
         startActivity(employee);
     }
     protected void switchToHome(){
-        Intent back = new Intent(this, loginPage.class);
+        Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
 

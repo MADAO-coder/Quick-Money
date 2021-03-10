@@ -43,7 +43,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     public static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     public static final String LOCATION_PERMISSION = android.Manifest.permission.ACCESS_FINE_LOCATION;
     public static final String LOCATION_PREF = "locationPref";
-    checkExistingUserName user;
+    CheckExistingUserName user;
 
     Context context;
     Activity activity;
@@ -63,7 +63,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     LatLng getLocation;
     static UserLocation presentLocation;
 
-    add_listing map;
+    AddListing map;
 
 
     @Override
@@ -72,7 +72,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         setContentView(R.layout.employee_map);
         Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-        map = new add_listing();
+        map = new AddListing();
 
 
         submitButton = findViewById(R.id.submitButton);
@@ -85,7 +85,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         spinner = findViewById(R.id.spinner);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, radius_array));
 
-        user = new checkExistingUserName();
+        user = new CheckExistingUserName();
         checkPermissions();
 
         getCurrentLocation();

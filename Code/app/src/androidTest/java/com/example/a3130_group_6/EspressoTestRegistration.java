@@ -20,7 +20,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class EspressoTestRegistration {
     @Rule
-    public ActivityScenarioRule<registrationHome> RuleRegistration = new ActivityScenarioRule<>(registrationHome.class);
+    public ActivityScenarioRule<RegistrationHome> RuleRegistration = new ActivityScenarioRule<>(RegistrationHome.class);
 
     @Test
     public void checkIfRegistrationHomeShown() {

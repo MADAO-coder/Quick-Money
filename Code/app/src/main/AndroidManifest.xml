@@ -34,12 +34,12 @@
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".AddListingMap" />
         <activity android:name=".EmployeeHomepage" />
-        <activity android:name=".registrationForEmployees" />
-        <activity android:name=".registrationHome" />
-        <activity android:name=".registrationForEmployers" />
+        <activity android:name=".RegistrationForEmployees" />
+        <activity android:name=".RegistrationHome" />
+        <activity android:name=".RegistrationForEmployers" />
         <activity android:name=".EmployerHomepage" />
-        <activity android:name=".add_listing" />
-        <activity android:name=".loginPage">
+        <activity android:name=".AddListing" />
+        <activity android:name=".LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

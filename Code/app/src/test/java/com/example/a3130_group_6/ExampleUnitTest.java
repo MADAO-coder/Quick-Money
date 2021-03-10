@@ -18,12 +18,12 @@ import static org.junit.Assert.assertTrue;
  * AT 5: Given that I am an employee/employer I expect to see available tasks/available taskers in my local
  */
 public class ExampleUnitTest {
-    static add_listing addListing;
+    static AddListing addListing;
     static EmployerHomepage employerHomepage;
 
     @BeforeClass
     public static void setup() {
-        addListing = new add_listing();
+        addListing = new AddListing();
         employerHomepage = new EmployerHomepage();
     }
 
