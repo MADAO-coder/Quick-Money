@@ -21,10 +21,12 @@ import java.io.IOException;
 
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
     Listing list;
+    AddListingMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        map = new AddListingMap();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
@@ -120,14 +122,15 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                     System.out.println(loginPage.validEmployer[0]);
 
                     listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").push().setValue(list);
+                    listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").child("Location").setValue(AddListingMap.presentLocation);
                 }
+                break;
+            case R.id.add_locationBt:
+                employeeMapSwitch();
                 break;
             case R.id.imageButton:
                 startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-
-            case R.id.add_locationBt:
-                employeeMapSwitch();
-
+                break;
         }
     }
 
