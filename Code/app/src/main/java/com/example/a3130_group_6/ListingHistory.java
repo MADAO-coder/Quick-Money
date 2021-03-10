@@ -1,11 +1,14 @@
 package com.example.a3130_group_6;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +36,7 @@ public class ListingHistory extends AppCompatActivity {
     String[] listingsString;
     DataSnapshot listingData;
     Iterator<DataSnapshot> listingItr;
+    Button editListing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class ListingHistory extends AppCompatActivity {
         setContentView(R.layout.activity_listing_history);
         NoListing = findViewById(R.id.noListingMessage);
         listView = findViewById(R.id.listingHistoryView);
+       // editListing = findViewById(R.id.EditListing);
         listings = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
@@ -57,6 +62,7 @@ public class ListingHistory extends AppCompatActivity {
             listingsString = new String[listings.size()];
             for(int i=0; i<listingsString.length; i++){
                 listingsString[i] = "Task: " + listings.get(i).getTaskTitle() + "\tStatus: " + listings.get(i).getStatus();
+                //editListing.setOnClickListener(this);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
             listView.setAdapter(adapter);
@@ -105,6 +111,9 @@ public class ListingHistory extends AppCompatActivity {
                             listingItr = listingData.getChildren().iterator();
                             while (listingItr.hasNext()) {
                                 listings.add(listingItr.next().getValue(Listing.class));
+                                editListing=findViewById(R.id.)
+                                editListing.setOnClickListener(this);
+
                             }
                         }
                     }
@@ -115,8 +124,11 @@ public class ListingHistory extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
             }
         });
+    }
+    public void editListing(View view){
+        Intent switchIntent = new Intent(this,EditEmployerListing.class);
+        startActivity(switchIntent);
     }
 }

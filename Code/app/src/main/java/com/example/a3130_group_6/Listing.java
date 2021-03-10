@@ -1,5 +1,7 @@
 package com.example.a3130_group_6;
 
+import android.content.Intent;
+
 /*
 Class for adding listing to the database
  */
@@ -74,4 +76,5 @@ public class Listing {
     public void setPay(String pay) {
         this.pay = pay;
     }
+
 }
