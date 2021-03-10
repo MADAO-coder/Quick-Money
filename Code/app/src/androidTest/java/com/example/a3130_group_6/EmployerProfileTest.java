@@ -24,6 +24,7 @@ public class EmployerProfileTest {
     @Test
     public void testSubmit(){
         onView(withId(R.id.editName)).perform(typeText("Big Nate"));
+        closeSoftKeyboard();
         onView(withId(R.id.submitBtn)).perform(ViewActions.click());
         onView(withId(R.id.editName)).check(matches(withText("Big Nate")));
         onView(withId(R.id.statusView)).check(matches(withText("Profile updated to database!")));
