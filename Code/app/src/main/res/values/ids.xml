@@ -13,4 +13,6 @@
     <item name="bDownloadedImage" type="id" />
     <item name="etloadImageName" type="id" />
     <item name="etDownloadName" type="id" />
+    <item name="uploadResume" type="id" />
+    <item name="selectResume" type="id" />
 </resources>

@@ -233,7 +233,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Resume"
+        android:id="@+id/uploadResume"
         android:layout_width="357dp"
         android:layout_height="35dp"
         android:layout_marginStart="28dp"
@@ -269,7 +269,7 @@
         app:layout_constraintEnd_toStartOf="@+id/Submit"
         app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Resume"
+        app:layout_constraintTop_toBottomOf="@+id/uploadResume"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
