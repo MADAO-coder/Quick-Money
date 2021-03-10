@@ -137,11 +137,6 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    protected void switchToAddListing(){
-        Intent addListingIntent = new Intent(AddListingMap.this, add_listing.class);//Switch to new intent.
-        startActivity(addListingIntent);
-    }
-
     protected UserLocation getLocationObject(){
 
         return new UserLocation(getLocation.latitude, getLocation.longitude, String.valueOf(radius));

@@ -109,6 +109,10 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         startActivity(EmployeeMapIntent);
     }
 
+    protected boolean checkIfLocationEmpty(UserLocation current){
+        return current == null;
+    }
+
     @Override
     public void onClick(View view) {
         taskTitle = findViewById(R.id.inputTaskTitle);
@@ -135,7 +139,9 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 }
                 else if (isEmptyPay(pay.getText().toString().trim())) {
                     setStatusMessage("Error: Please fill in Pay");
-
+                }
+                else if (checkIfLocationEmpty(AddListingMap.presentLocation)){
+                    setStatusMessage("Error: Please choose a location");
                 } else {
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
                     list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(),
