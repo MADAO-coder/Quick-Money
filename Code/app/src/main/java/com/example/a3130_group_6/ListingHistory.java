@@ -50,6 +50,8 @@ public class ListingHistory extends AppCompatActivity {
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
         dbReadEmployer(employerRef);
+        
+
         /* To-Do
         * change size of list view to fill more of screen
         * add listings label so know what loaded element is
@@ -111,8 +113,6 @@ public class ListingHistory extends AppCompatActivity {
                             listingItr = listingData.getChildren().iterator();
                             while (listingItr.hasNext()) {
                                 listings.add(listingItr.next().getValue(Listing.class));
-                                editListing=findViewById(R.id.)
-                                editListing.setOnClickListener(this);
 
                             }
                         }
@@ -128,10 +128,9 @@ public class ListingHistory extends AppCompatActivity {
         });
     }
     public void editListing(View view){
-        Intent i = new Intent();
-        i.setClassName("com.example", "com.example.activity");
-        i.putExtra("identifier", listingsString[0]);
-        startActivity(i);
+        Intent intent = new Intent(this, EditEmployerListing.class);
+        intent.putExtra("identifier",);
+        startActivity(intent);
     }
 
 }
