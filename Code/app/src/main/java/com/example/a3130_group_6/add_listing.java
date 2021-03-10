@@ -118,11 +118,11 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
                 } else {
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString());
+                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(),
+                            urgency.getText().toString(), date.getText().toString(), pay.getText().toString(), AddListingMap.presentLocation);
                     System.out.println(loginPage.validEmployer[0]);
 
                     listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").push().setValue(list);
-                    listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").child("Location").setValue(AddListingMap.presentLocation);
                 }
                 break;
             case R.id.add_locationBt:
