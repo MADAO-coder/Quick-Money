@@ -333,7 +333,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     public void onClick(View v) {
         if(R.id.submitButton== v.getId()){
             presentLocation = getLocationObject();
-            switchToAddListing();
+            finish();
         }
     }
 }

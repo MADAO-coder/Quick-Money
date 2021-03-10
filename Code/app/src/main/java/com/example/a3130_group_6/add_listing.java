@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
@@ -22,11 +23,20 @@ import java.io.IOException;
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
     Listing list;
     AddListingMap map;
+    EditText taskTitle, taskDescription, urgency, date, pay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         map = new AddListingMap();
+
+        if (savedInstanceState != null){
+            taskTitle.setText(savedInstanceState.getString("taskTitle"));
+            taskTitle.setText(savedInstanceState.getString("taskDescription"));
+            taskTitle.setText(savedInstanceState.getString("urgency"));
+            taskTitle.setText(savedInstanceState.getString("date"));
+            taskTitle.setText(savedInstanceState.getString("pay"));
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
@@ -39,6 +49,16 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
         Button addLocationBt = findViewById(R.id.add_locationBt);
         addLocationBt.setOnClickListener(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putString("taskTitle", taskTitle.getText().toString());
+        outState.putString("taskDescription", taskDescription.getText().toString());
+        outState.putString("urgency", urgency.getText().toString());
+        outState.putString("date", date.getText().toString());
+        outState.putString("pay", pay.getText().toString());
     }
 
     protected boolean isEmptyTaskTitle(String task) {
@@ -91,11 +111,11 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        EditText taskTitle = findViewById(R.id.inputTaskTitle);
-        EditText taskDescription = findViewById(R.id.inputTaskDescription);
-        EditText urgency = findViewById(R.id.inputUrgency);
-        EditText date = findViewById(R.id.enterDate);
-        EditText pay = findViewById(R.id.inputPay);
+        taskTitle = findViewById(R.id.inputTaskTitle);
+        taskDescription = findViewById(R.id.inputTaskDescription);
+        urgency = findViewById(R.id.inputUrgency);
+        date = findViewById(R.id.enterDate);
+        pay = findViewById(R.id.inputPay);
         TextView currentLocation = findViewById(R.id.currentLocationView);
         Button addLocationBt = findViewById(R.id.add_locationBt);
 
