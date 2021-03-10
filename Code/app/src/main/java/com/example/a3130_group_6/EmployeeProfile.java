@@ -114,6 +114,9 @@ public class EmployeeProfile extends AppCompatActivity {
                 else if (isPasswordEmpty(passView.getText().toString().trim())) {
                     setStatusMessage(false,"Error: Please fill in password");
                 }
+                else if (!isRadiusInRange(radiusView.getText().toString().trim())) {
+                    setStatusMessage(false,"Error: Please enter a radius between 1-25");
+                }
                 else {
                     employee.setName(nameView.getText().toString());
                     employee.setDescription(descriptionBox.getText().toString());
@@ -122,6 +125,8 @@ public class EmployeeProfile extends AppCompatActivity {
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
                     user.setRadius(radiusView.getText().toString());
+                    user.getLatitude();
+                    user.getLatitude();
                     // updates to db
                     updateToDatabase(employee);
                     updateLocationToDatabase(user);
@@ -267,6 +272,7 @@ public class EmployeeProfile extends AppCompatActivity {
         employeeRef.child("Location").setValue(user);
         setStatusMessage(true, "Profile updated to database!");
     }
+
     public void updateToDatabase(Employee employee){
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
@@ -285,6 +291,7 @@ public class EmployeeProfile extends AppCompatActivity {
         employeeRef.setValue(employee);
         setStatusMessage(true, "Profile updated to database!");
     }
+
     public void refreshPage(){
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
@@ -410,6 +417,13 @@ public class EmployeeProfile extends AppCompatActivity {
 
     protected static boolean isPasswordEmpty (String password) {
         return password.isEmpty();
+    }
+
+    protected static boolean isRadiusInRange (String radius) {
+        if (Integer.valueOf(radius) >= 1 && Integer.valueOf(radius) <= 25) {
+            return true;
+        }
+        return false;
     }
 
     protected void setStatusMessage(Boolean success, String message) {
