@@ -53,10 +53,14 @@ public class EmployeeProfile extends AppCompatActivity {
     DatabaseReference employeeRef = null;
     FirebaseStorage storage;
     FirebaseDatabase database;
+    UserLocation user;
+
+
+    String userName = validEmployee[0];
+
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
-    private static final int REQUEST_IMAGE_CAPTURE = 101;
 
     String description, username, password, phone, email, name, radius;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
@@ -95,7 +99,9 @@ public class EmployeeProfile extends AppCompatActivity {
                 // Update fields
                 // define new employee object and set fields
                 Employee employee = new Employee();
+
                 setStatusMessage(true, "");
+
                 if (isNameEmpty(nameView.getText().toString())) {
                     setStatusMessage(false, "Error: Please fill in name");
                 }
@@ -115,8 +121,10 @@ public class EmployeeProfile extends AppCompatActivity {
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
+                    user.setRadius(radiusView.getText().toString());
                     // updates to db
                     updateToDatabase(employee);
+                    updateLocationToDatabase(user);
                 }
 
             }
@@ -207,9 +215,9 @@ public class EmployeeProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
-                            DatabaseReference reference = database.getReference();
+                            DatabaseReference reference = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
 
-                            reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            reference.child(userName).child("Resume").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -247,9 +255,22 @@ public class EmployeeProfile extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.refreshButton);
     }
 
+    public void updateLocationToDatabase(UserLocation user) {
+        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
+
+        Map<String, Object> locationUpdates = new HashMap<>();
+        locationUpdates.put("latitude", user.getLatitude());
+        locationUpdates.put("longitude", user.getLongitude());
+        locationUpdates.put("radius", user.getRadius());
+
+        employeeRef.child("Location").updateChildren(locationUpdates);
+        employeeRef.child("Location").setValue(user);
+        setStatusMessage(true, "Profile updated to database!");
+    }
     public void updateToDatabase(Employee employee){
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
+
         Map<String, Object> updates = new HashMap<>();
         updates.put("userName", employee.getUserName());
         updates.put("password", employee.getPassword());
@@ -257,6 +278,8 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("name", employee.getName());
         updates.put("phone", employee.getPhone());
         updates.put("description", employee.getDescription());
+
+        // Add radius to the database
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
         employeeRef.setValue(employee);
@@ -279,6 +302,8 @@ public class EmployeeProfile extends AppCompatActivity {
         radiusView.setText(radius);
     }
 
+
+
     //code from loginPage
     //Read data from dataBase and retrieve employee information
     public void dbReadEmployee(DatabaseReference db){
@@ -293,7 +318,11 @@ public class EmployeeProfile extends AppCompatActivity {
                     Employee employee = employeeItr.next().getValue(Employee.class);
                     //need to check against correct value to retrieve the correct location
                     if (employee.getUserName().equals(validEmployee[0])){
-                        radius = dataSnapshot.child("Radius").getValue(String.class);
+                        user = new UserLocation();
+                        user = dataSnapshot.child(validEmployee[0]).child("Location").getValue(UserLocation.class);
+                        if (user != null) {
+                            radius = user.getRadius();
+                        }
                         username = employee.getUserName();
                         password = employee.getPassword();
                         phone = employee.getPhone();
@@ -306,14 +335,13 @@ public class EmployeeProfile extends AppCompatActivity {
                 loadProfile();
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
 
-            }
-        });
-
-    }
+                }
+            });
+        }
 
     private void openCamera() {
         ContentValues values = new ContentValues();
