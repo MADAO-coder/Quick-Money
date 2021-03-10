@@ -16,18 +16,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -42,7 +37,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class AddListingMap extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener{
 
@@ -94,21 +88,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         user = new checkExistingUserName();
         checkPermissions();
 
-        manager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            return;
-        }
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-                5, listener);
-
-
-        mapFragment.getMapAsync(this);
+        getCurrentLocation();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -138,8 +118,12 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     }
 
     protected UserLocation getLocationObject(){
-
-        return new UserLocation(getLocation.latitude, getLocation.longitude, String.valueOf(radius));
+        if (getLocation != null) {
+            return new UserLocation(getLocation.latitude, getLocation.longitude, String.valueOf(radius));
+        } else {
+            createToast("Please wait for a minute for location to be added.");
+            return null;
+        }
     }
 
     /******
@@ -323,12 +307,37 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     /* ******
     Map Code end
      ******/
+    protected void getCurrentLocation(){
+        manager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            return;
+        }
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
+                5, listener);
+
+
+        mapFragment.getMapAsync(this);
+    }
+
+    // method to create a Toast
+    private void createToast(String message) {
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.show();
+    }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v){
         if(R.id.submitButton== v.getId()){
             presentLocation = getLocationObject();
-            finish();
+            if (presentLocation != null) {
+                finish();
+            }
         }
     }
 }

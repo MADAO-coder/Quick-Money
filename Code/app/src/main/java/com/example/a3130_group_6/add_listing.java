@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +29,7 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         map = new AddListingMap();
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             taskTitle.setText(savedInstanceState.getString("taskTitle"));
             taskTitle.setText(savedInstanceState.getString("taskDescription"));
             taskTitle.setText(savedInstanceState.getString("urgency"));
