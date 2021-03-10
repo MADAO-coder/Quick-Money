@@ -3,6 +3,7 @@ package com.example.a3130_group_6;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.PatternsCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,10 +13,14 @@ import android.widget.Toast;
 
 public class EditEmployerListing extends AppCompatActivity {
     Button save;
+    String listing;
    // EditText EditTask,EditTaskDescription,EditUrgency,EditPay,EditDate,EditStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        listing = extras.getString("identifier");
+
         setContentView(R.layout.activity_edit_employer_listing);
         save.setOnClickListener(this::onClick);
 
@@ -80,5 +85,8 @@ public class EditEmployerListing extends AppCompatActivity {
                 }
         }
     }
+
+
+
 
 }

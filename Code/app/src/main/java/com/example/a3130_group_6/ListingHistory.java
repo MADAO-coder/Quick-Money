@@ -128,7 +128,10 @@ public class ListingHistory extends AppCompatActivity {
         });
     }
     public void editListing(View view){
-        Intent switchIntent = new Intent(this,EditEmployerListing.class);
-        startActivity(switchIntent);
+        Intent i = new Intent();
+        i.setClassName("com.example", "com.example.activity");
+        i.putExtra("identifier", listingsString[0]);
+        startActivity(i);
     }
+
 }

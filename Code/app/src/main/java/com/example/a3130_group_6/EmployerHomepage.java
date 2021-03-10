@@ -61,4 +61,7 @@ public class EmployerHomepage extends AppCompatActivity {
         Intent switchIntent = new Intent(this, EmployerHomepage.class);
         startActivity(switchIntent);
     }
+
+
+
 }
