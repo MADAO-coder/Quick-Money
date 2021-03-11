@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".EditEmployerListing">
 
+    <Button
+        android:id="@+id/Back"
+        android:layout_width="151dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="131dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="96dp"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/submitTask"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Status" />
+
     <TextView
         android:id="@+id/TaskDescription"
         android:layout_width="116dp"
@@ -99,14 +113,15 @@
         android:id="@+id/submitTask"
         android:layout_width="151dp"
         android:layout_height="54dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginEnd="147dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="131dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="96dp"
         android:text="Submit Task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/Back"
+        app:layout_constraintTop_toBottomOf="@+id/EditStatus" />
 
     <EditText
         android:id="@+id/EditTask"
@@ -130,7 +145,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="25dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@id/TaskDescription"
@@ -195,6 +210,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pay" />
+
     <EditText
         android:id="@+id/EditStatus"
         android:layout_width="wrap_content"
@@ -208,6 +224,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/pay"
         app:layout_constraintTop_toBottomOf="@id/editDate" />
+
     <TextView
         android:id="@+id/taskDescription"
         android:layout_width="116dp"

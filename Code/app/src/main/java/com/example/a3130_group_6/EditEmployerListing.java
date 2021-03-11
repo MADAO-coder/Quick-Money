@@ -11,24 +11,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Iterator;
+
 public class EditEmployerListing extends AppCompatActivity {
-    Button save;
-    String [] listing ;
+    Button save,Back;
+    String [] listing =null;
+
+    DatabaseReference listingRef = null;
+    FirebaseDatabase database;
+    String origTitle,origDesc,origPay,origStatus,origUrgency,origDate;
    // EditText EditTask,EditTaskDescription,EditUrgency,EditPay,EditDate,EditStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         listing = extras.getStringArray("details");
-
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_employer_listing);
-
-      /*  setTitleDisplay(listing[0]);
-        setDescriptionDisplay(listing[1]);
-        setUrgencyDisplay(listing[2]);
-        setDateDisplay(listing[3]);
-        setPayDisplay(listing[4]);
-        setStatusDisplay(listing[5]);*/
+        save=findViewById(R.id.submitTask);
+        save.setOnClickListener(this::onClick);
+        Back =findViewById(R.id.Back);
+        Back.setOnClickListener(this::onClick);
+        database = FirebaseDatabase.getInstance();
+        listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        setOriginal();
+        setTextBox();
        // save.setOnClickListener(this::onClick);
 
     }
@@ -94,6 +104,24 @@ public class EditEmployerListing extends AppCompatActivity {
         EditText editText = findViewById(R.id.EditStatus);
         editText.setText(title);
     }
+    protected void setTextBox() {
+        setTitleDisplay(listing[0]);
+        setDescriptionDisplay(listing[1]);
+        setUrgencyDisplay(listing[2]);
+        setDateDisplay(listing[3]);
+        setPayDisplay(listing[4]);
+        setStatusDisplay(listing[5]);
+    }
+
+
+    protected void setOriginal() {
+        origTitle=listing[0];
+        origDesc = listing[1];
+        origUrgency = listing[2];
+        origDate = listing[3];
+        origPay = listing[4];
+        origStatus = listing[5];
+    }
 
 
 
@@ -112,9 +140,23 @@ public class EditEmployerListing extends AppCompatActivity {
                     toast.show();
                 }
                 else{
-                    Toast toast = Toast.makeText(this,"Error: Please lled.",Toast.LENGTH_LONG);
-                    toast.show();
-                }
+
+                    //while (listingRef.) {
+                        if (listingRef.child("taskTitle").equals(origTitle)) {
+                            listingRef.child("taskTitle").setValue(R.id.EditTask);
+                            listingRef.child("taskDescription").setValue(R.id.EditTaskDescription);
+                            listingRef.child("urgency").setValue(R.id.editUrgency);
+                            listingRef.child("date").setValue(R.id.editDate);
+                            listingRef.child("pay").setValue(R.id.EditPay);
+                            listingRef.child("status").setValue(R.id.EditStatus);
+                        } else {
+
+                       // }
+                    }
+
+                }break;
+            case R.id.Back:
+                startActivity(new Intent(this, ListingHistory.class));
         }
     }
 
