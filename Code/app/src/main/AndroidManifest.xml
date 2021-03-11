@@ -41,6 +41,7 @@
         <activity android:name=".EmployerHomepage" />
         <activity android:name=".add_listing" />
         <activity android:name=".ListingHistory"/>
+        <activity android:name=".ListingApplicants"/>
         <activity android:name="EmployerProfile"/>
         <activity android:name=".loginPage">
         <intent-filter>
