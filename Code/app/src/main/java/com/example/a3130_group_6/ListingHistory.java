@@ -30,6 +30,7 @@ public class ListingHistory extends AppCompatActivity {
     TextView NoListing = null;
     List<Listing> listings;
     List<String> keys;
+    List<String> employers;
     DataSnapshot employer;
     ListView listView=null;
     String[] listingsString;
@@ -44,6 +45,7 @@ public class ListingHistory extends AppCompatActivity {
         listView = findViewById(R.id.employeeList);
         listings = new ArrayList<>();
         keys = new ArrayList<>();
+        employers = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
@@ -58,7 +60,7 @@ public class ListingHistory extends AppCompatActivity {
 
     /**
      * Function: This method updates converts ArrayList of Listings into String array to be understood by the List View
-     * Parameters: View - view
+     * Parameters: none
      * Returns: void
      *
      */
@@ -92,6 +94,7 @@ public class ListingHistory extends AppCompatActivity {
         // 6 == num properties of a listing
         // putExtra() listing properties to listing detail page -- currently sends to my listing applicants page
         switchIntent.putExtra("key", keys.get(position));
+        switchIntent.putExtra("employer", employers.get(position));
         switchIntent.putExtra("title", temp.getTaskTitle());
         switchIntent.putExtra("date", temp.getDate());
         switchIntent.putExtra("pay", temp.getPay());
@@ -127,6 +130,7 @@ public class ListingHistory extends AppCompatActivity {
                             listingItr = listingData.getChildren().iterator();
                             while (listingItr.hasNext()) {
                                 listing[0] = listingItr.next();
+                                employers.add(employer.getKey());
                                 keys.add(listing[0].getKey());
                                 listings.add(listing[0].getValue(Listing.class));
                             }
