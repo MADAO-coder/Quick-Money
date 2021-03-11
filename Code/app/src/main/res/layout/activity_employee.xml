@@ -5,7 +5,7 @@
     android:id="@+id/registrationEmployer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".registrationForEmployers">
+    tools:context=".RegistrationForEmployers">
 
     <Button
         android:id="@+id/home2"

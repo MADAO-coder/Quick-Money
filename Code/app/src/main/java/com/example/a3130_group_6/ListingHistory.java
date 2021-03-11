@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.example.a3130_group_6.loginPage.validEmployer;
+import static com.example.a3130_group_6.LoginPage.validEmployer;
 
 public class ListingHistory extends AppCompatActivity {
     DatabaseReference employerRef = null;

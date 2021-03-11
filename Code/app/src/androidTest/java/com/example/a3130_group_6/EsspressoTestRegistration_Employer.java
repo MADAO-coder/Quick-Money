@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
-
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -26,7 +25,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EsspressoTestRegistration_Employer {
 
     @Rule
-    public ActivityScenarioRule<registrationForEmployers> RuleRegistration = new ActivityScenarioRule<>(registrationForEmployers.class);
+    public ActivityScenarioRule<RegistrationForEmployers> RuleRegistration = new ActivityScenarioRule<>(RegistrationForEmployers.class);
 
     @Test
     public void checkIfRegistrationEmployerShows() {

@@ -14,7 +14,7 @@ import androidx.core.util.PatternsCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class registrationForEmployers extends AppCompatActivity implements View.OnClickListener{
+public class RegistrationForEmployers extends AppCompatActivity implements View.OnClickListener{
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
 
@@ -22,7 +22,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     TextView statusLabel;
     DatabaseReference employerRef = null;
     Employer employers = new Employer();
-    checkExistingUserName user;
+    CheckExistingUserName user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
         username.setOnClickListener(this);
         error = findViewById(R.id.error);
 
-        user = new checkExistingUserName();
+        user = new CheckExistingUserName();
         user.validateUsername(username, error);
     }
 
@@ -55,7 +55,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     Switch to login page
      */
     protected void switchToHome(){
-        Intent back = new Intent(this, loginPage.class);
+        Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
 
@@ -63,7 +63,7 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     Changing pages to see employer registration
      */
     protected void switchToEmployee(){
-        Intent employee = new Intent(this, registrationForEmployees.class);
+        Intent employee = new Intent(this, RegistrationForEmployees.class);
         startActivity(employee);
     }
 
