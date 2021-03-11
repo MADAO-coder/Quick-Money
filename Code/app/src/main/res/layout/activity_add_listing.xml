@@ -7,7 +7,7 @@
     tools:context=".add_listing">
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/Status"
         android:layout_width="116dp"
         android:layout_height="38dp"
         android:layout_marginStart="40dp"
@@ -139,7 +139,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/enterDate"
+        android:id="@+id/editDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -150,7 +150,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/date"
-        app:layout_constraintTop_toBottomOf="@+id/inputUrgency" />
+        app:layout_constraintTop_toBottomOf="@+id/editUrgency" />
 
     <Button
         android:id="@+id/submitTask"
@@ -168,7 +168,7 @@
         app:layout_constraintVertical_bias="0.767" />
 
     <EditText
-        android:id="@+id/inputTaskTitle"
+        android:id="@+id/EditTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -182,7 +182,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/inputTaskDescription"
+        android:id="@+id/EditTaskDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -193,10 +193,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@id/TaskDescription"
-        app:layout_constraintTop_toBottomOf="@id/inputTaskTitle" />
+        app:layout_constraintTop_toBottomOf="@id/EditTask" />
 
     <EditText
-        android:id="@+id/inputUrgency"
+        android:id="@+id/editUrgency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -207,10 +207,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@id/urgency"
-        app:layout_constraintTop_toBottomOf="@id/inputTaskDescription" />
+        app:layout_constraintTop_toBottomOf="@id/EditTaskDescription" />
 
     <EditText
-        android:id="@+id/inputPay"
+        android:id="@+id/EditPay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -221,10 +221,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/pay"
-        app:layout_constraintTop_toBottomOf="@id/enterDate" />
+        app:layout_constraintTop_toBottomOf="@id/editDate" />
 
     <EditText
-        android:id="@+id/enterStatus"
+        android:id="@+id/EditStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -235,7 +235,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/pay"
-        app:layout_constraintTop_toBottomOf="@id/enterDate" />
+        app:layout_constraintTop_toBottomOf="@id/editDate" />
 
     <TextView
         android:id="@+id/statusLabel"
@@ -263,7 +263,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toBottomOf="@+id/inputPay"
+        app:layout_constraintTop_toBottomOf="@+id/EditPay"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
 

@@ -1,6 +1,5 @@
 package com.example.a3130_group_6;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -15,16 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 public class add_listing extends AppCompatActivity implements View.OnClickListener {
 
@@ -86,12 +80,12 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        EditText taskTitle = findViewById(R.id.inputTaskTitle);
-        EditText taskDescription = findViewById(R.id.inputTaskDescription);
-        EditText urgency = findViewById(R.id.inputUrgency);
-        EditText date = findViewById(R.id.enterDate);
-        EditText pay = findViewById(R.id.inputPay);
-        EditText status = findViewById(R.id.enterStatus);
+        EditText taskTitle = findViewById(R.id.EditTask);
+        EditText taskDescription = findViewById(R.id.EditTaskDescription);
+        EditText urgency = findViewById(R.id.editUrgency);
+        EditText date = findViewById(R.id.editDate);
+        EditText pay = findViewById(R.id.EditPay);
+        EditText status = findViewById(R.id.EditStatus);
 
         switch (view.getId()) {
             case R.id.submitTask:

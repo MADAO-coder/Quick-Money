@@ -49,12 +49,7 @@ public class ListingHistory extends AppCompatActivity {
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
         dbReadEmployer(employerRef);
-        listView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editListing(v);
-            }
-        });
+
 
 
         /* To-Do
@@ -76,14 +71,14 @@ public class ListingHistory extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    doSomething(position);
+                    doSomething(position,view);
                 }
             });
         }else{
             NoListing.setVisibility(View.VISIBLE);
         }
     }
-    public void doSomething(int position){
+    public void doSomething(int position,View v){
         // sendExtras() listing properties to listing detail page
         Listing temp = listings.get(position);
         // 6 == num properties of a listing
@@ -94,6 +89,8 @@ public class ListingHistory extends AppCompatActivity {
         details[3] = temp.getDate();
         details[4] = temp.getPay();
         details[5] = temp.getStatus();
+        editListing(v);
+
     }
     // function is asynchronous, causing issues
     //Read data from dataBase and make employers' userName and password into ArrayList.
@@ -131,8 +128,10 @@ public class ListingHistory extends AppCompatActivity {
         });
     }
     public void editListing(View view){
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("details",details);
         Intent intent = new Intent(this, EditEmployerListing.class);
-        intent.putExtra("identifier",details);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
