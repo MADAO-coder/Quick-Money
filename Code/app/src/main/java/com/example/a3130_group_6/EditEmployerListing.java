@@ -20,6 +20,7 @@ import java.util.Iterator;
 public class EditEmployerListing extends AppCompatActivity {
     Button save,Back;
     String [] listing =null;
+    DataSnapshot empListing;
 
     DatabaseReference listingRef = null;
     FirebaseDatabase database;
@@ -125,6 +126,7 @@ public class EditEmployerListing extends AppCompatActivity {
 
 
 
+
     public void onClick(View v) {
         EditText EditTask=findViewById(R.id.EditTask);
         EditText EditTaskDescription=findViewById(R.id.EditTaskDescription);
@@ -140,24 +142,30 @@ public class EditEmployerListing extends AppCompatActivity {
                     toast.show();
                 }
                 else{
+                    Toast toast = Toast.makeText(this,listingRef.child("taskTitle").toString(),Toast.LENGTH_LONG);
+                    toast.show();
+                    String key = listingRef.child("taskTitle").getKey();
 
-                    //while (listingRef.) {
-                        if (listingRef.child("taskTitle").equals(origTitle)) {
-                            listingRef.child("taskTitle").setValue(R.id.EditTask);
+                        if (listingRef.child("taskTitle").toString().equals(listing[0])) {
+                           // listingRef.child("taskTitle").setValue(R.id.EditTask);
+                            listingRef.getDatabase().getReference().child("taskTitle").setValue(R.id.EditTask);
                             listingRef.child("taskDescription").setValue(R.id.EditTaskDescription);
                             listingRef.child("urgency").setValue(R.id.editUrgency);
                             listingRef.child("date").setValue(R.id.editDate);
                             listingRef.child("pay").setValue(R.id.EditPay);
                             listingRef.child("status").setValue(R.id.EditStatus);
+                            Toast toast3 = Toast.makeText(this,"It worked",Toast.LENGTH_LONG);
+                            toast3.show();
                         } else {
-
-                       // }
-                    }
+                            Toast toast2 = Toast.makeText(this,"It didnt  work",Toast.LENGTH_LONG);
+                            //toast2.show();
+                        }
 
                 }break;
             case R.id.Back:
                 startActivity(new Intent(this, ListingHistory.class));
         }
+
     }
 
 
