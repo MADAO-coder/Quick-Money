@@ -129,11 +129,17 @@ public class ListingApplicants extends AppCompatActivity {
                     // on click route to employee details page
                     // send applicant name as extra -> use it to filter db
                     // TODO AT-5
+                    sendToEmployeeDetails();
                 }
             });
         }else{
             applicantStatus.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void sendToEmployeeDetails(View view){
+        Intent switchIntent = new Intent(this, EmployeeView.class);
+        startActivity(switchIntent);
     }
     public void homepageSwitch(View view) {
         Intent switchIntent = new Intent(this, EmployerHomepage.class);
