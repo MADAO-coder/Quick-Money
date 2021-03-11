@@ -78,26 +78,26 @@ public class ListingApplicants extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> dataItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
-
                 lHold[0] = dataItr.next();
+                // if employers listing has applicants
                 if(lHold[0].getKey().equals("Applicants")){
-                    // if employer location has Listings
-                    // do something
                     applicantItr = lHold[0].getChildren().iterator();
                     applicant[0] = applicantItr.next();
-                    if (applicant[0]!=null) {
-                        if(applicantItr.hasNext()){
-                            while(applicantItr.hasNext()){
-                                applicantNames.add(applicant[0].getKey());
-                                applicantValues.add(applicant[0].getValue().toString());
-                            }
-                        }else{
+                    // multiple applicants
+                    if(applicantItr.hasNext()){
+                        while(applicantItr.hasNext()){
                             applicantNames.add(applicant[0].getKey());
                             applicantValues.add(applicant[0].getValue().toString());
                         }
-                        updateApplicants();
                     }
+                    // 1 applicant
+                    else{
+                        applicantNames.add(applicant[0].getKey());
+                        applicantValues.add(applicant[0].getValue().toString());
+                    }
+                    updateApplicants();
                 }
+                // no applicants
                 else{
                     applicantStatus.setVisibility(View.VISIBLE);
                 }
@@ -126,7 +126,9 @@ public class ListingApplicants extends AppCompatActivity {
             applicantList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                    // on click route to employee details page
+                    // send applicant name as extra -> use it to filter db
+                    // TODO AT-5
                 }
             });
         }else{
