@@ -1,5 +1,6 @@
 package com.example.a3130_group_6;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,26 @@ public class EmployeeHomepage extends AppCompatActivity {
         employerRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         listings = new ArrayList<>();
         dbReadEmployees(employerRef, listings);
+        ListView listView = findViewById(R.id.employeeList);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                applyToListing();
+            }
+        });
+    }
+
+    /**
+     * Function: This method applies an employee to a listing, and saves their reference under the Listing
+     * Parameters: none
+     * Returns: void
+     *
+     */
+    protected void applyToListing(){
+        // save to database
+
+        //notify employer
+        
     }
 
     /**
