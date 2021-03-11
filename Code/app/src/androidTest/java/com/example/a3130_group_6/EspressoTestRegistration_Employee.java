@@ -28,7 +28,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EspressoTestRegistration_Employee {
 
     @Rule
-    public ActivityScenarioRule<registrationForEmployees> RuleRegistration = new ActivityScenarioRule<>(registrationForEmployees.class);
+    public ActivityScenarioRule<RegistrationForEmployees> RuleRegistration = new ActivityScenarioRule<>(RegistrationForEmployees.class);
 
     @BeforeClass
     public static void setup(){

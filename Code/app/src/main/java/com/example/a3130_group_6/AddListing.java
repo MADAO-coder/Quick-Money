@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
-public class add_listing extends AppCompatActivity implements View.OnClickListener {
+public class AddListing extends AppCompatActivity implements View.OnClickListener {
     Listing list;
 
     @Override
@@ -117,9 +117,9 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 } else {
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
                     list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString());
-                    System.out.println(loginPage.validEmployer[0]);
+                    System.out.println(LoginPage.validEmployer[0]);
 
-                    listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").push().setValue(list);
+                    listing.child(String.valueOf(LoginPage.validEmployer[0])).child("Listing").push().setValue(list);
                 }
                 break;
             case R.id.imageButton:

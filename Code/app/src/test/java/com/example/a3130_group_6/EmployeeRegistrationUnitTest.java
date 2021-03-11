@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class EmployeeRegistrationUnitTest {
-    registrationForEmployees regEmployee = new registrationForEmployees();
+    RegistrationForEmployees regEmployee = new RegistrationForEmployees();
 
     @Test
     public void passwordValidation_test(){

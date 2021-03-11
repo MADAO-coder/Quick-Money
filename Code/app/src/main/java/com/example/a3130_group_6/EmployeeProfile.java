@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.example.a3130_group_6.loginPage.validEmployee;
+import static com.example.a3130_group_6.LoginPage.validEmployee;
 
 public class EmployeeProfile extends AppCompatActivity {
 

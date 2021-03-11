@@ -26,7 +26,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EsspressoTestRegistration_Employer {
 
     @Rule
-    public ActivityScenarioRule<registrationForEmployers> RuleRegistration = new ActivityScenarioRule<>(registrationForEmployers.class);
+    public ActivityScenarioRule<RegistrationForEmployers> RuleRegistration = new ActivityScenarioRule<>(RegistrationForEmployers.class);
 
     @Test
     public void checkIfRegistrationEmployerShows() {

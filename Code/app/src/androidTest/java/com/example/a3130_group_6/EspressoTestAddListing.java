@@ -20,7 +20,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EspressoTestAddListing {
 
     @Rule
-    public ActivityScenarioRule<add_listing> employerRule = new ActivityScenarioRule<>(add_listing.class);
+    public ActivityScenarioRule<AddListing> employerRule = new ActivityScenarioRule<>(AddListing.class);
 
     @BeforeClass
     public static void setup(){

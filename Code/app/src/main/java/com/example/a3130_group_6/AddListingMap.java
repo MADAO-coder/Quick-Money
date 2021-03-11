@@ -49,7 +49,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     public static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     public static final String LOCATION_PERMISSION = android.Manifest.permission.ACCESS_FINE_LOCATION;
     public static final String LOCATION_PREF = "locationPref";
-    checkExistingUserName user;
+    CheckExistingUserName user;
 
     Context context;
     Activity activity;
@@ -91,7 +91,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         spinner = findViewById(R.id.spinner);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, radius_array));
 
-        user = new checkExistingUserName();
+        user = new CheckExistingUserName();
         checkPermissions();
 
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);

@@ -16,14 +16,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class checkExistingUserName {
+public class CheckExistingUserName {
     ArrayList employeeList = new ArrayList<>();
     ArrayList employerList = new ArrayList<>();
     DatabaseReference employer = null;
     DatabaseReference employee = null;
 
 
-    public checkExistingUserName() {
+    public CheckExistingUserName() {
         initializeDatabase();
         saveUserNamesInLists();
     }

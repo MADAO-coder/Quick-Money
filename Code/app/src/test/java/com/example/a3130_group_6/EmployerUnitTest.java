@@ -18,7 +18,7 @@ public class EmployerUnitTest {
     private final String name = "People";
     private final String businessName = "boss";
     Employer employer = new Employer(userName, passWord, phone, emailAddress, name, businessName);
-    registrationForEmployers reg = new registrationForEmployers();
+    RegistrationForEmployers reg = new RegistrationForEmployers();
 
     @Test
     public void getUserName_test(){
