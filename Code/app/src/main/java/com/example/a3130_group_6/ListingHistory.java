@@ -52,6 +52,13 @@ public class ListingHistory extends AppCompatActivity {
         * add routing to listing history page on each element
         * */
     }
+
+    /**
+     * Function: This method updates converts ArrayList of Listings into String array to be understood by the List View
+     * Parameters: View - view
+     * Returns: void
+     *
+     */
     public void updateListing(){
         if(listings.size()>0){
             listingsString = new String[listings.size()];
@@ -63,14 +70,20 @@ public class ListingHistory extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    doSomething(position);
+                    sendToEdit(position);
                 }
             });
         }else{
             NoListing.setVisibility(View.VISIBLE);
         }
     }
-    public void doSomething(int position){
+    /**
+     * Function: This method fills a list view with data, but Ty's code will implement edit in its place
+     * Parameters: Integer - position
+     * Returns: void
+     *
+     */
+    public void sendToEdit(int position){
         // sendExtras() listing properties to listing detail page
         Listing temp = listings.get(position);
         // 6 == num properties of a listing
@@ -84,8 +97,13 @@ public class ListingHistory extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, details);
         listView.setAdapter(adapter);
     }
-    // function is asynchronous, causing issues
-    //Read data from dataBase and make employers' userName and password into ArrayList.
+
+    /**
+     * Function: This method reads the database and retrieves all of the employers listings
+     * Parameters: DatabaseReference - db
+     * Returns: void
+     *
+     */
     public void dbReadEmployer(DatabaseReference db){
         // not iterating through the onDataChange or anything for some reason
         db.addValueEventListener(new ValueEventListener() {

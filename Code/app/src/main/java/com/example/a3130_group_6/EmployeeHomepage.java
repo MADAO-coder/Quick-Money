@@ -7,10 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,8 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.*;
-
-import static com.example.a3130_group_6.loginPage.validEmployer;
 
 public class EmployeeHomepage extends AppCompatActivity {
     DatabaseReference employerRef;
@@ -35,9 +30,15 @@ public class EmployeeHomepage extends AppCompatActivity {
         employerRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         listings = new ArrayList<>();
         dbReadEmployees(employerRef, listings);
-
     }
-    protected void setEmployerList(){
+
+    /**
+     * Function: This method converts all listings into one string array that can be understood by my list view
+     * Parameters: none
+     * Returns: void
+     *
+     */
+    protected void setTaskList(){
         String[] listingsString = new String[listings.size()];
         for(int i=0; i<listingsString.length; i++){
             listingsString[i] = listings.get(i).getTaskTitle() + "\tStatus:" + listings.get(i).getStatus();
@@ -47,7 +48,12 @@ public class EmployeeHomepage extends AppCompatActivity {
         taskList.setAdapter(adapter);
     }
 
-    // need to set a listing
+    /**
+     * Function: This method reads the database and retrieves an ArrayList of Listings
+     * Parameters: DatabaseReference - db, ArrayList<Listing> - listings
+     * Returns: void
+     *
+     */
     public void dbReadEmployees(DatabaseReference db, ArrayList<Listing> listings){
         final DataSnapshot[] employer = new DataSnapshot[1];
         db.addValueEventListener(new ValueEventListener() {
@@ -66,7 +72,7 @@ public class EmployeeHomepage extends AppCompatActivity {
                         }
                     }
                 }
-                setEmployerList();
+                setTaskList();
             }
 
             @Override
@@ -77,6 +83,12 @@ public class EmployeeHomepage extends AppCompatActivity {
         });
 
     }
+    /**
+     * Function: This method switches intent to the employee homepage
+     * Parameters: View - view
+     * Returns: void
+     *
+     */
     public void homepageSwitch(View view) {
         Intent switchIntent = new Intent(this, EmployeeHomepage.class);
         startActivity(switchIntent);
