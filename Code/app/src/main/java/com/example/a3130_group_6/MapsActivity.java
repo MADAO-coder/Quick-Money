@@ -1,8 +1,5 @@
 package com.example.a3130_group_6;
 
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
@@ -12,7 +9,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.a3130_group_6.R;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,7 +20,6 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
 

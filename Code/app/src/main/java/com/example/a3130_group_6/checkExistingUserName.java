@@ -1,11 +1,9 @@
 package com.example.a3130_group_6;
 
-import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 

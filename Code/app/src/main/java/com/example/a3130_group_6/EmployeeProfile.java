@@ -1,30 +1,29 @@
 package com.example.a3130_group_6;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -40,11 +39,6 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import android.view.View;
-import android.widget.Toast;
-
-import java.security.Permission;
 
 import static com.example.a3130_group_6.loginPage.validEmployee;
 
