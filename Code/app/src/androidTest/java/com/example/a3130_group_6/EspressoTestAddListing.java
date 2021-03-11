@@ -24,6 +24,7 @@ public class EspressoTestAddListing {
 
     @Rule
     public ActivityScenarioRule<AddListing> employerRule = new ActivityScenarioRule<>(AddListing.class);
+
     @Rule
     public ActivityScenarioRule<AddListingMap> listingMap = new ActivityScenarioRule<>(AddListingMap.class);
 
