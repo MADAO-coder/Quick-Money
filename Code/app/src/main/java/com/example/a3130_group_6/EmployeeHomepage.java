@@ -22,21 +22,24 @@ import static com.example.a3130_group_6.loginPage.validEmployee;
 
 public class EmployeeHomepage extends AppCompatActivity {
     DatabaseReference employerRef;
+    FirebaseDatabase db;
     DataSnapshot listingData;
     ListView taskList;
     Iterator<DataSnapshot> listingItr;
     ArrayList<Listing> listings;
     ArrayList<String> keys;
-    Employer employer;
+    ArrayList<String> employers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_homepage);
-        employerRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         taskList = (findViewById(R.id.TaskList));
         listings = new ArrayList<>();
         keys = new ArrayList<>();
+        employers = new ArrayList<>();
+        db = FirebaseDatabase.getInstance();
+        employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployees(employerRef, listings);
 
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,8 +60,8 @@ public class EmployeeHomepage extends AppCompatActivity {
     protected void applyToListing(int position){
         // TODO: get below to update to database properly
         // save current employee under listing in database
-        employerRef.child(employer.getUserName()).child("Listing").child(keys.get(position)).child("Applicants").setValue(validEmployee);
         //save object user to database to Firebase
+        employerRef.child(employers.get(position)).child("Listing").child(keys.get(position)).child("Applicants").child(validEmployee[0]).setValue("Applying");
     }
 
 
@@ -99,8 +102,9 @@ public class EmployeeHomepage extends AppCompatActivity {
                         listingItr = listingData.getChildren().iterator();
                         while (listingItr.hasNext()) {
                             listing[0] = listingItr.next();
-                            // add key + listing to separate lists
+                            // add key + employer + listing to separate lists
                             keys.add(listing[0].getKey());
+                            employers.add(employer[0].getKey());
                             listings.add(listing[0].getValue(Listing.class));
                         }
                     }
