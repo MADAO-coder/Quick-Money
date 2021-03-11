@@ -89,7 +89,7 @@ public class EmployerHomepage extends AppCompatActivity {
     }
 
     public void addTaskSwitch(View view) {
-        Intent switchIntent = new Intent(this, add_listing.class);
+        Intent switchIntent = new Intent(this, AddListing.class);
         startActivity(switchIntent);
     }
     public void homepageSwitch(View view) {

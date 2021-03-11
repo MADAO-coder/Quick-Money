@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class loginPage extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity {
     public static String[] validEmployer = new String[2];
 
     protected EditText userNameEt;
@@ -84,7 +83,7 @@ public class loginPage extends AppCompatActivity {
     }
 
     protected void switchToReg(){
-        Intent intent = new Intent(loginPage.this, registrationHome.class);
+        Intent intent = new Intent(LoginPage.this, RegistrationHome.class);
         startActivity(intent);
     }
 
@@ -126,7 +125,7 @@ public class loginPage extends AppCompatActivity {
                     dbReadEmployee(employeeRef, statusMsg);//Get data from database
 
                     if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
-                        Intent intent = new Intent(loginPage.this, EmployerHomepage.class);//Switch to new intent.
+                        Intent intent = new Intent(LoginPage.this, EmployerHomepage.class);//Switch to new intent.
                         startActivity(intent);
                     }
                     else {
@@ -204,7 +203,7 @@ public class loginPage extends AppCompatActivity {
 
     public void moveToEmployeePage(String statusMsg){
         if( isPasswordCorrect_employee() ){//When password or userName is not empty and user's info matched
-            Intent intent = new Intent(loginPage.this, EmployeeHomepage.class);//Switch to new intent.
+            Intent intent = new Intent(LoginPage.this, EmployeeHomepage.class);//Switch to new intent.
             startActivity(intent);
         }
         else {
@@ -215,7 +214,7 @@ public class loginPage extends AppCompatActivity {
 
     public void moveToEmployerPage(String statusMsg){
         if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
-            Intent intent = new Intent(loginPage.this, EmployerHomepage.class);//Switch to new intent.
+            Intent intent = new Intent(LoginPage.this, EmployerHomepage.class);//Switch to new intent.
             startActivity(intent);
             validEmployer[0] = getUserName();
         }

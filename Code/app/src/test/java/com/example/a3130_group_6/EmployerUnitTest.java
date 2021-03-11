@@ -2,7 +2,8 @@ package com.example.a3130_group_6;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -18,6 +19,7 @@ public class EmployerUnitTest {
     private final String name = "People";
     private final String businessName = "boss";
     Employer employer = new Employer(userName, passWord, phone, emailAddress, name, businessName);
+    RegistrationForEmployers reg = new RegistrationForEmployers();
 
     @Test
     public void getUserName_test(){
