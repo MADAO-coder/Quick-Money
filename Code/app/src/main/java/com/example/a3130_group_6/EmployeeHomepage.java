@@ -18,40 +18,49 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.*;
 
+import static com.example.a3130_group_6.loginPage.validEmployee;
+
 public class EmployeeHomepage extends AppCompatActivity {
     DatabaseReference employerRef;
     DataSnapshot listingData;
+    ListView taskList;
     Iterator<DataSnapshot> listingItr;
     ArrayList<Listing> listings;
+    ArrayList<String> keys;
+    Employer employer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_homepage);
         employerRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        taskList = (findViewById(R.id.TaskList));
         listings = new ArrayList<>();
+        keys = new ArrayList<>();
         dbReadEmployees(employerRef, listings);
-        ListView listView = findViewById(R.id.employeeList);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                applyToListing();
+                applyToListing(position);
             }
         });
+
     }
 
     /**
-     * Function: This method applies an employee to a listing, and saves their reference under the Listing
+     * Function: This method applies an employee to a listing
      * Parameters: none
      * Returns: void
      *
      */
-    protected void applyToListing(){
-        // save to database
-
-        //notify employer
-        
+    protected void applyToListing(int position){
+        // TODO: get below to update to database properly
+        // save current employee under listing in database
+        employerRef.child(employer.getUserName()).child("Listing").child(keys.get(position)).child("Applicants").setValue(validEmployee);
+        //save object user to database to Firebase
     }
+
 
     /**
      * Function: This method converts all listings into one string array that can be understood by my list view
@@ -65,7 +74,6 @@ public class EmployeeHomepage extends AppCompatActivity {
             listingsString[i] = listings.get(i).getTaskTitle() + "\tStatus:" + listings.get(i).getStatus();
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
-        ListView taskList = (ListView) findViewById(R.id.TaskList);
         taskList.setAdapter(adapter);
     }
 
@@ -77,6 +85,7 @@ public class EmployeeHomepage extends AppCompatActivity {
      */
     public void dbReadEmployees(DatabaseReference db, ArrayList<Listing> listings){
         final DataSnapshot[] employer = new DataSnapshot[1];
+        final DataSnapshot[] listing = new DataSnapshot[1];
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,20 +98,21 @@ public class EmployeeHomepage extends AppCompatActivity {
                         listingData = employer[0].child("Listing");
                         listingItr = listingData.getChildren().iterator();
                         while (listingItr.hasNext()) {
-                            listings.add(listingItr.next().getValue(Listing.class));
+                            listing[0] = listingItr.next();
+                            // add key + listing to separate lists
+                            keys.add(listing[0].getKey());
+                            listings.add(listing[0].getValue(Listing.class));
                         }
                     }
                 }
                 setTaskList();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
 
             }
         });
-
     }
     /**
      * Function: This method switches intent to the employee homepage
