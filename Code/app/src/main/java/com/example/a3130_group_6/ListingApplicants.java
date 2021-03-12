@@ -124,6 +124,7 @@ public class ListingApplicants extends AppCompatActivity {
                     // on click route to employee details page
                     // send applicant name as extra -> use it to filter db
                     // TODO AT-5
+                    employeeName = applicantNames.get(position);
                     sendToEmployeeDetails(view);
                 }
             });
