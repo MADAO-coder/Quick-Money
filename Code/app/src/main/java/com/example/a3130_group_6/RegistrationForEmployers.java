@@ -13,7 +13,7 @@ import androidx.core.util.PatternsCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class registrationForEmployers extends AppCompatActivity implements View.OnClickListener{
+public class RegistrationForEmployers extends AppCompatActivity implements View.OnClickListener{
 
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
@@ -50,14 +50,14 @@ public class registrationForEmployers extends AppCompatActivity implements View.
     Switch to login page
      */
     protected void switchToHome(){
-        Intent back = new Intent(this, loginPage.class);
+        Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
     /*
     Changing pages to see employer registration
      */
     protected void switchToEmployee(){
-        Intent employee = new Intent(this, registrationForEmployees.class);
+        Intent employee = new Intent(this, RegistrationForEmployees.class);
         startActivity(employee);
     }
 

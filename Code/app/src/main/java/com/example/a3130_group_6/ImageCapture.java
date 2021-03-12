@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.Permission;
 
-public class imageCapture extends AppCompatActivity {
+public class ImageCapture extends AppCompatActivity {
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;

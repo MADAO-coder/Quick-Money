@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class LoginUnitTest {
-    loginPage loginPage = new loginPage();
+    LoginPage loginPage = new LoginPage();
 
     @Test
     public void isUserNameEmpty_test() {

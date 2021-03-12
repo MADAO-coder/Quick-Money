@@ -1,16 +1,12 @@
 package com.example.a3130_group_6;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -26,38 +22,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.util.PatternsCompat;
-import java.security.Permission;
+
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-
 import java.io.IOException;
 
 
-public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener {
+public class RegistrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name, username, password, vpassword, phone, email;
-    TextInputEditText selfDef;
+    TextInputLayout selfDef;
     private Employee employee;
     Button homeBt, addPayment, submitBt, employeeBt, imageBtn, uploadResume, selectResume;
-
     //creating buttons and display variables
     TextView registrationStatus;
     DatabaseReference employerRef = null;
@@ -73,17 +58,12 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     private Uri image_uri;
     private Uri pdf;
     ImageView imageView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
         ImageButton imageButton = findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(this);
-        selfDef = findViewById(R.id.SelfDescription);
-
 
         imageToUpload = (ImageView) findViewById(R.id.imageToUpload);
         ImageView downloadedImage = (ImageView) findViewById(R.id.downloadedImage);
@@ -96,40 +76,33 @@ public class registrationForEmployees extends AppCompatActivity implements View.
 
         uploadResume = findViewById(R.id.uploadResume);
         selectResume = findViewById(R.id.selectResume);
-
-
         name = findViewById(R.id.name);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         vpassword = findViewById(R.id.vpassword);
-        phone = findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
+        phone = findViewById(R.id.phone);        //assigning the variables to its associated variable on the view
         email = findViewById(R.id.email);
         addPayment = findViewById(R.id.AddPayment);
         submitBt = findViewById(R.id.Submit);
         employeeBt = findViewById(R.id.Employer);
         homeBt = findViewById(R.id.home2);
         imageBtn = findViewById(R.id.Image);
+        selfDef = findViewById(R.id.SelfDescription);
 
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
         imageBtn.setOnClickListener(this);
-        imageToUpload.setOnClickListener(this);
         uploadResume.setOnClickListener(this);
         selectResume.setOnClickListener(this);
-
+        imageButton.setOnClickListener(this);
 
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
 
         // get data from database
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
-
-        //bUploadImage.setOnClickListener(this);
-
     }
-
-
     protected boolean isUserNameEmpty() {
         return getInputUserName().equals("");
     }
@@ -155,7 +128,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     }
 
     protected boolean isSelfDescriptionEmpty() {
-        return selfDef.getText().toString().trim().equals("");
+        return selfDef.toString().trim().equals("");
     }
 
     protected String getInputVpassword() {
@@ -165,7 +138,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     protected boolean isPasswordMatched() {
         return (getInputPassword().equals(getInputVpassword()));
     }
-
     /*
     Checking registration information
      */
@@ -173,7 +145,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
                 && isValidEmail(getInputEmailAddress());
     }
-
     /*
     Saving employee information to the database
      */
@@ -182,15 +153,9 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         employeeRef = FirebaseDatabase.getInstance().getReference();
         employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
     }
+    protected String getInputUserName() { return username.getText().toString().trim(); }
 
-
-    protected String getInputUserName() {
-        return username.getText().toString().trim();
-    }
-
-    protected String getInputPassword() {
-        return password.getText().toString().trim();
-    }
+    protected String getInputPassword() { return password.getText().toString().trim(); }
 
     protected String getInputEmailAddress() {
         return email.getText().toString().trim();
@@ -200,73 +165,77 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         return phone.getText().toString().trim();
     }
 
-    public String getName() {
-        return name.getText().toString().trim();
-    }
+    public String getName() { return name.getText().toString().trim(); }
 
-    public String getSelfDescription() {
-        return selfDef.getText().toString().trim();
-    }
+    protected String getSelfDescription() { return selfDef.toString(); }
 
     /*
     Changing pages to see employer registration
      */
     protected void switchToEmployer() {
-        Intent employer = new Intent(this, registrationForEmployers.class);
+        Intent employer = new Intent(this, RegistrationForEmployers.class);
         startActivity(employer);
     }
-
     protected void switchtoImage() {
-        Intent Image = new Intent(this, imageCapture.class);
+        Intent Image = new Intent(this, ImageCapture.class);
         startActivity(Image);
     }
-
     /*
     Switch to login page
      */
     protected void switchToHome() {
-        Intent back = new Intent(this, loginPage.class);
+        Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
-
+    //check whether user inputted information or not
     public void onClick(View v) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
-        if (R.id.Submit == v.getId()) {//when the submit button is clicked, add employee
-            if (!validRegistrationInformation()) {
-                Toast toast = Toast.makeText(this, "Empty or invalid registration information", Toast.LENGTH_LONG);
-                toast.show();
-            } else if (!isPasswordMatched()) {
-                Toast toast = Toast.makeText(this, "password is not matched", Toast.LENGTH_LONG);
-                toast.show();
-            } else {
+        if(R.id.Submit == v.getId()){ //when the submit button is clicked, add employee
+                if (!validRegistrationInformation()) {
+                    Toast toast = Toast.makeText(this, "Empty or invalid registration information", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                //verify that the passwords match
+                if (!isPasswordMatched()) {
+                    Toast toast = Toast.makeText(this, "password is not matched", Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
 
-                employees.setUserName(getInputUserName());
-                employees.setPassword(getInputPassword());
-                employees.setEmailAddress(getInputEmailAddress());
-                employees.setPhone(getPhoneNumber());
-                employees.setName(getName());
-                employees.setSelfDescription(getSelfDescription());
-                saveEmployeeToDataBase(employees);
+                    employees.setUserName(getInputUserName());
+                    employees.setPassword(getInputPassword());
+                    employees.setEmailAddress(getInputEmailAddress());
+                    employees.setPhone(getPhoneNumber());
+                    employees.setName(getName());
+                    employees.setSelfDescription(getSelfDescription());
+                    saveEmployeeToDataBase(employees);
+                    switchToHome();
+                }
+        }
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(intent, 0);
+        switch (v.getId()) {
+            case R.id.home2:
                 switchToHome();
-            }
-        } else if (R.id.home2 == v.getId()) {
-            switchToHome();
-        } else if (R.id.Employer == v.getId()) {
-            switchToEmployer();
-        } else if (R.id.Image == v.getId()) {
-            switchtoImage();
+                break;
 
+            case R.id.Employer:
+                switchToEmployer();
+                break;
+
+            case R.id.Image:
+                switchtoImage();
+                break;
+
+            case R.id.imageButton:
+                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+                break;
         }
-        if (R.id.imageButton == v.getId()) {
-            startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-
-        }
-
         switch (v.getId()) {
             case R.id.imageToUpload:
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                if (RESULT_LOAD_IMAGE == RESULT_OK) {
+                    imageToUpload.setImageURI(image_uri);
+                };
                 break;
 
             case R.id.bUploadImage:
@@ -277,90 +246,43 @@ public class registrationForEmployees extends AppCompatActivity implements View.
 
                 break;
         }
+        //select resume from files
+        selectResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(RegistrationForEmployees.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    selectPDF();
+                } else {
+                    ActivityCompat.requestPermissions(RegistrationForEmployees.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
+                }
 
-        if (ContextCompat.checkSelfPermission(registrationForEmployees.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            selectPDF();
-        } else {
-            ActivityCompat.requestPermissions(registrationForEmployees.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
-        }
+            }
+        });
+        //upload resume to database
+        uploadResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //make sure information is filled out before user can upload resume
+                if (pdf != null && name != null && username != null && email != null && phone != null) {
+                    uploadFile(pdf);
+                } else {
+                    Toast.makeText(RegistrationForEmployees.this, "Please fill out the information before uploading Resume.", Toast.LENGTH_SHORT).show();
+                }
 
-        if (pdf != null) {
-            uploadFile(pdf);
-        } else {
-            Toast.makeText(registrationForEmployees.this, "Please select a file", Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
     }
-
     static final int REQUEST_IMAGE_CAPTURE = 101;
     public static final int GET_FROM_GALLERY = 1;
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
-
-
-//    private void dispatchTakePictureIntent() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        // Ensure that there's a camera activity to handle the intent
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                Uri photoURI = FileProvider.getUriForFile(this,
-//                        "com.example.android.fileprovider",
-//                        photoFile);
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//            }
-//        }
-//    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
-//            Uri selectedImage = data.getData();
-//            imageToUpload.setImageURI(selectedImage);
-//
-//        }
-//    }
-//    String currentPhotoPath;
-//    private File createImageFile() throws IOException {
-//        // Create an image file name
-//        String timeStamp = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
-//        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File image = File.createTempFile(
-//                imageFileName,  /* prefix */
-//                ".jpg",         /* suffix */
-//                storageDir      /* directory */
-//        );
-//
-//        // Save a file: path for use with ACTION_VIEW intents
-//        currentPhotoPath = image.getAbsolutePath();
-//        return image;
-//    }
-//
-//    private void galleryAddPic() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(currentPhotoPath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        this.sendBroadcast(mediaScanIntent);
-//    }
-
     private void selectPDF() {
         Intent intent = new Intent();
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 86);
     }
-
+    //upload pdf file
     private void uploadFile(Uri pdf) {
         progress = new ProgressDialog(this);
         progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -386,10 +308,10 @@ public class registrationForEmployees extends AppCompatActivity implements View.
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(registrationForEmployees.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegistrationForEmployees.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
-                                        Toast.makeText(registrationForEmployees.this, "File failed to upload", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegistrationForEmployees.this, "File failed to upload", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -405,6 +327,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
             }
         });
     }
+    //once permission is granted, give user access to camera
     private void openCamera() {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New Picture");
@@ -415,8 +338,6 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
     }
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -436,25 +357,26 @@ public class registrationForEmployees extends AppCompatActivity implements View.
             selectPDF();
         }
         else {
-            Toast.makeText(registrationForEmployees.this, "Please grant permission", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationForEmployees.this, "Please grant permission", Toast.LENGTH_SHORT).show();
         }
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            imageView.setImageURI(image_uri);
-        }
-        if (requestCode == 86 && resultCode == RESULT_OK && data != null) {
-            pdf = data.getData();
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            image_uri = data.getData();
+            try {
+                imageToUpload.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_uri));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else {
-            Toast.makeText(registrationForEmployees.this, "Please select a file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationForEmployees.this, "Please select a file", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 

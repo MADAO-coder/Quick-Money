@@ -16,7 +16,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EspressoTestAddListing {
 
     @Rule
-    public ActivityScenarioRule<add_listing> employerRule = new ActivityScenarioRule<>(add_listing.class);
+    public ActivityScenarioRule<Add_listing> employerRule = new ActivityScenarioRule<>(Add_listing.class);
 
     @Test
     public void checkIfTaskTitleEmpty() {

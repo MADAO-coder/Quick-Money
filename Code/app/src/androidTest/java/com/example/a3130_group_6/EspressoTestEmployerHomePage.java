@@ -74,7 +74,7 @@ public class EspressoTestEmployerHomePage {
     @Test
     public void checkAddTask() {
         onView(withId(R.id.addTaskButton)).perform(click());
-        intended(hasComponent(add_listing.class.getName()));
+        intended(hasComponent(Add_listing.class.getName()));
     }
 
 }

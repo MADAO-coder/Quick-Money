@@ -1,18 +1,12 @@
 package com.example.a3130_group_6;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.Toast;
-
-import java.util.List;
 
 public class EmployerHomepage extends AppCompatActivity {
 
@@ -50,7 +44,7 @@ public class EmployerHomepage extends AppCompatActivity {
     }
 
     public void addTaskSwitch(View view) {
-        Intent switchIntent = new Intent(this, add_listing.class);
+        Intent switchIntent = new Intent(this, Add_listing.class);
         startActivity(switchIntent);
     }
     public void homepageSwitch(View view) {

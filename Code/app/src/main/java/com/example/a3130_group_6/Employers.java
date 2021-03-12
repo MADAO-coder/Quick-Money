@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class employers extends AppCompatActivity {
+public class Employers extends AppCompatActivity {
 
     TextView name,username,password,vpassword,phone,email;
     Button home,addPayment,submit,switchToEmployee;
@@ -36,7 +36,7 @@ public class employers extends AppCompatActivity {
         startActivity(employee);
     }
     protected void switchToHome(){
-        Intent back = new Intent(this, loginPage.class);
+        Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
 

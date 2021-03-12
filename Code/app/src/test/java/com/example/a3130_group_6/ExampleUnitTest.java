@@ -1,9 +1,7 @@
 package com.example.a3130_group_6;
 
 import org.junit.BeforeClass;
-import android.widget.SearchView;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,12 +18,12 @@ import static org.junit.Assert.*;
  * AT 5: Given that I am an employee/employer I expect to see available tasks/available taskers in my local
  */
 public class ExampleUnitTest {
-    static add_listing addListing;
+    static Add_listing addListing;
     static EmployerHomepage employerHomepage;
 
     @BeforeClass
     public static void setup() {
-        addListing = new add_listing();
+        addListing = new Add_listing();
         employerHomepage = new EmployerHomepage();
     }
 
