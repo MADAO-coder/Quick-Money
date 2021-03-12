@@ -2,6 +2,11 @@ package com.example.a3130_group_6;
 
 import android.content.Intent;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 Class for adding listing to the database
  */
@@ -13,10 +18,19 @@ public class Listing {
     private String pay;
     private String status;
     private static int count = 0;
+    private String key;
 
-    public Listing() {
+    public Listing(){}
+    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status, String key) {
+        this.taskTitle = taskTitle;
+        this.taskDescription = taskDescription;
+        this.urgency = urgency;
+        this.date = date;
+        this.pay = pay;
+        this.status = status;
+        this.key = key;
+        count ++;
     }
-
     public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
@@ -77,4 +91,34 @@ public class Listing {
         this.pay = pay;
     }
 
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        Listing.count = count;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("taskTitle", taskTitle);
+        result.put("taskDescription",taskDescription);
+        result.put("urgency" ,urgency);
+        result.put("date",date);
+        result.put("pay",pay);
+        result.put("status",status);
+        result.put("key",key);
+
+
+        return result;
+    }
 }

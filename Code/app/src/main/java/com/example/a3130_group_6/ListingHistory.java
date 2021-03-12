@@ -37,6 +37,7 @@ public class ListingHistory extends AppCompatActivity {
     DataSnapshot listingData;
     Iterator<DataSnapshot> listingItr;
     String [] details;
+    List<String> employerName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class ListingHistory extends AppCompatActivity {
         listView = findViewById(R.id.listingHistoryView);
        // editListing = findViewById(R.id.EditListing);
         listings = new ArrayList<>();
+        employerName = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
@@ -82,13 +84,16 @@ public class ListingHistory extends AppCompatActivity {
         // sendExtras() listing properties to listing detail page
         Listing temp = listings.get(position);
         // 6 == num properties of a listing
-        details = new String[6];
+        details = new String[8];
         details[0] = temp.getTaskTitle();
         details[1] = temp.getTaskDescription();
         details[2] = temp.getUrgency();
         details[3] = temp.getDate();
         details[4] = temp.getPay();
         details[5] = temp.getStatus();
+        details[6] = temp.getKey();
+        details[7] = employerName.get(position);
+
         editListing(v);
 
     }
@@ -112,7 +117,12 @@ public class ListingHistory extends AppCompatActivity {
                             listingData = employer.child("Listing");
                             listingItr = listingData.getChildren().iterator();
                             while (listingItr.hasNext()) {
-                                listings.add(listingItr.next().getValue(Listing.class));
+                                DataSnapshot next = listingItr.next();
+                                String listingKey = next.getKey();
+                                Listing value = next.getValue(Listing.class);
+                                value.setKey(listingKey);
+                                listings.add(value);
+                                employerName.add(validEmployer[0]);
 
                             }
                         }

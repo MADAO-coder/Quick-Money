@@ -11,24 +11,70 @@
     android:visibility="visible"
     tools:context=".EmployerHomepage">
 
+    <Button
+        android:id="@+id/ListingHistory"
+        android:layout_width="125dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="124dp"
+        android:onClick="switchListingHistory"
+        android:text="Switch Listing History"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toStartOf="@+id/addTaskButton"
+        app:layout_constraintStart_toEndOf="@+id/Home"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="240dp"
+        android:clickable="true"
+        android:onClick="addTaskSwitch"
+        android:text="Logout"
+        app:layout_constraintBottom_toTopOf="@+id/employeeHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addTaskButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
+        android:clickable="true"
+        android:onClick="addTaskSwitch"
+        android:text="Add Task"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toStartOf="@+id/Logout"
+        app:layout_constraintStart_toEndOf="@+id/ListingHistory"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Home"
+        android:layout_width="82dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="123dp"
+        android:onClick="homepageSwitch"
+        android:text="Home"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toStartOf="@+id/ListingHistory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <SearchView
         android:id="@+id/searchBar"
-        android:layout_width="367dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="86dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="581dp"
+        android:layout_width="263dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="142dp"
         android:clickable="true"
         android:focusable="true"
         android:inputType="text"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/Home"
         tools:visibility="visible" />
 
     <ListView
@@ -65,60 +111,5 @@
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
         app:layout_constraintVertical_bias="0.678" />
 
-    <Button
-        android:id="@+id/addTaskButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="addTaskSwitch"
-        android:text="Add Task"
-        app:layout_constraintBottom_toTopOf="@+id/employeeHeader"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
-
-    <Button
-        android:id="@+id/homeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#673AB7"
-        android:onClick="homepageSwitch"
-        android:text="Home"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:theme="@android:style/Theme.Holo"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewBanner"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imageViewBanner"
-        android:layout_width="323dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="20dp"
-        android:background="#673AB7"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.052"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
-
-    <Button
-        android:id="@+id/ListingHistory"
-        android:layout_width="141dp"
-        android:layout_height="84dp"
-        android:layout_marginBottom="2dp"
-        android:onClick="switchListingHistory"
-        android:text="Switch Listing History"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
-        app:layout_constraintStart_toEndOf="@+id/homeButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

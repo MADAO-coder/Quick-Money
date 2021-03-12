@@ -5,45 +5,56 @@ import androidx.core.util.PatternsCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class EditEmployerListing extends AppCompatActivity {
-    Button save,Back;
+    Button save,Back,home,switchPage,addTask,logout;
     String [] listing =null;
     DataSnapshot empListing;
 
     DatabaseReference listingRef = null;
     FirebaseDatabase database;
-    String origTitle,origDesc,origPay,origStatus,origUrgency,origDate;
-   // EditText EditTask,EditTaskDescription,EditUrgency,EditPay,EditDate,EditStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
         listing = extras.getStringArray("details");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_employer_listing);
+        home=findViewById(R.id.Home);
+        switchPage = findViewById(R.id.ListingHistory);
+        addTask= findViewById(R.id.addTaskButton);
+        logout = findViewById(R.id.Logout);
+        home.setOnClickListener(this::onClick);
+        switchPage.setOnClickListener(this::onClick);
+        logout.setOnClickListener(this::onClick);
+        addTask.setOnClickListener(this::onClick);
         save=findViewById(R.id.submitTask);
         save.setOnClickListener(this::onClick);
         Back =findViewById(R.id.Back);
         Back.setOnClickListener(this::onClick);
         database = FirebaseDatabase.getInstance();
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-        setOriginal();
-        setTextBox();
-       // save.setOnClickListener(this::onClick);
 
+        setTextBox();
     }
-    //protected String getTaskTitle(){
 
     //}
 
@@ -115,15 +126,19 @@ public class EditEmployerListing extends AppCompatActivity {
     }
 
 
-    protected void setOriginal() {
-        origTitle=listing[0];
-        origDesc = listing[1];
-        origUrgency = listing[2];
-        origDate = listing[3];
-        origPay = listing[4];
-        origStatus = listing[5];
+    public void switchListingHistory(View view) {
+        Intent switchIntent = new Intent(this, ListingHistory.class);
+        startActivity(switchIntent);
     }
 
+    public void addTaskSwitch(View view) {
+        Intent switchIntent = new Intent(this, add_listing.class);
+        startActivity(switchIntent);
+    }
+    public void homepageSwitch(View view) {
+        Intent switchIntent = new Intent(this, EmployerHomepage.class);
+        startActivity(switchIntent);
+    }
 
 
 
@@ -134,41 +149,36 @@ public class EditEmployerListing extends AppCompatActivity {
         EditText EditPay = findViewById(R.id.EditPay);
         EditText EditDate = findViewById(R.id.editDate);
         EditText EditStatus = findViewById(R.id.EditStatus);
-        switch ((v.getId())){
+        switch ((v.getId())) {
             case R.id.submitTask:
                 checkUrgencyRange(EditUrgency.toString().trim());
-                if (isEmptyDate(EditDate.toString())|| isEmptyTaskTitle(EditTask.toString())||isEmptyTaskDescription(EditTaskDescription.toString().trim())||isEmptyUrgency(EditUrgency.toString().trim())||isEmptyPay(EditPay.toString().trim())){
-                    Toast toast = Toast.makeText(this,"Error: Please ensure all fields are filled.",Toast.LENGTH_LONG);
+                if (isEmptyDate(EditDate.toString()) || isEmptyTaskTitle(EditTask.toString()) || isEmptyTaskDescription(EditTaskDescription.toString().trim()) || isEmptyUrgency(EditUrgency.toString().trim()) || isEmptyPay(EditPay.toString().trim())) {
+                    Toast toast = Toast.makeText(this, "Error: Please ensure all fields are filled.", Toast.LENGTH_LONG);
                     toast.show();
+                } else {
+                    Listing post = new Listing(EditTask.getText().toString(), EditTaskDescription.getText().toString(),EditUrgency.getText().toString(), EditDate.getText().toString(),EditPay.getText().toString(),EditStatus.getText().toString(),listing[6]);
+                    Map<String, Object> postValues = post.toMap();
+
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put(listing[7]+"/Listing/"+ listing[6], postValues);
+                    listingRef.updateChildren(childUpdates);
+
                 }
-                else{
-                    Toast toast = Toast.makeText(this,listingRef.child("taskTitle").toString(),Toast.LENGTH_LONG);
-                    toast.show();
-                    String key = listingRef.child("taskTitle").getKey();
-
-                        if (listingRef.child("taskTitle").toString().equals(listing[0])) {
-                           // listingRef.child("taskTitle").setValue(R.id.EditTask);
-                            listingRef.getDatabase().getReference().child("taskTitle").setValue(R.id.EditTask);
-                            listingRef.child("taskDescription").setValue(R.id.EditTaskDescription);
-                            listingRef.child("urgency").setValue(R.id.editUrgency);
-                            listingRef.child("date").setValue(R.id.editDate);
-                            listingRef.child("pay").setValue(R.id.EditPay);
-                            listingRef.child("status").setValue(R.id.EditStatus);
-                            Toast toast3 = Toast.makeText(this,"It worked",Toast.LENGTH_LONG);
-                            toast3.show();
-                        } else {
-                            Toast toast2 = Toast.makeText(this,"It didnt  work",Toast.LENGTH_LONG);
-                            //toast2.show();
-                        }
-
-                }break;
+                break;
             case R.id.Back:
+            case R.id.ListingHistory:
                 startActivity(new Intent(this, ListingHistory.class));
+                break;
+            case R.id.addTaskButton:
+                startActivity(new Intent(this, add_listing.class));
+                break;
+            case R.id.Logout:
+                //database.
+                break;
+            case R.id.Home:
+                startActivity(new Intent(this, EmployerHomepage.class));
+                break;
         }
 
     }
-
-
-
-
 }

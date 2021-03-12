@@ -7,6 +7,57 @@
     tools:context=".EditEmployerListing">
 
     <Button
+        android:id="@+id/ListingHistory"
+        android:layout_width="125dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="124dp"
+        android:onClick="switchListingHistory"
+        android:text="Switch Listing History"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toStartOf="@+id/addTaskButton"
+        app:layout_constraintStart_toEndOf="@+id/Home"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="240dp"
+        android:clickable="true"
+        android:onClick="addTaskSwitch"
+        android:text="Logout"
+        app:layout_constraintBottom_toTopOf="@+id/employeeHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addTaskButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
+        android:clickable="true"
+        android:onClick="addTaskSwitch"
+        android:text="Add Task"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toStartOf="@+id/Logout"
+        app:layout_constraintStart_toEndOf="@+id/ListingHistory"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Home"
+        android:layout_width="82dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="123dp"
+        android:onClick="homepageSwitch"
+        android:text="Home"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toStartOf="@+id/ListingHistory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
         android:id="@+id/Back"
         android:layout_width="151dp"
         android:layout_height="54dp"
@@ -216,14 +267,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="131dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/Back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/pay"
-        app:layout_constraintTop_toBottomOf="@id/editDate" />
+        app:layout_constraintStart_toEndOf="@+id/Status"
+        app:layout_constraintTop_toBottomOf="@+id/EditPay" />
 
     <TextView
         android:id="@+id/taskDescription"
