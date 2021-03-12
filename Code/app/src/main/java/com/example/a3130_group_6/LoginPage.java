@@ -22,6 +22,7 @@ import java.util.List;
 
 public class LoginPage extends AppCompatActivity {
     public static String[] validEmployer = new String[2];
+    public static String[] validEmployee = new String[2];
 
     protected EditText userNameEt;
     protected EditText passwordEt;
@@ -205,6 +206,7 @@ public class LoginPage extends AppCompatActivity {
         if( isPasswordCorrect_employee() ){//When password or userName is not empty and user's info matched
             Intent intent = new Intent(LoginPage.this, EmployeeHomepage.class);//Switch to new intent.
             startActivity(intent);
+            validEmployee[0] = getUserName();
         }
         else {
             statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
