@@ -27,7 +27,7 @@
         android:id="@+id/Logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="240dp"
+        android:layout_marginBottom="215dp"
         android:clickable="true"
         android:onClick="addTaskSwitch"
         android:text="Logout"
