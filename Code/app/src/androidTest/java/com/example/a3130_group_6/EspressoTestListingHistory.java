@@ -42,7 +42,5 @@ public class EspressoTestListingHistory {
         // intended route to EmployerProfile - not yet complete -Bryson :(
         intended(hasComponent(EmployerHomepage.class.getName()));
     }
-    /** AT-4**/
-
 
 }

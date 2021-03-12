@@ -1,5 +1,6 @@
 package com.example.a3130_group_6;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +28,9 @@ public class ListingHistory extends AppCompatActivity {
     FirebaseDatabase database;
     String fireRef;
     TextView NoListing = null;
-    List<Listing> listings = null;
+    List<Listing> listings;
+    List<String> keys;
+    List<String> employers;
     DataSnapshot employer;
     ListView listView=null;
     String[] listingsString;
@@ -41,6 +44,8 @@ public class ListingHistory extends AppCompatActivity {
         NoListing = findViewById(R.id.noListingMessage);
         listView = findViewById(R.id.employeeList);
         listings = new ArrayList<>();
+        keys = new ArrayList<>();
+        employers = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
@@ -52,6 +57,13 @@ public class ListingHistory extends AppCompatActivity {
         * add routing to listing history page on each element
         * */
     }
+
+    /**
+     * Function: This method updates converts ArrayList of Listings into String array to be understood by the List View
+     * Parameters: none
+     * Returns: void
+     *
+     */
     public void updateListing(){
         if(listings.size()>0){
             listingsString = new String[listings.size()];
@@ -63,31 +75,44 @@ public class ListingHistory extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    doSomething(position);
+                    sendToEdit(position);
                 }
             });
         }else{
             NoListing.setVisibility(View.VISIBLE);
         }
     }
-    public void doSomething(int position){
-        // sendExtras() listing properties to listing detail page
+    /**
+     * Function: This method fills a list view with data, but Ty's code will implement an edit/listing details page
+     * Parameters: Integer - position
+     * Returns: void
+     *
+     */
+    public void sendToEdit(int position){
+        Intent switchIntent = new Intent(this, ListingApplicants.class);
         Listing temp = listings.get(position);
         // 6 == num properties of a listing
-        String[] details = new String[6];
-        details[0] = temp.getTaskTitle();
-        details[1] = temp.getTaskDescription();
-        details[2] = temp.getUrgency();
-        details[3] = temp.getDate();
-        details[4] = temp.getPay();
-        details[5] = temp.getStatus();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, details);
-        listView.setAdapter(adapter);
+        // putExtra() listing properties to listing detail page -- currently sends to my listing applicants page
+        switchIntent.putExtra("key", keys.get(position));
+        switchIntent.putExtra("employer", employers.get(position));
+        switchIntent.putExtra("title", temp.getTaskTitle());
+        switchIntent.putExtra("date", temp.getDate());
+        switchIntent.putExtra("pay", temp.getPay());
+        switchIntent.putExtra("status", temp.getStatus());
+        switchIntent.putExtra("description", temp.getTaskDescription());
+        switchIntent.putExtra("urgency", temp.getUrgency());
+        startActivity(switchIntent);
+
     }
-    // function is asynchronous, causing issues
-    //Read data from dataBase and make employers' userName and password into ArrayList.
+
+    /**
+     * Function: This method reads the database and retrieves all of the employers listings
+     * Parameters: DatabaseReference - db
+     * Returns: void
+     *
+     */
     public void dbReadEmployer(DatabaseReference db){
-        // not iterating through the onDataChange or anything for some reason
+        final DataSnapshot[] listing = new DataSnapshot[1];
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,7 +129,10 @@ public class ListingHistory extends AppCompatActivity {
                             listingData = employer.child("Listing");
                             listingItr = listingData.getChildren().iterator();
                             while (listingItr.hasNext()) {
-                                listings.add(listingItr.next().getValue(Listing.class));
+                                listing[0] = listingItr.next();
+                                employers.add(employer.getKey());
+                                keys.add(listing[0].getKey());
+                                listings.add(listing[0].getValue(Listing.class));
                             }
                         }
                     }

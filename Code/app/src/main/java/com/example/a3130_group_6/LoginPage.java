@@ -205,8 +205,8 @@ public class LoginPage extends AppCompatActivity {
     public void moveToEmployeePage(String statusMsg){
         if( isPasswordCorrect_employee() ){//When password or userName is not empty and user's info matched
             Intent intent = new Intent(LoginPage.this, EmployeeHomepage.class);//Switch to new intent.
-            startActivity(intent);
             validEmployee[0] = getUserName();
+            startActivity(intent);
         }
         else {
             statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
@@ -217,8 +217,8 @@ public class LoginPage extends AppCompatActivity {
     public void moveToEmployerPage(String statusMsg){
         if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
             Intent intent = new Intent(LoginPage.this, EmployerHomepage.class);//Switch to new intent.
-            startActivity(intent);
             validEmployer[0] = getUserName();
+            startActivity(intent);
         }
         else {
             statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.

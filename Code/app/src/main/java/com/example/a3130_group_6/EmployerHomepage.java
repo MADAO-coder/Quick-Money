@@ -18,10 +18,7 @@ import java.util.List;
 
 public class EmployerHomepage extends AppCompatActivity {
 
-    Employer employer;
-    DatabaseReference employerRef = null;
-    int check=0;
-    private List<Employee> employeeList = new ArrayList<>();
+    ArrayList<Employee> employees;
     DatabaseReference employeeRef;
 
     @Override
@@ -33,8 +30,9 @@ public class EmployerHomepage extends AppCompatActivity {
     }
     protected void setEmployeeList(){
         // connect to db, retrieve employees
-        ArrayList<Employee> employees = new ArrayList<>();
-        dbReadEmployees(employeeRef, employees);
+        employees = new ArrayList<>();
+        // causing bugs (wasn't working before anyway)
+        //dbReadEmployees(employeeRef, employees);
         String[] employeesString = new String[employees.size()];
         employees.toArray(employeesString);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employeesString);
@@ -50,6 +48,7 @@ public class EmployerHomepage extends AppCompatActivity {
                 Iterator<DataSnapshot> employeeItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
                 while (employeeItr.hasNext()) {
+
                     employee[0] = employeeItr.next().getValue(Employee.class);
                     employees.add(employee[0]);
                 }
