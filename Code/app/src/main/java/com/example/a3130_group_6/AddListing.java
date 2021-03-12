@@ -19,12 +19,23 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
-public class add_listing extends AppCompatActivity implements View.OnClickListener {
+public class AddListing extends AppCompatActivity implements View.OnClickListener {
     Listing list;
+    AddListingMap map;
+    EditText taskTitle, taskDescription, urgency, date, pay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        map = new AddListingMap();
+
+        if (savedInstanceState != null) {
+            taskTitle.setText(savedInstanceState.getString("taskTitle"));
+            taskTitle.setText(savedInstanceState.getString("taskDescription"));
+            taskTitle.setText(savedInstanceState.getString("urgency"));
+            taskTitle.setText(savedInstanceState.getString("date"));
+            taskTitle.setText(savedInstanceState.getString("pay"));
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
@@ -37,6 +48,16 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
 
         Button addLocationBt = findViewById(R.id.add_locationBt);
         addLocationBt.setOnClickListener(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putString("taskTitle", taskTitle.getText().toString());
+        outState.putString("taskDescription", taskDescription.getText().toString());
+        outState.putString("urgency", urgency.getText().toString());
+        outState.putString("date", date.getText().toString());
+        outState.putString("pay", pay.getText().toString());
     }
 
     protected boolean isEmptyTaskTitle(String task) {
@@ -87,14 +108,18 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
         startActivity(EmployeeMapIntent);
     }
 
+    protected boolean checkIfLocationEmpty(UserLocation current){
+        return current == null;
+    }
+
     @Override
     public void onClick(View view) {
-        EditText taskTitle = findViewById(R.id.inputTaskTitle);
-        EditText taskDescription = findViewById(R.id.inputTaskDescription);
-        EditText urgency = findViewById(R.id.inputUrgency);
-        EditText date = findViewById(R.id.enterDate);
-        EditText pay = findViewById(R.id.inputPay);
         EditText status = findViewById(R.id.enterStatus);
+        taskTitle = findViewById(R.id.inputTaskTitle);
+        taskDescription = findViewById(R.id.inputTaskDescription);
+        urgency = findViewById(R.id.inputUrgency);
+        date = findViewById(R.id.enterDate);
+        pay = findViewById(R.id.inputPay);
         TextView currentLocation = findViewById(R.id.currentLocationView);
         Button addLocationBt = findViewById(R.id.add_locationBt);
 
@@ -114,21 +139,22 @@ public class add_listing extends AppCompatActivity implements View.OnClickListen
                 }
                 else if (isEmptyPay(pay.getText().toString().trim())) {
                     setStatusMessage("Error: Please fill in Pay");
-
+                }
+                else if (checkIfLocationEmpty(AddListingMap.presentLocation)){
+                    setStatusMessage("Error: Please choose a location");
                 } else {
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(), date.getText().toString(), pay.getText().toString(), status.getText().toString());
-                    System.out.println(loginPage.validEmployer[0]);
-
-                    listing.child(String.valueOf(loginPage.validEmployer[0])).child("Listing").push().setValue(list);
+                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(),
+                            date.getText().toString(), pay.getText().toString(), status.getText().toString(),AddListingMap.presentLocation);
+                    listing.child(String.valueOf(LoginPage.validEmployer[0])).child("Listing").push().setValue(list);
                 }
+                break;
+            case R.id.add_locationBt:
+                employeeMapSwitch();
                 break;
             case R.id.imageButton:
                 startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-
-            case R.id.add_locationBt:
-                employeeMapSwitch();
-
+                break;
         }
     }
 

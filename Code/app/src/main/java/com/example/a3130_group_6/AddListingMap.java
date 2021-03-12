@@ -16,16 +16,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,19 +37,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
-public class AddListingMap extends AppCompatActivity implements OnMapReadyCallback {
+public class AddListingMap extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener{
 
     public static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     public static final String LOCATION_PERMISSION = android.Manifest.permission.ACCESS_FINE_LOCATION;
     public static final String LOCATION_PREF = "locationPref";
-    checkExistingUserName user;
+    CheckExistingUserName user;
 
     Context context;
     Activity activity;
     Spinner spinner;
-    String radius_array[] = {"5", "10", "15", "20", "25"};
+    String radius_array[] = {"5","10", "15", "20", "25"};
     int radius = 5;
 
     private GoogleMap googleMap;
@@ -62,13 +56,15 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     private ProgressDialog dialog;
     private Circle mCircle;
     private Marker mMarker;
+    private Button submitButton;
 
     LocationManager manager;
     LatLng currentLocation;
+    LatLng getLocation;
+    static UserLocation presentLocation;
 
-    ArrayList<Places> placesList = new ArrayList<>();
-    PlacesAdapter adapter;
-    ListView list;
+    AddListing map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +72,11 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         setContentView(R.layout.employee_map);
         Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+        map = new AddListing();
 
 
-        placesList.add(new Places("Dalhousie University", new LatLng(44.6354974, -63.5883309), 0));
-        placesList.add(new Places("Halifax Airport", new LatLng(44.8751631 ,-63.5051646), 0));
-        placesList.add(new Places("Middle Sackville", new LatLng(44.7906801, -63.7247304), 0));
-        placesList.add(new Places("Clayton Park", new LatLng(44.6541640, -63.6503307), 0));
-
+        submitButton = findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(this);
 
         context = AddListingMap.this;
         activity = AddListingMap.this;
@@ -91,24 +85,10 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         spinner = findViewById(R.id.spinner);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, radius_array));
 
-        user = new checkExistingUserName();
+        user = new CheckExistingUserName();
         checkPermissions();
 
-        manager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            return;
-        }
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-                5, listener);
-
-
-        mapFragment.getMapAsync(this);
+        getCurrentLocation();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -126,16 +106,6 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
 
             }
         });
-        list = findViewById(R.id.listView);
-        adapter = new PlacesAdapter();
-        list.setAdapter(adapter);
-    }
-
-    protected void checkPermissions() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            checkLocationPermission(activity, context, LOCATION_PERMISSION, LOCATION_PREF);
-        } else {
-        }
     }
 
     @Override
@@ -145,6 +115,25 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
 
     public void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    protected UserLocation getLocationObject(){
+        if (getLocation != null) {
+            return new UserLocation(getLocation.latitude, getLocation.longitude, String.valueOf(radius));
+        } else {
+            createToast("Please wait for a minute for location to be added.");
+            return null;
+        }
+    }
+
+    /******
+    Map Code begin
+     ******/
+    protected void checkPermissions() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkLocationPermission(activity, context, LOCATION_PERMISSION, LOCATION_PREF);
+        } else {
+        }
     }
 
     private void checkLocationPermission(final Activity activity, final Context context, final String Permission, final String prefName) {
@@ -291,29 +280,12 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         public void onLocationChanged(Location location) {
 
             currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            getLocation = currentLocation;
 
             Log.d("Location", "" + location.getLatitude() + "," + location.getLongitude());
 
             googleMap.clear();
             drawMarkerWithCircle(currentLocation);
-
-            for (int i = 0; i < placesList.size(); i++) {
-                float[] distance = new float[2];
-                Location.distanceBetween(currentLocation.latitude, currentLocation.longitude,
-                        placesList.get(i).place_latlng.latitude, placesList.get(i).place_latlng.longitude, distance);
-
-                float radius = Float.parseFloat(mCircle.getRadius() + "");
-                float distanceInMeter = Float.parseFloat(distance[0] + "");
-                if (distanceInMeter > radius) {
-                    placesList.get(i).status = 0;
-//                    Toast.makeText(getBaseContext(), "You are Outside of the circle, Distance from center: " + distance[0] + " Radius: " + mCircle.getRadius(), Toast.LENGTH_LONG).show();
-                } else {
-                    placesList.get(i).status = 1;
-//                    Toast.makeText(getBaseContext(), "Your are Inside the circle, Distance from center: " + distance[0] + " Radius: " + mCircle.getRadius(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            adapter.notifyDataSetChanged();
 
             if (googleMap != null) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
@@ -322,82 +294,50 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
 
         @Override
         public void onStatusChanged(String s, int i, Bundle bundle) {
-
         }
 
         @Override
         public void onProviderEnabled(String s) {
-
         }
 
         @Override
         public void onProviderDisabled(String s) {
-
         }
     };
+    /* ******
+    Map Code end
+     ******/
+    protected void getCurrentLocation(){
+        manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-    class Places {
-        String place_name;
-        LatLng place_latlng;
-        int status;
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
 
-        public Places(String place_name, LatLng place_latlng, int status) {
-            this.place_name = place_name;
-            this.place_latlng = place_latlng;
-            this.status = status;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            return;
         }
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
+                5, listener);
+
+
+        mapFragment.getMapAsync(this);
     }
 
-    public class PlacesAdapter extends BaseAdapter {
-        private Context context;
+    // method to create a Toast
+    private void createToast(String message) {
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.show();
+    }
 
-        PlacesAdapter() {
-        }
-
-        @Override
-        public int getCount() {
-            return placesList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return position;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View rowView = convertView;
-
-            if (rowView == null) {
-                LayoutInflater inflater = getLayoutInflater();
-                rowView = inflater.inflate(R.layout.list_row, null);
-
-                ViewHolder viewHolder = new ViewHolder();
-                viewHolder.tvPlace = rowView
-                        .findViewById(R.id.textPlaceName);
-                viewHolder.imgStatus = rowView
-                        .findViewById(R.id.imageStatus);
-                rowView.setTag(viewHolder);
+    @Override
+    public void onClick(View v){
+        if(R.id.submitButton== v.getId()){
+            presentLocation = getLocationObject();
+            if (presentLocation != null) {
+                finish();
             }
-
-            ViewHolder holder = (ViewHolder) rowView.getTag();
-            holder.tvPlace.setText(placesList.get(position).place_name);
-            if (placesList.get(position).status == 1)
-                holder.imgStatus.setBackgroundResource(R.drawable.circle_green);
-            else
-                holder.imgStatus.setBackgroundResource(R.drawable.circle_red);
-
-            return rowView;
-        }
-
-        class ViewHolder {
-            TextView tvPlace;
-            ImageView imgStatus;
         }
     }
 }

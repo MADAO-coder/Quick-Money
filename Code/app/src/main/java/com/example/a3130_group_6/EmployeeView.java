@@ -10,6 +10,6 @@ public class EmployeeView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
         // create based off employee profile? hide buttons + change editable
-        
+
     }
 }

@@ -30,12 +30,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.InternalHelpers;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 
-public class registrationForEmployees extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
+public class RegistrationForEmployees extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     EditText name, username, password, vpassword, phone, email, inputRadius;
     Button homeBt, addPayment, submitBt, employeeBt, addLocationButton;//creating buttons and display variables
 
@@ -45,7 +42,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     DatabaseReference employeeRef = null;
     Employee employees = new Employee();
 
-    checkExistingUserName user;
+    CheckExistingUserName user;
     AddListingMap location;
     LatLng currentLocation;
     Context context;
@@ -79,12 +76,14 @@ public class registrationForEmployees extends AppCompatActivity implements View.
         submitBt.setOnClickListener(this);
         addLocationButton.setOnClickListener(this);
         employeeUsernameError = findViewById(R.id.employeeUserError);
-        context = registrationForEmployees.this;
-        activity = registrationForEmployees.this;
+        context = RegistrationForEmployees.this;
+        activity = RegistrationForEmployees.this;
         currentLocationView = findViewById(R.id.currentLocationView);
         exactAddress = new UserLocation();
 
-        user = new checkExistingUserName();
+
+        user = new CheckExistingUserName();
+
         location = new AddListingMap();
         user.validateUsername(username, employeeUsernameError);
 
@@ -169,7 +168,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     Changing pages to see employer registration
      */
     protected void switchToEmployer() {
-        Intent employer = new Intent(this, registrationForEmployers.class);
+        Intent employer = new Intent(this, RegistrationForEmployers.class);
         startActivity(employer);
     }
 
@@ -177,7 +176,7 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     Switch to login page
      */
     protected void switchToHome() {
-        Intent back = new Intent(this, loginPage.class);
+        Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
 
@@ -325,7 +324,8 @@ public class registrationForEmployees extends AppCompatActivity implements View.
     protected void getCurrentLocation() {
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             return;
@@ -403,14 +403,14 @@ public class registrationForEmployees extends AppCompatActivity implements View.
                 exactAddress.setRadius(getInputRadius());
                 saveEmployeeToDataBase(employees);
                 switchToHome();
+            }
         }
-    }
         else if(R.id.home2 == v.getId()){
-        switchToHome();
-    }
+            switchToHome();
+        }
         else if(R.id.Employer == v.getId()){
-        switchToEmployer();
-    }
+            switchToEmployer();
+        }
         else if(R.id.addLocationButton == v.getId()){
             // add method to get the current lat long
             getCurrentLocation();

@@ -2,23 +2,23 @@ package com.example.a3130_group_6;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import android.widget.Button;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-import static com.example.a3130_group_6.loginPage.validEmployee;
+import static com.example.a3130_group_6.LoginPage.validEmployee;
 
 public class EmployeeHomepage extends AppCompatActivity {
     DatabaseReference employerRef;
@@ -78,6 +78,10 @@ public class EmployeeHomepage extends AppCompatActivity {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
         taskList.setAdapter(adapter);
+        /*
+        Button employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
+        employeeProfileButton.setOnClickListener((View.OnClickListener) this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
+         */
     }
 
     /**
@@ -127,6 +131,25 @@ public class EmployeeHomepage extends AppCompatActivity {
     public void homepageSwitch(View view) {
         Intent switchIntent = new Intent(this, EmployeeHomepage.class);
         startActivity(switchIntent);
+    }
+
+
+
+
+    /**
+     * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
+     */
+    public void employeeProfileSwitch() {
+        Intent switchIntent = new Intent(this, EmployeeProfile.class);
+        startActivity(switchIntent);
+        setContentView(R.layout.activity_employee_profile);
+    }
+
+    /**
+     * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
+     */
+    public void onClick(View v) {
+        employeeProfileSwitch();
     }
 
 }

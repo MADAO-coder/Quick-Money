@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.example.a3130_group_6.loginPage.validEmployer;
+import static com.example.a3130_group_6.LoginPage.validEmployer;
 
 public class ListingApplicants extends AppCompatActivity {
 
@@ -129,7 +129,7 @@ public class ListingApplicants extends AppCompatActivity {
                     // on click route to employee details page
                     // send applicant name as extra -> use it to filter db
                     // TODO AT-5
-                    sendToEmployeeDetails();
+                    sendToEmployeeDetails(view);
                 }
             });
         }else{

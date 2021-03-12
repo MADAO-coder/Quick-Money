@@ -2,11 +2,11 @@ package com.example.a3130_group_6;
 
 import org.junit.Test;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class EmployeeRegistrationUnitTest {
-    registrationForEmployees regEmployee = new registrationForEmployees();
+    RegistrationForEmployees regEmployee = new RegistrationForEmployees();
 
     @Test
     public void passwordValidation_test(){

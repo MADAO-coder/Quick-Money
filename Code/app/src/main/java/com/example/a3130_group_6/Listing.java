@@ -10,24 +10,31 @@ public class Listing {
     private String date;
     private String pay;
     private String status;
-    private static int count = 0;
+
+    public UserLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(UserLocation location) {
+        this.location = location;
+    }
+
+    private UserLocation location;
 
     public Listing() {
     }
 
-    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status) {
+    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay,String status, UserLocation location) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.urgency = urgency;
         this.date = date;
         this.pay = pay;
         this.status = status;
-        count ++;
+        this.location = location;
     }
 
-    public int  increment(){
-        return count;
-    }
+
     public String getTaskTitle() {
         return taskTitle;
     }
