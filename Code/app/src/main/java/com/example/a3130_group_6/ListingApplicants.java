@@ -58,13 +58,6 @@ public class ListingApplicants extends AppCompatActivity {
         listingRef = db.getReferenceFromUrl(listingLocation);
         // access specific listing to retrieve applicants - if they exist
         checkForApplicants(listingRef);
-
-        // display applicants in scrolling list view
-        //AT 3
-
-
-        // AT 5
-        // on click send to employee details page
     }
 
     public void checkForApplicants(DatabaseReference db){
@@ -116,6 +109,8 @@ public class ListingApplicants extends AppCompatActivity {
      *
      */
     public void updateApplicants(){
+        // display applicants in scrolling list view
+        //AT 3
         if(applicantNames.size()>0){
             String[] applicantsString = new String[applicantNames.size()];
             for(int i=0; i<applicantsString.length; i++){
@@ -139,6 +134,7 @@ public class ListingApplicants extends AppCompatActivity {
 
     public void sendToEmployeeDetails(View view){
         Intent switchIntent = new Intent(this, EmployeeView.class);
+        switchIntent.putExtra("name", employeeName);
         startActivity(switchIntent);
     }
     public void homepageSwitch(View view) {

@@ -42,6 +42,7 @@
         <activity android:name=".ListingHistory"/>
         <activity android:name=".ListingApplicants"/>
         <activity android:name="EmployerProfile"/>
+        <activity android:name="EmployeeView"/>
         <activity android:name=".RegistrationForEmployees" />
         <activity android:name=".RegistrationHome" />
         <activity android:name=".RegistrationForEmployers" />
