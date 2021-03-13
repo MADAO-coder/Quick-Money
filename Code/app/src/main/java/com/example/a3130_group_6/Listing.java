@@ -9,25 +9,41 @@ public class Listing {
     private String urgency;
     private String date;
     private String pay;
-    private static int count = 0;
+    private String status;
+
+    public UserLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(UserLocation location) {
+        this.location = location;
+    }
+
+    private UserLocation location;
 
     public Listing() {
     }
 
-    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay) {
+    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay,String status, UserLocation location) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.urgency = urgency;
         this.date = date;
         this.pay = pay;
-        count ++;
+        this.status = status;
+        this.location = location;
     }
 
-    public int  increment(){
-        return count;
-    }
+
     public String getTaskTitle() {
         return taskTitle;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getStatus(){
+        return (String) status;
     }
 
     public void setTaskTitle(String taskTitle) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,14 +15,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationForEmployers extends AppCompatActivity implements View.OnClickListener{
-
     EditText name,username,password,vpassword,phone,email, business;
     Button homeBt,addPayment,submitBt, employeeBt;
-    private Employer employees;
-    DatabaseReference employerRef = null;
-    DatabaseReference passWordRef = null;
 
+    TextView error;
+    TextView statusLabel;
+    DatabaseReference employerRef = null;
     Employer employers = new Employer();
+    CheckExistingUserName user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +36,20 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
         email = findViewById(R.id.email);
         homeBt = findViewById(R.id.Employer);
         addPayment = findViewById(R.id.AddPayment);
-        submitBt = findViewById(R.id.Submit);
+        submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.emp);
         business = findViewById(R.id.business);
+        statusLabel = findViewById(R.id.statusLabel);
 
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
+        username.setOnClickListener(this);
+        error = findViewById(R.id.error);
+
+        user = new CheckExistingUserName();
+        user.validateUsername(username, error);
     }
-
-
 
     /*
     Switch to login page
@@ -53,6 +58,7 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
         Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
+
     /*
     Changing pages to see employer registration
      */
@@ -82,13 +88,15 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
     protected boolean isValidEmail(String email){
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
+
     /*
     Checking registration information
      */
     protected boolean validRegistrationInformation() {
-       return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
-               && isValidEmail(getInputEmailAddress());
+        return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
+                && isValidEmail(getInputEmailAddress());
     }
+
     /*
     Saving employee information to the database
      */
@@ -118,16 +126,22 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
         return vpassword.getText().toString().trim();
     }
 
-    protected boolean isPasswordMatched(){
-        return (getInputPassword().equals(getInputVpassword()));
+    protected boolean isPasswordMatched(String password, String vPassword){
+        return (password.equals(vPassword));
     }
 
-    protected String getBuissnessName() {
+    protected String getBusinessName() {
         return business.getText().toString().trim();
     }
 
-    public String getName() {
+    protected String getName() {
         return name.getText().toString().trim();
+    }
+
+    // method to create a Toast
+    private void createToast(String message){
+        Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public void onClick(View v) {
@@ -138,28 +152,27 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
             case (R.id.Employer):
                 switchToHome();
                 break;
-            case (R.id.Submit):
+            case (R.id.Submit1):
                 if(!validRegistrationInformation()) {
-                    Toast toast = Toast.makeText(this,"Empty or invalid registration information",Toast.LENGTH_LONG);
-                    toast.show();
+                    createToast("Empty or invalid registration information");
                 }
-                else if(!isPasswordMatched()){
-                    Toast toast = Toast.makeText(this,"password is not matched",Toast.LENGTH_LONG);
-                    toast.show();
+                else if(user.checkUserNameError(error)){
+                    createToast("Please change the username");
                 }
-
+                else if(!isPasswordMatched(getInputPassword(), getInputVpassword())){//when the password and verification password are not matched
+                    statusLabel.setText("password is not matched");
+                }
                 else {
                     employers.setUserName(getInputUserName());
                     employers.setPassword(getInputPassword());
                     employers.setEmailAddress(getInputEmailAddress());
                     employers.setPhone(getPhoneNumber());
                     employers.setName(getName());
-                    employers.setBuisnessName(getBuissnessName());
+                    employers.setBuisnessName(getBusinessName());
                     saveEmployerToDataBase(employers);
                     switchToHome();//Once all registration info correct, switch to loginPage
                     break;
                 }
-
         }
     }
 }

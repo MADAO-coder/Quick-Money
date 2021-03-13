@@ -22,14 +22,13 @@ import java.util.List;
 
 public class LoginPage extends AppCompatActivity {
     public static String[] validEmployer = new String[2];
+    public static String[] validEmployee = new String[2];
 
     protected EditText userNameEt;
     protected EditText passwordEt;
     protected Button regBt;
     protected Button loginBt;
     protected TextView loginStatus;
-    private Employee employee;
-    private Employer employer;
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
     private List<String> employee_userName_list = new ArrayList<>();//List to store userName getting from db for Employee object
@@ -41,7 +40,7 @@ public class LoginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button regBt = findViewById(R.id.registerBt);
+        Button regBt = (Button) findViewById(R.id.registerBt);
         loginBt = findViewById(R.id.loginBt_employee);
     }
 
@@ -132,6 +131,7 @@ public class LoginPage extends AppCompatActivity {
                     }
                     else {
                         statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
+
                     }
                 }
                 loginStatus.setText(statusMsg);
@@ -205,6 +205,7 @@ public class LoginPage extends AppCompatActivity {
     public void moveToEmployeePage(String statusMsg){
         if( isPasswordCorrect_employee() ){//When password or userName is not empty and user's info matched
             Intent intent = new Intent(LoginPage.this, EmployeeHomepage.class);//Switch to new intent.
+            validEmployee[0] = getUserName();
             startActivity(intent);
         }
         else {
@@ -216,8 +217,8 @@ public class LoginPage extends AppCompatActivity {
     public void moveToEmployerPage(String statusMsg){
         if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
             Intent intent = new Intent(LoginPage.this, EmployerHomepage.class);//Switch to new intent.
-            startActivity(intent);
             validEmployer[0] = getUserName();
+            startActivity(intent);
         }
         else {
             statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.

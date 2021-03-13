@@ -2,7 +2,8 @@ package com.example.a3130_group_6;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -30,4 +31,5 @@ public class EmployeeUnitTest {
         assertEquals(passWord, employee.getPassword());
         assertNotEquals("password2",employee.getPassword());
     }
+
 }
