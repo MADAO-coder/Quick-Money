@@ -43,12 +43,16 @@ public class EmployerHomepage extends AppCompatActivity {
         setEmployeeList();
         TextView tx4 = findViewById(R.id.textView4);
 
+        DataSnapshot previousSnapshot;
+
         //TODO: Creating notification for Employer
+        Toast.makeText(this, "This is the employer " + LoginPage.validEmployer[0], Toast.LENGTH_LONG).show();
         notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
 
         notificationRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                tx4.setText(previousChildName);
                 notification();
             }
 
