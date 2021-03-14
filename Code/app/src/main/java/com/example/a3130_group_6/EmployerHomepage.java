@@ -9,6 +9,7 @@ import androidx.core.app.NotificationManagerCompat;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,17 +48,17 @@ public class EmployerHomepage extends AppCompatActivity {
 
         //TODO: Creating notification for Employer
         Toast.makeText(this, "This is the employer " + LoginPage.validEmployer[0], Toast.LENGTH_LONG).show();
-        notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing").child("-MVZ89wp3XaeoLgWybyw");
+        notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
 
         notificationRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                tx4.setText(previousChildName);
-                notification();
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                notification();
+            }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
@@ -72,21 +73,26 @@ public class EmployerHomepage extends AppCompatActivity {
 
 
     private void notification() {
+        Intent intent
+                = new Intent(this, ShowApplication.class);
+        PendingIntent pendingIntent
+                = PendingIntent.getActivity(
+                this, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel =
                     new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
-
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
-                .setContentText("Code Sphere")
+                .setContentText("Application")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setAutoCancel(true)
-                .setContentText("New Data is added");
+                .setContentText("A employee applied to your listing.")
+                .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(999, builder.build());
-
     }
 
     private void createToast(String message) {

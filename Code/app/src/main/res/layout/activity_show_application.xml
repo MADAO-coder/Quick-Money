@@ -12,11 +12,9 @@
         android:layout_height="37dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="9dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginBottom="28dp"
-        android:text="Select Resume"
+        android:text="See Resume"
         app:layout_constraintBottom_toTopOf="@+id/saveProfileUpdate"
-        app:layout_constraintEnd_toStartOf="@+id/uploadResume"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radiusInput" />
 
@@ -27,11 +25,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/uploadResume"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeRadius"
         app:layout_constraintTop_toBottomOf="@+id/employeePassInput" />
@@ -58,7 +54,7 @@
         android:layout_marginStart="75dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="625dp"
-        android:text="Refresh"
+        android:text="Home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.961"
@@ -211,7 +207,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="11dp"
-        android:text="Profile Page"
+        android:text="Applicant"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -271,47 +267,28 @@
         app:layout_constraintVertical_bias="0.65" />
 
     <Button
-        android:id="@+id/uploadResume"
-        android:layout_width="167dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="90dp"
-        android:text="Upload Resume"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/selectResume"
-        app:layout_constraintTop_toBottomOf="@+id/radiusInput" />
-
-    <Button
         android:id="@+id/saveProfileUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="133dp"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="133dp"
         android:layout_marginBottom="10dp"
-        android:text="Save Updates"
+        android:text="Accept"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/employeeRadius" />
 
-    <TextView
-        android:id="@+id/employeeStatusLabel"
-        android:layout_width="355dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="42dp"
-        android:textAlignment="center"
-        android:textColor="#E60D0D"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <Button
+        android:id="@+id/reject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="10dp"
+        android:text="Reject"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uploadResume" />
+        app:layout_constraintTop_toBottomOf="@+id/radiusInput" />
 
     <Button
         android:id="@+id/profileImageButton"

@@ -16,10 +16,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Iterator;
-
-import static com.example.a3130_group_6.LoginPage.validEmployee;
-
 public class EmployeeView extends AppCompatActivity {
     DatabaseReference employeeRef;
     String employeeName;
@@ -108,7 +104,7 @@ public class EmployeeView extends AppCompatActivity {
         radiusView = findViewById(R.id.radiusInput);
 
         submitButton = (Button) findViewById(R.id.saveProfileUpdate);
-        refreshButton = (Button) findViewById(R.id.refreshButton);
+        refreshButton = (Button) findViewById(R.id.employerHome);
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
