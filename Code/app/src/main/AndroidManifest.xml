@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.a3130_group_6">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -19,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3130_Group_6">
-
+        <activity android:name=".ShowApplication"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,21 +35,19 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".AddListingMap" />
-        <activity android:name=".EmployeeProfile"/>
+        <activity android:name=".EmployeeProfile" />
         <activity android:name=".EmployeeHomepage" />
         <activity android:name=".EmployerHomepage" />
-        <activity android:name=".ListingHistory"/>
-        <activity android:name=".ListingApplicants"/>
-        <activity android:name="EmployerProfile"/>
-        <activity android:name="EmployeeView"/>
+        <activity android:name=".ListingHistory" />
+        <activity android:name=".ListingApplicants" />
+        <activity android:name=".EmployerProfile" />
+        <activity android:name=".EmployeeView" />
         <activity android:name=".RegistrationForEmployees" />
         <activity android:name=".RegistrationHome" />
         <activity android:name=".RegistrationForEmployers" />
         <activity android:name=".AddListing" />
         <activity android:name=".EditEmployerListing"></activity>
         <activity android:name=".LoginPage">
-
-        
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

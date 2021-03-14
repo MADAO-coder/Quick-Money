@@ -110,6 +110,7 @@ public class LoginPage extends AppCompatActivity {
                     statusMsg = getResources().getString(R.string.EMPTY_PASSWORD);
 
                 }
+
                 loginStatus.setText(statusMsg);
             }
 
@@ -126,8 +127,7 @@ public class LoginPage extends AppCompatActivity {
                     dbReadEmployee(employeeRef, statusMsg);//Get data from database
 
                     if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
-                        Intent intent = new Intent(LoginPage.this, EmployerHomepage.class);//Switch to new intent.
-                        startActivity(intent);
+                       moveToEmployeePage(statusMsg);
                     }
                     else {
                         statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
