@@ -376,11 +376,4 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
             Toast.makeText(RegistrationForEmployees.this, "Please select a file", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
-
-
-
 }
