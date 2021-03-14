@@ -46,6 +46,7 @@ public class EspressoTestRegistration_Employee {
         onView(withId(R.id.Password)).check(matches(withText("Password")));
         onView(withId(R.id.VPassword)).check(matches(withText("Verify Password")));
         onView(withId(R.id.Email)).check(matches(withText("Email")));
+        onView(withId(R.id.selfDescription)).check(matches(withText("Self Description")));
     }
 
     @Test
@@ -88,7 +89,7 @@ public class EspressoTestRegistration_Employee {
         closeSoftKeyboard();
         onView(withId(R.id.Submit1)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("password is not matched")));
-        
+
     }
 
 }

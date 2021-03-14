@@ -179,4 +179,9 @@ public class EmployerHomepage extends AppCompatActivity {
         startActivity(switchIntent);
     }
 
+    public void switchListingHistory(View view) {
+        Intent switchIntent = new Intent(this, ListingHistory.class);
+        startActivity(switchIntent);
+    }
+
 }
