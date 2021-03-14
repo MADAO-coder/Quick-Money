@@ -85,10 +85,10 @@ public class EmployerHomepage extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
-                .setContentText("Code Sphere")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentText("Application")
+                .setSmallIcon(R.drawable.application)
                 .setAutoCancel(true)
-                .setContentText("New Data is added")
+                .setContentText("A new employer applied to your listing. Click here to review their application.")
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(999, builder.build());
