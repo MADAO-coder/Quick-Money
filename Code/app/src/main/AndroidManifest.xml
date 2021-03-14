@@ -53,8 +53,10 @@
         <activity android:name=".RegistrationHome" />
         <activity android:name=".RegistrationForEmployers" />
         <activity android:name=".AddListing" />
+        <activity android:name=".EditEmployerListing"></activity>
         <activity android:name=".LoginPage">
 
+        
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

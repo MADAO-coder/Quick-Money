@@ -1,5 +1,7 @@
 package com.example.a3130_group_6;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,13 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+
 
 public class AddListing extends AppCompatActivity implements View.OnClickListener {
     Listing list;
@@ -26,6 +28,10 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_listing);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         map = new AddListingMap();
 
@@ -36,9 +42,6 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
             taskTitle.setText(savedInstanceState.getString("date"));
             taskTitle.setText(savedInstanceState.getString("pay"));
         }
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_listing);
 
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(this);
@@ -114,12 +117,13 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        EditText status = findViewById(R.id.enterStatus);
-        taskTitle = findViewById(R.id.inputTaskTitle);
-        taskDescription = findViewById(R.id.inputTaskDescription);
-        urgency = findViewById(R.id.inputUrgency);
-        date = findViewById(R.id.enterDate);
-        pay = findViewById(R.id.inputPay);
+
+        EditText status = findViewById(R.id.EditStatus);
+        taskTitle = findViewById(R.id.EditTask);
+        taskDescription = findViewById(R.id.EditTaskDescription);
+        urgency = findViewById(R.id.editUrgency);
+        date = findViewById(R.id.editDate);
+        pay = findViewById(R.id.EditPay);
         TextView currentLocation = findViewById(R.id.currentLocationView);
         Button addLocationBt = findViewById(R.id.add_locationBt);
 

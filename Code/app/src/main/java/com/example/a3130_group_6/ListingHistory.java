@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,20 +38,45 @@ public class ListingHistory extends AppCompatActivity {
     String[] listingsString;
     DataSnapshot listingData;
     Iterator<DataSnapshot> listingItr;
-
+    String [] details;
+    List<String> employerName;
+    Button toggle;
+    Boolean toggleFlag;//if true go to applicant false Edit listings
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_history);
         NoListing = findViewById(R.id.noListingMessage);
+
         listView = findViewById(R.id.employeeList);
         listings = new ArrayList<>();
         keys = new ArrayList<>();
         employers = new ArrayList<>();
+        toggleFlag=true;
+        employerName = new ArrayList<>();
+
         database = FirebaseDatabase.getInstance();
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
         dbReadEmployer(employerRef);
+        toggle=findViewById(R.id.toggleBtn);
+        toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (toggleFlag){
+                    NoListing.setText("Switched to edit");
+                    toggleFlag=false;
+                }
+                else{
+                    NoListing.setText("Switched to applicant");
+                    toggleFlag=true;
+                }
+            }
+        });
+
+
         /* To-Do
         * change size of list view to fill more of screen
         * add listings label so know what loaded element is
@@ -69,26 +96,44 @@ public class ListingHistory extends AppCompatActivity {
             listingsString = new String[listings.size()];
             for(int i=0; i<listingsString.length; i++){
                 listingsString[i] = "Task: " + listings.get(i).getTaskTitle() + "\tStatus: " + listings.get(i).getStatus();
+                //editListing.setOnClickListener(this);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    sendToEdit(position);
+
+                    if(toggleFlag){
+                        sendToEdit(position);
+                    }
+                    else{
+                        Listing temp = listings.get(position);
+                        details = new String[8];
+                        details[0] = temp.getTaskTitle();
+                        details[1] = temp.getTaskDescription();
+                        details[2] = temp.getUrgency();
+                        details[3] = temp.getDate();
+                        details[4] = temp.getPay();
+                        details[5] = temp.getStatus();
+                        details[6] = temp.getKey();
+                        details[7] = employerName.get(position);
+                        editListing(view);
+                    }
                 }
             });
         }else{
             NoListing.setVisibility(View.VISIBLE);
         }
     }
+
     /**
      * Function: This method fills a list view with data, but Ty's code will implement an edit/listing details page
      * Parameters: Integer - position
      * Returns: void
      *
      */
-    public void sendToEdit(int position){
+    public void sendToEdit(int position) {
         Intent switchIntent = new Intent(this, ListingApplicants.class);
         Listing temp = listings.get(position);
         // 6 == num properties of a listing
@@ -102,7 +147,6 @@ public class ListingHistory extends AppCompatActivity {
         switchIntent.putExtra("description", temp.getTaskDescription());
         switchIntent.putExtra("urgency", temp.getUrgency());
         startActivity(switchIntent);
-
     }
 
     /**
@@ -129,10 +173,19 @@ public class ListingHistory extends AppCompatActivity {
                             listingData = employer.child("Listing");
                             listingItr = listingData.getChildren().iterator();
                             while (listingItr.hasNext()) {
+
                                 listing[0] = listingItr.next();
                                 employers.add(employer.getKey());
                                 keys.add(listing[0].getKey());
                                 listings.add(listing[0].getValue(Listing.class));
+
+                                DataSnapshot next = listingItr.next();
+                                String listingKey = next.getKey();
+                                Listing value = next.getValue(Listing.class);
+                                value.setKey(listingKey);
+                                listings.add(value);
+                                employerName.add(validEmployer[0]);
+
                             }
                         }
                     }
@@ -143,8 +196,15 @@ public class ListingHistory extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
             }
         });
     }
+    public void editListing(View view){
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("details",details);
+        Intent intent = new Intent(this, EditEmployerListing.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 }
