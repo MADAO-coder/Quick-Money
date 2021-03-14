@@ -1,34 +1,30 @@
 package com.example.a3130_group_6;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class EmployerHomepage extends AppCompatActivity {
 
@@ -42,14 +38,11 @@ public class EmployerHomepage extends AppCompatActivity {
         setContentView(R.layout.activity_employer_homepage);
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
-        TextView tx4 = findViewById(R.id.textView4);
 
-        DataSnapshot previousSnapshot;
-
-        //TODO: Creating notification for Employer
-        Toast.makeText(this, "This is the employer " + LoginPage.validEmployer[0], Toast.LENGTH_LONG).show();
+        // database reference to the Listing child of the employer who is currently logged in
         notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
 
+        // listening to any change in data in the database
         notificationRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -57,6 +50,7 @@ public class EmployerHomepage extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                System.out.println(snapshot);
                 notification();
             }
 
@@ -71,7 +65,12 @@ public class EmployerHomepage extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Function: This method is used to create a push notification on the device
+     * Parameters: none
+     * Returns: void
+     *
+     */
     private void notification() {
         Intent intent
                 = new Intent(this, ShowApplication.class);
@@ -86,18 +85,13 @@ public class EmployerHomepage extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
-                .setContentText("Application")
+                .setContentText("Code Sphere")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setAutoCancel(true)
-                .setContentText("A employee applied to your listing.")
+                .setContentText("New Data is added")
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(999, builder.build());
-    }
-
-    private void createToast(String message) {
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
-        toast.show();
     }
 
     protected void setEmployeeList(){
@@ -129,8 +123,6 @@ public class EmployerHomepage extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
             }
         });
 
@@ -154,15 +146,34 @@ public class EmployerHomepage extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Function: This is a method to switch to Employer profile class
+     * Parameters: none
+     * Returns: void
+     *
+     */
     public void profileSwitch(View view) {
         Intent switchIntent = new Intent(this, EmployerProfile.class);
         startActivity(switchIntent);
     }
 
+    /**
+     * Function: This is a method to switch to Add listing page
+     * Parameters: none
+     * Returns: void
+     *
+     */
     public void addTaskSwitch(View view) {
         Intent switchIntent = new Intent(this, AddListing.class);
         startActivity(switchIntent);
     }
+
+    /**
+     * Function: This is a method to switch to Employer homepage
+     * Parameters: none
+     * Returns: void
+     *
+     */
     public void homepageSwitch(View view) {
         Intent switchIntent = new Intent(this, EmployerHomepage.class);
         startActivity(switchIntent);
