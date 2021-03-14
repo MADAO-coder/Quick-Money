@@ -180,13 +180,16 @@ public class ListingHistory extends AppCompatActivity {
                                 listing[0].getValue(Listing.class);
                                 listings.add(listing[0].getValue(Listing.class));
 
-                              //  DataSnapshot next = listingItr.next();
+                                // ToDo: @Ty Your code breaks. Please check for this.
+                                //DataSnapshot next = listingItr.next();
                                 String listingKey = listing[0].getKey();
                                 Listing value = listing[0].getValue(Listing.class);
                                 value.setKey(listingKey);
-                                listings.add(value);
-                                employerName.add(validEmployer[0]);
 
+                                // tODO: @tY Your code breaks. Please check for this.
+                                //listings.add(value);
+
+                                employerName.add(validEmployer[0]);
                             }
                         }
                     }
