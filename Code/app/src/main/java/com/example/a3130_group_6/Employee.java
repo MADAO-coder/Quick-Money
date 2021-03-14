@@ -2,7 +2,6 @@ package com.example.a3130_group_6;
 //
 
 public class Employee {
-    private String selfDes;
     private String userName;
     private String password;
     private String phone;
@@ -13,13 +12,12 @@ public class Employee {
     public Employee(){
 
     }
-    public Employee(String userName, String password, String phone, String emailAddress, String name, String selfDes){
+    public Employee(String userName, String password, String phone, String emailAddress, String name){
         this.userName = userName;
         this.password = password;
         this.phone = phone;
         this.email = emailAddress;
         this.name = name;
-        this.selfDes = selfDes;
     }
 
     public String getUserName(){
@@ -57,10 +55,6 @@ public class Employee {
     public String getEmail(){return this.email;}
 
     public String getPhone(){return this.phone;}
-
-    public void setSelfDescription(String selfDescription) {
-
-    }
 
     public void setDescription(String description) { this.description = description;
     }
