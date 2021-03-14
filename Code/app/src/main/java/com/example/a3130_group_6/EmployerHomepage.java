@@ -47,7 +47,7 @@ public class EmployerHomepage extends AppCompatActivity {
 
         //TODO: Creating notification for Employer
         Toast.makeText(this, "This is the employer " + LoginPage.validEmployer[0], Toast.LENGTH_LONG).show();
-        notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
+        notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing").child("-MVZ89wp3XaeoLgWybyw");
 
         notificationRef.addChildEventListener(new ChildEventListener() {
             @Override
