@@ -1,13 +1,22 @@
 package com.example.a3130_group_6;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +33,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.PatternsCompat;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +50,7 @@ import java.io.IOException;
 
 public class RegistrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name, username, password, vpassword, phone, email;
+
     TextInputLayout selfDef;
     private Employee employee;
     Button homeBt, addPayment, submitBt, employeeBt, imageBtn, uploadResume, selectResume;
@@ -153,6 +164,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         employeeRef = FirebaseDatabase.getInstance().getReference();
         employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
     }
+
     protected String getInputUserName() { return username.getText().toString().trim(); }
 
     protected String getInputPassword() { return password.getText().toString().trim(); }
@@ -376,4 +388,5 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
             Toast.makeText(RegistrationForEmployees.this, "Please select a file", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
