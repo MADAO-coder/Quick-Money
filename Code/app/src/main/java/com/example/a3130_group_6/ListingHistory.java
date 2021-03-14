@@ -177,11 +177,12 @@ public class ListingHistory extends AppCompatActivity {
                                 listing[0] = listingItr.next();
                                 employers.add(employer.getKey());
                                 keys.add(listing[0].getKey());
+                                listing[0].getValue(Listing.class);
                                 listings.add(listing[0].getValue(Listing.class));
 
-                                DataSnapshot next = listingItr.next();
-                                String listingKey = next.getKey();
-                                Listing value = next.getValue(Listing.class);
+                              //  DataSnapshot next = listingItr.next();
+                                String listingKey = listing[0].getKey();
+                                Listing value = listing[0].getValue(Listing.class);
                                 value.setKey(listingKey);
                                 listings.add(value);
                                 employerName.add(validEmployer[0]);

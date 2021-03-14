@@ -29,9 +29,10 @@ public class Listing {
         this.location = location;
     }
 
+    public Listing() {}
 
 
-    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status, String key) {
+   public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status, String key) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.urgency = urgency;
@@ -44,8 +45,6 @@ public class Listing {
 
 
     public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay,String status, UserLocation location) {
-
-
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.urgency = urgency;
