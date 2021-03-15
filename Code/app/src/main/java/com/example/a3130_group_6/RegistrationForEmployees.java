@@ -83,6 +83,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         statusLabel = findViewById(R.id.statusLabel);
         addLocationButton = findViewById(R.id.addLocationButton);
         inputRadius = findViewById(R.id.inputRadius);
+
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
@@ -91,11 +92,9 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         context = RegistrationForEmployees.this;
         activity = RegistrationForEmployees.this;
         currentLocationView = findViewById(R.id.currentLocationView);
+
         exactAddress = new UserLocation();
-
-
         user = new CheckExistingUserName();
-
         location = new AddListingMap();
         user.validateUsername(username, employeeUsernameError);
 
@@ -142,8 +141,11 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      *
      */
     protected boolean validRegistrationInformation() {
-        return !isUserNameEmpty() && !isPasswordEmpty() && !isVerifyPasswordEmpty() && !isNameEmpty()
+
+        boolean validRegistrationInformation = !isUserNameEmpty() && !isPasswordEmpty() && !isVerifyPasswordEmpty() && !isNameEmpty()
                 && !isPhoneEmpty() && isValidEmail(getInputEmailAddress());
+
+        return validRegistrationInformation;
     }
 
     /**
@@ -154,6 +156,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      */
     protected void saveEmployeeToDataBase(Object Employee) {
         //save object user to database to Firebase
+        employees.setUserName(getInputUserName());
+        employees.setPassword(getInputPassword());
+        employees.setEmailAddress(getInputEmailAddress());
+        employees.setPhone(getPhoneNumber());
+        employees.setName(getName());
+
         employeeRef = FirebaseDatabase.getInstance().getReference();
         employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
         UserLocation present = new UserLocation(userCurrentLocation.latitude, userCurrentLocation.longitude, getInputRadius());
@@ -320,7 +328,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         public void onLocationChanged(@NonNull Location locate) {
             currentLocation = new LatLng(locate.getLatitude(), locate.getLongitude());
             userCurrentLocation = currentLocation;
-            String message =  "Current location " + currentLocation.latitude + "," + currentLocation.latitude;
+
             try {
                 getAddressFromLocation(currentLocation);
             } catch (IOException e) {
@@ -413,7 +421,8 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     // method to check if radius is in a valid range
     protected boolean validateRadiusRange(String radius){
         int check= Integer.valueOf(radius);
-        if(check < 0|| check> 25) {
+        boolean checkRange = check < 0 || check> 25;
+        if(checkRange) {
             return false;
         }
         return true;
@@ -451,11 +460,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
                 createToast("Radius should be between 1 and 25");
             }
             else {
-                employees.setUserName(getInputUserName());
-                employees.setPassword(getInputPassword());
-                employees.setEmailAddress(getInputEmailAddress());
-                employees.setPhone(getPhoneNumber());
-                employees.setName(getName());
                 exactAddress.setRadius(getInputRadius());
                 saveEmployeeToDataBase(employees);
                 switchToHome();

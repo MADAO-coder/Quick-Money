@@ -1,8 +1,10 @@
 package com.example.a3130_group_6;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,7 +52,6 @@ public class EmployerHomepage extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                System.out.println(snapshot);
                 notification();
             }
 
@@ -69,21 +70,22 @@ public class EmployerHomepage extends AppCompatActivity {
      * Function: This method is used to create a push notification on the device
      * Parameters: none
      * Returns: void
-     *
+     * Citation: idea is from https://www.geeksforgeeks.org/how-to-push-notification-in-android-using-firebase-cloud-messaging/
      */
     private void notification() {
-        Intent intent
-                = new Intent(this, ShowApplication.class);
+        Intent applicationIntent = applicationIntent();
         PendingIntent pendingIntent
                 = PendingIntent.getActivity(
-                this, 0, intent,
+                this, 0, applicationIntent,
                 PendingIntent.FLAG_ONE_SHOT);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel =
                     new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
                 .setContentText("Application")
                 .setSmallIcon(R.drawable.application)
@@ -92,6 +94,11 @@ public class EmployerHomepage extends AppCompatActivity {
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(999, builder.build());
+    }
+
+    protected Intent applicationIntent(){
+        Intent intentToApplication = new Intent(this, ShowApplication.class);
+        return intentToApplication;
     }
 
     protected void setEmployeeList(){

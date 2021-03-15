@@ -7,10 +7,13 @@ import android.os.Build;
 
 import androidx.core.app.ActivityCompat;
 
+import java.util.Map;
+
 public class PermissionUtil {
     /*
     * Check if version is marshmallow and above.
     * Used in deciding to ask runtime permission
+    * Code for map has been taken from tutorials on Google Map Integration
     * */
     public static boolean shouldAskPermission() {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
