@@ -47,13 +47,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class RegistrationForEmployees extends AppCompatActivity implements View.OnClickListener {
     EditText name, username, password, vpassword, phone, email, inputRadius;
-
+    Listing list;
     TextInputLayout selfDef;
     private Employee employee;
     Button homeBt, addPayment, submitBt, employeeBt, imageBtn, uploadResume, selectResume, addLocationButton;
@@ -86,6 +88,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     UserLocation exactAddress;
     LatLng userCurrentLocation;
     String radius;
+    String resumeUrl;
 
 
     @Override
@@ -96,6 +99,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         ImageButton imageButton = findViewById(R.id.imageButton);
 
         imageToUpload = (ImageView) findViewById(R.id.imageToUpload);
+        ImageView downloadedImage = (ImageView) findViewById(R.id.downloadedImage);
 
         bUploadImage = (Button) findViewById(R.id.bUploadImage);
         Button bDownloadedImage = (Button) findViewById(R.id.bDownloadedImage);
@@ -136,6 +140,14 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
 
         location = new AddListingMap();
         user.validateUsername(username, employeeUsernameError);
+
+        employeeBt.setOnClickListener(this);
+        homeBt.setOnClickListener(this);
+        submitBt.setOnClickListener(this);
+        imageBtn.setOnClickListener(this);
+        uploadResume.setOnClickListener(this);
+        selectResume.setOnClickListener(this);
+        imageButton.setOnClickListener(this);
 
         // to ask for permissions from user to share location
         checkPermissions();
@@ -181,7 +193,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     protected boolean isPasswordMatched(String password, String vPassword) {
         return (password.equals(vPassword));
     }
-
     /**
      * Function: method to check if all the registration input fields are valid
      * Parameters:
@@ -509,40 +520,49 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
                 employees.setEmailAddress(getInputEmailAddress());
                 employees.setPhone(getPhoneNumber());
                 employees.setName(getName());
+                employees.setResumeUrl(resumeUrl);
                 exactAddress.setRadius(getInputRadius());
                 saveEmployeeToDataBase(employees);
                 switchToHome();
             }
         }
-        else if(R.id.home2 == v.getId()){
-            switchToHome();
-        }
-        else if(R.id.Employer == v.getId()){
-            switchToEmployer();
-        }
         else if(R.id.addLocationButton == v.getId()){
             // add method to get the current lat long
             getCurrentLocation();
         }
-        else if(R.id.Image == v.getId()){
-            switchtoImage();
-        }
-        else if(R.id.imageButton == v.getId()){
-            startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+        switch (v.getId()) {
+            case R.id.home2:
+                switchToHome();
+                break;
 
-        }
-        else if(R.id.imageToUpload == v.getId()){
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
-            if (RESULT_LOAD_IMAGE == RESULT_OK) {
-                imageToUpload.setImageURI(image_uri);
-            };
-        }
-        else if (R.id.bUploadImage == v.getId()){
+            case R.id.Employer:
+                switchToEmployer();
+                break;
 
-        }
-        else if(R.id.bDownloadedImage == v.getId()){
+            case R.id.Image:
+                switchtoImage();
+                break;
 
+            case R.id.imageButton:
+                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+                break;
+        }
+        switch (v.getId()) {
+            case R.id.imageToUpload:
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE);
+                if (RESULT_LOAD_IMAGE == RESULT_OK) {
+                    imageToUpload.setImageURI(image_uri);
+                };
+                break;
+
+            case R.id.bUploadImage:
+
+                break;
+
+            case R.id.bDownloadedImage:
+
+                break;
         }
         selectResume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -559,7 +579,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
             @Override
             public void onClick(View v) {
                 //make sure information is filled out before user can upload resume
-                if (pdf != null && name != null && username != null && email != null && phone != null) {
+                if (pdf != null) {
                     uploadFile(pdf);
                 } else {
                     Toast.makeText(RegistrationForEmployees.this, "Please fill out the information before uploading Resume.", Toast.LENGTH_SHORT).show();
@@ -588,9 +608,9 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         progress.show();
 
         String fileName = System.currentTimeMillis() + "";
+        DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         StorageReference storageReference = storage.getReference();
-
-        storageReference.child("Uploads").child(fileName).putFile(pdf).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        StorageTask<UploadTask.TaskSnapshot> taskSnapshotStorageTask = storageReference.child("Uploads").child(fileName).putFile(pdf).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 if (taskSnapshot.getMetadata().getReference() != null) {
@@ -599,19 +619,22 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
-                            DatabaseReference reference = database.getReference();
-
-                            reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RegistrationForEmployees.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else {
-                                        Toast.makeText(RegistrationForEmployees.this, "File failed to upload", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+//                            DatabaseReference reference = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
+//                            reference.child(fileName).child("Resume").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<Void> task) {
+//                                    if (task.isSuccessful()) {
+//                                        resumeUrl = result.getResult().toString();
+//                                        System.out.println(resumeUrl);
+//                                        Toast.makeText(RegistrationForEmployees.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();
+//                                    } else {
+//                                        Toast.makeText(RegistrationForEmployees.this, "File failed to upload", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            });
+                            resumeUrl = result.getResult().toString();
+                            System.out.println(resumeUrl);
+                            Toast.makeText(RegistrationForEmployees.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -619,7 +642,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                int currentProgress = (int) (100*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                int currentProgress = (int) (100 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
                 progress.setProgress(currentProgress);
             }
         });
@@ -667,6 +690,9 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if (requestCode == 86 && resultCode == RESULT_OK && data != null) {
+            pdf = data.getData();
         }
         else {
             Toast.makeText(RegistrationForEmployees.this, "Please select a file", Toast.LENGTH_SHORT).show();
