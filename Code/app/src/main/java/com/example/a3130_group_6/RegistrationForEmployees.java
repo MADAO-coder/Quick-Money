@@ -428,15 +428,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         }
     }
 
-
-    // below wasnt overriding anything
-    /*
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-    }
-     */
-
 }
 
 

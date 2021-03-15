@@ -42,6 +42,7 @@ public class ListingHistory extends AppCompatActivity {
     List<String> employerName;
     Button toggle;
     Boolean toggleFlag;//if true go to applicant false Edit listings
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
