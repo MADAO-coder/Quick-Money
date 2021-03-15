@@ -135,16 +135,22 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         return (password.equals(vPassword));
     }
 
-    /*
-    Checking registration information
+    /**
+     * Function: method to check if all the registration input fields are valid
+     * Parameters:
+     * Returns: boolean
+     *
      */
     protected boolean validRegistrationInformation() {
-        return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
-                && isValidEmail(getInputEmailAddress());
+        return !isUserNameEmpty() && !isPasswordEmpty() && !isVerifyPasswordEmpty() && !isNameEmpty()
+                && !isPhoneEmpty() && isValidEmail(getInputEmailAddress());
     }
 
-    /*
-    Saving employee information to the database
+    /**
+     * Function: Method to save employee information to the database
+     * Parameters: Object Employee
+     * Returns: boolean
+     *
      */
     protected void saveEmployeeToDataBase(Object Employee) {
         //save object user to database to Firebase
@@ -174,7 +180,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         return name.getText().toString().trim();
     }
 
-
     /*
     Changing pages to see employer registration
      */
@@ -191,12 +196,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         startActivity(back);
     }
 
-    protected void switchToEmployeeMap() {
-        Intent map = new Intent(this, AddListingMap.class);
-        startActivity(map);
-    }
-
-    // method to create a Toast
+    /**
+     * Function: Method to create a Toast
+     * Parameters:
+     * Returns: boolean
+     *
+     */
     private void createToast(String message) {
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
         toast.show();
@@ -206,10 +211,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         return location.isEmpty();
     }
 
-    //***************
-    // Map Code Start
-    // Code for map has been taken from tutorials on Google Map Integration
-    //***************
+
+     // *******************
+     // Map Code Start
+     // Code for map has been taken from tutorials on Google Map Integration
+     // *******************
+
     protected void checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             checkLocationPermission(activity, context, location.LOCATION_PERMISSION, location.LOCATION_PREF);
@@ -221,6 +228,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Function: Method to ask user for sharing their location
+     * Parameters:
+     * Returns: void
+     *
+     */
     private void checkLocationPermission(final Activity activity, final Context context, final String Permission, final String prefName) {
 
         PermissionUtil.checkPermission(activity, context, Permission, prefName,
@@ -256,6 +269,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
                 });
     }
 
+    /**
+     * Function: Method to ask and take user to Settings menu to setup location permissions
+     * Parameters:
+     * Returns: void
+     *
+     */
     private void askUserToAllowPermissionFromSetting() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -324,6 +343,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         }
     };
 
+    /**
+     * Function: Method to get exact address using latitude and longitude
+     * Parameters: LatLng
+     * Returns: void
+     *
+     */
     // method to get the exact address from latitude and longitude
     private void getAddressFromLocation(LatLng currentLocation) throws IOException {
         exactAddress = new UserLocation(currentLocation, activity);
@@ -331,6 +356,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         currentLocationView.setText(exactAddress.getAddress());
     }
 
+    /**
+     * Function: Method to get the current location
+     * Parameters:
+     * Returns: void
+     *
+     */
     // method to get the current location
     protected void getCurrentLocation() {
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -344,9 +375,11 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
                 5, listener);
     }
-    //***************
-    // Map Code end
-    //***************
+
+    // *******************
+    // Map Code End
+    // Code for map has been taken from tutorials on Google Map Integration
+    // *******************
 
     protected String getInputRadius(){
         return inputRadius.getText().toString();
@@ -354,6 +387,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
 
     protected String getInputLocation() {return currentLocationView.getText().toString(); }
 
+    /**
+     * Function: Method to check if the radius is a valid number
+     * Parameters: String
+     * Returns: boolean
+     *
+     */
     // method to check if radius is a valid number
     protected boolean validateRadius(String radius){
         int check = 0;
@@ -365,6 +404,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         return true;
     }
 
+    /**
+     * Function: Method to check if the radius is in a valid range
+     * Parameters: String
+     * Returns: boolean
+     *
+     */
     // method to check if radius is in a valid range
     protected boolean validateRadiusRange(String radius){
         int check= Integer.valueOf(radius);
