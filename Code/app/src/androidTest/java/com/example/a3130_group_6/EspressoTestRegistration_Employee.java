@@ -63,6 +63,10 @@ public class EspressoTestRegistration_Employee {
         onView(withId(R.id.employeeUserError)).check(matches(withText("Username too short")));
     }
 
+    /**
+     * For the test to pass make sure that user with username Emily exists in the
+     * database
+     */
     @Test
     public void checkIfDuplicateUserName() {
         onView(withId(R.id.username)).perform(typeText("Emily"));

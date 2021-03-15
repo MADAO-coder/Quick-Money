@@ -34,7 +34,8 @@ public class EmployerProfile extends AppCompatActivity {
     EditText nameView, biographyView, usernameView, passwordView, phoneView, emailView, businessView;
     TextView statusView;
     Button submitButton, refreshButton;
-    // use upload profile button to
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,8 +130,12 @@ public class EmployerProfile extends AppCompatActivity {
         businessView.setText(business);
     }
 
-    //code from loginPage
-    //Read data from dataBase and retrieve employer information
+    /**
+     * Function: Method to read data from database and retrieve employer information
+     * Parameters: DatabaseReference - db
+     * Returns: void
+     *
+     */
     public void dbReadEmployer(DatabaseReference db){
 
         db.addValueEventListener(new ValueEventListener() {

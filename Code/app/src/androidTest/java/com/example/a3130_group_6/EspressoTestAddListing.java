@@ -69,7 +69,7 @@ public class EspressoTestAddListing {
         onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Urgency")));
     }
 
-
+    @Test
     public void checkIfDateIsEmpty() {
         onView(withId(R.id.EditTask)).perform(typeText("Awesome Task Title"));
         onView(withId(R.id.EditTaskDescription)).perform(typeText("Here is a description"));
@@ -136,7 +136,6 @@ public class EspressoTestAddListing {
         onView(withId(R.id.add_locationBt)).perform(click());
         intended(hasComponent(AddListingMap.class.getName()));
     }
-
 
 }
 
