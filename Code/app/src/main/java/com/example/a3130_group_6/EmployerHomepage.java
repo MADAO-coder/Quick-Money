@@ -70,7 +70,7 @@ public class EmployerHomepage extends AppCompatActivity {
      * Function: This method is used to create a push notification on the device
      * Parameters: none
      * Returns: void
-     * Citation: idea is from https://www.geeksforgeeks.org/how-to-push-notification-in-android-using-firebase-cloud-messaging/
+     * Citation: Idea from https://www.geeksforgeeks.org/how-to-push-notification-in-android-using-firebase-cloud-messaging/
      */
     private void notification() {
         Intent applicationIntent = applicationIntent();
@@ -113,27 +113,6 @@ public class EmployerHomepage extends AppCompatActivity {
         employeeList.setAdapter(adapter);
     }
 
-    public void dbReadEmployees(DatabaseReference db, ArrayList<Employee> employees){
-        final Employee[] employee = {new Employee()};
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> employeeItr = dataSnapshot.getChildren().iterator();
-                //Read data from data base.
-                while (employeeItr.hasNext()) {
-
-                    employee[0] = employeeItr.next().getValue(Employee.class);
-                    employees.add(employee[0]);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-    }
     protected boolean searchFunctioning(String search){
         /* irrelevant testing process for unit tests.
         searchView.setQuery(search, true);

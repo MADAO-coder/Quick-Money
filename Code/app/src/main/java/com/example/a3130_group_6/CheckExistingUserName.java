@@ -16,6 +16,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Class to validate in realtime if entered username already
+ * exists in the database
+ *
+ * @author  Pulkit Garg
+ */
 public class CheckExistingUserName {
     ArrayList employeeList = new ArrayList<>();
     ArrayList employerList = new ArrayList<>();

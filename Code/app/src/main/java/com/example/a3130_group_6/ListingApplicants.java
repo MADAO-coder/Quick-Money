@@ -102,6 +102,7 @@ public class ListingApplicants extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Function: This method updates converts ArrayList of applicants into a String array to be understood by the List View
      * Parameters: none

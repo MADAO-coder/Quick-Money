@@ -9,6 +9,11 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.Map;
 
+/**
+ * Helper class for Map functionality
+ *
+ * @author  Sreyas
+ */
 public class PermissionUtil {
     /*
     * Check if version is marshmallow and above.

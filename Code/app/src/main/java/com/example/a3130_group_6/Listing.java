@@ -7,8 +7,10 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
-Class for adding listing to the database
+/**
+ * Class for adding listing to the database
+ *
+ * @author  Pulkit, Han, Emily
  */
 public class Listing {
     private String taskTitle;
@@ -128,8 +130,6 @@ public class Listing {
         result.put("pay",pay);
         result.put("status",status);
         result.put("key",key);
-
-
         return result;
     }
 }

@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 
 import static android.content.Context.MODE_PRIVATE;
 
-//Code for map has been taken from tutorials on Google Map Integration
+/**
+ * Helper class for Map functionality
+ *
+ * @author  Sreyas
+ */
 public class PrefrenceUtil {
 
     public static void firstTimeAskingPermission(Context context, String permission, boolean isFirstTime, String prefName){

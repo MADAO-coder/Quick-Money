@@ -62,7 +62,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     LocationManager manager;
     UserLocation exactAddress;
     LatLng userCurrentLocation;
-    String radius;
 
 
     @Override

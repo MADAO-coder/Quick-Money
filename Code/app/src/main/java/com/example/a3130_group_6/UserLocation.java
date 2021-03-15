@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Class to extract the exact address using Latitude and Longitude
+ *
+ * @author  Pulkit Garg, Han Yang
+ */
 public class UserLocation {
     Geocoder geocoder;
     List<Address> addresses;
@@ -33,10 +38,14 @@ public class UserLocation {
         this.radius = radius;
     }
 
-    public UserLocation(){
+    public UserLocation(){ }
 
-    }
-
+    /**
+     * Function: Method to create exact address using latitude and longitude
+     * Parameters:
+     * Returns: void
+     *
+     */
     protected void createAddress() throws IOException {
         geocoder = new Geocoder(activity,Locale.getDefault());
         addresses = geocoder.getFromLocation(latitude, longitude, 1);
