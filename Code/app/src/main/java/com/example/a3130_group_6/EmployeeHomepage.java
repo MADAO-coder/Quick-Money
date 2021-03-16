@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import static com.example.a3130_group_6.LoginPage.validEmployee;
 
-public class EmployeeHomepage extends AppCompatActivity {
+public class EmployeeHomepage extends AppCompatActivity implements View.OnClickListener {
     DatabaseReference employerRef;
     FirebaseDatabase db;
     DataSnapshot listingData;
@@ -29,6 +29,7 @@ public class EmployeeHomepage extends AppCompatActivity {
     ArrayList<Listing> listings;
     ArrayList<String> keys;
     ArrayList<String> employers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,10 @@ public class EmployeeHomepage extends AppCompatActivity {
         keys = new ArrayList<>();
         employers = new ArrayList<>();
         db = FirebaseDatabase.getInstance();
+
+        Button employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
+        employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
+
         employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployees(employerRef, listings);
 
@@ -78,10 +83,7 @@ public class EmployeeHomepage extends AppCompatActivity {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
         taskList.setAdapter(adapter);
-        /*
-        Button employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
-        employeeProfileButton.setOnClickListener((View.OnClickListener) this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
-         */
+
     }
 
     /**
@@ -142,7 +144,6 @@ public class EmployeeHomepage extends AppCompatActivity {
     public void employeeProfileSwitch() {
         Intent switchIntent = new Intent(this, EmployeeProfile.class);
         startActivity(switchIntent);
-        setContentView(R.layout.activity_employee_profile);
     }
 
     /**
