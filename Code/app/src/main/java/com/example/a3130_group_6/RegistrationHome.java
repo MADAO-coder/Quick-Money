@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class registrationHome extends AppCompatActivity implements View.OnClickListener {
+public class RegistrationHome extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +25,16 @@ public class registrationHome extends AppCompatActivity implements View.OnClickL
 
     //Switching between pages
     protected void switchToEmployer(){
-        Intent employer = new Intent(this, registrationForEmployers.class);
+        Intent employer = new Intent(this, RegistrationForEmployers.class);
         startActivity(employer);
     }
 
     protected void switchToEmployee(){
-        Intent employee = new Intent(this, registrationForEmployees.class);
+        Intent employee = new Intent(this, RegistrationForEmployees.class);
         startActivity(employee);
     }
     protected void switchToHome(){
-        Intent back = new Intent(this, loginPage.class);
+        Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
     @Override
@@ -44,7 +44,6 @@ public class registrationHome extends AppCompatActivity implements View.OnClickL
             case (R.id.employeeBtn):
                 switchToEmployee();
                 break;
-
                 case (R.id.employer):
                     switchToEmployer();
                     break;

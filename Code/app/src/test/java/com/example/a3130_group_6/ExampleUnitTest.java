@@ -1,12 +1,10 @@
 package com.example.a3130_group_6;
 
 import org.junit.BeforeClass;
-import android.widget.SearchView;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -20,12 +18,12 @@ import static org.junit.Assert.*;
  * AT 5: Given that I am an employee/employer I expect to see available tasks/available taskers in my local
  */
 public class ExampleUnitTest {
-    static add_listing addListing;
+    static AddListing addListing;
     static EmployerHomepage employerHomepage;
 
     @BeforeClass
     public static void setup() {
-        addListing = new add_listing();
+        addListing = new AddListing();
         employerHomepage = new EmployerHomepage();
     }
 
@@ -72,6 +70,13 @@ public class ExampleUnitTest {
         assertTrue(addListing.isEmptyPay(""));
         assertFalse(addListing.isEmptyPay("20"));
     }
+
+    @Test
+    public void checkIfLocationEmpty(){
+        assertTrue(addListing.isEmptyLocation(""));
+        assertFalse(addListing.isEmptyLocation("Halifax"));
+    }
+
     public void searchBarType(){
         assertTrue(employerHomepage.searchFunctioning("Jim"));
     }

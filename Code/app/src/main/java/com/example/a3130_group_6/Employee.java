@@ -1,11 +1,15 @@
 package com.example.a3130_group_6;
+//
 
 public class Employee {
     private String userName;
     private String password;
     private String phone;
-    private String emailAddress;
+    private String email;
     private String name;
+    private String description;
+    private String resumeUrl;
+
     public Employee(){
 
     }
@@ -13,8 +17,16 @@ public class Employee {
         this.userName = userName;
         this.password = password;
         this.phone = phone;
-        this.emailAddress = emailAddress;
+        this.email = emailAddress;
         this.name = name;
+    }
+    public Employee(String userName, String password, String phone, String emailAddress, String name, String resumeUrl){
+        this.userName = userName;
+        this.password = password;
+        this.phone = phone;
+        this.email = emailAddress;
+        this.name = name;
+        this.resumeUrl = resumeUrl;
     }
 
     public String getUserName(){
@@ -25,12 +37,20 @@ public class Employee {
         return password;
     }
 
+    public void setResumeUrl(String resumeUrl) {
+        this.resumeUrl = resumeUrl;
+    }
+
+    public String getResumeUrl(){
+        return resumeUrl;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
     public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+        this.email = emailAddress;
     }
 
     public void setUserName(String userName) {
@@ -49,8 +69,15 @@ public class Employee {
         this.name = name;
     }
 
-    public String getEmail(){return this.emailAddress;}
+    public String getEmail(){return this.email;}
 
     public String getPhone(){return this.phone;}
+
+    public void setDescription(String description) { this.description = description;
+    }
+
+    public String getDescription() { return description;
+    }
+
 }
 
