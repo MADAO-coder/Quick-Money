@@ -32,7 +32,6 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         map = new AddListingMap();
 
         if (savedInstanceState != null) {
@@ -75,6 +74,12 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         return urgency.isEmpty();
     }
 
+    /**
+     * Function: Method to check if urgency ranges from 1 to 5
+     * Parameters: String
+     * Returns: boolean
+     *
+     */
     protected boolean checkUrgencyRange(String urgency) {
         try {
             int num = Integer.parseInt(urgency);
@@ -147,9 +152,14 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
                 else if (checkIfLocationEmpty(AddListingMap.presentLocation)){
                     setStatusMessage("Error: Please choose a location");
                 } else {
+                    // creating reference to the Employer object in the database
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+
+                    // creating a list object with relevant entries which have to be added to the database
                     list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(),
                             date.getText().toString(), pay.getText().toString(), status.getText().toString(),AddListingMap.presentLocation);
+
+                    // pushing entries to the database
                     listing.child(String.valueOf(LoginPage.validEmployer[0])).child("Listing").push().setValue(list);
                 }
                 break;

@@ -42,6 +42,7 @@ public class ListingHistory extends AppCompatActivity {
     List<String> employerName;
     Button toggle;
     Boolean toggleFlag;//if true go to applicant false Edit listings
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,15 +178,19 @@ public class ListingHistory extends AppCompatActivity {
                                 listing[0] = listingItr.next();
                                 employers.add(employer.getKey());
                                 keys.add(listing[0].getKey());
+                                listing[0].getValue(Listing.class);
                                 listings.add(listing[0].getValue(Listing.class));
 
-                                DataSnapshot next = listingItr.next();
-                                String listingKey = next.getKey();
-                                Listing value = next.getValue(Listing.class);
+                                // ToDo: @Ty Your code breaks. Please check for this.
+                                //DataSnapshot next = listingItr.next();
+                                String listingKey = listing[0].getKey();
+                                Listing value = listing[0].getValue(Listing.class);
                                 value.setKey(listingKey);
-                                listings.add(value);
-                                employerName.add(validEmployer[0]);
 
+                                // tODO: @tY Your code breaks. Please check for this.
+                                //listings.add(value);
+
+                                employerName.add(validEmployer[0]);
                             }
                         }
                     }

@@ -1,4 +1,5 @@
 package com.example.a3130_group_6;
+//
 
 public class Employee {
     private String userName;
@@ -7,6 +8,7 @@ public class Employee {
     private String email;
     private String name;
     private String description;
+    private String resumeUrl;
 
     public Employee(){
 
@@ -18,6 +20,14 @@ public class Employee {
         this.email = emailAddress;
         this.name = name;
     }
+    public Employee(String userName, String password, String phone, String emailAddress, String name, String resumeUrl){
+        this.userName = userName;
+        this.password = password;
+        this.phone = phone;
+        this.email = emailAddress;
+        this.name = name;
+        this.resumeUrl = resumeUrl;
+    }
 
     public String getUserName(){
         return userName;
@@ -25,6 +35,14 @@ public class Employee {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setResumeUrl(String resumeUrl) {
+        this.resumeUrl = resumeUrl;
+    }
+
+    public String getResumeUrl(){
+        return resumeUrl;
     }
 
     public void setPhone(String phone) {

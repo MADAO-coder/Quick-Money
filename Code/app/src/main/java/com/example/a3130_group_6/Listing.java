@@ -7,8 +7,10 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
-Class for adding listing to the database
+/**
+ * Class for adding listing to the database
+ *
+ * @author  Pulkit, Han, Emily
  */
 public class Listing {
     private String taskTitle;
@@ -29,9 +31,10 @@ public class Listing {
         this.location = location;
     }
 
+    public Listing() {}
 
 
-    public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status, String key) {
+   public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay, String status, String key) {
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.urgency = urgency;
@@ -44,8 +47,6 @@ public class Listing {
 
 
     public Listing(String taskTitle, String taskDescription, String urgency, String date, String pay,String status, UserLocation location) {
-
-
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
         this.urgency = urgency;
@@ -129,8 +130,6 @@ public class Listing {
         result.put("pay",pay);
         result.put("status",status);
         result.put("key",key);
-
-
         return result;
     }
 }

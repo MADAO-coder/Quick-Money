@@ -251,7 +251,7 @@ public class EmployeeProfile extends AppCompatActivity {
         radiusView = findViewById(R.id.radiusInput);
 
         submitButton = (Button) findViewById(R.id.saveProfileUpdate);
-        refreshButton = (Button) findViewById(R.id.refreshButton);
+        refreshButton = (Button) findViewById(R.id.employerHome);
     }
 
     public void updateLocationToDatabase(UserLocation user) {
