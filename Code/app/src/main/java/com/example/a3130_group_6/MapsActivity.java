@@ -23,6 +23,11 @@ import com.google.android.gms.maps.model.Marker;
 
 import java.io.Serializable;
 
+/**
+ * Helper class for Map functionality
+ *
+ * @author  Sreyas
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap googleMap;

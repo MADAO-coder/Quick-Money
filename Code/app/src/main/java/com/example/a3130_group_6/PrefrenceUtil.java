@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 
 import static android.content.Context.MODE_PRIVATE;
 
-
+/**
+ * Helper class for Map functionality
+ *
+ * @author  Sreyas
+ */
 public class PrefrenceUtil {
 
     public static void firstTimeAskingPermission(Context context, String permission, boolean isFirstTime, String prefName){

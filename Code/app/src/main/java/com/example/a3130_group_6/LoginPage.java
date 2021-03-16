@@ -24,23 +24,19 @@ public class LoginPage extends AppCompatActivity {
     public static String[] validEmployer = new String[2];
     public static String[] validEmployee = new String[2];
 
-    protected EditText userNameEt;
-    protected EditText passwordEt;
-    protected Button regBt;
     protected Button loginBt;
     protected TextView loginStatus;
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
     private List<String> employee_userName_list = new ArrayList<>();//List to store userName getting from db for Employee object
     private List<String> employee_password_list = new ArrayList<>();//List to store password getting from db for Employee object
-    private List<String> employer_userName_list = new ArrayList<>();//List to store password getting from db for Employee object
-    private List<String> employer_password_list = new ArrayList<>();//List to store password getting from db for Employee object
+    private List<String> employer_userName_list = new ArrayList<>();//List to store password getting from db for Employer object
+    private List<String> employer_password_list = new ArrayList<>();//List to store password getting from db for Employer object
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button regBt = (Button) findViewById(R.id.registerBt);
         loginBt = findViewById(R.id.loginBt_employee);
     }
 
@@ -110,6 +106,7 @@ public class LoginPage extends AppCompatActivity {
                     statusMsg = getResources().getString(R.string.EMPTY_PASSWORD);
 
                 }
+
                 loginStatus.setText(statusMsg);
             }
 
@@ -126,8 +123,7 @@ public class LoginPage extends AppCompatActivity {
                     dbReadEmployee(employeeRef, statusMsg);//Get data from database
 
                     if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
-                        Intent intent = new Intent(LoginPage.this, EmployerHomepage.class);//Switch to new intent.
-                        startActivity(intent);
+                       moveToEmployeePage(statusMsg);
                     }
                     else {
                         statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.

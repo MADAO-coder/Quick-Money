@@ -126,9 +126,11 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
-    /******
-    Map Code begin
-     ******/
+    // *******************
+    // Map Code Start
+    // Code for map has been taken from tutorials on Google Map Integration
+    // *******************
+
     protected void checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             checkLocationPermission(activity, context, LOCATION_PERMISSION, LOCATION_PREF);
@@ -136,6 +138,12 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
+    /**
+     * Function: Method to ask user for sharing their location
+     * Parameters:
+     * Returns: void
+     *
+     */
     private void checkLocationPermission(final Activity activity, final Context context, final String Permission, final String prefName) {
 
         PermissionUtil.checkPermission(activity, context, Permission, prefName,
@@ -171,6 +179,12 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
                 });
     }
 
+    /**
+     * Function: Method to ask and take user to Settings menu to setup location permissions
+     * Parameters:
+     * Returns: void
+     *
+     */
     private void askUserToAllowPermissionFromSetting() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -233,8 +247,6 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         // Showing / hiding your current location
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
             return;
         }
         googleMap.setMyLocationEnabled(true);
@@ -260,8 +272,14 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
+    /**
+     * Function: Method to draw the circle around the current location on the map fragment
+     * Parameters:
+     * Returns: void
+     *
+     */
     private void drawMarkerWithCircle(LatLng position) {
-        double radiusInMeters = radius * 1000.0;  // increase decrease this distancce as per your requirements
+        double radiusInMeters = radius * 1000.0;  // increase decrease this distance as per your requirements
         int strokeColor = 0xffff0000; //red outline
         int shadeColor = 0x44ff0000; //opaque red fill
 
@@ -304,9 +322,13 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         public void onProviderDisabled(String s) {
         }
     };
-    /* ******
-    Map Code end
-     ******/
+
+    /**
+     * Function: Method to get the current location
+     * Parameters:
+     * Returns: void
+     *
+     */
     protected void getCurrentLocation(){
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -324,8 +346,17 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
 
         mapFragment.getMapAsync(this);
     }
+    // *******************
+    // Map Code End
+    // Code for map has been taken from tutorials on Google Map Integration
+    // *******************
 
-    // method to create a Toast
+    /**
+     * Function: Method to create a Toast
+     * Parameters:
+     * Returns: void
+     *
+     */
     private void createToast(String message) {
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
         toast.show();

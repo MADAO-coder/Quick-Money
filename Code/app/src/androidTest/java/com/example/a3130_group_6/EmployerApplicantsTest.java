@@ -49,5 +49,4 @@ public class EmployerApplicantsTest {
         /** AT 5*/
 
 
-
     }

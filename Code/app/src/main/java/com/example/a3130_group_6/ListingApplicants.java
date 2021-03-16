@@ -78,10 +78,10 @@ public class ListingApplicants extends AppCompatActivity {
                     applicant[0] = applicantItr.next();
                     // multiple applicants
                     if(applicantItr.hasNext()){
-                        while(applicantItr.hasNext()){
+                     //   while(applicantItr.hasNext()){
                             applicantNames.add(applicant[0].getKey());
                             applicantValues.add(applicant[0].getValue().toString());
-                        }
+                      //  }
                     }
                     // 1 applicant
                     else{
@@ -102,6 +102,7 @@ public class ListingApplicants extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Function: This method updates converts ArrayList of applicants into a String array to be understood by the List View
      * Parameters: none
