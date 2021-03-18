@@ -75,16 +75,9 @@ public class ListingApplicants extends AppCompatActivity {
                 // if employers listing has applicants
                 if(lHold[0].getKey().equals("Applicants")){
                     applicantItr = lHold[0].getChildren().iterator();
-                    applicant[0] = applicantItr.next();
                     // multiple applicants
-                    if(applicantItr.hasNext()){
-                     //   while(applicantItr.hasNext()){
-                            applicantNames.add(applicant[0].getKey());
-                            applicantValues.add(applicant[0].getValue().toString());
-                      //  }
-                    }
-                    // 1 applicant
-                    else{
+                    while(applicantItr.hasNext()){
+                        applicant[0] = applicantItr.next();
                         applicantNames.add(applicant[0].getKey());
                         applicantValues.add(applicant[0].getValue().toString());
                     }
