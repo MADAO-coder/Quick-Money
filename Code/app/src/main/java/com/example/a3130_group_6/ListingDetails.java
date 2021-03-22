@@ -34,6 +34,7 @@ public class ListingDetails extends AppCompatActivity {
 
     Button home, logout, back, apply;
     String [] listing = null;
+    EditText applicationMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class ListingDetails extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_details);
+
+        applicationMessage = findViewById(R.id.applicationMessage);
 
         home = findViewById(R.id.employeeHome);
         home.setOnClickListener(this::onClick);
@@ -111,6 +114,8 @@ public class ListingDetails extends AppCompatActivity {
         // save current employee under listing in database
         // save object user to database to Firebase
         listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child(validEmployee[0]).setValue("Applying");
+        listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child(validEmployee[0]).child("Message").setValue(applicationMessage.getText().toString());
+        applicationMessage.setText(null);
     }
 
     public void onClick(View v) {
@@ -121,7 +126,7 @@ public class ListingDetails extends AppCompatActivity {
                 break;
             case R.id.applyToListing:
                 applyToListing();
-                Toast.makeText(ListingDetails.this, "You have applied to this listing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListingDetails.this, "You have successfully applied to this listing with your new message", Toast.LENGTH_LONG).show();
                 break;
             case R.id.Logout:
                 //database.
