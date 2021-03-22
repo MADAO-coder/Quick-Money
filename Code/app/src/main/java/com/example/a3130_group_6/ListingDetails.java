@@ -28,17 +28,11 @@ import static com.example.a3130_group_6.LoginPage.validEmployer;
 import static com.example.a3130_group_6.LoginPage.validEmployee;
 
 public class ListingDetails extends AppCompatActivity {
-    DatabaseReference employerRef;
     DatabaseReference listingRef = null;
     FirebaseDatabase database;
 
     Button home, logout, back, apply;
     String [] listing = null;
-
-    ArrayList<String> keys;
-    ArrayList<String> employers;
-
-    String currentKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +108,7 @@ public class ListingDetails extends AppCompatActivity {
      */
     protected void applyToListing(){
         // save current employee under listing in database
-        //save object user to database to Firebase
-  //      employerRef.child(employers.get(position)).child("Listing").child(keys.get(position)).child("Applicants").child(validEmployee[0]).setValue("Applying");
-
+        // save object user to database to Firebase
         listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child(validEmployee[0]).setValue("Applying");
     }
 
