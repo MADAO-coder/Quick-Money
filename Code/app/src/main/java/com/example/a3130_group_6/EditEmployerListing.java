@@ -30,7 +30,7 @@ public class EditEmployerListing extends AppCompatActivity {
         listing = extras.getStringArray("details");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_employer_listing);
-        home=findViewById(R.id.Home);
+        home=findViewById(R.id.employeeHome);
         switchPage = findViewById(R.id.ListingHistory);
         addTask= findViewById(R.id.addTaskButton);
         logout = findViewById(R.id.Logout);
@@ -40,7 +40,7 @@ public class EditEmployerListing extends AppCompatActivity {
         addTask.setOnClickListener(this::onClick);
         save=findViewById(R.id.submitTask);
         save.setOnClickListener(this::onClick);
-        Back =findViewById(R.id.Back);
+        Back =findViewById(R.id.backEmployeeHome);
         Back.setOnClickListener(this::onClick);
         database = FirebaseDatabase.getInstance();
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
@@ -85,27 +85,27 @@ public class EditEmployerListing extends AppCompatActivity {
     }
 
     protected void setTitleDisplay(String title){
-        EditText editText = findViewById(R.id.EditTask);
+        EditText editText = findViewById(R.id.titleInput);
         editText.setText(title);
     }
     protected void setDescriptionDisplay(String title){
-        EditText editText = findViewById(R.id.EditTaskDescription);
+        EditText editText = findViewById(R.id.descriptionInput);
         editText.setText(title);
     }
     protected void setUrgencyDisplay(String title){
-        EditText editText = findViewById(R.id.editUrgency);
+        EditText editText = findViewById(R.id.urgencyInput);
         editText.setText(title);
     }
     protected void setDateDisplay(String title){
-        EditText editText = findViewById(R.id.editDate);
+        EditText editText = findViewById(R.id.dateInput);
         editText.setText(title);
     }
     protected void setPayDisplay(String title){
-        EditText editText = findViewById(R.id.EditPay);
+        EditText editText = findViewById(R.id.payInput);
         editText.setText(title);
     }
     protected void setStatusDisplay(String title){
-        EditText editText = findViewById(R.id.EditStatus);
+        EditText editText = findViewById(R.id.statusInput);
         editText.setText(title);
     }
     protected void setTextBox() {
@@ -135,12 +135,12 @@ public class EditEmployerListing extends AppCompatActivity {
 
 
     public void onClick(View v) {
-        EditText EditTask=findViewById(R.id.EditTask);
-        EditText EditTaskDescription=findViewById(R.id.EditTaskDescription);
-        EditText EditUrgency = findViewById(R.id.editUrgency);
-        EditText EditPay = findViewById(R.id.EditPay);
-        EditText EditDate = findViewById(R.id.editDate);
-        EditText EditStatus = findViewById(R.id.EditStatus);
+        EditText EditTask=findViewById(R.id.titleInput);
+        EditText EditTaskDescription=findViewById(R.id.descriptionInput);
+        EditText EditUrgency = findViewById(R.id.urgencyInput);
+        EditText EditPay = findViewById(R.id.payInput);
+        EditText EditDate = findViewById(R.id.dateInput);
+        EditText EditStatus = findViewById(R.id.statusInput);
         switch ((v.getId())) {
             case R.id.submitTask:
                 checkUrgencyRange(EditUrgency.toString().trim());
@@ -157,7 +157,7 @@ public class EditEmployerListing extends AppCompatActivity {
 
                 }
                 break;
-            case R.id.Back:
+            case R.id.backEmployeeHome:
             case R.id.ListingHistory:
                 startActivity(new Intent(this, ListingHistory.class));
                 break;
@@ -167,7 +167,7 @@ public class EditEmployerListing extends AppCompatActivity {
             case R.id.Logout:
                 //database.
                 break;
-            case R.id.Home:
+            case R.id.employeeHome:
                 startActivity(new Intent(this, EmployerHomepage.class));
                 break;
         }

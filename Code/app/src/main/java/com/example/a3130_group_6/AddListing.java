@@ -122,12 +122,12 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
 
-        EditText status = findViewById(R.id.EditStatus);
-        taskTitle = findViewById(R.id.EditTask);
-        taskDescription = findViewById(R.id.EditTaskDescription);
-        urgency = findViewById(R.id.editUrgency);
-        date = findViewById(R.id.editDate);
-        pay = findViewById(R.id.EditPay);
+        EditText status = findViewById(R.id.statusInput);
+        taskTitle = findViewById(R.id.titleInput);
+        taskDescription = findViewById(R.id.descriptionInput);
+        urgency = findViewById(R.id.urgencyInput);
+        date = findViewById(R.id.dateInput);
+        pay = findViewById(R.id.payInput);
         TextView currentLocation = findViewById(R.id.currentLocationView);
         Button addLocationBt = findViewById(R.id.add_locationBt);
 
