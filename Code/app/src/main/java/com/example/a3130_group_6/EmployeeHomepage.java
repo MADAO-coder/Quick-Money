@@ -22,8 +22,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import static com.example.a3130_group_6.LoginPage.validEmployee;
+import static com.example.a3130_group_6.LoginPage.validEmployer;
 
 public class EmployeeHomepage extends AppCompatActivity implements View.OnClickListener {
+    public static int currentPosition;
+
     DatabaseReference employerRef;
     FirebaseDatabase db;
     DataSnapshot listingData;
@@ -38,6 +41,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ListView listView=null;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         listings = new ArrayList<>();
         keys = new ArrayList<>();
         employers = new ArrayList<>();
+        employerName = new ArrayList<>();
         db = FirebaseDatabase.getInstance();
 
         Button employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
@@ -93,7 +98,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                     details[3] = temp.getDate();
                     details[4] = temp.getPay();
                     details[5] = temp.getStatus();
-                    details[6] = temp.getKey();
+                    details[6] = keys.get(position);
+                    details[7] = employers.get(position);
                     editListing(view);
             }
         });
@@ -126,6 +132,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                             keys.add(listing[0].getKey());
                             employers.add(employer[0].getKey());
                             listings.add(listing[0].getValue(Listing.class));
+
+                            //employerName.add(validEmployer[0]);
                         }
                     }
                 }

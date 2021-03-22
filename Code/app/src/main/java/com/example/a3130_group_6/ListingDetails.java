@@ -38,11 +38,13 @@ public class ListingDetails extends AppCompatActivity {
     ArrayList<String> keys;
     ArrayList<String> employers;
 
+    String currentKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
         listing = extras.getStringArray("details");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_details);
 
@@ -110,10 +112,12 @@ public class ListingDetails extends AppCompatActivity {
      * Returns: void
      *
      */
-    protected void applyToListing(int position){
+    protected void applyToListing(){
         // save current employee under listing in database
         //save object user to database to Firebase
-        employerRef.child(employers.get(position)).child("Listing").child(keys.get(position)).child("Applicants").child(validEmployee[0]).setValue("Applying");
+  //      employerRef.child(employers.get(position)).child("Listing").child(keys.get(position)).child("Applicants").child(validEmployee[0]).setValue("Applying");
+
+        listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child(validEmployee[0]).setValue("Applying");
     }
 
     public void onClick(View v) {
@@ -123,7 +127,7 @@ public class ListingDetails extends AppCompatActivity {
                 startActivity(new Intent(this, EmployeeHomepage.class));
                 break;
             case R.id.applyToListing:
-                applyToListing(1);
+                applyToListing();
                 break;
             case R.id.Logout:
                 //database.
