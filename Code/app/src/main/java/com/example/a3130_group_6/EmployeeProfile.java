@@ -56,9 +56,9 @@ public class EmployeeProfile extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
-    String description, username, password, phone, email, name, radius;
+    String description, username, password, phone, email, name, radius, resume;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
-    TextView usernameView, statusView;
+    TextView usernameView, statusView, selectedPDF;
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
     ImageView imageView;
     Uri image_uri;
@@ -108,6 +108,9 @@ public class EmployeeProfile extends AppCompatActivity {
                 else if (isPasswordEmpty(passView.getText().toString().trim())) {
                     setStatusMessage(false,"Error: Please fill in password");
                 }
+                else if (isRadiusEmpty(radiusView.getText().toString().trim())) {
+                    setStatusMessage(false,"Error: Please enter a radius between 1-25");
+                }
                 else if (!isRadiusInRange(radiusView.getText().toString().trim())) {
                     setStatusMessage(false,"Error: Please enter a radius between 1-25");
                 }
@@ -118,6 +121,7 @@ public class EmployeeProfile extends AppCompatActivity {
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
+                    employee.setResumeUrl(selectedPDF.getText().toString());
                     user.setRadius(radiusView.getText().toString());
                     user.getLatitude();
                     user.getLatitude();
@@ -216,7 +220,7 @@ public class EmployeeProfile extends AppCompatActivity {
                             String url = uri.toString();
                             DatabaseReference reference = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
 
-                            reference.child(userName).child("Resume").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            reference.child(userName).child("resumeUrl").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -249,6 +253,7 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView = findViewById(R.id.employeePhoneNumInput);
         emailView = findViewById(R.id.employeeEmailInput);
         radiusView = findViewById(R.id.radiusInput);
+        selectedPDF = findViewById(R.id.selectedPDF);
 
         submitButton = (Button) findViewById(R.id.saveProfileUpdate);
         refreshButton = (Button) findViewById(R.id.employerHome);
@@ -278,6 +283,7 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("name", employee.getName());
         updates.put("phone", employee.getPhone());
         updates.put("description", employee.getDescription());
+        updates.put("resumeUrl", employee.getResumeUrl());
 
         // Add radius to the database
         employeeRef.updateChildren(updates);
@@ -301,6 +307,7 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView.setText(phone);
         emailView.setText(email);
         radiusView.setText(radius);
+        selectedPDF.setText(resume);
     }
 
 
@@ -330,6 +337,7 @@ public class EmployeeProfile extends AppCompatActivity {
                         email = employee.getEmail();
                         name = employee.getName();
                         description = employee.getDescription();
+                        resume = employee.getResumeUrl();
                         break;
                     }
                 }
@@ -389,6 +397,7 @@ public class EmployeeProfile extends AppCompatActivity {
         }
         if (requestCode == 86 && resultCode == RESULT_OK && data != null) {
             pdf = data.getData();
+            selectedPDF.setText(data.getData().getLastPathSegment());
         }
         else {
             Toast.makeText(EmployeeProfile.this, "Please select a file", Toast.LENGTH_SHORT).show();
@@ -414,10 +423,14 @@ public class EmployeeProfile extends AppCompatActivity {
     }
 
     protected static boolean isRadiusInRange (String radius) {
-        if (Integer.valueOf(radius) >= 1 && Integer.valueOf(radius) <= 25) {
+        if (Integer.valueOf(radius) >= 1 && Integer.valueOf(radius) <= 25 && !radius.isEmpty()) {
             return true;
         }
         return false;
+    }
+
+    protected static boolean isRadiusEmpty (String radius) {
+        return radius.isEmpty();
     }
 
     protected void setStatusMessage(Boolean success, String message) {
