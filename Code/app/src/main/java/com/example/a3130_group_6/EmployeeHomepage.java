@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.example.a3130_group_6.LoginPage.validEmployee;
 
@@ -31,6 +32,10 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ArrayList<Listing> listings;
     ArrayList<String> keys;
     ArrayList<String> employers;
+    String [] details;
+    String[] listingsString;
+    List<String> employerName;
+    ListView listView=null;
 
 
     @Override
@@ -48,14 +53,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
         employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployees(employerRef, listings);
-
-        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                applyToListing(position);
-            }
-        });
-
     }
 
     /**
@@ -85,6 +82,21 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
         taskList.setAdapter(adapter);
+        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Listing temp = listings.get(position);
+                    details = new String[8];
+                    details[0] = temp.getTaskTitle();
+                    details[1] = temp.getTaskDescription();
+                    details[2] = temp.getUrgency();
+                    details[3] = temp.getDate();
+                    details[4] = temp.getPay();
+                    details[5] = temp.getStatus();
+                    details[6] = temp.getKey();
+                    editListing(view);
+            }
+        });
 
     }
 
@@ -126,6 +138,16 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
+
+    public void editListing(View view){
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("details", details);
+        Intent intent = new Intent(this, ListingDetails.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
     /**
      * Function: This method switches intent to the employee homepage
      * Parameters: View - view
@@ -138,8 +160,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     }
 
 
-
-
     /**
      * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
      */
@@ -149,7 +169,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
+     * Created "Test Button" just for Employee Profile testing/viewing purposes. Can/will delete after integration of navigation bar
      */
     public void onClick(View v) {
         employeeProfileSwitch();

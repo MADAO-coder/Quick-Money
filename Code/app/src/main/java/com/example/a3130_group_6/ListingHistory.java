@@ -203,6 +203,7 @@ public class ListingHistory extends AppCompatActivity {
             }
         });
     }
+
     public void editListing(View view){
         Bundle bundle = new Bundle();
         bundle.putStringArray("details",details);

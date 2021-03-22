@@ -6,6 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".EditEmployerListing">
 
+    <TextView
+        android:id="@+id/locationInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="77dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/applyToListing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/viewLocation"
+        app:layout_constraintTop_toBottomOf="@+id/statusInput" />
+
+    <TextView
+        android:id="@+id/viewLocation"
+        android:layout_width="116dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="67dp"
+        android:text="Location"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/backEmployeeHome"
+        app:layout_constraintEnd_toStartOf="@+id/locationInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewStatus" />
+
     <Button
         android:id="@+id/applyToListing"
         android:layout_width="151dp"
