@@ -1,5 +1,6 @@
 package com.example.a3130_group_6;
 
+import android.annotation.SuppressLint;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
@@ -14,9 +15,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static com.example.a3130_group_6.LoginPage.validEmployee;
 
@@ -124,6 +127,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
+
     /**
      * Function: This method switches intent to the employee homepage
      * Parameters: View - view
