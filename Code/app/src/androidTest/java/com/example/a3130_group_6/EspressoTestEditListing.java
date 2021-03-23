@@ -20,11 +20,11 @@ public class EspressoTestEditListing {
 
     @Test
     public void checkIfTaskTitleEmpty() {
-        onView(withId(R.id.EditTask)).perform(typeText(""));
-        onView(withId(R.id.EditTaskDescription)).perform(typeText("Here is a description"));
-        onView(withId(R.id.editUrgency)).perform(typeText("1"));
-        onView(withId(R.id.editDate)).perform(typeText("20/10/2021"));
-        onView(withId(R.id.EditPay)).perform(typeText("20"));
+        onView(withId(R.id.titleInput)).perform(typeText(""));
+        onView(withId(R.id.descriptionInput)).perform(typeText("Here is a description"));
+        onView(withId(R.id.urgencyInput)).perform(typeText("1"));
+        onView(withId(R.id.dateInput)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.payInput)).perform(typeText("20"));
         closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("Error: Empty Task Title")));
@@ -32,11 +32,11 @@ public class EspressoTestEditListing {
 
     @Test
     public void checkIfTaskDescriptionEmpty() {
-        onView(withId(R.id.EditTask)).perform(typeText("Awesome Task Title"));
-        onView(withId(R.id.EditTaskDescription)).perform(typeText(""));
-        onView(withId(R.id.editUrgency)).perform(typeText("1"));
-        onView(withId(R.id.editDate)).perform(typeText("20/10/2021"));
-        onView(withId(R.id.EditPay)).perform(typeText("20"));
+        onView(withId(R.id.titleInput)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.descriptionInput)).perform(typeText(""));
+        onView(withId(R.id.urgencyInput)).perform(typeText("1"));
+        onView(withId(R.id.dateInput)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.payInput)).perform(typeText("20"));
         closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("Error: Empty Task Description")));
@@ -44,11 +44,11 @@ public class EspressoTestEditListing {
 
     @Test
     public void checkIfUrgencyEmpty() {
-        onView(withId(R.id.EditTask)).perform(typeText("Awesome Task Title"));
-        onView(withId(R.id.EditTaskDescription)).perform(typeText("Here is a description"));
-        onView(withId(R.id.editUrgency)).perform(typeText(""));
-        onView(withId(R.id.editDate)).perform(typeText("20/10/2021"));
-        onView(withId(R.id.EditPay)).perform(typeText("20"));
+        onView(withId(R.id.titleInput)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.descriptionInput)).perform(typeText("Here is a description"));
+        onView(withId(R.id.urgencyInput)).perform(typeText(""));
+        onView(withId(R.id.dateInput)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.payInput)).perform(typeText("20"));
         closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Urgency")));
@@ -56,11 +56,11 @@ public class EspressoTestEditListing {
 
     @Test
     public void checkIfDateIsEmpty() {
-        onView(withId(R.id.EditTask)).perform(typeText("Awesome Task Title"));
-        onView(withId(R.id.EditTaskDescription)).perform(typeText("Here is a description"));
-        onView(withId(R.id.editUrgency)).perform(typeText("1"));
-        onView(withId(R.id.editDate)).perform(typeText(""));
-        onView(withId(R.id.EditPay)).perform(typeText("20"));
+        onView(withId(R.id.titleInput)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.descriptionInput)).perform(typeText("Here is a description"));
+        onView(withId(R.id.urgencyInput)).perform(typeText("1"));
+        onView(withId(R.id.dateInput)).perform(typeText(""));
+        onView(withId(R.id.payInput)).perform(typeText("20"));
         closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Date")));
@@ -68,11 +68,11 @@ public class EspressoTestEditListing {
 
     @Test
     public void checkIfPayIsEmpty() {
-        onView(withId(R.id.EditTask)).perform(typeText("Awesome Task Title"));
-        onView(withId(R.id.EditTaskDescription)).perform(typeText("Here is a description"));
-        onView(withId(R.id.editUrgency)).perform(typeText("1"));
-        onView(withId(R.id.editDate)).perform(typeText("20/10/2021"));
-        onView(withId(R.id.EditPay)).perform(typeText(""));
+        onView(withId(R.id.titleInput)).perform(typeText("Awesome Task Title"));
+        onView(withId(R.id.descriptionInput)).perform(typeText("Here is a description"));
+        onView(withId(R.id.urgencyInput)).perform(typeText("1"));
+        onView(withId(R.id.dateInput)).perform(typeText("20/10/2021"));
+        onView(withId(R.id.payInput)).perform(typeText(""));
         closeSoftKeyboard();
         onView(withId(R.id.submitTask)).perform(click());
         onView(withId(R.id.statusLabel)).check(matches(withText("Error: Please fill in Pay")));

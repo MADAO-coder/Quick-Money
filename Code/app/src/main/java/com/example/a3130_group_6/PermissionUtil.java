@@ -7,8 +7,6 @@ import android.os.Build;
 
 import androidx.core.app.ActivityCompat;
 
-import java.util.Map;
-
 /**
  * Helper class for Map functionality
  *

@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -204,6 +203,7 @@ public class ListingHistory extends AppCompatActivity {
             }
         });
     }
+
     public void editListing(View view){
         Bundle bundle = new Bundle();
         bundle.putStringArray("details",details);

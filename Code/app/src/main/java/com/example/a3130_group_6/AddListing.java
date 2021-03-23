@@ -1,7 +1,5 @@
 package com.example.a3130_group_6;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
@@ -123,12 +122,12 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
 
-        EditText status = findViewById(R.id.EditStatus);
-        taskTitle = findViewById(R.id.EditTask);
-        taskDescription = findViewById(R.id.EditTaskDescription);
-        urgency = findViewById(R.id.editUrgency);
-        date = findViewById(R.id.editDate);
-        pay = findViewById(R.id.EditPay);
+        EditText status = findViewById(R.id.statusInput);
+        taskTitle = findViewById(R.id.titleInput);
+        taskDescription = findViewById(R.id.descriptionInput);
+        urgency = findViewById(R.id.urgencyInput);
+        date = findViewById(R.id.dateInput);
+        pay = findViewById(R.id.payInput);
         TextView currentLocation = findViewById(R.id.currentLocationView);
         Button addLocationBt = findViewById(R.id.add_locationBt);
 

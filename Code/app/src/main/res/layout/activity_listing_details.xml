@@ -6,17 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".EditEmployerListing">
 
+    <TextView
+        android:id="@+id/latitudeInput"
+        android:layout_width="169dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="1dp"
+        android:text="Lat"
+        android:textAlignment="center"
+        android:textColor="#673AB7"
+        app:layout_constraintBottom_toTopOf="@+id/applicationMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/viewLong"
+        app:layout_constraintTop_toBottomOf="@+id/longitudeInput" />
+
+    <TextView
+        android:id="@+id/viewLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="Lat"
+        app:layout_constraintBottom_toTopOf="@+id/applicationMessage"
+        app:layout_constraintEnd_toStartOf="@+id/latitudeInput"
+        app:layout_constraintStart_toEndOf="@+id/viewLocation"
+        app:layout_constraintTop_toBottomOf="@+id/viewLat" />
+
+    <TextView
+        android:id="@+id/viewLocation"
+        android:layout_width="116dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="12dp"
+        android:text="Location"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/applicationMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewStatus" />
+
     <Button
-        android:id="@+id/ListingHistory"
-        android:layout_width="125dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="124dp"
-        android:onClick="switchListingHistory"
-        android:text="Switch Listing History"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
-        app:layout_constraintEnd_toStartOf="@+id/addTaskButton"
-        app:layout_constraintStart_toEndOf="@+id/employeeHome"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/applyToListing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="5dp"
+        android:text="Apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backEmployeeHome" />
 
     <Button
         android:id="@+id/Logout"
@@ -28,20 +71,6 @@
         android:text="Logout"
         app:layout_constraintBottom_toTopOf="@+id/employeeHeader"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addTaskButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/addTaskButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
-        android:clickable="true"
-        android:onClick="addTaskSwitch"
-        android:text="Add Task"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
-        app:layout_constraintEnd_toStartOf="@+id/Logout"
-        app:layout_constraintStart_toEndOf="@+id/ListingHistory"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -52,39 +81,21 @@
         android:onClick="homepageSwitch"
         android:text="Home"
         app:layout_constraintBottom_toTopOf="@+id/searchBar"
-        app:layout_constraintEnd_toStartOf="@+id/ListingHistory"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
         android:id="@+id/backEmployeeHome"
-        android:layout_width="151dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="131dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="96dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="5dp"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/submitTask"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewStatus" />
-
-    <TextView
-        android:id="@+id/TaskDescription"
-        android:layout_width="116dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="322dp"
-        android:text="Task Description"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewTitle" />
+        app:layout_constraintEnd_toStartOf="@+id/applyToListing"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/viewUrgency"
@@ -93,13 +104,15 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="322dp"
+        android:layout_marginBottom="1dp"
         android:text="Urgency (1-5)"
         android:textAlignment="center"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/viewDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/TaskDescription" />
+        app:layout_constraintTop_toBottomOf="@id/viewDescription" />
 
     <TextView
         android:id="@+id/viewDate"
@@ -108,9 +121,11 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="322dp"
+        android:layout_marginBottom="1dp"
         android:text="Date (DD/MM/YY)"
         android:textAlignment="center"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/viewPay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,13 +136,14 @@
         android:layout_width="116dp"
         android:layout_height="38dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="322dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="1dp"
         android:text="Pay"
         android:textAlignment="center"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/viewStatus"
+        app:layout_constraintEnd_toStartOf="@+id/payInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewDate" />
 
@@ -135,96 +151,90 @@
         android:id="@+id/viewTitle"
         android:layout_width="116dp"
         android:layout_height="35dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="322dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="1dp"
         android:text="Task Title"
         android:textAlignment="center"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@id/viewDescription"
+        app:layout_constraintEnd_toStartOf="@id/titleInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/dateInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/payInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/viewDate"
         app:layout_constraintTop_toBottomOf="@+id/urgencyInput" />
 
-    <Button
-        android:id="@+id/submitTask"
-        android:layout_width="151dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="131dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="96dp"
-        android:text="Submit Task"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backEmployeeHome"
-        app:layout_constraintTop_toBottomOf="@+id/statusInput" />
-
-    <EditText
+    <TextView
         android:id="@+id/titleInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="105dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/viewTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/descriptionInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="12dp"
         android:ems="10"
         android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/urgencyInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@id/TaskDescription"
         app:layout_constraintTop_toBottomOf="@id/titleInput" />
 
-    <EditText
+    <TextView
         android:id="@+id/urgencyInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="17dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/dateInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@id/viewUrgency"
         app:layout_constraintTop_toBottomOf="@id/descriptionInput" />
 
-    <EditText
+    <TextView
         android:id="@+id/payInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/statusInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/viewPay"
@@ -235,16 +245,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="131dp"
         android:layout_marginBottom="51dp"
         android:textColor="#F40606"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/submitTask"
-        app:layout_constraintVertical_bias="0.627" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <TextView
@@ -254,25 +261,27 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="322dp"
+        android:layout_marginBottom="1dp"
         android:text="Status: OPEN/CLOSED"
         android:textAlignment="center"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/viewLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPay" />
 
-    <EditText
+    <TextView
         android:id="@+id/statusInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="131dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/backEmployeeHome"
+        app:layout_constraintBottom_toTopOf="@+id/longitudeInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/viewStatus"
         app:layout_constraintTop_toBottomOf="@+id/payInput" />
@@ -283,13 +292,61 @@
         android:layout_height="38dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="322dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="10dp"
         android:text="Task Description"
         android:textAlignment="center"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@id/viewUrgency"
+        app:layout_constraintEnd_toStartOf="@id/descriptionInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewTitle" />
+
+    <EditText
+        android:id="@+id/applicationMessage"
+        android:layout_width="292dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="75dp"
+        android:ems="10"
+        android:hint="Send/Overwrite Message Here"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/applyToListing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewLocation"
+        app:layout_constraintVertical_bias="0.48000002" />
+
+    <TextView
+        android:id="@+id/viewLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="485dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="1dp"
+        android:text="Long"
+        app:layout_constraintBottom_toTopOf="@+id/viewLong"
+        app:layout_constraintEnd_toStartOf="@id/longitudeInput"
+        app:layout_constraintStart_toEndOf="@+id/viewLocation"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/longitudeInput"
+        android:layout_width="169dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="1dp"
+        android:text="Long"
+        android:textAlignment="center"
+        android:textColor="#673AB7"
+        app:layout_constraintBottom_toTopOf="@+id/latitudeInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/viewLong"
+        app:layout_constraintTop_toBottomOf="@+id/statusInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
