@@ -303,6 +303,10 @@ public class EmployeeProfile extends AppCompatActivity {
         radiusView.setText(radius);
     }
 
+    protected UserLocation getEmployeeLocation(){
+        return user;
+    }
+
 
 
     //code from loginPage

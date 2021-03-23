@@ -24,6 +24,7 @@ public class UserLocation {
     Activity activity;
     LatLng object;
     String address;
+    private final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
 
     public UserLocation(LatLng obj, Activity activity) {
         this.object = obj;
@@ -50,6 +51,26 @@ public class UserLocation {
         geocoder = new Geocoder(activity,Locale.getDefault());
         addresses = geocoder.getFromLocation(latitude, longitude, 1);
         address = addresses.get(0).getAddressLine(0);
+    }
+
+    /**
+     * References: https://bit.ly/2OQoVd3
+     * @param venueLat
+     * @param venueLng
+     * @return
+     */
+    protected int calculateDistanceInKilometer(double venueLat, double venueLng) {
+
+        double latDistance = Math.toRadians(this.latitude - venueLat);
+        double lngDistance = Math.toRadians(this.longitude - venueLng);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(this.latitude)) * Math.cos(Math.toRadians(venueLat))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return (int) (Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c));
     }
 
     public void setRadius(String radius){
