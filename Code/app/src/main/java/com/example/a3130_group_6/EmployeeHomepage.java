@@ -1,5 +1,7 @@
 package com.example.a3130_group_6;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
@@ -7,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +32,9 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ArrayList<Listing> listings;
     ArrayList<String> keys;
     ArrayList<String> employers;
+    EditText search;
+    ArrayAdapter<String> adapter;
+    String[] listingsString;
 
 
     @Override
@@ -40,6 +46,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         keys = new ArrayList<>();
         employers = new ArrayList<>();
         db = FirebaseDatabase.getInstance();
+        search = findViewById(R.id.newSearchBar);
 
         Button employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
         employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
@@ -54,6 +61,19 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                EmployeeHomepage.this.adapter.getFilter().filter(s);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     /**
@@ -77,11 +97,11 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
      *
      */
     protected void setTaskList(){
-        String[] listingsString = new String[listings.size()];
+        listingsString = new String[listings.size()];
         for(int i=0; i<listingsString.length; i++){
             listingsString[i] = listings.get(i).getTaskTitle() + "\tStatus:" + listings.get(i).getStatus();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
         taskList.setAdapter(adapter);
 
     }
