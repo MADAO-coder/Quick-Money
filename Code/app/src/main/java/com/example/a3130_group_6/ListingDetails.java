@@ -1,6 +1,5 @@
 package com.example.a3130_group_6;
 
-import android.app.DirectAction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,23 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.example.a3130_group_6.LoginPage.validEmployer;
 import static com.example.a3130_group_6.LoginPage.validEmployee;
 
 public class ListingDetails extends AppCompatActivity {
@@ -90,6 +77,16 @@ public class ListingDetails extends AppCompatActivity {
         textView.setText(status);
     }
 
+    protected void setLatitudeDisplay(String lat){
+        TextView textView = findViewById(R.id.latitudeInput);
+        textView.setText(lat);
+    }
+
+    protected void setLongitudeDisplay(String longitude){
+        TextView textView = findViewById(R.id.longitudeInput);
+        textView.setText(longitude);
+    }
+
     protected void setTextBox() {
         setTitleDisplay(listing[0]);
         setDescriptionDisplay(listing[1]);
@@ -97,6 +94,8 @@ public class ListingDetails extends AppCompatActivity {
         setDateDisplay(listing[3]);
         setPayDisplay(listing[4]);
         setStatusDisplay(listing[5]);
+        setLongitudeDisplay(listing[8]);
+        setLatitudeDisplay(listing[9]);
     }
 
     public void homepageSwitch(View view) {

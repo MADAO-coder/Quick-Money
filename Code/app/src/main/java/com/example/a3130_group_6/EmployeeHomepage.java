@@ -73,7 +73,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Listing temp = listings.get(position);
-                    details = new String[8];
+                    UserLocation location = temp.getLocation();
+                    details = new String[10];
                     details[0] = temp.getTaskTitle();
                     details[1] = temp.getTaskDescription();
                     details[2] = temp.getUrgency();
@@ -82,6 +83,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                     details[5] = temp.getStatus();
                     details[6] = keys.get(position);
                     details[7] = employers.get(position);
+                    details[8] = location.getLongitude().toString();
+                    details[9] = location.getLatitude().toString();
                     editListing(view);
             }
         });
