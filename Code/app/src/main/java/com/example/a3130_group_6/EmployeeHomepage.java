@@ -180,18 +180,21 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             double diff = user.calculateDistanceInKilometer(latitude, longitude);
 
             if (diff < Double.parseDouble(user.getRadius())){
-                // adding listing which is in the user radius to the map
+                // adding listing which is in the user radius to the hashmap
                 taskDistance.put(listings.get(i), diff);
             }
         }
         // sorting the hashmap based on values
         taskDistance = sortByValue(taskDistance);
 
+        System.out.println(taskDistance);
 
+        // adding all the keys to an arraylist
         for ( Listing listKey : taskDistance.keySet() ) {
             locationListing.add(listKey);
         }
 
+        // showing the filtered listings in a textview
         setTaskList(locationListing);
     }
 
