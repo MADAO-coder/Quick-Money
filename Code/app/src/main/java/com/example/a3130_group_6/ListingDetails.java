@@ -112,8 +112,7 @@ public class ListingDetails extends AppCompatActivity {
     protected void applyToListing(){
         // save current employee under listing in database
         // save object user to database to Firebase
-        listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child(validEmployee[0]).setValue("Applying");
-        listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child(validEmployee[0]).child("Message").setValue(applicationMessage.getText().toString());
+        listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child("Applied").child(validEmployee[0]).child("Message").setValue(applicationMessage.getText().toString());
         applicationMessage.setText(null);
     }
 
