@@ -43,6 +43,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     DataSnapshot listingData;
     ListView taskList;
     Iterator<DataSnapshot> listingItr;
+    Button employeeProfileButton, sortButton;
     private EmployeeProfile employeeProfile;
     private ArrayList<Listing> listings = new ArrayList<>();
     private ArrayList<String> keys = new ArrayList<>();
@@ -51,36 +52,31 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_homepage);
+
         taskList = (findViewById(R.id.TaskList));
         db = FirebaseDatabase.getInstance();
         employeeRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
-
-        Button employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
-        employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
-
         employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        employeeProfile = new EmployeeProfile();
 
+        employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
+        employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
+        sortButton = findViewById(R.id.sortButton);
+        sortButton.setOnClickListener(this);
 
         dbReadEmployees(employerRef, listings);
 
-
-        employeeProfile = new EmployeeProfile();
-
         this.showDropDownMenu();
-
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 applyToListing(position);
             }
         });
-
-
     }
 
     /**
@@ -141,15 +137,17 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 }
-
-                setTaskList(listings);
+                dbReadEmployeeLocation(employeeRef);
+                // setTaskList(listings);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 
-
+    /**
+     *  Method to show the drop down menu
+     */
     protected void showDropDownMenu() {
         Spinner sortSpinner = (Spinner) findViewById(R.id.sortSpinner);
         List<String> dropDownList = new ArrayList<String>();
@@ -163,7 +161,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
 
     private void sortByUrgency(){
-        Collections.sort(listings, new Comparator<Listing>() {
+        Collections.sort(locationListing, new Comparator<Listing>() {
             @Override
             public int compare(Listing l1, Listing l2) {
                 return l1.getUrgency().compareTo(l2.getUrgency());
@@ -268,15 +266,33 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     }
 
     /**
+     * Method to get the text from the dropdown menu for sort
+     * @return
+     * The following method has been used from Assignment 4
+     */
+    protected String getSelectedItem() {
+        Spinner itemList = (Spinner) findViewById(R.id.sortSpinner);
+        return itemList.getSelectedItem().toString();
+    }
+
+    /**
      * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
      */
     public void onClick(View v) {
-        //if(v.getId() == R.id.employeeProfileButton){
-           // employeeProfileSwitch();
-        //}
-        //sortByLocation();
-        //createToast(user.radius);
-        dbReadEmployeeLocation(employeeRef);
+
+        if(v.getId() == R.id.employeeProfileButton){
+         employeeProfileSwitch();
+        }
+        else if (v.getId() == R.id.sortButton) {
+            String selectedItem = getSelectedItem();
+            if (selectedItem.equals("sort by urgency")) {
+                sortByUrgency();
+            } else if (selectedItem.equals("sort by date")) {
+
+            } else if (selectedItem.equals("sort by location")) {
+                dbReadEmployeeLocation(employeeRef);
+            }
+        }
     }
 
     // method to create a Toast
