@@ -22,10 +22,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -159,7 +162,11 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         sortSpinner.setAdapter(itemListAdapter);
     }
 
+    private void sortByDate() throws ParseException {
+        String sDate1="31/12/1998";
+        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
 
+    }
     private void sortByUrgency(){
         Collections.sort(locationListing, new Comparator<Listing>() {
             @Override
