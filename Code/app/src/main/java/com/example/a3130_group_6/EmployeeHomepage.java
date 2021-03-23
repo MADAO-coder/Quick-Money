@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ListView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -47,6 +49,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         employers = new ArrayList<>();
         db = FirebaseDatabase.getInstance();
         search = findViewById(R.id.newSearchBar);
+        TextView searchStatus = findViewById(R.id.searchStatus);
 
         Button employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
         employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
@@ -68,10 +71,20 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 EmployeeHomepage.this.adapter.getFilter().filter(s);
+
+                adapter.getFilter().filter(s, new Filter.FilterListener() {
+                    @Override
+                    public void onFilterComplete(int count) {
+                        if (count == 0){
+                            searchStatus.setText("No tasks available based on search");
+                        } else {
+                            searchStatus.setText("");
+                        }
+                    }
+                });
             }
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
