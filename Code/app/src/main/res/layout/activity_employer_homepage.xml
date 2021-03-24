@@ -9,7 +9,7 @@
     android:scrollbarStyle="insideInset"
     android:verticalScrollbarPosition="right"
     android:visibility="visible"
-    tools:context=".EmployerPackage.EmployerHomepage">
+    tools:context="com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage">
 
     <Button
         android:id="@+id/ListingHistory"
