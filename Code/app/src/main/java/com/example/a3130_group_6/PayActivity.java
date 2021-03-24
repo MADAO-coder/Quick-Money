@@ -30,18 +30,23 @@ public class PayActivity extends AppCompatActivity {
 
     private static final int PAYPAL_REQUEST_CODE = 555;
     private static PayPalConfiguration config = new PayPalConfiguration()
-            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-            .clientId(Config.PAYPAL_CLIENT_ID);
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(Config.PAYPAL_CLIENT_ID);
 
     Button btnPayNow;
-
-    String amount = "";
+    String employeeName, amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paypal);
-    //Starting the PayPal Service
+        Intent intentData = getIntent();
+        employeeName = intentData.getStringExtra("name");
+        amount = intentData.getStringExtra("amount");
+
+        //set client id to proper individual
+        //config.;
+
+        //Starting the PayPal Service
 
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
