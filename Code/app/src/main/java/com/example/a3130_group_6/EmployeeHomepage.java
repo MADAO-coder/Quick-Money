@@ -68,9 +68,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
     Button employeeProfileButton, sortButton;
     private EmployeeProfile employeeProfile;
-    private ArrayList<Listing> listings = new ArrayList<>();
-    private ArrayList<String> keys = new ArrayList<>();
-    private ArrayList<String> employers = new ArrayList<>();
     private UserLocation user;
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
@@ -100,9 +97,9 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
         dbReadEmployees(employerRef, listings);
 
-        search.addTextChangedListener(new TextWatcher() {
         this.showDropDownMenu();
-        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
