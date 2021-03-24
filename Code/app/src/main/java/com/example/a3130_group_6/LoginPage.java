@@ -23,6 +23,7 @@ import java.util.List;
 public class LoginPage extends AppCompatActivity {
     public static String[] validEmployer = new String[2];
     public static String[] validEmployee = new String[2];
+    public static Employee currentEmployee;
 
     protected Button loginBt;
     protected TextView loginStatus;
@@ -69,6 +70,7 @@ public class LoginPage extends AppCompatActivity {
         }
         return false;
     }
+
 
     protected boolean isPasswordCorrect_employee(){
         for(int i = 0; i<employee_userName_list.size(); i++){
@@ -121,9 +123,11 @@ public class LoginPage extends AppCompatActivity {
                 else if(!isUserNameEmpty(getUserName()) && !isPasswordEmpty(getPassword())){//When password or userName is not empty.
                     employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
                     dbReadEmployee(employeeRef, statusMsg);//Get data from database
+                    setCurrentEmployee(employeeRef);
 
                     if( isPasswordCorrect_employer() ){//When password or userName is not empty and user's info matched
-                       moveToEmployeePage(statusMsg);
+
+                        moveToEmployeePage(statusMsg);
                     }
                     else {
                         statusMsg = getResources().getString(R.string.INCORRECT_LOGIN_INFO);//Give a reminder message when user's info not matched.
@@ -161,10 +165,7 @@ public class LoginPage extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
 
@@ -195,6 +196,29 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected void setCurrentEmployee(DatabaseReference db){
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Iterator<DataSnapshot> employeeItr = dataSnapshot.getChildren().iterator();
+                //Read data from data base.
+
+                while (employeeItr.hasNext()) {
+                    Employee employee = employeeItr.next().getValue(Employee.class);
+                    if(employee.getUserName().equals(LoginPage.validEmployee[0])){
+                        LoginPage.currentEmployee = employee;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
