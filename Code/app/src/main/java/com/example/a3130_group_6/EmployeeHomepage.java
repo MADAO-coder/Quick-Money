@@ -1,6 +1,5 @@
 package com.example.a3130_group_6;
 
-<<<<<<< HEAD
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.AdapterView;
@@ -12,14 +11,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Filter;
-=======
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
->>>>>>> 9b5b74e2ba1f67aa33f70bdc7670979876953b7c
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -30,11 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-<<<<<<< HEAD
 import android.widget.Button;
 import android.widget.TextView;
-=======
->>>>>>> 9b5b74e2ba1f67aa33f70bdc7670979876953b7c
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,15 +46,11 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ArrayList<Listing> listings;
     ArrayList<String> keys;
     ArrayList<String> employers;
-<<<<<<< HEAD
     EditText search;
     ArrayAdapter<String> adapter;
     String[] listingsString;
-=======
     String [] details;
     List<String> employerName;
-
->>>>>>> 9b5b74e2ba1f67aa33f70bdc7670979876953b7c
 
 
     @Override
@@ -81,14 +71,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
         employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployees(employerRef, listings);
-<<<<<<< HEAD
-
-        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                applyToListing(position);
-            }
-        });
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,8 +95,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             public void afterTextChanged(Editable s) {
             }
         });
-=======
->>>>>>> 9b5b74e2ba1f67aa33f70bdc7670979876953b7c
     }
 
     /**
