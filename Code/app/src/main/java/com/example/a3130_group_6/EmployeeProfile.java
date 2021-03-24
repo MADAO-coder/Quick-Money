@@ -310,6 +310,10 @@ public class EmployeeProfile extends AppCompatActivity {
         selectedPDF.setText(resume);
     }
 
+    protected UserLocation getEmployeeLocation(){
+        return user;
+    }
+
 
 
     //code from loginPage

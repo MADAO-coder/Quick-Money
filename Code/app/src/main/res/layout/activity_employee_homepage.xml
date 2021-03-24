@@ -25,7 +25,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
@@ -56,7 +56,7 @@
         android:layout_width="411dp"
         android:layout_height="19dp"
         android:clickable="false"
-        android:text="Available Workers In Your Area"
+        android:text="Available Tasks In Your Area"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/TaskList"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,12 +70,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="264dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TestButton"
+        android:text="Profile Test"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/sortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="192dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="32dp"
+        android:tooltipText="Select an item"
+        app:layout_constraintBottom_toTopOf="@+id/employeeHeader"
+        app:layout_constraintEnd_toStartOf="@+id/sortButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <Button
+        android:id="@+id/sortButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="22dp"
+        android:text="Sort"
+        app:layout_constraintBottom_toTopOf="@+id/employeeHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
