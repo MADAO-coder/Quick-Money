@@ -18,6 +18,7 @@ import org.json.JSONObject;
 public class PaymentStatus extends AppCompatActivity {
 
     TextView txtId, txtAmount, txtStatus;
+    String employeeName;
     PaymentModel responseData;
 
     @Override
@@ -31,6 +32,7 @@ public class PaymentStatus extends AppCompatActivity {
         txtStatus = findViewById(R.id.txtStatus);
 
         Intent intent = getIntent();
+        employeeName = intent.getStringExtra("employeeName");
 
         GsonBuilder builder = new GsonBuilder();
         Gson mGson = builder.create();
@@ -52,4 +54,6 @@ public class PaymentStatus extends AppCompatActivity {
         txtStatus.setText("Status -- "+responseData.getResponse().getState());
         txtAmount.setText("Amount -- $" + paymentAmount);
     }
-    }
+
+    // update @employeeName wallet based on @amount
+}

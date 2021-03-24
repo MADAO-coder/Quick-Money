@@ -89,7 +89,7 @@ public class PayActivity extends AppCompatActivity {
                         //Log.d("Details",paymentDetails);
                         startActivity(new Intent(this,PaymentStatus.class)
                                 .putExtra("PaymentDetails",paymentDetails)
-                                .putExtra("Amount",amount));
+                                .putExtra("Amount",amount).putExtra("employeeName", employeeName));
                     } catch (Exception e){
                         e.printStackTrace();
                     }
