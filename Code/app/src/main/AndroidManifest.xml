@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3130_Group_6">
-        <activity android:name=".ShowApplication"></activity>
+        <activity android:name=".HelperClases.ShowApplication"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,30 +38,30 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".HelperClases.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".AddListingMap" />
-        <activity android:name=".EmployeeProfile" />
-        <activity android:name=".EmployeeHomepage" />
-        <activity android:name=".EmployerHomepage" />
-        <activity android:name=".ListingHistory" />
-        <activity android:name=".ListingApplicants" />
-        <activity android:name=".EmployerProfile" />
-        <activity android:name=".EmployeeView" />
-        <activity android:name=".RegistrationForEmployees" />
-        <activity android:name=".RegistrationHome" />
-        <activity android:name=".RegistrationForEmployers" />
-        <activity android:name=".AddListing" />
-        <activity android:name=".ListingDetails" />
-        <activity android:name=".EditEmployerListing"> </activity>
-        <activity android:name=".LoginPage">
+        <activity android:name=".Listings.AddListingMap" />
+        <activity android:name=".EmployeePackage.EmployeeProfile" />
+        <activity android:name=".EmployeePackage.EmployeeHomepage" />
+        <activity android:name=".EmployerPackage.EmployerHomepage" />
+        <activity android:name=".Listings.ListingHistory" />
+        <activity android:name=".Listings.ListingApplicants" />
+        <activity android:name=".EmployerPackage.EmployerProfile" />
+        <activity android:name=".EmployeePackage.EmployeeView" />
+        <activity android:name=".Registration.RegistrationForEmployees" />
+        <activity android:name=".Registration.RegistrationHome" />
+        <activity android:name=".Registration.RegistrationForEmployers" />
+        <activity android:name=".Listings.AddListing" />
+        <activity android:name=".Listings.ListingDetails" />
+        <activity android:name=".Listings.EditEmployerListing"> </activity>
+        <activity android:name=".Registration.LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImageCapture"/>
+        <activity android:name=".HelperClases.ImageCapture"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"

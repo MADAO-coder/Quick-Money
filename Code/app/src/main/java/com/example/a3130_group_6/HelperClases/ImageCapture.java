@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.HelperClases;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.a3130_group_6.R;
 
 public class ImageCapture extends AppCompatActivity {
 

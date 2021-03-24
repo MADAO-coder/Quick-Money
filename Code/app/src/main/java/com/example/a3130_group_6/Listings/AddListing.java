@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Listings;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.a3130_group_6.R;
+import com.example.a3130_group_6.Registration.LoginPage;
+import com.example.a3130_group_6.HelperClases.UserLocation;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -61,15 +64,15 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         outState.putString("pay", pay.getText().toString());
     }
 
-    protected boolean isEmptyTaskTitle(String task) {
+    public boolean isEmptyTaskTitle(String task) {
         return task.isEmpty();
     }
 
-    protected boolean isEmptyTaskDescription(String description) {
+    public boolean isEmptyTaskDescription(String description) {
         return description.isEmpty();
     }
 
-    protected boolean isEmptyUrgency(String urgency) {
+    public boolean isEmptyUrgency(String urgency) {
         return urgency.isEmpty();
     }
 
@@ -79,7 +82,7 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
      * Returns: boolean
      *
      */
-    protected boolean checkUrgencyRange(String urgency) {
+    public boolean checkUrgencyRange(String urgency) {
         try {
             int num = Integer.parseInt(urgency);
             for (int i = 1; i < 6; i++){
@@ -93,19 +96,19 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         return false;
     }
 
-    protected boolean isEmptyDate(String date) {
+    public boolean isEmptyDate(String date) {
         return date.isEmpty();
     }
 
-    protected boolean isEmptyPay(String pay) {
+    public boolean isEmptyPay(String pay) {
         return pay.isEmpty();
     }
 
-    protected boolean isEmptyLocation(String location){
+    public boolean isEmptyLocation(String location){
         return location.isEmpty();
     }
 
-    protected void setStatusMessage(String message) {
+    public void setStatusMessage(String message) {
         TextView statusLabel = findViewById(R.id.statusLabel);
         statusLabel.setText(message);
     }
@@ -115,7 +118,7 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         startActivity(EmployeeMapIntent);
     }
 
-    protected boolean checkIfLocationEmpty(UserLocation current){
+    public boolean checkIfLocationEmpty(UserLocation current){
         return current == null;
     }
 

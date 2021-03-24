@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Registration;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.a3130_group_6.EmployerPackage.Employer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +45,7 @@ public class CheckExistingUserName {
      * Returns: void
      *
      */
-    protected void initializeDatabase() {
+    public void initializeDatabase() {
         employer = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         employee = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
     }
@@ -55,7 +56,7 @@ public class CheckExistingUserName {
      * Returns: void
      *
      */
-    protected void saveUserNamesInLists() {
+    public void saveUserNamesInLists() {
         employeeList = getUserNameList(employer, employeeList);
         employerList = getUserNameList(employee, employerList);
     }
@@ -109,7 +110,7 @@ public class CheckExistingUserName {
      * Returns:
      *
      */
-    protected void validateUsername(EditText username, TextView error) {
+    public void validateUsername(EditText username, TextView error) {
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -148,7 +149,7 @@ public class CheckExistingUserName {
      * Returns: boolean
      *
      */
-    protected boolean checkUserNameError(TextView error) {
+    public boolean checkUserNameError(TextView error) {
         String text = String.valueOf(error.getText());
         String error1 = "Username already taken. Please enter a different username.";
         String error2 = "Username too short";

@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Registration;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.a3130_group_6.EmployeePackage.Employee;
+import com.example.a3130_group_6.EmployeePackage.EmployeeHomepage;
+import com.example.a3130_group_6.EmployerPackage.Employer;
+import com.example.a3130_group_6.EmployerPackage.EmployerHomepage;
+import com.example.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,8 +30,8 @@ public class LoginPage extends AppCompatActivity {
     public static String[] validEmployee = new String[2];
     public static Employee currentEmployee;
 
-    protected Button loginBt;
-    protected TextView loginStatus;
+    public Button loginBt;
+    public TextView loginStatus;
     DatabaseReference employerRef = null;
     DatabaseReference employeeRef = null;
     private List<String> employee_userName_list = new ArrayList<>();//List to store userName getting from db for Employee object
@@ -41,28 +46,28 @@ public class LoginPage extends AppCompatActivity {
         loginBt = findViewById(R.id.loginBt_employee);
     }
 
-    protected boolean isUserNameEmpty(String userNameInput){
+    public boolean isUserNameEmpty(String userNameInput){
         return userNameInput.equals("");
     }
 
-    protected boolean isInfoMatch(String userNameInput, String passwordInput, String userName, String password){
+    public boolean isInfoMatch(String userNameInput, String passwordInput, String userName, String password){
         return userNameInput.equals(userName) && passwordInput.equals(password);
     }
 
-    protected boolean isPasswordEmpty(String passwordInput){
+    public boolean isPasswordEmpty(String passwordInput){
         return passwordInput.equals("");
     }
 
-    protected String getUserName() {
+    public String getUserName() {
         EditText userName = findViewById(R.id.userNameEt);
         return userName.getText().toString().trim();
     }
 
-    protected String getPassword(){
+    public String getPassword(){
         EditText password = findViewById(R.id.passwordEt);
         return password.getText().toString().trim();
     }
-    protected boolean isPasswordCorrect_employer(){
+    public boolean isPasswordCorrect_employer(){
         for(int i = 0; i<employer_userName_list.size(); i++){
             if(employer_userName_list.get(i).equals(getUserName()) && employer_password_list.get(i).equals(getPassword())){//When can not find matched userInfo from database.
                 return true;
@@ -72,7 +77,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
 
-    protected boolean isPasswordCorrect_employee(){
+    public boolean isPasswordCorrect_employee(){
         for(int i = 0; i<employee_userName_list.size(); i++){
             if(employee_userName_list.get(i).equals(getUserName()) && employee_password_list.get(i).equals(getPassword())){//When can not find matched userInfo from database.
                 return true;

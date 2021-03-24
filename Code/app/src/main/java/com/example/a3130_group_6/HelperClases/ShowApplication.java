@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.HelperClases;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.a3130_group_6.EmployerPackage.EmployerHomepage;
+import com.example.a3130_group_6.R;
 
 public class ShowApplication extends AppCompatActivity implements View.OnClickListener {
     Button homeButton;
@@ -18,7 +21,7 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         homeButton.setOnClickListener(this);
     }
 
-    protected void switchToEmployerHome(){
+    public void switchToEmployerHome(){
         Intent home = new Intent(this, EmployerHomepage.class);
         startActivity(home);
     }

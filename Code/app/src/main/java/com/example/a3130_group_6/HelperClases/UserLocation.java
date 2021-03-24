@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.HelperClases;
 
 import android.app.Activity;
 import android.location.Address;
@@ -47,7 +47,7 @@ public class UserLocation {
      * Returns: void
      *
      */
-    protected void createAddress() throws IOException {
+    public void createAddress() throws IOException {
         geocoder = new Geocoder(activity,Locale.getDefault());
         addresses = geocoder.getFromLocation(latitude, longitude, 1);
         address = addresses.get(0).getAddressLine(0);
@@ -59,7 +59,7 @@ public class UserLocation {
      * @return: double
      * References: https://bit.ly/2OQoVd3
      */
-    protected double calculateDistanceInKilometer(double venueLat, double venueLng) {
+    public double calculateDistanceInKilometer(double venueLat, double venueLng) {
 
         double latDistance = Math.toRadians(this.latitude - venueLat);
         double lngDistance = Math.toRadians(this.longitude - venueLng);
@@ -76,15 +76,15 @@ public class UserLocation {
         this.radius = radius;
     }
 
-    protected void setObject(LatLng obj){
+    public void setObject(LatLng obj){
         this.object = obj;
     }
 
-    protected void setActivity(Activity activity){
+    public void setActivity(Activity activity){
         this.activity = activity;
     }
 
-    protected String getAddress() {
+    public String getAddress() {
         return address;
     }
 

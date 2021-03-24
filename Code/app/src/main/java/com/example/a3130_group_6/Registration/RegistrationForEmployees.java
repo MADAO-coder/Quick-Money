@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Registration;
 
 import android.Manifest;
 import android.app.Activity;
@@ -32,6 +32,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.PatternsCompat;
 
+import com.example.a3130_group_6.Listings.AddListingMap;
+import com.example.a3130_group_6.EmployeePackage.Employee;
+import com.example.a3130_group_6.HelperClases.ImageCapture;
+import com.example.a3130_group_6.Listings.Listing;
+import com.example.a3130_group_6.HelperClases.PermissionUtil;
+import com.example.a3130_group_6.R;
+import com.example.a3130_group_6.HelperClases.UserLocation;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -85,7 +92,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
@@ -153,38 +160,38 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
     }
 
-    protected boolean isUserNameEmpty() {
+    public boolean isUserNameEmpty() {
         return getInputUserName().equals("");
     }
 
-    protected boolean isNameEmpty() {
+    public boolean isNameEmpty() {
         return getName().equals("");
     }
 
-    protected boolean isPasswordEmpty() {
+    public boolean isPasswordEmpty() {
         return getInputPassword().equals("");
     }
 
-    protected boolean isVerifyPasswordEmpty() {
+    public boolean isVerifyPasswordEmpty() {
         return vpassword.getText().toString().trim().equals("");
     }
 
-    protected boolean isPhoneEmpty() {
+    public boolean isPhoneEmpty() {
         return getPhoneNumber().equals("");
     }
 
-    protected boolean isValidEmail(String email) {
+    public boolean isValidEmail(String email) {
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
-    protected boolean isPasswordMatched() {
+    public boolean isPasswordMatched() {
         return (getInputPassword().equals(getInputVpassword()));
     }
 
-    protected String getInputVpassword() {
+    public String getInputVpassword() {
         return vpassword.getText().toString().trim();
     }
 
-    protected boolean isPasswordMatched(String password, String vPassword) {
+    public boolean isPasswordMatched(String password, String vPassword) {
         return (password.equals(vPassword));
     }
     /**
@@ -193,7 +200,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      * Returns: boolean
      *
      */
-    protected boolean validRegistrationInformation() {
+    public boolean validRegistrationInformation() {
 
         boolean validRegistrationInformation = !isUserNameEmpty() && !isPasswordEmpty() && !isVerifyPasswordEmpty() && !isNameEmpty()
                 && !isPhoneEmpty() && isValidEmail(getInputEmailAddress());
@@ -207,7 +214,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      * Returns: boolean
      *
      */
-    protected void saveEmployeeToDataBase(Object Employee) {
+    public void saveEmployeeToDataBase(Object Employee) {
         //save object user to database to Firebase
         employees.setUserName(getInputUserName());
         employees.setPassword(getInputPassword());
@@ -221,19 +228,19 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         employeeRef.child("Employee").child(employees.getUserName()).child("Location").setValue(present);
     }
 
-    protected String getInputUserName() {
+    public String getInputUserName() {
         return username.getText().toString().trim();
     }
 
-    protected String getInputPassword() {
+    public String getInputPassword() {
         return password.getText().toString().trim();
     }
 
-    protected String getInputEmailAddress() {
+    public String getInputEmailAddress() {
         return email.getText().toString().trim();
     }
 
-    protected String getPhoneNumber() {
+    public String getPhoneNumber() {
         return phone.getText().toString().trim();
     }
 
@@ -241,16 +248,16 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         return name.getText().toString().trim();
     }
 
-    protected String getSelfDescription() { return selfDef.toString(); }
+    public String getSelfDescription() { return selfDef.toString(); }
 
     /*
     Changing pages to see employer registration
      */
-    protected void switchToEmployer() {
+    public void switchToEmployer() {
         Intent employer = new Intent(this, RegistrationForEmployers.class);
         startActivity(employer);
     }
-    protected void switchtoImage() {
+    public void switchtoImage() {
         Intent Image = new Intent(this, ImageCapture.class);
         startActivity(Image);
     }
@@ -258,7 +265,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     /*
     Switch to login page
      */
-    protected void switchToHome() {
+    public void switchToHome() {
         Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
@@ -274,7 +281,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         toast.show();
     }
 
-    protected boolean isEmptyLocation(String location) {
+    public boolean isEmptyLocation(String location) {
         return location.isEmpty();
     }
 
@@ -284,7 +291,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      // Code for map has been taken from tutorials on Google Map Integration
      // *******************
 
-    protected void checkPermissions() {
+    public void checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             checkLocationPermission(activity, context, location.LOCATION_PERMISSION, location.LOCATION_PREF);
         } else {
@@ -430,7 +437,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      *
      */
     // method to get the current location
-    protected void getCurrentLocation() {
+    public void getCurrentLocation() {
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -448,11 +455,11 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     // Code for map has been taken from tutorials on Google Map Integration
     // *******************
 
-    protected String getInputRadius(){
+    public String getInputRadius(){
         return inputRadius.getText().toString();
     }
 
-    protected String getInputLocation() {return currentLocationView.getText().toString(); }
+    public String getInputLocation() {return currentLocationView.getText().toString(); }
 
     /**
      * Function: Method to check if the radius is a valid number
@@ -461,7 +468,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      *
      */
     // method to check if radius is a valid number
-    protected boolean validateRadius(String radius){
+    public boolean validateRadius(String radius){
         int check = 0;
         try {
             check = Integer.valueOf(radius);
@@ -478,7 +485,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
      *
      */
     // method to check if radius is in a valid range
-    protected boolean validateRadiusRange(String radius){
+    public boolean validateRadiusRange(String radius){
         int check= Integer.valueOf(radius);
         boolean checkRange = check < 0 || check> 25;
         if(checkRange) {
@@ -487,7 +494,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         return true;
     }
 
-    protected boolean isEmptyRadius(String radius){
+    public boolean isEmptyRadius(String radius){
         return radius.isEmpty();
     }
 
@@ -684,7 +691,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         }
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {

@@ -1,5 +1,7 @@
 package com.example.a3130_group_6;
 
+import com.example.a3130_group_6.EmployeePackage.EmployeeProfile;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,5 +1,6 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Listings;
 
+import com.example.a3130_group_6.HelperClases.UserLocation;
 import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;

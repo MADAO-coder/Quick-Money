@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Registration;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.PatternsCompat;
 
+import com.example.a3130_group_6.EmployerPackage.Employer;
+import com.example.a3130_group_6.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -54,7 +56,7 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
     /*
     Switch to login page
      */
-    protected void switchToHome(){
+    public void switchToHome(){
         Intent back = new Intent(this, LoginPage.class);
         startActivity(back);
     }
@@ -62,37 +64,37 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
     /*
     Changing pages to see employer registration
      */
-    protected void switchToEmployee(){
+    public void switchToEmployee(){
         Intent employee = new Intent(this, RegistrationForEmployees.class);
         startActivity(employee);
     }
 
-    protected boolean isUserNameEmpty(){
+    public boolean isUserNameEmpty(){
         return getInputUserName().equals("");
     }
 
-    protected boolean isNameEmpty(){
+    public boolean isNameEmpty(){
         return getName().equals("");
     }
 
-    protected boolean isPasswordEmpty(){
+    public boolean isPasswordEmpty(){
         return getInputPassword().equals("");
     }
 
-    protected boolean isVerifyPasswordEmpty(){
+    public boolean isVerifyPasswordEmpty(){
         return vpassword.getText().toString().trim().equals("");
     }
 
-    protected boolean isPhoneEmpty(){ return getPhoneNumber().equals(""); }
+    public boolean isPhoneEmpty(){ return getPhoneNumber().equals(""); }
 
-    protected boolean isValidEmail(String email){
+    public boolean isValidEmail(String email){
         return PatternsCompat.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     /*
     Checking registration information
      */
-    protected boolean validRegistrationInformation() {
+    public boolean validRegistrationInformation() {
         return !isUserNameEmpty() && !isPasswordEmpty() && !isNameEmpty() && !isPhoneEmpty()
                 && isValidEmail(getInputEmailAddress());
     }
@@ -100,41 +102,41 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
     /*
     Saving employee information to the database
      */
-    protected void saveEmployerToDataBase(Object Employers) {
+    public void saveEmployerToDataBase(Object Employers) {
         //save object user to database to Firebase
         employerRef = FirebaseDatabase.getInstance().getReference();
         employerRef.child("Employer").child(String.valueOf(employers.getUserName())).setValue(Employers);
     }
 
-    protected String getInputUserName(){
+    public String getInputUserName(){
         return username.getText().toString().trim();
     }
 
-    protected String getInputPassword(){
+    public String getInputPassword(){
         return password.getText().toString().trim();
     }
 
-    protected String getInputEmailAddress() {
+    public String getInputEmailAddress() {
         return email.getText().toString().trim();
     }
 
-    protected String getPhoneNumber() {
+    public String getPhoneNumber() {
         return phone.getText().toString().trim();
     }
 
-    protected String getInputVpassword(){
+    public String getInputVpassword(){
         return vpassword.getText().toString().trim();
     }
 
-    protected boolean isPasswordMatched(String password, String vPassword){
+    public boolean isPasswordMatched(String password, String vPassword){
         return (password.equals(vPassword));
     }
 
-    protected String getBusinessName() {
+    public String getBusinessName() {
         return business.getText().toString().trim();
     }
 
-    protected String getName() {
+    public String getName() {
         return name.getText().toString().trim();
     }
 
