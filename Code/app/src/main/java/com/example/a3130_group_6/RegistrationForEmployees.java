@@ -47,7 +47,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 
 public class RegistrationForEmployees extends AppCompatActivity implements View.OnClickListener {
-    EditText name, username, password, vpassword, phone, email, inputRadius;
+    EditText name, username, password, vpassword, phone, email, inputRadius, paypalId;
     Listing list;
     TextInputLayout selfDef;
     private Employee employee;
@@ -116,6 +116,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         statusLabel = findViewById(R.id.statusLabel);
         addLocationButton = findViewById(R.id.addLocationButton);
         inputRadius = findViewById(R.id.inputRadius);
+        paypalId = findViewById(R.id.payPalId);
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
@@ -214,6 +215,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         employees.setEmailAddress(getInputEmailAddress());
         employees.setPhone(getPhoneNumber());
         employees.setName(getName());
+        employees.setClientID(getClientID());
 
         employeeRef = FirebaseDatabase.getInstance().getReference();
         employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
@@ -240,6 +242,12 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     public String getName() {
         return name.getText().toString().trim();
     }
+
+
+    public String getClientID(){
+        return paypalId.getText().toString();
+    }
+
 
     protected String getSelfDescription() { return selfDef.toString(); }
 
@@ -524,7 +532,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
                 employees.setEmailAddress(getInputEmailAddress());
                 employees.setPhone(getPhoneNumber());
                 employees.setName(getName());
-                employees.setResumeUrl(resumeUrl);
+                employees.setClientID(getClientID());
                 exactAddress.setRadius(getInputRadius());
                 saveEmployeeToDataBase(employees);
                 switchToHome();

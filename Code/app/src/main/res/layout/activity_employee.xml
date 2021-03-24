@@ -68,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/AddPayment"
+        app:layout_constraintStart_toEndOf="@id/payPalId"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -81,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="@id/selectResume"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/AddPayment"
+        app:layout_constraintTop_toBottomOf="@id/payPalId"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
@@ -93,17 +93,6 @@
         android:text="select Resume"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/AddPayment"
-        android:layout_width="127dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="52dp"
-        android:text="Add Paypal"
-        app:layout_constraintBottom_toBottomOf="@id/Submit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageToUpload"
-        app:layout_constraintVertical_bias="0.995" />
 
     <TextView
         android:id="@+id/VPassword"
@@ -122,14 +111,14 @@
         android:layout_width="161dp"
         android:layout_height="54dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="88dp"
+        android:layout_marginEnd="92dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/statusLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <Button
         android:id="@+id/Image"
@@ -216,31 +205,6 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/email"
-        android:layout_width="152dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:background="@color/purple_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone" />
-
-    <Button
-        android:id="@+id/Employer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="103dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="62dp"
-        android:text="Employer"
-        app:layout_constraintBottom_toTopOf="@+id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/home2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
         android:id="@+id/name"
         android:layout_width="152dp"
         android:layout_height="34dp"
@@ -251,18 +215,6 @@
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Employer" />
-
-    <EditText
-        android:id="@+id/vpassword"
-        android:layout_width="152dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/purple_500"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
         android:id="@+id/password"
@@ -277,6 +229,40 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <EditText
+        android:id="@+id/phone"
+        android:layout_width="152dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/purple_500"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vpassword"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="152dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+    <Button
+        android:id="@+id/Employer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="52dp"
+        android:text="Employer"
+        app:layout_constraintBottom_toTopOf="@+id/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
         android:id="@+id/username"
         android:layout_width="152dp"
         android:layout_height="35dp"
@@ -288,16 +274,16 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/phone"
+        android:id="@+id/vpassword"
         android:layout_width="152dp"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:background="@color/purple_500"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vpassword"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <ImageView
         android:id="@+id/imageToUpload"
@@ -378,6 +364,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SelfDescription" />
+
+    <EditText
+        android:id="@+id/payPalId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Enter PayPal Client ID"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/uploadResume"
+        app:layout_constraintEnd_toStartOf="@+id/Submit"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Image" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

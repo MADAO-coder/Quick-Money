@@ -9,6 +9,7 @@ public class Employee {
     private String name;
     private String description;
     private String resumeUrl;
+    private String clientID;
 
     public Employee(){
 
@@ -45,6 +46,10 @@ public class Employee {
         return resumeUrl;
     }
 
+    public String getClientID(){
+        return clientID;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -59,6 +64,10 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
     }
 
     public String getName() {
