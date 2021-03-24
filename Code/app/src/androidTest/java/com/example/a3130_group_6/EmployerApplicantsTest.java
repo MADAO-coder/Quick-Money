@@ -40,13 +40,13 @@ public class EmployerApplicantsTest {
         /** AT 3
          * This test checks the functionality of the onclickitem for a listing item
          * */
+
         @Test
         public void onClickListingCheck(){
             onData(anything()).inAdapterView(withId(R.id.applicantList)).atPosition(0).perform(click());
             onView(withId(R.id.noApplicantsMessage)).check(matches(withText("No Applicants")));
             onView(withId(R.id.noApplicantsMessage)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
         }
-        /** AT 5*/
 
 
     }

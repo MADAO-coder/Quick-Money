@@ -20,7 +20,7 @@
         android:text="Switch Listing History"
         app:layout_constraintBottom_toTopOf="@+id/searchBar"
         app:layout_constraintEnd_toStartOf="@+id/addTaskButton"
-        app:layout_constraintStart_toEndOf="@+id/Home"
+        app:layout_constraintStart_toEndOf="@+id/employeeHome"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -38,7 +38,7 @@
 
 
     <Button
-        android:id="@+id/Home"
+        android:id="@+id/employeeHome"
         android:layout_width="82dp"
         android:layout_height="49dp"
         android:layout_marginBottom="123dp"
@@ -62,7 +62,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Home"
+        app:layout_constraintTop_toBottomOf="@+id/employeeHome"
         tools:visibility="visible" />
 
     <ListView

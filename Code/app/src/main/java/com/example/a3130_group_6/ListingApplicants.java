@@ -20,8 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static com.example.a3130_group_6.LoginPage.validEmployer;
-
 public class ListingApplicants extends AppCompatActivity {
 
     TextView applicantStatus;
@@ -31,7 +29,7 @@ public class ListingApplicants extends AppCompatActivity {
     FirebaseDatabase db;
     Iterator<DataSnapshot> applicantItr;
     ArrayList<String> applicantNames;
-    ArrayList<String> applicantValues;
+    ArrayList<String> applicantMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +45,16 @@ public class ListingApplicants extends AppCompatActivity {
         status = intent.getStringExtra("status");
         description = intent.getStringExtra("description");
         urgency = intent.getStringExtra("urgency");
+
         applicantNames = new ArrayList<>();
-        applicantValues = new ArrayList<>();
+        applicantMessages = new ArrayList<>();
+
         applicantStatus = findViewById(R.id.noApplicantsMessage);
         applicantList = findViewById(R.id.applicantList);
 
         // db stuff
         db = FirebaseDatabase.getInstance();
-        listingLocation = "https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + employer + "/Listing/" + key;
+        listingLocation = "https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + employer + "/Listing/" + key + "/Applicants/";
         listingRef = db.getReferenceFromUrl(listingLocation);
         // access specific listing to retrieve applicants - if they exist
         checkForApplicants(listingRef);
@@ -73,13 +73,14 @@ public class ListingApplicants extends AppCompatActivity {
                 //Read data from data base.
                 lHold[0] = dataItr.next();
                 // if employers listing has applicants
-                if(lHold[0].getKey().equals("Applicants")){
+                if(lHold[0].getKey().equals("Applied")){
                     applicantItr = lHold[0].getChildren().iterator();
                     // multiple applicants
                     while(applicantItr.hasNext()){
                         applicant[0] = applicantItr.next();
                         applicantNames.add(applicant[0].getKey());
-                        applicantValues.add(applicant[0].getValue().toString());
+                        // get messages  of applied applicants
+                        applicantMessages.add(applicant[0].getValue().toString());
                     }
                     updateApplicants();
                 }
@@ -108,7 +109,7 @@ public class ListingApplicants extends AppCompatActivity {
         if(applicantNames.size()>0){
             String[] applicantsString = new String[applicantNames.size()];
             for(int i=0; i<applicantsString.length; i++){
-                applicantsString[i] = applicantNames.get(i) + "\tStatus:" + applicantValues.get(i);
+                applicantsString[i] = applicantNames.get(i) + "\tStatus:" + applicantMessages.get(i);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, applicantsString);
             applicantList.setAdapter(adapter);
