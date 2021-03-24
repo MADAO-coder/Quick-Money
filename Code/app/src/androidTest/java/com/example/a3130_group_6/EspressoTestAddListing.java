@@ -3,6 +3,9 @@ package com.example.a3130_group_6;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.example.a3130_group_6.Listings.AddListing;
+import com.example.a3130_group_6.Listings.AddListingMap;
+
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;

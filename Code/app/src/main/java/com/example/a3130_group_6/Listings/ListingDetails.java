@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Listings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.a3130_group_6.EmployeePackage.EmployeeHomepage;
+import com.example.a3130_group_6.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static com.example.a3130_group_6.LoginPage.validEmployee;
+import static com.example.a3130_group_6.Registration.LoginPage.validEmployee;
 
 public class ListingDetails extends AppCompatActivity {
     DatabaseReference listingRef = null;

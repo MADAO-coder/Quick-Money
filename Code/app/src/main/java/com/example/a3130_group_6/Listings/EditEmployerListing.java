@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Listings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.a3130_group_6.EmployerPackage.EmployerHomepage;
+import com.example.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,19 +52,19 @@ public class EditEmployerListing extends AppCompatActivity {
 
     //}
 
-    protected boolean isEmptyTaskTitle(String task) {
+    public boolean isEmptyTaskTitle(String task) {
         return task.isEmpty();
     }
 
-    protected boolean isEmptyTaskDescription(String description) {
+    public boolean isEmptyTaskDescription(String description) {
         return description.isEmpty();
     }
 
-    protected boolean isEmptyUrgency(String urgency) {
+    public boolean isEmptyUrgency(String urgency) {
         return urgency.isEmpty();
     }
 
-    protected boolean checkUrgencyRange(String urgency) {
+    public boolean checkUrgencyRange(String urgency) {
         try {
             int num = Integer.parseInt(urgency);
             for (int i = 1; i < 6; i++){
@@ -76,39 +78,39 @@ public class EditEmployerListing extends AppCompatActivity {
         return false;
     }
 
-    protected boolean isEmptyDate(String date) {
+    public boolean isEmptyDate(String date) {
         return date.isEmpty();
     }
 
-    protected boolean isEmptyPay(String pay) {
+    public boolean isEmptyPay(String pay) {
         return pay.isEmpty();
     }
 
-    protected void setTitleDisplay(String title){
+    public void setTitleDisplay(String title){
         EditText editText = findViewById(R.id.titleInput);
         editText.setText(title);
     }
-    protected void setDescriptionDisplay(String title){
+    public void setDescriptionDisplay(String title){
         EditText editText = findViewById(R.id.descriptionInput);
         editText.setText(title);
     }
-    protected void setUrgencyDisplay(String title){
+    public void setUrgencyDisplay(String title){
         EditText editText = findViewById(R.id.urgencyInput);
         editText.setText(title);
     }
-    protected void setDateDisplay(String title){
+    public void setDateDisplay(String title){
         EditText editText = findViewById(R.id.dateInput);
         editText.setText(title);
     }
-    protected void setPayDisplay(String title){
+    public void setPayDisplay(String title){
         EditText editText = findViewById(R.id.payInput);
         editText.setText(title);
     }
-    protected void setStatusDisplay(String title){
+    public void setStatusDisplay(String title){
         EditText editText = findViewById(R.id.statusInput);
         editText.setText(title);
     }
-    protected void setTextBox() {
+    public void setTextBox() {
         setTitleDisplay(listing[0]);
         setDescriptionDisplay(listing[1]);
         setUrgencyDisplay(listing[2]);

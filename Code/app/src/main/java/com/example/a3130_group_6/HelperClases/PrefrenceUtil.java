@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.HelperClases;
 
 import android.content.Context;
 import android.content.SharedPreferences;

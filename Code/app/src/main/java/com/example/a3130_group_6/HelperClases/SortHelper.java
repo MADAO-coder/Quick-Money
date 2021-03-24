@@ -1,4 +1,6 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.HelperClases;
+import com.example.a3130_group_6.Listings.Listing;
+
 import java.util.*;
 import java.lang.*;
 
@@ -7,7 +9,7 @@ import java.lang.*;
  *
  * @author  Pulkit, Han
  */
-class SortHelper {
+public class SortHelper {
 
     public SortHelper(){
     }
@@ -18,7 +20,7 @@ class SortHelper {
      * @return: ArrayList<Listing>
      * Reference: https://www.geeksforgeeks.org/sort-an-array-of-dates-in-ascending-order-using-custom-comparator/
      */
-    protected ArrayList<Listing> sortDatesDescending(ArrayList<Listing> arr)
+    public ArrayList<Listing> sortDatesDescending(ArrayList<Listing> arr)
     {
 
         // Sort the dates using library
@@ -67,7 +69,7 @@ class SortHelper {
      * @return: HashMap<Listing, Double>
      * Reference: https://www.geeksforgeeks.org/sorting-a-hashmap-according-to-values/
      */
-    protected HashMap<Listing, Double> sortByValue(HashMap<Listing, Double> hm)
+    public HashMap<Listing, Double> sortByValue(HashMap<Listing, Double> hm)
     {
         // Create a list from elements of HashMap
         List<Map.Entry<Listing, Double> > list =

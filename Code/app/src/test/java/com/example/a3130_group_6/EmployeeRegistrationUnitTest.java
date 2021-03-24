@@ -1,5 +1,7 @@
 package com.example.a3130_group_6;
 
+import com.example.a3130_group_6.Registration.RegistrationForEmployees;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

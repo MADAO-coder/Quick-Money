@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.Listings;
 
 import android.Manifest;
 import android.app.Activity;
@@ -27,6 +27,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.example.a3130_group_6.HelperClases.PermissionUtil;
+import com.example.a3130_group_6.R;
+import com.example.a3130_group_6.Registration.CheckExistingUserName;
+import com.example.a3130_group_6.HelperClases.UserLocation;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -117,7 +121,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    protected UserLocation getLocationObject(){
+    public UserLocation getLocationObject(){
         if (getLocation != null) {
             return new UserLocation(getLocation.latitude, getLocation.longitude, String.valueOf(radius));
         } else {
@@ -131,7 +135,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
     // Code for map has been taken from tutorials on Google Map Integration
     // *******************
 
-    protected void checkPermissions() {
+    public void checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             checkLocationPermission(activity, context, LOCATION_PERMISSION, LOCATION_PREF);
         } else {
@@ -329,7 +333,7 @@ public class AddListingMap extends AppCompatActivity implements OnMapReadyCallba
      * Returns: void
      *
      */
-    protected void getCurrentLocation(){
+    public void getCurrentLocation(){
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

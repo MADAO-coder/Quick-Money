@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.EmployeePackage;
 
 
 import android.annotation.SuppressLint;
@@ -9,19 +9,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.a3130_group_6.Listings.Listing;
+import com.example.a3130_group_6.Listings.ListingDetails;
+import com.example.a3130_group_6.R;
+import com.example.a3130_group_6.HelperClases.SortHelper;
+import com.example.a3130_group_6.HelperClases.UserLocation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -31,8 +32,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.example.a3130_group_6.LoginPage.validEmployee;
-import static com.example.a3130_group_6.LoginPage.validEmployer;
+import static com.example.a3130_group_6.Registration.LoginPage.validEmployee;
 
 public class EmployeeHomepage extends AppCompatActivity implements View.OnClickListener {
     DatabaseReference employerRef;
@@ -79,7 +79,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
      * Returns: void
      *
      */
-    protected void setTaskList(ArrayList<Listing> list){
+    public void setTaskList(ArrayList<Listing> list){
         String[] listingsString = new String[list.size()];
         for(int i=0; i<listingsString.length; i++){
             listingsString[i] = list.get(i).getTaskTitle() + "\tStatus:" + list.get(i).getStatus() + "\tDate:" + list.get(i).getUrgency();
@@ -147,7 +147,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     /**
      *  Method to show the drop down menu
      */
-    protected void showDropDownMenu() {
+    public void showDropDownMenu() {
         Spinner sortSpinner = (Spinner) findViewById(R.id.sortSpinner);
         List<String> dropDownList = new ArrayList<String>();
         dropDownList.add("sort by urgency");

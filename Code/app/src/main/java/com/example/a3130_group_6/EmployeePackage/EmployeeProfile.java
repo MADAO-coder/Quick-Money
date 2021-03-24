@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.EmployeePackage;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.a3130_group_6.R;
+import com.example.a3130_group_6.HelperClases.UserLocation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +42,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.example.a3130_group_6.LoginPage.validEmployee;
+import static com.example.a3130_group_6.Registration.LoginPage.validEmployee;
 
 public class EmployeeProfile extends AppCompatActivity {
 
@@ -310,7 +312,7 @@ public class EmployeeProfile extends AppCompatActivity {
         selectedPDF.setText(resume);
     }
 
-    protected UserLocation getEmployeeLocation(){
+    public UserLocation getEmployeeLocation(){
         return user;
     }
 
@@ -410,34 +412,34 @@ public class EmployeeProfile extends AppCompatActivity {
 
 
 
-    protected static boolean isNameEmpty(String name) {
+    public static boolean isNameEmpty(String name) {
         return name.isEmpty();
     }
 
-    protected static boolean isEmailEmpty (String email) {
+    public static boolean isEmailEmpty (String email) {
         return email.isEmpty();
     }
 
-    protected static boolean isPhoneNumEmpty (String phoneNum) {
+    public static boolean isPhoneNumEmpty (String phoneNum) {
         return phoneNum.isEmpty();
     }
 
-    protected static boolean isPasswordEmpty (String password) {
+    public static boolean isPasswordEmpty (String password) {
         return password.isEmpty();
     }
 
-    protected static boolean isRadiusInRange (String radius) {
+    public static boolean isRadiusInRange (String radius) {
         if (Integer.valueOf(radius) >= 1 && Integer.valueOf(radius) <= 25 && !radius.isEmpty()) {
             return true;
         }
         return false;
     }
 
-    protected static boolean isRadiusEmpty (String radius) {
+    public static boolean isRadiusEmpty (String radius) {
         return radius.isEmpty();
     }
 
-    protected void setStatusMessage(Boolean success, String message) {
+    public void setStatusMessage(Boolean success, String message) {
         TextView statusLabel = findViewById(R.id.employeeStatusLabel);
         if (success) {
             statusLabel.setTextColor(Color.parseColor("#4CAF50"));

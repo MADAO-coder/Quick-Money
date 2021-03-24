@@ -1,5 +1,8 @@
 package com.example.a3130_group_6;
 
+import com.example.a3130_group_6.EmployerPackage.Employer;
+import com.example.a3130_group_6.Registration.RegistrationForEmployers;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

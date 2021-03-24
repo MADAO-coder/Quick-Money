@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.example.a3130_group_6.EmployerPackage;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,6 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.a3130_group_6.EmployeePackage.Employee;
+import com.example.a3130_group_6.Listings.AddListing;
+import com.example.a3130_group_6.Listings.ListingHistory;
+import com.example.a3130_group_6.R;
+import com.example.a3130_group_6.Registration.LoginPage;
+import com.example.a3130_group_6.HelperClases.ShowApplication;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -92,12 +98,12 @@ public class EmployerHomepage extends AppCompatActivity {
         managerCompat.notify(999, builder.build());
     }
 
-    protected Intent applicationIntent(){
+    public Intent applicationIntent(){
         Intent intentToApplication = new Intent(this, ShowApplication.class);
         return intentToApplication;
     }
 
-    protected void setEmployeeList(){
+    public void setEmployeeList(){
         // connect to db, retrieve employees
         employees = new ArrayList<>();
         // causing bugs (wasn't working before anyway)
@@ -109,7 +115,7 @@ public class EmployerHomepage extends AppCompatActivity {
         employeeList.setAdapter(adapter);
     }
 
-    protected boolean searchFunctioning(String search){
+    public boolean searchFunctioning(String search){
         /* irrelevant testing process for unit tests.
         searchView.setQuery(search, true);
         return searchView.getQuery().toString().equals(search);
@@ -117,7 +123,7 @@ public class EmployerHomepage extends AppCompatActivity {
         return !search.isEmpty();
     }
 
-    protected boolean checkEmployeeList(String[] employees){
+    public boolean checkEmployeeList(String[] employees){
         for(String individual : employees) {
             if(individual.isEmpty()){
                 return false;
