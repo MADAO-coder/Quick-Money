@@ -43,8 +43,10 @@
         <activity android:name="com.CSCI.a3130_group_6.Listings.AddListingMap" />
         <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeProfile" />
         <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage" />
         <activity android:name="com.CSCI.a3130_group_6.Listings.ListingHistory" />
         <activity android:name="com.CSCI.a3130_group_6.Listings.ListingApplicants" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile" />
         <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeView" />
         <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationForEmployees" />
         <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationHome" />

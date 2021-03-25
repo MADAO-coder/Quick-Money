@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.Listings.ListingDetails;
 import com.CSCI.a3130_group_6.R;
+import com.CSCI.a3130_group_6.HelperClases.SortHelper;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,6 +65,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     private UserLocation user;
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
+    SortHelper sort = new SortHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +151,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                     editListing(view);
             }
         });
-
     }
 
     /**
@@ -183,7 +184,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                     }
                 }
                 dbReadEmployeeLocation(employeeRef);
-                // setTaskList(listings);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
@@ -204,21 +204,44 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         sortSpinner.setAdapter(itemListAdapter);
     }
 
-    private void sortByDate() throws ParseException {
-        String sDate1="31/12/1998";
-        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-
+    /**
+     * Function: This method sorts the listing by date
+     * Parameters:
+     * Return: void
+     */
+    private void sortByDate(){
+        locationListing = sort.sortDatesDescending(locationListing);
+        setTaskList(locationListing);
     }
+
+    /**
+     * Function: This method sorts the listing by urgency
+     * Parameters:
+     * Return: void
+     */
     private void sortByUrgency(){
         Collections.sort(locationListing, new Comparator<Listing>() {
             @Override
             public int compare(Listing l1, Listing l2) {
-                return l1.getUrgency().compareTo(l2.getUrgency());
+                return l2.getUrgency().compareTo(l1.getUrgency());
             }
         });
         setTaskList(locationListing);
     }
-    
+
+    public void editListing(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("details", details);
+        Intent intent = new Intent(this, ListingDetails.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    /**
+     * Function: This method sorts the listing by location
+     * Parameters: UserLocation
+     * Return: void
+     */
     private void sortByLocation(UserLocation user) {
         HashMap<Listing, Double> taskDistance = new HashMap<Listing, Double>();
         for (int i = 0; i < listings.size(); i++) {
@@ -231,12 +254,13 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                 taskDistance.put(listings.get(i), diff);
             }
         }
-        // sorting the hashmap based on values
-        taskDistance = sortByValue(taskDistance);
 
+        // sorting the hashmap based on values
+        taskDistance = sort.sortByValue(taskDistance);
         System.out.println(taskDistance);
 
         // adding all the keys to an arraylist
+        locationListing.clear();
         for ( Listing listKey : taskDistance.keySet() ) {
             locationListing.add(listKey);
         }
@@ -245,7 +269,11 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         setTaskList(locationListing);
     }
 
-
+    /**
+     * Function: Method to read the employee's location from the database
+     * Parameters: DatabaseReferences
+     * Return: void
+     */
     public void dbReadEmployeeLocation(DatabaseReference db1){
 
         db1.addValueEventListener(new ValueEventListener() {
@@ -270,43 +298,9 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    // Citation: https://www.geeksforgeeks.org/sorting-a-hashmap-according-to-values/
-    // function to sort hashmap by values
-    public static HashMap<Listing, Double> sortByValue(HashMap<Listing, Double> hm)
-    {
-        // Create a list from elements of HashMap
-        List<Map.Entry<Listing, Double> > list =
-                new LinkedList<Map.Entry<Listing, Double> >(hm.entrySet());
-
-        // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<Listing, Double> >() {
-            public int compare(Map.Entry<Listing, Double> o1,
-                               Map.Entry<Listing, Double> o2)
-            {
-                return (o1.getValue()).compareTo(o2.getValue());
-            }
-        });
-
-        // put data from sorted list to hashmap
-        HashMap<Listing, Double> temp = new LinkedHashMap<Listing, Double>();
-        for (Map.Entry<Listing, Double> aa : list) {
-            temp.put(aa.getKey(), aa.getValue());
-        }
-        return temp;
-    }
-
-
-    public void editListing(View view){
-        Bundle bundle = new Bundle();
-        bundle.putStringArray("details", details);
-        Intent intent = new Intent(this, ListingDetails.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
     /**
      * Function: This method switches intent to the employee homepage
-     * Parameters: View - view
+     * Parameters: View view
      * Returns: void
      *
      */
@@ -314,7 +308,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         Intent switchIntent = new Intent(this, EmployeeHomepage.class);
         startActivity(switchIntent);
     }
-
 
     /**
      * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
@@ -329,16 +322,13 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
      * @return
      * The following method has been used from Assignment 4
      */
-    public String getSelectedItem() {
+    protected String getSelectedItem() {
         Spinner itemList = (Spinner) findViewById(R.id.sortSpinner);
         return itemList.getSelectedItem().toString();
     }
 
-    /**
-     * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
-     */
-    public void onClick(View v) {
 
+    public void onClick(View v) {
         if(v.getId() == R.id.employeeProfileButton){
          employeeProfileSwitch();
         }
@@ -347,17 +337,10 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             if (selectedItem.equals("sort by urgency")) {
                 sortByUrgency();
             } else if (selectedItem.equals("sort by date")) {
-
+                sortByDate();
             } else if (selectedItem.equals("sort by location")) {
                 dbReadEmployeeLocation(employeeRef);
             }
         }
     }
-
-    // method to create a Toast
-    private void createToast(String message){
-        Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
-        toast.show();
-    }
-
 }

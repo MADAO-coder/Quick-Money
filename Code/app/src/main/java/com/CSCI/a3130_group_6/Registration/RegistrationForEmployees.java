@@ -32,9 +32,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.PatternsCompat;
 
+import com.CSCI.a3130_group_6.Listings.AddListingMap;
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
 import com.CSCI.a3130_group_6.HelperClases.ImageCapture;
-import com.CSCI.a3130_group_6.Listings.AddListingMap;
 import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.HelperClases.PermissionUtil;
 import com.CSCI.a3130_group_6.R;
@@ -92,7 +92,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
@@ -691,7 +691,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         }
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {

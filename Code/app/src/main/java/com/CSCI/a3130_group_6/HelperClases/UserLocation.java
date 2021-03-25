@@ -54,12 +54,12 @@ public class UserLocation {
     }
 
     /**
+     * Function: Method to calculate distance between two Latitudes and longitudes
+     * Parameters: double venueLat, double venueLng
+     * @return: double
      * References: https://bit.ly/2OQoVd3
-     * @param venueLat
-     * @param venueLng
-     * @return
      */
-    public int calculateDistanceInKilometer(double venueLat, double venueLng) {
+    public double calculateDistanceInKilometer(double venueLat, double venueLng) {
 
         double latDistance = Math.toRadians(this.latitude - venueLat);
         double lngDistance = Math.toRadians(this.longitude - venueLng);
@@ -69,8 +69,7 @@ public class UserLocation {
                 * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        return (int) (Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c));
+        return (AVERAGE_RADIUS_OF_EARTH_KM * c);
     }
 
     public void setRadius(String radius){

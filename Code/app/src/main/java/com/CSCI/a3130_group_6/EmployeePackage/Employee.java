@@ -1,5 +1,4 @@
 package com.CSCI.a3130_group_6.EmployeePackage;
-//
 
 public class Employee {
     private String userName;

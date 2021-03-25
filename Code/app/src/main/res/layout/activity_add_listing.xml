@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Listings.AddListing">
+    tools:context="com.CSCI.a3130_group_6.Listings.AddListing">
 
     <TextView
         android:id="@+id/viewStatus"

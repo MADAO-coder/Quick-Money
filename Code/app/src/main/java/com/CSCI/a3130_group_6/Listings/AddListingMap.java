@@ -27,9 +27,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import com.CSCI.a3130_group_6.Registration.CheckExistingUserName;
 import com.CSCI.a3130_group_6.HelperClases.PermissionUtil;
 import com.CSCI.a3130_group_6.R;
+import com.CSCI.a3130_group_6.Registration.CheckExistingUserName;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

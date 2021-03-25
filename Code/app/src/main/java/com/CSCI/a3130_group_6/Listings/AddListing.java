@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.CSCI.a3130_group_6.R;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

@@ -203,7 +203,7 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
-    public void setCurrentEmployee(DatabaseReference db){
+    protected void setCurrentEmployee(DatabaseReference db){
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
