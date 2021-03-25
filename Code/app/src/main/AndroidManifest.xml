@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.a3130_group_6">
+    package="com.CSCI.a3130_group_6">
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3130_Group_6">
-        <activity android:name=".ShowApplication"></activity>
+        <activity android:name="com.CSCI.a3130_group_6.HelperClases.ShowApplication"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,32 +38,30 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="com.CSCI.a3130_group_6.HelperClases.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".AddListingMap" />
-        <activity android:name=".EmployeeProfile" />
-        <activity android:name=".EmployeeHomepage" />
-        <activity android:name=".EmployerHomepage" />
-        <activity android:name=".ListingHistory" />
-        <activity android:name=".ListingApplicants" />
-        <activity android:name=".EmployerProfile" />
-        <activity android:name=".EmployeeView" />
-        <activity android:name=".RegistrationForEmployees" />
-        <activity android:name=".RegistrationHome" />
-        <activity android:name=".RegistrationForEmployers" />
-        <activity android:name=".AddListing" />
-        <activity android:name=".ListingDetails" />
-        <activity android:name=".EditEmployerListing"> </activity>
-        <activity android:name=".LoginPage">
+        <activity android:name="com.CSCI.a3130_group_6.Listings.AddListingMap" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeProfile" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.ListingHistory" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.ListingApplicants" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeView" />
+        <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationForEmployees" />
+        <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationHome" />
+        <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationForEmployers" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.AddListing" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.ListingDetails" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.EditEmployerListing"> </activity>
+        <activity android:name="com.CSCI.a3130_group_6.Registration.LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImageCapture"/>
+        <activity android:name="com.CSCI.a3130_group_6.HelperClases.ImageCapture"/>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.android.fileprovider"
+            android:authorities="com.CSCI.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
