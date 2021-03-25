@@ -97,7 +97,9 @@ public class ListingHistory extends AppCompatActivity {
         if(listings.size()>0){
             listingsString = new String[listings.size()];
             for(int i=0; i<listingsString.length; i++){
-                listingsString[i] = "Task: " + listings.get(i).getTaskTitle() + "\tStatus: " + listings.get(i).getStatus();
+                // listingsString[i] = "Task: " + listings.get(i).getTaskTitle() + "\tStatus: " + listings.get(i).getStatus();
+
+                listingsString[i] = listings.get(i).getTaskTitle() + "\tStatus:" + listings.get(i).getStatus();
                 //editListing.setOnClickListener(this);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);

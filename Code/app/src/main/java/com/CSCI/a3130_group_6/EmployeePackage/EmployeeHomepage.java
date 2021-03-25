@@ -82,7 +82,10 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     public void setTaskList(ArrayList<Listing> list){
         String[] listingsString = new String[list.size()];
         for(int i=0; i<listingsString.length; i++){
-            listingsString[i] = list.get(i).getTaskTitle() + "\tStatus:" + list.get(i).getStatus() + "\tDate:" + list.get(i).getUrgency();
+
+            //ToDo: check if a task is open or not - do not show the closed tasks - Bryson
+//            listingsString[i] = list.get(i).getTaskTitle() + "\tStatus:" + list.get(i).getStatus() + "\tDate:" + list.get(i).getUrgency();
+            listingsString[i] = list.get(i).getTaskTitle();
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
         taskList.setAdapter(adapter);
