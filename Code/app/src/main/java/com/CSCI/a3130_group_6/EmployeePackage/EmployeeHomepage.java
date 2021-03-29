@@ -12,17 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.CSCI.a3130_group_6.EmployerChatList;
-import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
-import com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile;
-import com.CSCI.a3130_group_6.Listings.AddListing;
+import com.CSCI.a3130_group_6.HelperClases.SwitchEmployeeMethods;
 import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.Listings.ListingDetails;
-import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.SortHelper;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
-import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,6 +54,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     DatabaseReference employeeRef;
     SortHelper sort = new SortHelper();
     TabLayout tab;
+    SwitchEmployeeMethods switchPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,25 +74,26 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         dbReadEmployees(employerRef, listings);
         this.showDropDownMenu();
         tab =findViewById(R.id.tabs);
+        switchPage = new SwitchEmployeeMethods(getApplicationContext());
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getText().toString()) {
                     case "Listing":
-                        switchListingHistory();
+                        switchPage.switchListingHistory();
                         break;
                     case "Profile":
-                        profileSwitch();
+                        switchPage.profileSwitch();
                         break;
                     case "Logout":
-                        LogoutSwitch();
+                        switchPage.LogoutSwitch();
                         break;
                     case "Home":
-                        homepageSwitch();
+                        switchPage.homepageSwitch();
                         break;
                     case "Chat":
-                        chatSwitch();
+                        switchPage.chatSwitch();
                         break;
                 }
             }
@@ -107,6 +104,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+
     }
 
     /**
@@ -314,38 +312,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             }
         }
     }
-    public void profileSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile.class);
-        startActivity(switchIntent);
-    }
-
-    /**
-     * Function: This is a method to switch to Add listing page
-     * Parameters: none
-     * Returns: void
-     *
-     */
-
-
-    public void homepageSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), EmployerHomepage.class);
-        startActivity(switchIntent);
-    }
-
-    public void switchListingHistory() {
-        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
-        startActivity(switchIntent);
-    }
-    public void LogoutSwitch() {
-        LoginPage.validEmployer= null;
-        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
-        startActivity(switchIntent);
-    }
-    public void chatSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
-        startActivity(switchIntent);
-    }
-
 
 
 

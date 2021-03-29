@@ -18,10 +18,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
-import com.CSCI.a3130_group_6.EmployerChatList;
 import com.CSCI.a3130_group_6.HelperClases.SwitchEmployerMethods;
 import com.CSCI.a3130_group_6.Listings.AddListing;
-import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.CSCI.a3130_group_6.HelperClases.ShowApplication;

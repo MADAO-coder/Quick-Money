@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.CSCI.a3130_group_6.EmployerChatList;
-import com.CSCI.a3130_group_6.Listings.ListingHistory;
+import com.CSCI.a3130_group_6.HelperClases.SwitchEmployeeMethods;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
-import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -72,6 +69,7 @@ public class EmployeeProfile extends AppCompatActivity {
     Uri image_uri;
     Uri pdf;
     ProgressDialog progress;
+    SwitchEmployeeMethods switchPage;
 
     // use upload profile button to
     @Override
@@ -199,25 +197,26 @@ public class EmployeeProfile extends AppCompatActivity {
             }
         });
         tab =findViewById(R.id.tabs);
+        switchPage = new SwitchEmployeeMethods(getApplicationContext());
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getText().toString()) {
                     case "Listing":
-                        switchListingHistory();
+                        switchPage.switchListingHistory();
                         break;
                     case "Profile":
-                        profileSwitch();
+                        switchPage.profileSwitch();
                         break;
                     case "Logout":
-                        LogoutSwitch();
+                        switchPage.LogoutSwitch();
                         break;
                     case "Home":
-                        homepageSwitch();
+                        switchPage.homepageSwitch();
                         break;
                     case "Chat":
-                        chatSwitch();
+                        switchPage.chatSwitch();
                         break;
                 }
             }
@@ -228,6 +227,7 @@ public class EmployeeProfile extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+
     }
 
     private void selectPDF() {
@@ -484,37 +484,4 @@ public class EmployeeProfile extends AppCompatActivity {
         }
         statusLabel.setText(message);
     }
-
-    public void profileSwitch() {
-        Intent switchIntent = new Intent(this, EmployeeProfile.class);
-        startActivity(switchIntent);
-    }
-
-    /**
-     * Function: This is a method to switch to Add listing page
-     * Parameters: none
-     * Returns: void
-     *
-     */
-
-    public void homepageSwitch() {
-        Intent switchIntent = new Intent(this, EmployeeHomepage.class);
-        startActivity(switchIntent);
-    }
-
-    public void switchListingHistory() {
-        Intent switchIntent = new Intent(this, ListingHistory.class);
-        startActivity(switchIntent);
-    }
-    public void LogoutSwitch() {
-        LoginPage.validEmployee= null;
-        Intent switchIntent = new Intent(this, LoginPage.class);
-        startActivity(switchIntent);
-    }
-    public void chatSwitch() {
-        Intent switchIntent = new Intent(this, EmployerChatList.class);
-        startActivity(switchIntent);
-    }
-
-
 }

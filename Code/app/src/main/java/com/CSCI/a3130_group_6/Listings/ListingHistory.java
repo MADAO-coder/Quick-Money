@@ -12,13 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.CSCI.a3130_group_6.EmployerChatList;
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
-import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
-import com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile;
 import com.CSCI.a3130_group_6.HelperClases.SwitchEmployerMethods;
 import com.CSCI.a3130_group_6.R;
-import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

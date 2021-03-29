@@ -9,9 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.CSCI.a3130_group_6.EmployerChatList;
+import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
-import com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;

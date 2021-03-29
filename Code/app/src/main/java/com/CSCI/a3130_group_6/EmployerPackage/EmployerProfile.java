@@ -1,6 +1,5 @@
 package com.CSCI.a3130_group_6.EmployerPackage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,12 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.CSCI.a3130_group_6.EmployerChatList;
 import com.CSCI.a3130_group_6.HelperClases.SwitchEmployerMethods;
-import com.CSCI.a3130_group_6.Listings.AddListing;
-import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
-import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
