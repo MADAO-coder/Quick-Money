@@ -17,11 +17,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
+import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.CSCI.a3130_group_6.Listings.AddListing;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
-import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,9 +32,12 @@ import java.util.ArrayList;
 
 public class EmployerHomepage extends AppCompatActivity {
 
+    // ToDo: Implement a queue or a stack for showing the notification
+
     ArrayList<Employee> employees;
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
+    String taskTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class EmployerHomepage extends AppCompatActivity {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 // getting the parent of the snapshot
                 DatabaseReference parent = snapshot.getRef().getParent();
+                taskTitle = (String) snapshot.child("taskTitle").getValue();
 
                 // checking if the parent of the listing matches the current employer who is logged in
                 if (parent.getParent().getKey().equals(LoginPage.validEmployer[0])) {
@@ -98,7 +102,7 @@ public class EmployerHomepage extends AppCompatActivity {
                 .setContentText("Application")
                 .setSmallIcon(R.drawable.application)
                 .setAutoCancel(true)
-                .setContentText("A new employer applied to your listing. Click here to review their application.")
+                .setContentText("An employee applied to your listing: " + taskTitle)
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(999, builder.build());
