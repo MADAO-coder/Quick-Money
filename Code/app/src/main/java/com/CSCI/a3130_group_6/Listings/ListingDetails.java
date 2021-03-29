@@ -7,12 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
 import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
-import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
@@ -24,8 +21,7 @@ import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployee;
 public class ListingDetails extends AppCompatActivity {
     DatabaseReference listingRef = null;
     FirebaseDatabase database;
-
-    Button home, logout, back, apply;
+    Button  apply;
     String [] listing = null;
     EditText applicationMessage;
     TabLayout tab;
@@ -34,20 +30,17 @@ public class ListingDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Bundle extras = getIntent().getExtras();
         listing = extras.getStringArray("details");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_details);
-
         applicationMessage = findViewById(R.id.applicationMessage);
-
         apply = findViewById(R.id.applyToListing);
         apply.setOnClickListener(this::onClick);
-
         database = FirebaseDatabase.getInstance();
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
-
         setTextBox();
         tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -70,17 +63,13 @@ public class ListingDetails extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) { }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
-
-
         });
     }
-
     protected void setTitleDisplay(String title){
         TextView textView = findViewById(R.id.titleInput);
         textView.setText(title);
@@ -101,22 +90,18 @@ public class ListingDetails extends AppCompatActivity {
         TextView textView = findViewById(R.id.payInput);
         textView.setText(pay);
     }
-
     protected void setStatusDisplay(String status){
         TextView textView = findViewById(R.id.statusInput);
         textView.setText(status);
     }
-
     protected void setLatitudeDisplay(String lat){
         TextView textView = findViewById(R.id.latitudeInput);
         textView.setText(lat);
     }
-
     protected void setLongitudeDisplay(String longitude){
         TextView textView = findViewById(R.id.longitudeInput);
         textView.setText(longitude);
     }
-
     protected void setTextBox() {
         setTitleDisplay(listing[0]);
         setDescriptionDisplay(listing[1]);
@@ -127,17 +112,14 @@ public class ListingDetails extends AppCompatActivity {
         setLongitudeDisplay(listing[8]);
         setLatitudeDisplay(listing[9]);
     }
-
     public void homepageSwitch(View view) {
         Intent switchIntent = new Intent(this, EmployeeHomepage.class);
         startActivity(switchIntent);
     }
-
     /**
      * Function: This method applies an employee to a listing
      * Parameters: none
      * Returns: void
-     *
      */
     protected void applyToListing(){
         // save current employee under listing in database
@@ -145,7 +127,6 @@ public class ListingDetails extends AppCompatActivity {
         listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child("Applied").child(validEmployee[0]).child("Message").setValue(applicationMessage.getText().toString());
         applicationMessage.setText(null);
     }
-
     public void onClick(View v) {
         switch ((v.getId())) {
             case R.id.applyToListing:
@@ -153,15 +134,13 @@ public class ListingDetails extends AppCompatActivity {
                 Toast.makeText(ListingDetails.this, "You have successfully applied to this listing with your new message", Toast.LENGTH_LONG).show();
                 break;
         }
-
     }
     public void profileSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile.class);
+        Intent switchIntent = new Intent(getApplicationContext(), com.CSCI.a3130_group_6.EmployeePackage.EmployeeProfile.class);
         startActivity(switchIntent);
     }
-
     public void homepageSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), EmployerHomepage.class);
+        Intent switchIntent = new Intent(getApplicationContext(), EmployeeHomepage.class);
         startActivity(switchIntent);
     }
 
@@ -170,7 +149,8 @@ public class ListingDetails extends AppCompatActivity {
         startActivity(switchIntent);
     }
     public void LogoutSwitch() {
-        LoginPage.validEmployer= null;
+        LoginPage.validEmployee = null;
+        Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_SHORT).show();
         Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
         startActivity(switchIntent);
     }
@@ -178,6 +158,4 @@ public class ListingDetails extends AppCompatActivity {
         Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
         startActivity(switchIntent);
     }
-
-
 }

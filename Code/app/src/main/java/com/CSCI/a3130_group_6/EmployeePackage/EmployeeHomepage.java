@@ -12,12 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.CSCI.a3130_group_6.HelperClases.SwitchEmployeeMethods;
+import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
 import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.Listings.ListingDetails;
+import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.SortHelper;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +57,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     DatabaseReference employeeRef;
     SortHelper sort = new SortHelper();
     TabLayout tab;
-    SwitchEmployeeMethods switchPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,26 +76,25 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         dbReadEmployees(employerRef, listings);
         this.showDropDownMenu();
         tab =findViewById(R.id.tabs);
-        switchPage = new SwitchEmployeeMethods(getApplicationContext());
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getText().toString()) {
                     case "Listing":
-                        switchPage.switchListingHistory();
+                        switchListingHistory();
                         break;
                     case "Profile":
-                        switchPage.profileSwitch();
+                        profileSwitch();
                         break;
                     case "Logout":
-                        switchPage.LogoutSwitch();
+                        LogoutSwitch();
                         break;
                     case "Home":
-                        switchPage.homepageSwitch();
+                        homepageSwitch();
                         break;
                     case "Chat":
-                        switchPage.chatSwitch();
+                        chatSwitch();
                         break;
                 }
             }
@@ -313,7 +314,30 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public void profileSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(),EmployeeProfile.class);
+        startActivity(switchIntent);
+    }
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployeeHomepage.class);
+        startActivity(switchIntent);
+    }
 
+    public void switchListingHistory() {
+        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
+        startActivity(switchIntent);
+    }
+    public void LogoutSwitch() {
+
+        LoginPage.validEmployee = null;
+        Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_SHORT).show();
+        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivity(switchIntent);
+    }
+    public void chatSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
+        startActivity(switchIntent);
+    }
 
 
 

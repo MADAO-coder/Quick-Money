@@ -14,7 +14,6 @@ import com.CSCI.a3130_group_6.EmployeePackage.Employee;
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
-import com.CSCI.a3130_group_6.HelperClases.SwitchEmployerMethods;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +29,6 @@ public class LoginPage extends AppCompatActivity {
     public static String[] validEmployer = new String[2];
     public static String[] validEmployee = new String[2];
     public static Employee currentEmployee;
-    SwitchEmployerMethods switchPage;
     public Button loginBt;
     public TextView loginStatus;
     DatabaseReference employerRef = null;

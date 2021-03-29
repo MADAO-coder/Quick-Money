@@ -23,9 +23,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.CSCI.a3130_group_6.HelperClases.SwitchEmployeeMethods;
+import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
+import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -69,7 +71,6 @@ public class EmployeeProfile extends AppCompatActivity {
     Uri image_uri;
     Uri pdf;
     ProgressDialog progress;
-    SwitchEmployeeMethods switchPage;
 
     // use upload profile button to
     @Override
@@ -197,26 +198,27 @@ public class EmployeeProfile extends AppCompatActivity {
             }
         });
         tab =findViewById(R.id.tabs);
-        switchPage = new SwitchEmployeeMethods(getApplicationContext());
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getText().toString()) {
                     case "Listing":
-                        switchPage.switchListingHistory();
+                        switchListingHistory();
                         break;
                     case "Profile":
-                        switchPage.profileSwitch();
+                        profileSwitch();
                         break;
                     case "Logout":
-                        switchPage.LogoutSwitch();
+                        LogoutSwitch();
                         break;
                     case "Home":
-                        switchPage.homepageSwitch();
+                        homepageSwitch();
                         break;
                     case "Chat":
-                        switchPage.chatSwitch();
+                        chatSwitch();
                         break;
                 }
             }
@@ -334,7 +336,7 @@ public class EmployeeProfile extends AppCompatActivity {
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         dbReadEmployee(employeeRef);
-        //statusView.setText("Profile changes refreshed");
+
     }
 
     public void loadProfile(){
@@ -351,8 +353,6 @@ public class EmployeeProfile extends AppCompatActivity {
     public UserLocation getEmployeeLocation(){
         return user;
     }
-
-
 
     //code from loginPage
     //Read data from dataBase and retrieve employee information
@@ -385,12 +385,8 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
                 loadProfile();
             }
-
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-
-                }
+                public void onCancelled(DatabaseError databaseError) {}
             });
         }
 
@@ -483,5 +479,30 @@ public class EmployeeProfile extends AppCompatActivity {
             statusLabel.setTextColor(Color.RED);
         }
         statusLabel.setText(message);
+    }
+
+    public void profileSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(),EmployeeProfile.class);
+        startActivity(switchIntent);
+    }
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployeeHomepage.class);
+        startActivity(switchIntent);
+    }
+
+    public void switchListingHistory() {
+        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
+        startActivity(switchIntent);
+    }
+    public void LogoutSwitch() {
+
+        LoginPage.validEmployee = null;
+        Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_SHORT).show();
+        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivity(switchIntent);
+    }
+    public void chatSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
+        startActivity(switchIntent);
     }
 }

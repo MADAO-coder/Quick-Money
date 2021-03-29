@@ -51,6 +51,7 @@ public class EmployerChatList extends AppCompatActivity {
     List<String> employerName;
     TabLayout tab;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +64,16 @@ public class EmployerChatList extends AppCompatActivity {
         employers = new ArrayList<>();
 
         employerName = new ArrayList<>();
-
+//employeeName = intent.getStringExtra("name");
+//        // set database
+//        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+employeeName);
         database = FirebaseDatabase.getInstance();
         fireRef =  "https://group-6-a830d-default-rtdb.firebaseio.com/Employer";
         employerRef= database.getReferenceFromUrl(fireRef);
         dbReadEmployer(employerRef);
         tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(2);
+        activeTab.select();
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -76,6 +81,7 @@ public class EmployerChatList extends AppCompatActivity {
                 switch (tab.getText().toString()) {
                     case "Listing":
                         switchListingHistory();
+
                         break;
                     case "Profile":
                         profileSwitch();

@@ -6,13 +6,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.CSCI.a3130_group_6.HelperClases.SwitchEmployeeMethods;
+import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
+import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,14 +26,14 @@ import com.google.firebase.database.ValueEventListener;
 public class EmployeeView extends AppCompatActivity {
     DatabaseReference employeeRef;
     String employeeName;
-    String description, username, password, phone, email, name, radius;
+    String description, username, phone, email, name, radius;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
     TextView usernameView, statusView;
     ImageView imageView;
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
     UserLocation user;
     TabLayout tab;
-    SwitchEmployeeMethods switchPage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class EmployeeView extends AppCompatActivity {
         Intent intent = getIntent();
         employeeName = intent.getStringExtra("name");
         // set database
-        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+employeeName);
+        employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + employeeName);
         // set all views
         setViews();
         // disable all buttons
@@ -49,45 +52,48 @@ public class EmployeeView extends AppCompatActivity {
         disableFields();
         // get data
         getEmployeeDetails(employeeRef);
-        tab =findViewById(R.id.tabs);
-        switchPage = new SwitchEmployeeMethods(getApplicationContext());
+        tab = findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getText().toString()) {
                     case "Listing":
-                        switchPage.switchListingHistory();
+                        switchListingHistory();
                         break;
                     case "Profile":
-                        switchPage.profileSwitch();
+                        profileSwitch();
                         break;
                     case "Logout":
-                        switchPage.LogoutSwitch();
+                        LogoutSwitch();
                         break;
                     case "Home":
-                        switchPage.homepageSwitch();
+                        homepageSwitch();
                         break;
                     case "Chat":
-                        switchPage.chatSwitch();
+                        chatSwitch();
                         break;
                 }
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
     }
+
     /**
      * Function: This method disables all fields on the employee profile
      * Parameters: None
      * Returns: void
-     *
      */
-    public void disableFields(){
+    public void disableFields() {
         nameView.setClickable(false);
         nameView.setEnabled(false);
 
@@ -109,26 +115,26 @@ public class EmployeeView extends AppCompatActivity {
         radiusView.setClickable(false);
         radiusView.setEnabled(false);
     }
+
     /**
      * Function: This method disables all buttons on the employee profile
      * Parameters: None
      * Returns: void
-     *
      */
-    public void disableButtons(){
+    public void disableButtons() {
         submitButton.setEnabled(false);
         refreshButton.setEnabled(false);
         imageButton.setEnabled(false);
         uploadResume.setEnabled(false);
         selectResume.setEnabled(false);
     }
+
     /**
      * Function: This method sets the views
      * Parameters: none
      * Returns: void
-     *
      */
-    public void setViews(){
+    public void setViews() {
         nameView = findViewById(R.id.employeeNameInput);
         imageView = findViewById(R.id.profilePicture);
         statusView = findViewById(R.id.employeeStatusLabel);
@@ -146,28 +152,27 @@ public class EmployeeView extends AppCompatActivity {
         uploadResume = findViewById(R.id.uploadResume);
         selectResume = findViewById(R.id.selectResume);
     }
+
     /**
      * Function: This method loads all variables into the views
      * Parameters: DatabaseReference - db
      * Returns: void
-     *
      */
-    public void loadProfile(){
+    public void loadProfile() {
         nameView.setText(name);
         descriptionBox.setText(description);
         usernameView.setText(username);
-        //passView.setText(password);
         phoneView.setText(phone);
         emailView.setText(email);
         radiusView.setText(radius);
     }
+
     /**
      * Function: This method loads all the variables from the employee database entry
      * Parameters: DatabaseReference - db
      * Returns: void
-     *
      */
-    public void getEmployeeDetails(DatabaseReference db){
+    public void getEmployeeDetails(DatabaseReference db) {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -175,14 +180,14 @@ public class EmployeeView extends AppCompatActivity {
                 //assume we are on employer
                 Employee employee = dataSnapshot.getValue(Employee.class);
                 //need to check against correct value to retrieve the correct location
-                if(employee!=null){
+                if (employee != null) {
                     user = new UserLocation();
                     user = dataSnapshot.child(employeeName).child("Location").getValue(UserLocation.class);
                     if (user != null) {
                         radius = user.getRadius();
                     }
                     username = employee.getUserName();
-                    //password = employee.getPassword();
+
                     phone = employee.getPhone();
                     email = employee.getEmail();
                     name = employee.getName();
@@ -190,8 +195,36 @@ public class EmployeeView extends AppCompatActivity {
                     loadProfile();
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+    public void profileSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployeeProfile.class);
+        startActivity(switchIntent);
+    }
+
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployeeHomepage.class);
+        startActivity(switchIntent);
+    }
+
+    public void switchListingHistory() {
+        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
+        startActivity(switchIntent);
+    }
+
+    public void LogoutSwitch() {
+        LoginPage.validEmployee = null;
+        Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_SHORT).show();
+        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivity(switchIntent);
+    }
+
+    public void chatSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
+        startActivity(switchIntent);
     }
 }

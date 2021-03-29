@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile;
 import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
 import com.CSCI.a3130_group_6.R;
@@ -24,8 +25,6 @@ import java.util.Map;
 public class EditEmployerListing extends AppCompatActivity {
     Button save;
     String [] listing =null;
-    DataSnapshot empListing;
-
     DatabaseReference listingRef = null;
     FirebaseDatabase database;
     TabLayout tab;
@@ -35,13 +34,13 @@ public class EditEmployerListing extends AppCompatActivity {
         listing = extras.getStringArray("details");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_employer_listing);
-
         save=findViewById(R.id.submitTask);
         save.setOnClickListener(this::onClick);
-
         database = FirebaseDatabase.getInstance();
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(2);
+        activeTab.select();
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -64,19 +63,14 @@ public class EditEmployerListing extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) { }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
-
-
         });
         setTextBox();
     }
-
-    //}
 
     public boolean isEmptyTaskTitle(String task) {
         return task.isEmpty();
@@ -88,6 +82,14 @@ public class EditEmployerListing extends AppCompatActivity {
 
     public boolean isEmptyUrgency(String urgency) {
         return urgency.isEmpty();
+    }
+
+    public boolean isEmptyDate(String date) {
+        return date.isEmpty();
+    }
+
+    public boolean isEmptyPay(String pay) {
+        return pay.isEmpty();
     }
 
     public boolean checkUrgencyRange(String urgency) {
@@ -102,14 +104,6 @@ public class EditEmployerListing extends AppCompatActivity {
             System.out.println("Urgency not in range");
         }
         return false;
-    }
-
-    public boolean isEmptyDate(String date) {
-        return date.isEmpty();
-    }
-
-    public boolean isEmptyPay(String pay) {
-        return pay.isEmpty();
     }
 
     public void setTitleDisplay(String title){
@@ -144,13 +138,10 @@ public class EditEmployerListing extends AppCompatActivity {
         setPayDisplay(listing[4]);
         setStatusDisplay(listing[5]);
     }
-
-
     public void switchListingHistory(View view) {
         Intent switchIntent = new Intent(this, ListingHistory.class);
         startActivity(switchIntent);
     }
-
     public void addTaskSwitch(View view) {
         Intent switchIntent = new Intent(this, AddListing.class);
         startActivity(switchIntent);
@@ -159,9 +150,6 @@ public class EditEmployerListing extends AppCompatActivity {
         Intent switchIntent = new Intent(this, EmployerHomepage.class);
         startActivity(switchIntent);
     }
-
-
-
     public void onClick(View v) {
         EditText EditTask=findViewById(R.id.titleInput);
         EditText EditTaskDescription=findViewById(R.id.descriptionInput);
@@ -182,25 +170,17 @@ public class EditEmployerListing extends AppCompatActivity {
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put(listing[7]+"/Listing/"+ listing[6], postValues);
                     listingRef.updateChildren(childUpdates);
-
                 }
-
-
-
         }
-
     }
     public void profileSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile.class);
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerProfile.class);
         startActivity(switchIntent);
     }
-
-
     public void homepageSwitch() {
         Intent switchIntent = new Intent(getApplicationContext(), EmployerHomepage.class);
         startActivity(switchIntent);
     }
-
     public void switchListingHistory() {
         Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
         startActivity(switchIntent);
@@ -214,6 +194,4 @@ public class EditEmployerListing extends AppCompatActivity {
         Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
         startActivity(switchIntent);
     }
-
-
 }
