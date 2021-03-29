@@ -10,6 +10,7 @@ public class Employee {
     private String description;
     private String resumeUrl;
     private String clientID;
+    private String wallet;
 
     public Employee(){
 
@@ -36,6 +37,10 @@ public class Employee {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getWallet() {
+        return wallet;
     }
 
     public void setResumeUrl(String resumeUrl) {
@@ -65,6 +70,7 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public void setClientID(String clientID) {
         this.clientID = clientID;

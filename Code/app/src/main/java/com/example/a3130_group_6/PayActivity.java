@@ -33,7 +33,7 @@ public class PayActivity extends AppCompatActivity {
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(Config.PAYPAL_CLIENT_ID);
 
     Button btnPayNow;
-    String employeeName, amount;
+    String employeeName, amount, key, employerName, wallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,10 @@ public class PayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paypal);
         Intent intentData = getIntent();
         employeeName = intentData.getStringExtra("name");
+        employerName = intentData.getStringExtra("employerName");
         amount = intentData.getStringExtra("amount");
+        key = intentData.getStringExtra("key");
+        wallet = intentData.getStringExtra("wallet");
 
         //set client id to proper individual
         //config.;
@@ -89,7 +92,7 @@ public class PayActivity extends AppCompatActivity {
                         //Log.d("Details",paymentDetails);
                         startActivity(new Intent(this,PaymentStatus.class)
                                 .putExtra("PaymentDetails",paymentDetails)
-                                .putExtra("Amount",amount).putExtra("employeeName", employeeName));
+                                .putExtra("Amount",amount).putExtra("employeeName", employeeName).putExtra("key", key).putExtra("employerName", employerName).putExtra("wallet", wallet));
                     } catch (Exception e){
                         e.printStackTrace();
                     }

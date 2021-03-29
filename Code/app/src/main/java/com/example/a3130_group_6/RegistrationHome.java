@@ -44,12 +44,12 @@ public class RegistrationHome extends AppCompatActivity implements View.OnClickL
             case (R.id.employeeBtn):
                 switchToEmployee();
                 break;
-                case (R.id.employer):
-                    switchToEmployer();
-                    break;
-                case (R.id.back):
-                    switchToHome();
-                    break;
+            case (R.id.employer):
+                switchToEmployer();
+                break;
+            case (R.id.back):
+                switchToHome();
+                break;
         }
     }
 }

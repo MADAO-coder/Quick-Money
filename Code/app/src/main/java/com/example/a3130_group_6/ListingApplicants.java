@@ -130,8 +130,10 @@ public class ListingApplicants extends AppCompatActivity {
 
     public void sendToEmployeeDetails(View view){
         Intent switchIntent = new Intent(this, EmployeeView.class);
-        switchIntent.putExtra("name", employeeName);
         switchIntent.putExtra("amount", pay);
+        switchIntent.putExtra("key", key);
+        switchIntent.putExtra("employerName", employer);
+        switchIntent.putExtra("employeeName", employeeName);
         startActivity(switchIntent);
     }
     public void homepageSwitch(View view) {

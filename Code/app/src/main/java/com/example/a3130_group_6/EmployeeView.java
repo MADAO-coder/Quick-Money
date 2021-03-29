@@ -19,13 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EmployeeView extends AppCompatActivity {
     DatabaseReference employeeRef;
-    String employeeName;
-    String description, username, password, phone, email, name, radius, clientID, amount;
+    String description, username, password, phone, email, employeeName, radius, clientID, amount, key, employerName;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
     TextView usernameView, statusView;
     ImageView imageView;
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume, pay;
     UserLocation user;
+    String wallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,10 @@ public class EmployeeView extends AppCompatActivity {
         setContentView(R.layout.activity_employee_profile);
         // create based off employee profile? hide buttons + change editable
         Intent intent = getIntent();
-        employeeName = intent.getStringExtra("name");
         amount = intent.getStringExtra("amount");
+        key = intent.getStringExtra("key");
+        employerName = intent.getStringExtra("employerName");
+        employeeName = intent.getStringExtra("employeeName");
         pay = (Button) findViewById(R.id.payBtn);
         pay.setVisibility(View.VISIBLE);
         pay.setEnabled(true);
@@ -64,8 +66,11 @@ public class EmployeeView extends AppCompatActivity {
     public void sendPayment(View view){
         Config.setID(clientID);
         Intent switchIntent = new Intent(this, PayActivity.class);
-        switchIntent.putExtra("name", name);
+        switchIntent.putExtra("name", username);
         switchIntent.putExtra("amount", amount);
+        switchIntent.putExtra("key", key);
+        switchIntent.putExtra("employerName", employerName);
+        switchIntent.putExtra("wallet", wallet);
         startActivity(switchIntent);
     }
 
@@ -145,7 +150,7 @@ public class EmployeeView extends AppCompatActivity {
      *
      */
     public void loadProfile(){
-        nameView.setText(name);
+        nameView.setText(employeeName);
         descriptionBox.setText(description);
         usernameView.setText(username);
         //passView.setText(password);
@@ -179,9 +184,10 @@ public class EmployeeView extends AppCompatActivity {
                     //password = employee.getPassword();
                     phone = employee.getPhone();
                     email = employee.getEmail();
-                    name = employee.getName();
+                    employeeName = employee.getName();
                     description = employee.getDescription();
                     clientID = employee.getClientID();
+                    wallet = employee.getWallet();
                     loadProfile();
                 }
             }

@@ -8,6 +8,8 @@ import android.widget.TextView;
 import android.content.Intent;
 import com.example.a3130_group_6.PaymentModel;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,11 +17,14 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.a3130_group_6.LoginPage.validEmployee;
+
 public class PaymentStatus extends AppCompatActivity {
 
     TextView txtId, txtAmount, txtStatus;
-    String employeeName;
+    String employeeName, listingKey, employerName, amount, wallet;
     PaymentModel responseData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,10 @@ public class PaymentStatus extends AppCompatActivity {
 
         Intent intent = getIntent();
         employeeName = intent.getStringExtra("employeeName");
+        amount = intent.getStringExtra("Amount");
+        listingKey = intent.getStringExtra("key");
+        employerName = intent.getStringExtra("employerName");
+        wallet = intent.getStringExtra("wallet");
 
         GsonBuilder builder = new GsonBuilder();
         Gson mGson = builder.create();
@@ -47,12 +56,38 @@ public class PaymentStatus extends AppCompatActivity {
         }*/
 
         showDetails(intent.getStringExtra("Amount"));
+        updateWallet();
     }
 
     private void showDetails(String paymentAmount) {
         txtId.setText("Transaction ID -- "+responseData.getResponse().getId());
         txtStatus.setText("Status -- "+responseData.getResponse().getState());
         txtAmount.setText("Amount -- $" + paymentAmount);
+
+    }
+    private void updateWallet(){
+        DatabaseReference listingRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/");
+        // move employee from Applied to paid on success
+        // if responseData.getResponse().getState().equals(?)
+        // delete from Accepted not working
+        // listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Applied").child(employeeName).removeValue();
+        //add to Paid working
+        listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Paid").child(employeeName).child("Message").setValue("Payment from a Nigerian Prince");
+        // todo update wallet reference under employeeName
+        DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+ employeeName + "/");
+        // move employee from Applied to paid on success
+        // if responseData.getResponse().getState().equals(?)
+        // delete from Accepted not working
+        // listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Applied").child(employeeName).removeValue();
+        //add to Paid working
+        // wallet = original wallet + amount
+        // todo update wallet reference under employeeName
+        String postPay = wallet;
+        if(responseData.getResponse().getState().equals("approved")){
+            int amnt = Integer.parseInt(wallet) + Integer.parseInt(amount);
+            postPay = String.valueOf(amnt);
+        }
+        employeeRef.child("wallet").setValue(postPay);
     }
 
     // update @employeeName wallet based on @amount
