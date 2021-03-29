@@ -54,7 +54,13 @@ public class EmployerHomepage extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                notification();
+                // getting the parent of the snapshot
+                DatabaseReference parent = snapshot.getRef().getParent();
+
+                // checking if the parent of the listing matches the current employer who is logged in
+                if (parent.getParent().getKey().equals(LoginPage.validEmployer[0])) {
+                    notification();
+                }
             }
 
             @Override
