@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.CSCI.a3130_group_6;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.a3130_group_6.EmployeeHomepage;
+import com.CSCI.a3130_group_6.EmployeeHomepage;
 
 import org.hamcrest.text.IsEmptyString;
 import org.junit.BeforeClass;
