@@ -52,7 +52,6 @@ public class EmployerHomepage extends AppCompatActivity {
         addTask.setOnClickListener(this::addTaskSwitch);
         tab =findViewById(R.id.tabs);
         switchPage = new SwitchEmployerMethods(getApplicationContext());
-
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

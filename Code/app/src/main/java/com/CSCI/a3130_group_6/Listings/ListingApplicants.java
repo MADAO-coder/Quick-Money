@@ -15,6 +15,7 @@ import com.CSCI.a3130_group_6.EmployerChatList;
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeView;
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile;
+import com.CSCI.a3130_group_6.HelperClases.SwitchEmployerMethods;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
@@ -37,7 +38,7 @@ public class ListingApplicants extends AppCompatActivity {
     Iterator<DataSnapshot> applicantItr;
     ArrayList<String> applicantUserId;
     TabLayout tab;
-
+    SwitchEmployerMethods switchPage;
     // ToDo: Get the names of users who applied to the listing in this arraylist to show in the Listing of applicants - Bryson
     ArrayList<String> applicantName;
     ArrayList<String> applicantMessages;
@@ -71,25 +72,26 @@ public class ListingApplicants extends AppCompatActivity {
         // access specific listing to retrieve applicants - if they exist
         checkForApplicants(listingRef);
         tab =findViewById(R.id.tabs);
+        switchPage = new SwitchEmployerMethods(getApplicationContext());
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getText().toString()) {
                     case "Listing":
-                        switchListingHistory();
+                        switchPage.switchListingHistory();
                         break;
                     case "Profile":
-                        profileSwitch();
+                        switchPage.profileSwitch();
                         break;
                     case "Logout":
-                        LogoutSwitch();
+                        switchPage.LogoutSwitch();
                         break;
                     case "Home":
-                        homepageSwitch();
+                        switchPage.homepageSwitch();
                         break;
                     case "Chat":
-                        chatSwitch();
+                        switchPage.chatSwitch();
                         break;
                 }
             }
@@ -176,38 +178,4 @@ public class ListingApplicants extends AppCompatActivity {
         switchIntent.putExtra("name", employeeName);
         startActivity(switchIntent);
     }
-
-    public void profileSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile.class);
-        startActivity(switchIntent);
-    }
-
-    /**
-     * Function: This is a method to switch to Add listing page
-     * Parameters: none
-     * Returns: void
-     *
-     */
-
-
-    public void homepageSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), EmployerHomepage.class);
-        startActivity(switchIntent);
-    }
-
-    public void switchListingHistory() {
-        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
-        startActivity(switchIntent);
-    }
-    public void LogoutSwitch() {
-        LoginPage.validEmployer= null;
-        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
-        startActivity(switchIntent);
-    }
-    public void chatSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
-        startActivity(switchIntent);
-    }
-
-
 }

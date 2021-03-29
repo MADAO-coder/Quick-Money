@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployerChatList;
+import com.CSCI.a3130_group_6.HelperClases.SwitchEmployerMethods;
 import com.CSCI.a3130_group_6.Listings.AddListing;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
@@ -33,7 +34,7 @@ public class EmployerProfile extends AppCompatActivity {
     TextView statusView;
     Button submitButton, refreshButton,home,listing,chat,profile,logout;
     TabLayout tab;
-
+    SwitchEmployerMethods switchPage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,25 +44,26 @@ public class EmployerProfile extends AppCompatActivity {
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployer(employerRef);
         tab =findViewById(R.id.tabs);
+        switchPage = new SwitchEmployerMethods(getApplicationContext());
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getText().toString()) {
                     case "Listing":
-                        switchListingHistory();
+                        switchPage.switchListingHistory();
                         break;
                     case "Profile":
-                        profileSwitch();
+                        switchPage.profileSwitch();
                         break;
                     case "Logout":
-                        LogoutSwitch();
+                        switchPage.LogoutSwitch();
                         break;
                     case "Home":
-                        homepageSwitch();
+                        switchPage.homepageSwitch();
                         break;
                     case "Chat":
-                        chatSwitch();
+                        switchPage.chatSwitch();
                         break;
                 }
             }
@@ -71,9 +73,7 @@ public class EmployerProfile extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
-
-
-            });
+        });
         // set all views
         setViews();
 
@@ -190,40 +190,4 @@ public class EmployerProfile extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
-
-    public void profileSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile.class);
-        startActivity(switchIntent);
-    }
-
-    /**
-     * Function: This is a method to switch to Add listing page
-     * Parameters: none
-     * Returns: void
-     *
-     */
-
-
-    public void homepageSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), EmployerHomepage.class);
-        startActivity(switchIntent);
-    }
-
-    public void switchListingHistory() {
-        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
-        startActivity(switchIntent);
-    }
-    public void LogoutSwitch() {
-        LoginPage.validEmployer= null;
-
-        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
-        startActivity(switchIntent);
-    }
-    public void chatSwitch() {
-        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
-        startActivity(switchIntent);
-    }
-
-
-
 }
