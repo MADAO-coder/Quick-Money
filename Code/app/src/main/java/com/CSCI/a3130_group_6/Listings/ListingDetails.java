@@ -11,7 +11,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
+import com.CSCI.a3130_group_6.EmployerChatList;
+import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
 import com.CSCI.a3130_group_6.R;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +28,7 @@ public class ListingDetails extends AppCompatActivity {
     Button home, logout, back, apply;
     String [] listing = null;
     EditText applicationMessage;
+    TabLayout tab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +40,6 @@ public class ListingDetails extends AppCompatActivity {
 
         applicationMessage = findViewById(R.id.applicationMessage);
 
-        home = findViewById(R.id.employeeHome);
-        home.setOnClickListener(this::onClick);
-
-        logout = findViewById(R.id.Logout);
-        logout.setOnClickListener(this::onClick);
-
-        back = findViewById(R.id.backEmployeeHome);
-        back.setOnClickListener(this::onClick);
-
         apply = findViewById(R.id.applyToListing);
         apply.setOnClickListener(this::onClick);
 
@@ -51,6 +47,38 @@ public class ListingDetails extends AppCompatActivity {
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
 
         setTextBox();
+        tab =findViewById(R.id.tabs);
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        switchListingHistory();
+                        break;
+                    case "Profile":
+                        profileSwitch();
+                        break;
+                    case "Logout":
+                        LogoutSwitch();
+                        break;
+                    case "Home":
+                        homepageSwitch();
+                        break;
+                    case "Chat":
+                        chatSwitch();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+
+
+        });
     }
 
     protected void setTitleDisplay(String title){
@@ -120,19 +148,36 @@ public class ListingDetails extends AppCompatActivity {
 
     public void onClick(View v) {
         switch ((v.getId())) {
-            case R.id.backEmployeeHome:
-            case R.id.employeeHome:
-                startActivity(new Intent(this, EmployeeHomepage.class));
-                break;
             case R.id.applyToListing:
                 applyToListing();
                 Toast.makeText(ListingDetails.this, "You have successfully applied to this listing with your new message", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.Logout:
-                //database.
-                break;
         }
 
     }
+    public void profileSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile.class);
+        startActivity(switchIntent);
+    }
+
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerHomepage.class);
+        startActivity(switchIntent);
+    }
+
+    public void switchListingHistory() {
+        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
+        startActivity(switchIntent);
+    }
+    public void LogoutSwitch() {
+        LoginPage.validEmployer= null;
+        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivity(switchIntent);
+    }
+    public void chatSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
+        startActivity(switchIntent);
+    }
+
 
 }

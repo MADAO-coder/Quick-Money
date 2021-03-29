@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -17,11 +18,14 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
+import com.CSCI.a3130_group_6.EmployerChatList;
+import com.CSCI.a3130_group_6.HelperClases.SwitchEmployerMethods;
 import com.CSCI.a3130_group_6.Listings.AddListing;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,13 +39,50 @@ public class EmployerHomepage extends AppCompatActivity {
     ArrayList<Employee> employees;
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
-
+    SwitchEmployerMethods switchPage;
+    Button addTask;
+    TabLayout tab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_homepage);
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
+        addTask= findViewById(R.id.addTaskButton);
+        addTask.setOnClickListener(this::addTaskSwitch);
+        tab =findViewById(R.id.tabs);
+        switchPage = new SwitchEmployerMethods(getApplicationContext());
+
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        switchPage.switchListingHistory();
+                        break;
+                    case "Profile":
+                        switchPage.profileSwitch();
+                        break;
+                    case "Logout":
+                        switchPage.LogoutSwitch();
+                        break;
+                    case "Home":
+                        switchPage.homepageSwitch();
+                        break;
+                    case "Chat":
+                        switchPage.chatSwitch();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
 
         // database reference to the Listing child of the employer who is currently logged in
         notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
@@ -134,16 +175,7 @@ public class EmployerHomepage extends AppCompatActivity {
         return false;
     }
 
-    /**
-     * Function: This is a method to switch to Employer profile class
-     * Parameters: none
-     * Returns: void
-     *
-     */
-    public void profileSwitch(View view) {
-        Intent switchIntent = new Intent(this, EmployerProfile.class);
-        startActivity(switchIntent);
-    }
+
 
     /**
      * Function: This is a method to switch to Add listing page
@@ -151,25 +183,18 @@ public class EmployerHomepage extends AppCompatActivity {
      * Returns: void
      *
      */
-    public void addTaskSwitch(View view) {
+    public void addTaskSwitch(View v) {
         Intent switchIntent = new Intent(this, AddListing.class);
         startActivity(switchIntent);
     }
-
     /**
-     * Function: This is a method to switch to Employer homepage
+     * Function: This is a method to switch to Employer profile class
      * Parameters: none
      * Returns: void
      *
-     */
-    public void homepageSwitch(View view) {
-        Intent switchIntent = new Intent(this, EmployerHomepage.class);
-        startActivity(switchIntent);
-    }
+    */
 
-    public void switchListingHistory(View view) {
-        Intent switchIntent = new Intent(this, ListingHistory.class);
-        startActivity(switchIntent);
-    }
+
+
 
 }
