@@ -119,7 +119,7 @@ public class EmployeeProfile extends AppCompatActivity {
                 else {
                     employee.setName(nameView.getText().toString());
                     employee.setDescription(descriptionBox.getText().toString());
-                    employee.setUserName(usernameView.getText().toString());
+                    //employee.setUserName(usernameView.getText().toString());
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
@@ -128,8 +128,8 @@ public class EmployeeProfile extends AppCompatActivity {
                     user.getLatitude();
                     user.getLatitude();
                     // updates to db
-                    updateToDatabase(employee);
-                    updateLocationToDatabase(user);
+                    updateToDatabase(employee, user);
+                    //updateLocationToDatabase(user);
                 }
 
             }
@@ -274,23 +274,31 @@ public class EmployeeProfile extends AppCompatActivity {
         setStatusMessage(true, "Profile updated to database!");
     }
 
-    public void updateToDatabase(Employee employee){
+    public void updateToDatabase(Employee employee, UserLocation user){
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
 
         Map<String, Object> updates = new HashMap<>();
-        updates.put("userName", employee.getUserName());
+        //updates.put("userName", employee.getUserName());
         updates.put("password", employee.getPassword());
         updates.put("email", employee.getEmail());
         updates.put("name", employee.getName());
         updates.put("phone", employee.getPhone());
         updates.put("description", employee.getDescription());
         updates.put("resumeUrl", employee.getResumeUrl());
-
-        // Add radius to the database
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
-        employeeRef.setValue(employee);
+        // employeeRef.setValue(employee);
+
+        //Location
+        Map<String, Object> locationUpdates = new HashMap<>();
+        locationUpdates.put("latitude", user.getLatitude());
+        locationUpdates.put("longitude", user.getLongitude());
+        locationUpdates.put("radius", user.getRadius());
+
+        employeeRef.child("Location").updateChildren(locationUpdates);
+        employeeRef.child("Location").setValue(user);
+
         setStatusMessage(true, "Profile updated to database!");
     }
 
