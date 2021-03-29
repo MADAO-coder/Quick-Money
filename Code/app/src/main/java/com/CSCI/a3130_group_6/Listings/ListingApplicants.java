@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
-import com.CSCI.a3130_group_6.EmployeePackage.EmployeeView;
+import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -137,7 +137,7 @@ public class ListingApplicants extends AppCompatActivity {
     }
 
     public void sendToEmployeeDetails(View view){
-        Intent switchIntent = new Intent(this, EmployeeView.class);
+        Intent switchIntent = new Intent(this, ShowApplication.class);
         switchIntent.putExtra("name", employeeName);
         startActivity(switchIntent);
     }

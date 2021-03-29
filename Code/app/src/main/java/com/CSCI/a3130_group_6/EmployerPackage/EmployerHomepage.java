@@ -17,7 +17,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
-import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.CSCI.a3130_group_6.Listings.AddListing;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
@@ -111,7 +110,7 @@ public class EmployerHomepage extends AppCompatActivity {
     }
 
     public Intent applicationIntent(){
-        Intent intentToApplication = new Intent(this, ShowApplication.class);
+        Intent intentToApplication = new Intent(this, ListingHistory.class);
         return intentToApplication;
     }
 
