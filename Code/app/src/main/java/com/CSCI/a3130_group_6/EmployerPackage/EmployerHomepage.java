@@ -32,12 +32,11 @@ import java.util.ArrayList;
 
 public class EmployerHomepage extends AppCompatActivity {
 
-    // ToDo: Implement a queue or a stack for showing the notification
-
     ArrayList<Employee> employees;
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
     String taskTitle;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +58,8 @@ public class EmployerHomepage extends AppCompatActivity {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 // getting the parent of the snapshot
                 DatabaseReference parent = snapshot.getRef().getParent();
+
+                // retrieving the task title to show in the notification
                 taskTitle = (String) snapshot.child("taskTitle").getValue();
 
                 // checking if the parent of the listing matches the current employer who is logged in
@@ -105,7 +106,8 @@ public class EmployerHomepage extends AppCompatActivity {
                 .setContentText("An employee applied to your listing: " + taskTitle)
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-        managerCompat.notify(999, builder.build());
+        managerCompat.notify(100+count, builder.build());
+        count++;
     }
 
     public Intent applicationIntent(){
