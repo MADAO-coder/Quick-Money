@@ -67,21 +67,12 @@ public class PaymentStatus extends AppCompatActivity {
     }
     private void updateWallet(){
         DatabaseReference listingRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/");
-        // move employee from Applied to paid on success
-        // if responseData.getResponse().getState().equals(?)
         // delete from Accepted not working
-        // listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Applied").child(employeeName).removeValue();
-        //add to Paid working
+         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Applied").child(employeeName).setValue(null);
         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Paid").child(employeeName).child("Message").setValue("Payment from a Nigerian Prince");
-        // todo update wallet reference under employeeName
+
+        // update wallet reference under employeeName
         DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+ employeeName + "/");
-        // move employee from Applied to paid on success
-        // if responseData.getResponse().getState().equals(?)
-        // delete from Accepted not working
-        // listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Applied").child(employeeName).removeValue();
-        //add to Paid working
-        // wallet = original wallet + amount
-        // todo update wallet reference under employeeName
         String postPay = wallet;
         if(responseData.getResponse().getState().equals("approved")){
             int amnt = Integer.parseInt(wallet) + Integer.parseInt(amount);
