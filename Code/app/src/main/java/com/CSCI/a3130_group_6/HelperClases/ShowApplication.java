@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ShowApplication extends AppCompatActivity implements View.OnClickListener {
-    DatabaseReference employeeRef, applicantRef;
+    DatabaseReference employeeRef, applicantRef, decision;
     String description, username, phone, email, name, radius, employeeName, listingKey, message;
     TextView descriptionBox, applicantName, employeeUsername, applicantEmail,
             applicantPhoneNum, applicantRadius, applicantMessage;
@@ -59,9 +59,17 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         employeeName = intent.getStringExtra("name");
         listingKey = ListingHistory.listingKey;
 
+        // reference to get the message of the applicant
         applicantRef =  FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/"
                 + LoginPage.validEmployer[0] + "/Listing/" + listingKey + "/Applicants/Applied/"+employeeName);
-        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+employeeName);
+
+        // reference to get the details of the employee
+        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+
+                employeeName);
+
+        // reference to store the decision of whether accepted or rejected
+        decision = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/"
+                        + LoginPage.validEmployer[0] + "/Listing/" + listingKey + "/Applicants/");
 
         getEmployeeDetails(employeeRef);
     }
@@ -71,12 +79,20 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         startActivity(home);
     }
 
-    public void showResume(){
+    private void showResume(){
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(resumeLink));
         startActivity(intent);
+    }
+
+    private void accept(){
+        decision.child("Accepted").child(username).child("Message").setValue(message);
+    }
+
+    private void reject(){
+        decision.child("Rejected").child(username).child("Message").setValue(message);
     }
 
     @Override
@@ -88,10 +104,10 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
             showResume();
         }
         else if(v.getId() == R.id.accept){
+            accept();
         }
-
         else if(v.getId() == R.id.reject){
-
+            reject();
         }
     }
 
