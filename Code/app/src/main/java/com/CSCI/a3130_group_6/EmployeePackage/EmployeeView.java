@@ -34,7 +34,6 @@ public class EmployeeView extends AppCompatActivity {
     UserLocation user;
     TabLayout tab;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +86,6 @@ public class EmployeeView extends AppCompatActivity {
             }
         });
     }
-
     /**
      * Function: This method disables all fields on the employee profile
      * Parameters: None
@@ -96,26 +94,19 @@ public class EmployeeView extends AppCompatActivity {
     public void disableFields() {
         nameView.setClickable(false);
         nameView.setEnabled(false);
-
         descriptionBox.setClickable(false);
         descriptionBox.setEnabled(false);
-
         usernameView.setClickable(false);
         usernameView.setEnabled(false);
-
         passView.setClickable(false);
         passView.setEnabled(false);
-
         phoneView.setClickable(false);
         phoneView.setEnabled(false);
-
         emailView.setClickable(false);
         emailView.setEnabled(false);
-
         radiusView.setClickable(false);
         radiusView.setEnabled(false);
     }
-
     /**
      * Function: This method disables all buttons on the employee profile
      * Parameters: None
@@ -128,29 +119,29 @@ public class EmployeeView extends AppCompatActivity {
         uploadResume.setEnabled(false);
         selectResume.setEnabled(false);
     }
-
     /**
      * Function: This method sets the views
      * Parameters: none
      * Returns: void
      */
-    public void setViews() {
-        nameView = findViewById(R.id.employeeNameInput);
+
+    public void setViews(){
+        nameView = findViewById(R.id.applicantName);
+
         imageView = findViewById(R.id.profilePicture);
         statusView = findViewById(R.id.employeeStatusLabel);
-        descriptionBox = findViewById(R.id.descriptionBox);
-        usernameView = findViewById(R.id.employeeUsernameInput);
-        passView = findViewById(R.id.employeePassInput);
-        phoneView = findViewById(R.id.employeePhoneNumInput);
-        emailView = findViewById(R.id.employeeEmailInput);
-        radiusView = findViewById(R.id.radiusInput);
-
-        submitButton = (Button) findViewById(R.id.saveProfileUpdate);
-        refreshButton = (Button) findViewById(R.id.employerHome);
+        descriptionBox = findViewById(R.id.applicantDescription);
+        usernameView = findViewById(R.id.applicantUserName);
+        passView = findViewById(R.id.applicantMessage);
+        phoneView = findViewById(R.id.applicantPhoneNum);
+        emailView = findViewById(R.id.applicantEmail);
+        radiusView = findViewById(R.id.applicantRadius);
+        submitButton = findViewById(R.id.accept);
+        refreshButton =  findViewById(R.id.employerHome);
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
-        selectResume = findViewById(R.id.selectResume);
+        selectResume = findViewById(R.id.seeResume);
     }
 
     /**
@@ -187,7 +178,6 @@ public class EmployeeView extends AppCompatActivity {
                         radius = user.getRadius();
                     }
                     username = employee.getUserName();
-
                     phone = employee.getPhone();
                     email = employee.getEmail();
                     name = employee.getName();

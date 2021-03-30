@@ -91,7 +91,7 @@ public class EmployeeProfile extends AppCompatActivity {
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
-        selectResume = findViewById(R.id.selectResume);
+        selectResume = findViewById(R.id.seeResume);
 
         // set button to update to database on click
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +124,7 @@ public class EmployeeProfile extends AppCompatActivity {
                 else {
                     employee.setName(nameView.getText().toString());
                     employee.setDescription(descriptionBox.getText().toString());
-                    employee.setUserName(usernameView.getText().toString());
+                    //employee.setUserName(usernameView.getText().toString());
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
@@ -133,8 +133,8 @@ public class EmployeeProfile extends AppCompatActivity {
                     user.getLatitude();
                     user.getLatitude();
                     // updates to db
-                    updateToDatabase(employee);
-                    updateLocationToDatabase(user);
+                    updateToDatabase(employee, user);
+                    //updateLocationToDatabase(user);
                 }
 
             }
@@ -286,16 +286,16 @@ public class EmployeeProfile extends AppCompatActivity {
 
     public void setViews(){
         statusView = findViewById(R.id.employeeStatusLabel);
-        nameView = findViewById(R.id.employeeNameInput);
-        descriptionBox = findViewById(R.id.descriptionBox);
-        usernameView = findViewById(R.id.employeeUsernameInput);
-        passView = findViewById(R.id.employeePassInput);
-        phoneView = findViewById(R.id.employeePhoneNumInput);
-        emailView = findViewById(R.id.employeeEmailInput);
-        radiusView = findViewById(R.id.radiusInput);
+        nameView = findViewById(R.id.applicantName);
+        descriptionBox = findViewById(R.id.applicantDescription);
+        usernameView = findViewById(R.id.applicantUserName);
+        passView = findViewById(R.id.applicantMessage);
+        phoneView = findViewById(R.id.applicantPhoneNum);
+        emailView = findViewById(R.id.applicantEmail);
+        radiusView = findViewById(R.id.applicantRadius);
         selectedPDF = findViewById(R.id.selectedPDF);
 
-        submitButton = (Button) findViewById(R.id.saveProfileUpdate);
+        submitButton = (Button) findViewById(R.id.accept);
         refreshButton = (Button) findViewById(R.id.employerHome);
     }
 
@@ -312,23 +312,31 @@ public class EmployeeProfile extends AppCompatActivity {
         setStatusMessage(true, "Profile updated to database!");
     }
 
-    public void updateToDatabase(Employee employee){
+    public void updateToDatabase(Employee employee, UserLocation user){
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
 
         Map<String, Object> updates = new HashMap<>();
-        updates.put("userName", employee.getUserName());
+        //updates.put("userName", employee.getUserName());
         updates.put("password", employee.getPassword());
         updates.put("email", employee.getEmail());
         updates.put("name", employee.getName());
         updates.put("phone", employee.getPhone());
         updates.put("description", employee.getDescription());
         updates.put("resumeUrl", employee.getResumeUrl());
-
-        // Add radius to the database
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
-        employeeRef.setValue(employee);
+        // employeeRef.setValue(employee);
+
+        //Location
+        Map<String, Object> locationUpdates = new HashMap<>();
+        locationUpdates.put("latitude", user.getLatitude());
+        locationUpdates.put("longitude", user.getLongitude());
+        locationUpdates.put("radius", user.getRadius());
+
+        employeeRef.child("Location").updateChildren(locationUpdates);
+        employeeRef.child("Location").setValue(user);
+
         setStatusMessage(true, "Profile updated to database!");
     }
 

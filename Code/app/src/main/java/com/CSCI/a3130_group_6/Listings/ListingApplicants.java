@@ -10,11 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
-import com.CSCI.a3130_group_6.EmployeePackage.EmployeeView;
+
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile;
 import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
+
+import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
+
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.material.tabs.TabLayout;
@@ -164,7 +166,7 @@ public class ListingApplicants extends AppCompatActivity {
         }
     }
     public void sendToEmployeeDetails(View view){
-        Intent switchIntent = new Intent(this, EmployeeView.class);
+        Intent switchIntent = new Intent(this, ShowApplication.class);
         switchIntent.putExtra("name", employeeName);
         startActivity(switchIntent);
     }
