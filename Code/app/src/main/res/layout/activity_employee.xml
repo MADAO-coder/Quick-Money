@@ -78,14 +78,14 @@
         android:layout_height="35dp"
         android:layout_marginStart="28dp"
         android:text="Upload Resume"
-        app:layout_constraintBottom_toBottomOf="@id/selectResume"
+        app:layout_constraintBottom_toBottomOf="@id/seeResume"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toBottomOf="@+id/AddPayment"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/selectResume"
+        android:id="@+id/seeResume"
         android:layout_width="161dp"
         android:layout_height="35dp"
         android:layout_marginStart="248dp"

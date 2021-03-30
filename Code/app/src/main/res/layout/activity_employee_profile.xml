@@ -10,7 +10,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/selectResume"
+        android:id="@+id/seeResume"
         android:layout_width="160dp"
         android:layout_height="37dp"
         android:layout_marginStart="11dp"
@@ -49,7 +49,7 @@
         android:layout_marginBottom="15dp"
         android:text="Working Radius"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/selectResume"
+        app:layout_constraintBottom_toTopOf="@id/seeResume"
         app:layout_constraintEnd_toStartOf="@+id/applicantRadius"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/message" />
@@ -285,7 +285,7 @@
         android:text="Upload Resume"
         app:layout_constraintBottom_toTopOf="@+id/accept"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/selectResume"
+        app:layout_constraintStart_toEndOf="@+id/seeResume"
         app:layout_constraintTop_toBottomOf="@+id/applicantRadius" />
 
     <Button
@@ -326,7 +326,7 @@
         android:layout_marginEnd="19dp"
         app:layout_constraintEnd_toStartOf="@+id/accept"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectResume"
+        app:layout_constraintTop_toBottomOf="@+id/seeResume"
         tools:visibility="invisible" />
 
     <TextView

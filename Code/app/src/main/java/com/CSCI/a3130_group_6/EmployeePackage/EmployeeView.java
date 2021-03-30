@@ -110,7 +110,7 @@ public class EmployeeView extends AppCompatActivity {
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
-        selectResume = findViewById(R.id.selectResume);
+        selectResume = findViewById(R.id.seeResume);
     }
     /**
      * Function: This method loads all variables into the views

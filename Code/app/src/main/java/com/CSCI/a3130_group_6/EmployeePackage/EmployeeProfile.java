@@ -86,7 +86,7 @@ public class EmployeeProfile extends AppCompatActivity {
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
-        selectResume = findViewById(R.id.selectResume);
+        selectResume = findViewById(R.id.seeResume);
 
         // set button to update to database on click
         submitButton.setOnClickListener(new View.OnClickListener() {

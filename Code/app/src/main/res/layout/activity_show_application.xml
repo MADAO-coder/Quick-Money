@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/selectResume"
+        android:id="@+id/seeResume"
         android:layout_width="149dp"
         android:layout_height="50dp"
         android:layout_marginStart="153dp"

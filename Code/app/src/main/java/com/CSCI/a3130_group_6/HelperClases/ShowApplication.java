@@ -1,6 +1,7 @@
 package com.CSCI.a3130_group_6.HelperClases;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 public class ShowApplication extends AppCompatActivity implements View.OnClickListener {
     DatabaseReference employeeRef, applicantRef;
     String description, username, phone, email, name, radius, employeeName, listingKey, message;
-    TextView navBar, descriptionBox, applicantName, employeeUsername, applicantEmail,
+    TextView descriptionBox, applicantName, employeeUsername, applicantEmail,
             applicantPhoneNum, applicantRadius, applicantMessage;
-    Button homeButton, accept, reject, selectResume;
+    Button homeButton, accept, reject, seeResume;
+    String resumeLink;
     UserLocation user;
 
 
@@ -39,6 +41,9 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         accept.setOnClickListener(this);
         reject = findViewById(R.id.reject);
         reject.setOnClickListener(this);
+
+        seeResume = findViewById(R.id.seeResume);
+        seeResume.setOnClickListener(this);
 
         applicantMessage = findViewById(R.id.applicantMessage);
         applicantName = findViewById(R.id.applicantName);
@@ -66,10 +71,21 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         startActivity(home);
     }
 
+    public void showResume(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse(resumeLink));
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.employerHome){
             switchToEmployerHome();
+        }
+        else if(v.getId() == R.id.seeResume) {
+            showResume();
         }
         else if(v.getId() == R.id.accept){
         }
@@ -112,7 +128,7 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
                     radius = dataSnapshot.child("Location").child("radius").getValue(String.class);
                     applicantRadius.setText(radius);
                     username = employee.getUserName();
-                    // applicantMessage = employ
+                    resumeLink = employee.getResumeUrl();
                     phone = employee.getPhone();
                     email = employee.getEmail();
                     name = employee.getName();
@@ -137,7 +153,6 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         applicantName.setText(name);
         descriptionBox.setText(description);
         employeeUsername.setText(username);
-        //passView.setText(password);
         applicantPhoneNum.setText(phone);
         applicantEmail.setText(email);
         getMessage(applicantRef);
