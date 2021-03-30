@@ -95,22 +95,22 @@ public class EmployeeView extends AppCompatActivity {
      *
      */
     public void setViews(){
-        nameView = findViewById(R.id.employeeNameInput);
+        nameView = findViewById(R.id.applicantName);
         imageView = findViewById(R.id.profilePicture);
         statusView = findViewById(R.id.employeeStatusLabel);
-        descriptionBox = findViewById(R.id.descriptionBox);
-        usernameView = findViewById(R.id.employeeUsernameInput);
-        passView = findViewById(R.id.employeePassInput);
-        phoneView = findViewById(R.id.employeePhoneNumInput);
-        emailView = findViewById(R.id.employeeEmailInput);
-        radiusView = findViewById(R.id.radiusInput);
+        descriptionBox = findViewById(R.id.applicantDescription);
+        usernameView = findViewById(R.id.applicantUserName);
+        passView = findViewById(R.id.applicantMessage);
+        phoneView = findViewById(R.id.applicantPhoneNum);
+        emailView = findViewById(R.id.applicantEmail);
+        radiusView = findViewById(R.id.applicantRadius);
 
-        submitButton = (Button) findViewById(R.id.saveProfileUpdate);
+        submitButton = (Button) findViewById(R.id.accept);
         refreshButton = (Button) findViewById(R.id.employerHome);
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
-        selectResume = findViewById(R.id.selectResume);
+        selectResume = findViewById(R.id.seeResume);
     }
     /**
      * Function: This method loads all variables into the views

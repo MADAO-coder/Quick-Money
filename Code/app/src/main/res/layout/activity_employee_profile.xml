@@ -10,7 +10,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/selectResume"
+        android:id="@+id/seeResume"
         android:layout_width="160dp"
         android:layout_height="37dp"
         android:layout_marginStart="11dp"
@@ -18,13 +18,13 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="28dp"
         android:text="Select Resume"
-        app:layout_constraintBottom_toTopOf="@+id/saveProfileUpdate"
+        app:layout_constraintBottom_toTopOf="@+id/accept"
         app:layout_constraintEnd_toStartOf="@+id/uploadResume"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/employeeRadius" />
 
     <EditText
-        android:id="@+id/radiusInput"
+        android:id="@+id/applicantRadius"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="5dp"
@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toTopOf="@+id/uploadResume"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeRadius"
-        app:layout_constraintTop_toBottomOf="@+id/employeePassInput" />
+        app:layout_constraintTop_toBottomOf="@+id/applicantMessage" />
 
     <TextView
         android:id="@+id/employeeRadius"
@@ -49,10 +49,10 @@
         android:layout_marginBottom="15dp"
         android:text="Working Radius"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/selectResume"
-        app:layout_constraintEnd_toStartOf="@+id/radiusInput"
+        app:layout_constraintBottom_toTopOf="@id/seeResume"
+        app:layout_constraintEnd_toStartOf="@+id/applicantRadius"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/employeePassword" />
+        app:layout_constraintTop_toBottomOf="@id/message" />
 
     <Button
         android:id="@+id/employerHome"
@@ -70,7 +70,7 @@
         app:layout_constraintVertical_bias="0.114" />
 
     <EditText
-        android:id="@+id/employeePassInput"
+        android:id="@+id/applicantMessage"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
@@ -80,11 +80,11 @@
         android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/employeePassword"
-        app:layout_constraintTop_toBottomOf="@+id/employeePhoneNumInput" />
+        app:layout_constraintStart_toEndOf="@+id/message"
+        app:layout_constraintTop_toBottomOf="@+id/applicantPhoneNum" />
 
     <TextView
-        android:id="@+id/employeePassword"
+        android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -94,7 +94,7 @@
         android:text="Password"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeRadius"
-        app:layout_constraintEnd_toStartOf="@+id/employeePassInput"
+        app:layout_constraintEnd_toStartOf="@+id/applicantMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeePhoneNum" />
 
@@ -108,13 +108,13 @@
         android:layout_marginBottom="1dp"
         android:text="Phone Number"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/employeePassword"
-        app:layout_constraintEnd_toStartOf="@+id/employeePhoneNumInput"
+        app:layout_constraintBottom_toTopOf="@+id/message"
+        app:layout_constraintEnd_toStartOf="@+id/applicantPhoneNum"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeEmail" />
 
     <EditText
-        android:id="@+id/employeePhoneNumInput"
+        android:id="@+id/applicantPhoneNum"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
@@ -124,13 +124,13 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeePassInput"
+        app:layout_constraintBottom_toTopOf="@+id/applicantMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeePhoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/employeeEmailInput" />
+        app:layout_constraintTop_toBottomOf="@+id/applicantEmail" />
 
     <EditText
-        android:id="@+id/employeeEmailInput"
+        android:id="@+id/applicantEmail"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="23dp"
@@ -140,10 +140,10 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeePhoneNumInput"
+        app:layout_constraintBottom_toTopOf="@+id/applicantPhoneNum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeEmail"
-        app:layout_constraintTop_toBottomOf="@+id/employeeUsernameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/applicantUserName" />
 
     <TextView
         android:id="@+id/employeeEmail"
@@ -156,12 +156,12 @@
         android:text="Email"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeePhoneNum"
-        app:layout_constraintEnd_toStartOf="@+id/employeeEmailInput"
+        app:layout_constraintEnd_toStartOf="@+id/applicantEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeUserName" />
 
     <TextView
-        android:id="@+id/employeeUsernameInput"
+        android:id="@+id/applicantUserName"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
@@ -173,10 +173,10 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/employeeEmailInput"
+        app:layout_constraintBottom_toTopOf="@+id/applicantEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeUserName"
-        app:layout_constraintTop_toBottomOf="@+id/employeeNameInput" />
+        app:layout_constraintTop_toBottomOf="@+id/applicantName" />
 
     <TextView
         android:id="@+id/employeeUserName"
@@ -189,7 +189,7 @@
         android:text="Username"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeEmail"
-        app:layout_constraintEnd_toStartOf="@+id/employeeUsernameInput"
+        app:layout_constraintEnd_toStartOf="@+id/applicantUserName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeName" />
 
@@ -225,7 +225,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/descriptionBox"
+        android:id="@+id/applicantDescription"
         android:layout_width="187dp"
         android:layout_height="84dp"
         android:layout_marginStart="28dp"
@@ -253,12 +253,12 @@
         android:text="Name"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeUserName"
-        app:layout_constraintEnd_toStartOf="@+id/employeeNameInput"
+        app:layout_constraintEnd_toStartOf="@+id/applicantName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
 
     <EditText
-        android:id="@+id/employeeNameInput"
+        android:id="@+id/applicantName"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="15dp"
@@ -268,10 +268,10 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeeUsernameInput"
+        app:layout_constraintBottom_toTopOf="@+id/applicantUserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeName"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionBox"
+        app:layout_constraintTop_toBottomOf="@+id/applicantDescription"
         app:layout_constraintVertical_bias="0.65" />
 
     <Button
@@ -283,13 +283,13 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="10dp"
         android:text="Upload Resume"
-        app:layout_constraintBottom_toTopOf="@+id/saveProfileUpdate"
+        app:layout_constraintBottom_toTopOf="@+id/accept"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/selectResume"
-        app:layout_constraintTop_toBottomOf="@+id/radiusInput" />
+        app:layout_constraintStart_toEndOf="@+id/seeResume"
+        app:layout_constraintTop_toBottomOf="@+id/applicantRadius" />
 
     <Button
-        android:id="@+id/saveProfileUpdate"
+        android:id="@+id/accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -298,7 +298,7 @@
         app:layout_constraintBottom_toTopOf="@+id/employeeStatusLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radiusInput" />
+        app:layout_constraintTop_toBottomOf="@id/applicantRadius" />
 
     <Button
         android:id="@+id/profileImageButton"
@@ -310,7 +310,7 @@
         android:layout_marginBottom="10dp"
         app:icon="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toTopOf="@+id/employeeName"
-        app:layout_constraintEnd_toStartOf="@+id/employeeNameInput"
+        app:layout_constraintEnd_toStartOf="@+id/applicantName"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/employeeName"
         app:layout_constraintTop_toBottomOf="@+id/profilePicture"
@@ -324,9 +324,9 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="19dp"
-        app:layout_constraintEnd_toStartOf="@+id/saveProfileUpdate"
+        app:layout_constraintEnd_toStartOf="@+id/accept"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectResume"
+        app:layout_constraintTop_toBottomOf="@+id/seeResume"
         tools:visibility="invisible" />
 
     <TextView
@@ -343,7 +343,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/saveProfileUpdate" />
+        app:layout_constraintBottom_toBottomOf="@+id/accept" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

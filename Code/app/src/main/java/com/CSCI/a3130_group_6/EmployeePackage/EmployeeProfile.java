@@ -86,7 +86,7 @@ public class EmployeeProfile extends AppCompatActivity {
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
-        selectResume = findViewById(R.id.selectResume);
+        selectResume = findViewById(R.id.seeResume);
 
         // set button to update to database on click
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -248,16 +248,16 @@ public class EmployeeProfile extends AppCompatActivity {
 
     public void setViews(){
         statusView = findViewById(R.id.employeeStatusLabel);
-        nameView = findViewById(R.id.employeeNameInput);
-        descriptionBox = findViewById(R.id.descriptionBox);
-        usernameView = findViewById(R.id.employeeUsernameInput);
-        passView = findViewById(R.id.employeePassInput);
-        phoneView = findViewById(R.id.employeePhoneNumInput);
-        emailView = findViewById(R.id.employeeEmailInput);
-        radiusView = findViewById(R.id.radiusInput);
+        nameView = findViewById(R.id.applicantName);
+        descriptionBox = findViewById(R.id.applicantDescription);
+        usernameView = findViewById(R.id.applicantUserName);
+        passView = findViewById(R.id.applicantMessage);
+        phoneView = findViewById(R.id.applicantPhoneNum);
+        emailView = findViewById(R.id.applicantEmail);
+        radiusView = findViewById(R.id.applicantRadius);
         selectedPDF = findViewById(R.id.selectedPDF);
 
-        submitButton = (Button) findViewById(R.id.saveProfileUpdate);
+        submitButton = (Button) findViewById(R.id.accept);
         refreshButton = (Button) findViewById(R.id.employerHome);
     }
 
