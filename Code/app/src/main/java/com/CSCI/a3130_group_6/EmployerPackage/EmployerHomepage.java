@@ -18,6 +18,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
 import com.CSCI.a3130_group_6.Listings.AddListing;
+import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
@@ -26,8 +27,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class EmployerHomepage extends AppCompatActivity {
 
@@ -36,16 +40,22 @@ public class EmployerHomepage extends AppCompatActivity {
     DatabaseReference notificationRef;
     String taskTitle;
     int count = 0;
+    HashMap<String, Integer> listings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_homepage);
+        listings = new HashMap<>();
+
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
 
         // database reference to the Listing child of the employer who is currently logged in
         notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
+
+        createPrevListMap(notificationRef, listings);
+        System.out.println(listings.keySet());
 
         // listening to any change in data in the database
         notificationRef.addChildEventListener(new ChildEventListener() {
@@ -57,6 +67,8 @@ public class EmployerHomepage extends AppCompatActivity {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 // getting the parent of the snapshot
                 DatabaseReference parent = snapshot.getRef().getParent();
+
+                System.out.println(previousChildName);
 
                 // retrieving the task title to show in the notification
                 taskTitle = (String) snapshot.child("taskTitle").getValue();
@@ -73,6 +85,29 @@ public class EmployerHomepage extends AppCompatActivity {
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    private void createPrevListMap(DatabaseReference db, HashMap<String, Integer> listings){
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> listingItr = snapshot.getChildren().iterator();
+                while (listingItr.hasNext()) {
+                    DataSnapshot ref = listingItr.next();
+                    Listing list = ref.getValue(Listing.class);
+                    String key = ref.getKey();
+                    Iterable<DataSnapshot> applicants = ref.child("Applicants").child("Applied").getChildren();
+                    int size = 0;
+                    for (Object i: applicants){
+                        size++;
+                    }
+                    listings.put(key, size);
+                }
+                System.out.print("Listing Map: " + listings);
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
