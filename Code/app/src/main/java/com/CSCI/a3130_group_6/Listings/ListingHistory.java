@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
+import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +31,7 @@ public class ListingHistory extends AppCompatActivity {
     DatabaseReference employerRef = null;
     FirebaseDatabase database;
     String fireRef;
+    public static String listingKey;
     TextView NoListing = null;
     List<Listing> listings;
     List<String> keys;
@@ -124,6 +126,7 @@ public class ListingHistory extends AppCompatActivity {
                         details[7] = employerName.get(position);
                         editListing(view);
                     }
+                    retrieveListingKey(position, view);
                 }
             });
         }else{
@@ -206,6 +209,11 @@ public class ListingHistory extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void retrieveListingKey(int position, View view){
+        listingKey = keys.get(position);
+        System.out.println("keys: " + listingKey);
     }
 
     public void editListing(View view){
