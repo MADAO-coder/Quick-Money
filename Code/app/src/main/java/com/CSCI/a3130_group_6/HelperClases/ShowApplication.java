@@ -79,6 +79,11 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         startActivity(home);
     }
 
+    /**
+     * Function: To take the user to the URL for the Resume
+     * Parameters:
+     * Return: void
+     */
     private void showResume(){
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
@@ -87,10 +92,20 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
+    /**
+     * Function: Adds an accepted application to the database
+     * Parameters:
+     * Return: void
+     */
     private void accept(){
         decision.child("Accepted").child(username).child("Message").setValue(message);
     }
 
+    /**
+     * Function: Adds a rejected application to the database
+     * Parameters:
+     * Return: void
+     */
     private void reject(){
         decision.child("Rejected").child(username).child("Message").setValue(message);
     }
@@ -111,6 +126,11 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * Function: Method to get the Applicant's message from the database
+     * Parameters: DatabaseReference db
+     * Return: void
+     */
     public void getMessage(DatabaseReference db){
         db.addValueEventListener(new ValueEventListener() {
             @Override
