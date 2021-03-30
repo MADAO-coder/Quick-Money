@@ -98,8 +98,8 @@ public class EmployeeView extends AppCompatActivity {
         nameView = findViewById(R.id.applicantName);
         imageView = findViewById(R.id.profilePicture);
         statusView = findViewById(R.id.employeeStatusLabel);
-        descriptionBox = findViewById(R.id.descriptionBox);
-        usernameView = findViewById(R.id.employeeUsername);
+        descriptionBox = findViewById(R.id.applicantDescription);
+        usernameView = findViewById(R.id.applicantUserName);
         passView = findViewById(R.id.applicantMessage);
         phoneView = findViewById(R.id.applicantPhoneNum);
         emailView = findViewById(R.id.applicantEmail);

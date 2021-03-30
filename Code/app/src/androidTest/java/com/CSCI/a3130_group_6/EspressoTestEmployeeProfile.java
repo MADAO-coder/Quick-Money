@@ -22,7 +22,7 @@ public class EspressoTestEmployeeProfile {
 
     @Test
     public void checkIfNameIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
         onView(withId(R.id.applicantName)).perform(typeText(""));
         onView(withId(R.id.applicantEmail)).perform(typeText("employee@dal.ca"));
         closeSoftKeyboard();
@@ -36,7 +36,7 @@ public class EspressoTestEmployeeProfile {
 
     @Test
     public void checkIfEmailIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
         onView(withId(R.id.applicantName)).perform(typeText("Employee Name"));
         onView(withId(R.id.applicantEmail)).perform(typeText(""));
         closeSoftKeyboard();
@@ -50,7 +50,7 @@ public class EspressoTestEmployeeProfile {
 
     @Test
     public void checkIfPhoneNumIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
         onView(withId(R.id.applicantName)).perform(typeText("Employee Name"));
         onView(withId(R.id.applicantEmail)).perform(typeText("employee@dal.ca"));
         closeSoftKeyboard();
@@ -64,7 +64,7 @@ public class EspressoTestEmployeeProfile {
 
     @Test
     public void checkIfPasswordIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
         onView(withId(R.id.applicantName)).perform(typeText("Employee Name"));
         onView(withId(R.id.applicantEmail)).perform(typeText("employee@dal.ca"));
         closeSoftKeyboard();

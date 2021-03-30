@@ -137,7 +137,7 @@
         app:layout_constraintBottom_toTopOf="@+id/applicantPhoneNum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeEmail"
-        app:layout_constraintTop_toBottomOf="@+id/employeeUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/applicantUserName" />
 
     <TextView
         android:id="@+id/employeeEmail"
@@ -155,7 +155,7 @@
         app:layout_constraintTop_toBottomOf="@+id/employeeUserName" />
 
     <TextView
-        android:id="@+id/employeeUsername"
+        android:id="@+id/applicantUserName"
         android:layout_width="272dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
@@ -184,7 +184,7 @@
         android:text="Username"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/employeeEmail"
-        app:layout_constraintEnd_toStartOf="@+id/employeeUsername"
+        app:layout_constraintEnd_toStartOf="@+id/applicantUserName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeName" />
 
@@ -221,7 +221,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/descriptionBox"
+        android:id="@+id/applicantDescription"
         android:layout_width="176dp"
         android:layout_height="78dp"
         android:layout_marginStart="28dp"
@@ -262,10 +262,10 @@
         android:inputType="textPersonName"
         android:background="@color/purple_500"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeeUsername"
+        app:layout_constraintBottom_toTopOf="@+id/applicantUserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employeeName"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionBox"
+        app:layout_constraintTop_toBottomOf="@+id/applicantDescription"
         app:layout_constraintVertical_bias="0.65" />
 
     <Button

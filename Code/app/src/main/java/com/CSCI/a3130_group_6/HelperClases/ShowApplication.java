@@ -32,6 +32,15 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_application);
         homeButton = findViewById(R.id.employerHome);
+
+        applicantMessage = findViewById(R.id.applicantMessage);
+        applicantName = findViewById(R.id.applicantName);
+        employeeUsername = findViewById(R.id.applicantUserName);
+        applicantEmail = findViewById(R.id.applicantEmail);
+        applicantPhoneNum = findViewById(R.id.applicantPhoneNum);
+        applicantRadius = findViewById(R.id.applicantRadius);
+        descriptionBox = findViewById(R.id.applicantDescription);
+
         homeButton.setOnClickListener(this);
 
         Intent intent = getIntent();
@@ -70,10 +79,11 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
                 //need to check against correct value to retrieve the correct location
                 if(employee!=null){
                     user = new UserLocation();
-                    user = dataSnapshot.child(employeeName).child("Location").getValue(UserLocation.class);
+                    radius = dataSnapshot.child(employeeName).child("Location").child("radius").getValue(String.class);
                     if (user != null) {
                         radius = user.getRadius();
                     }
+
                     username = employee.getUserName();
                     // applicantMessage = employ
                     phone = employee.getPhone();
