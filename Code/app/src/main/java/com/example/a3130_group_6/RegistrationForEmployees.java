@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -216,11 +217,9 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         employees.setPhone(getPhoneNumber());
         employees.setName(getName());
         employees.setClientID(getClientID());
-
-        employeeRef = FirebaseDatabase.getInstance().getReference();
-        employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
+        employeeRef.child(employees.getUserName()).setValue(Employee);
         UserLocation present = new UserLocation(userCurrentLocation.latitude, userCurrentLocation.longitude, getInputRadius());
-        employeeRef.child("Employee").child(employees.getUserName()).child("Location").setValue(present);
+        employeeRef.child(employees.getUserName()).child("Location").setValue(present);
     }
 
     protected String getInputUserName() {
@@ -525,6 +524,10 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
             }
             else if(!validateRadiusRange(getInputRadius())){
                 createToast("Radius should be between 1 and 25");
+            }
+            else if(getClientID()==null || getClientID().equals("")){
+                statusLabel.setText("PayPal ID must be input");
+                createToast("Paypal ID must be input");
             }
             else {
                 employees.setUserName(getInputUserName());
