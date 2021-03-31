@@ -22,57 +22,57 @@ public class EspressoTestEmployeeProfile {
 
     @Test
     public void checkIfNameIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
-        onView(withId(R.id.employeeNameInput)).perform(typeText(""));
-        onView(withId(R.id.employeeEmailInput)).perform(typeText("employee@dal.ca"));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantName)).perform(typeText(""));
+        onView(withId(R.id.applicantEmail)).perform(typeText("employee@dal.ca"));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePhoneNumInput)).perform(typeText("1234567"));
+        onView(withId(R.id.applicantPhoneNum)).perform(typeText("1234567"));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePassInput)).perform(typeText("test"));
+        onView(withId(R.id.applicantMessage)).perform(typeText("test"));
         closeSoftKeyboard();
-        onView(withId(R.id.saveProfileUpdate)).perform(click());
+        onView(withId(R.id.accept)).perform(click());
         onView(withId(R.id.employeeStatusLabel)).check(matches(withText("Error: Please fill in name")));
     }
 
     @Test
     public void checkIfEmailIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
-        onView(withId(R.id.employeeNameInput)).perform(typeText("Employee Name"));
-        onView(withId(R.id.employeeEmailInput)).perform(typeText(""));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantName)).perform(typeText("Employee Name"));
+        onView(withId(R.id.applicantEmail)).perform(typeText(""));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePhoneNumInput)).perform(typeText("1234567"));
+        onView(withId(R.id.applicantPhoneNum)).perform(typeText("1234567"));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePassInput)).perform(typeText("test"));
+        onView(withId(R.id.applicantMessage)).perform(typeText("test"));
         closeSoftKeyboard();
-        onView(withId(R.id.saveProfileUpdate)).perform(click());
+        onView(withId(R.id.accept)).perform(click());
         onView(withId(R.id.employeeStatusLabel)).check(matches(withText("Error: Please fill in email")));
     }
 
     @Test
     public void checkIfPhoneNumIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
-        onView(withId(R.id.employeeNameInput)).perform(typeText("Employee Name"));
-        onView(withId(R.id.employeeEmailInput)).perform(typeText("employee@dal.ca"));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantName)).perform(typeText("Employee Name"));
+        onView(withId(R.id.applicantEmail)).perform(typeText("employee@dal.ca"));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePhoneNumInput)).perform(typeText(""));
+        onView(withId(R.id.applicantPhoneNum)).perform(typeText(""));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePassInput)).perform(typeText("test"));
+        onView(withId(R.id.applicantMessage)).perform(typeText("test"));
         closeSoftKeyboard();
-        onView(withId(R.id.saveProfileUpdate)).perform(click());
+        onView(withId(R.id.accept)).perform(click());
         onView(withId(R.id.employeeStatusLabel)).check(matches(withText("Error: Please fill in phone number")));
     }
 
     @Test
     public void checkIfPasswordIsEmpty() {
-        onView(withId(R.id.descriptionBox)).perform(typeText("This is my description"));
-        onView(withId(R.id.employeeNameInput)).perform(typeText("Employee Name"));
-        onView(withId(R.id.employeeEmailInput)).perform(typeText("employee@dal.ca"));
+        onView(withId(R.id.applicantDescription)).perform(typeText("This is my description"));
+        onView(withId(R.id.applicantName)).perform(typeText("Employee Name"));
+        onView(withId(R.id.applicantEmail)).perform(typeText("employee@dal.ca"));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePhoneNumInput)).perform(typeText("1234567"));
+        onView(withId(R.id.applicantPhoneNum)).perform(typeText("1234567"));
         closeSoftKeyboard();
-        onView(withId(R.id.employeePassInput)).perform(typeText(""));
+        onView(withId(R.id.applicantMessage)).perform(typeText(""));
         closeSoftKeyboard();
-        onView(withId(R.id.saveProfileUpdate)).perform(click());
+        onView(withId(R.id.accept)).perform(click());
         onView(withId(R.id.employeeStatusLabel)).check(matches(withText("Error: Please fill in password")));
     }
 

@@ -5,7 +5,7 @@ import java.util.*;
 import java.lang.*;
 
 /**
- * Helper class to sort date in descending order
+ * Helper class to sort listings by date and location
  *
  * @author  Pulkit, Han
  */

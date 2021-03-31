@@ -108,7 +108,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         EditText downloadImageName = (EditText) findViewById(R.id.etDownloadName);
 
         uploadResume = findViewById(R.id.uploadResume);
-        selectResume = findViewById(R.id.selectResume);
+        selectResume = findViewById(R.id.seeResume);
 
         name = findViewById(R.id.name);
         username = findViewById(R.id.username);

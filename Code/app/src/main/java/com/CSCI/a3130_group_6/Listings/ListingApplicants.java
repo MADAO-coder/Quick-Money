@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
-import com.CSCI.a3130_group_6.EmployeePackage.EmployeeView;
+import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +31,10 @@ public class ListingApplicants extends AppCompatActivity {
     DatabaseReference listingRef;
     FirebaseDatabase db;
     Iterator<DataSnapshot> applicantItr;
-    ArrayList<String> applicantNames;
+    ArrayList<String> applicantUserId;
+
+    // ToDo: Get the names of users who applied to the listing in this arraylist to show in the Listing of applicants - Bryson
+    ArrayList<String> applicantName;
     ArrayList<String> applicantMessages;
 
     @Override
@@ -49,8 +52,9 @@ public class ListingApplicants extends AppCompatActivity {
         description = intent.getStringExtra("description");
         urgency = intent.getStringExtra("urgency");
 
-        applicantNames = new ArrayList<>();
+        applicantUserId = new ArrayList<>();
         applicantMessages = new ArrayList<>();
+        applicantName = new ArrayList<>();
 
         applicantStatus = findViewById(R.id.noApplicantsMessage);
         applicantList = findViewById(R.id.applicantList);
@@ -81,7 +85,7 @@ public class ListingApplicants extends AppCompatActivity {
                     // multiple applicants
                     while(applicantItr.hasNext()){
                         applicant[0] = applicantItr.next();
-                        applicantNames.add(applicant[0].getKey());
+                        applicantUserId.add(applicant[0].getKey());
                         // get messages  of applied applicants
                         applicantMessages.add(applicant[0].getValue().toString());
                     }
@@ -109,10 +113,11 @@ public class ListingApplicants extends AppCompatActivity {
     public void updateApplicants(){
         // display applicants in scrolling list view
         //AT 3
-        if(applicantNames.size()>0){
-            String[] applicantsString = new String[applicantNames.size()];
+        if(applicantUserId.size()>0){
+            String[] applicantsString = new String[applicantUserId.size()];
             for(int i=0; i<applicantsString.length; i++){
-                applicantsString[i] = applicantNames.get(i) + "\tStatus:" + applicantMessages.get(i);
+//                applicantsString[i] = applicantNames.get(i) + "\tStatus:" + applicantMessages.get(i);
+                applicantsString[i] = "Applicant " + applicantUserId.get(i);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, applicantsString);
             applicantList.setAdapter(adapter);
@@ -122,7 +127,7 @@ public class ListingApplicants extends AppCompatActivity {
                     // on click route to employee details page
                     // send applicant name as extra -> use it to filter db
                     // TODO AT-5
-                    employeeName = applicantNames.get(position);
+                    employeeName = applicantUserId.get(position);
                     sendToEmployeeDetails(view);
                 }
             });
@@ -132,7 +137,7 @@ public class ListingApplicants extends AppCompatActivity {
     }
 
     public void sendToEmployeeDetails(View view){
-        Intent switchIntent = new Intent(this, EmployeeView.class);
+        Intent switchIntent = new Intent(this, ShowApplication.class);
         switchIntent.putExtra("name", employeeName);
         startActivity(switchIntent);
     }
