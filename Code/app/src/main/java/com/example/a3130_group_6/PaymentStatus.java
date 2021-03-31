@@ -67,12 +67,14 @@ public class PaymentStatus extends AppCompatActivity {
     }
     private void updateWallet(){
         DatabaseReference listingRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/");
-        // delete from Accepted not working
-         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Applied").child(employeeName).setValue(null);
+         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Accepted").child(employeeName).setValue(null);
         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Paid").child(employeeName).child("Message").setValue("Payment from a Nigerian Prince");
 
         // update wallet reference under employeeName
         DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+ employeeName + "/");
+        if(wallet==null){
+            wallet = "0";
+        }
         String postPay = wallet;
         if(responseData.getResponse().getState().equals("approved")){
             int amnt = Integer.parseInt(wallet) + Integer.parseInt(amount);

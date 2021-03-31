@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +52,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
     SortHelper sort = new SortHelper();
+    TextView walletView;
+    String wallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
         sortButton = findViewById(R.id.sortButton);
         sortButton.setOnClickListener(this);
-
+        walletView = findViewById(R.id.walletView);
         dbReadEmployees(employerRef, listings);
         this.showDropDownMenu();
     }
@@ -240,6 +243,12 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                     Employee employee = employeeItr.next().getValue(Employee.class);
                     //need to check against correct value to retrieve the correct location
                     if (employee.getUserName().equals(validEmployee[0])){
+                        if(dataSnapshot.child(validEmployee[0]).child("wallet").getValue()!=null){
+                            wallet = (String) dataSnapshot.child(validEmployee[0]).child("wallet").getValue();
+                            walletView.setText("Wallet: $" + wallet);
+                        }else{
+                            walletView.setText("Wallet: $0");
+                        }
                         user = new UserLocation();
                         user = dataSnapshot.child(validEmployee[0]).child("Location").getValue(UserLocation.class);
                         sortByLocation(user);

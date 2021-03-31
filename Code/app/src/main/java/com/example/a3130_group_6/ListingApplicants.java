@@ -71,23 +71,30 @@ public class ListingApplicants extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> dataItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
-                lHold[0] = dataItr.next();
-                // if employers listing has applicants
-                if(lHold[0].getKey().equals("Applied")){
-                    applicantItr = lHold[0].getChildren().iterator();
-                    // multiple applicants
-                    while(applicantItr.hasNext()){
-                        applicant[0] = applicantItr.next();
-                        applicantNames.add(applicant[0].getKey());
-                        // get messages  of applied applicants
-                        applicantMessages.add(applicant[0].getValue().toString());
+                if(dataItr.hasNext()){
+                    while(dataItr.hasNext()){
+                        lHold[0] = dataItr.next();
+                        // if employers listing has applicants
+                        if(lHold[0].getKey().equals("Applied")){
+                            applicantItr = lHold[0].getChildren().iterator();
+                            // multiple applicants
+                            while(applicantItr.hasNext()){
+                                applicant[0] = applicantItr.next();
+                                applicantNames.add(applicant[0].getKey());
+                                // get messages  of applied applicants
+                                applicantMessages.add(applicant[0].getValue().toString());
+                            }
+                            updateApplicants();
+                        }
+                        // no applicants
+                        else{
+                            applicantStatus.setVisibility(View.VISIBLE);
+                        }
                     }
-                    updateApplicants();
-                }
-                // no applicants
-                else{
+                }else{
                     applicantStatus.setVisibility(View.VISIBLE);
                 }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
