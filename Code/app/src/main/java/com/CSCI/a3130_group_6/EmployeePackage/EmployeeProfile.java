@@ -79,7 +79,7 @@ public class EmployeeProfile extends AppCompatActivity {
         setContentView(R.layout.activity_employee_profile);
 
         storage = FirebaseStorage.getInstance();
-        database=FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         // get data from database
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
@@ -89,7 +89,6 @@ public class EmployeeProfile extends AppCompatActivity {
 
         imageView = findViewById(R.id.profilePicture);
         imageButton = findViewById(R.id.profileImageButton);
-
         uploadResume = findViewById(R.id.uploadResume);
         selectResume = findViewById(R.id.seeResume);
 
@@ -124,7 +123,7 @@ public class EmployeeProfile extends AppCompatActivity {
                 else {
                     employee.setName(nameView.getText().toString());
                     employee.setDescription(descriptionBox.getText().toString());
-                    //employee.setUserName(usernameView.getText().toString());
+
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
@@ -134,7 +133,7 @@ public class EmployeeProfile extends AppCompatActivity {
                     user.getLatitude();
                     // updates to db
                     updateToDatabase(employee, user);
-                    //updateLocationToDatabase(user);
+
                 }
 
             }
@@ -164,8 +163,6 @@ public class EmployeeProfile extends AppCompatActivity {
                     else{
                         //permission granted
                         openCamera();
-
-
                     }
                 }
                 else{
@@ -326,7 +323,7 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("resumeUrl", employee.getResumeUrl());
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
-        // employeeRef.setValue(employee);
+
 
         //Location
         Map<String, Object> locationUpdates = new HashMap<>();
