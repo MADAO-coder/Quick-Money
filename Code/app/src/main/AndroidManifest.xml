@@ -2,12 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.CSCI.a3130_group_6">
-
-    <uses-feature
-        android:name="android.hardware.camera"
+    <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -16,7 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -25,9 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3130_Group_6">
-        <activity android:name=".Chat"></activity>
-        <activity android:name=".HelperClases.EmployerChatList" />
-        <activity android:name=".HelperClases.ShowApplication" />
+        <activity android:name="com.CSCI.a3130_group_6.HelperClases.ShowApplication"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,31 +38,30 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".HelperClases.MapsActivity"
+            android:name="com.CSCI.a3130_group_6.HelperClases.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Listings.AddListingMap" />
-        <activity android:name=".EmployeePackage.EmployeeProfile" />
-        <activity android:name=".EmployeePackage.EmployeeHomepage" />
-        <activity android:name=".EmployerPackage.EmployerHomepage" />
-        <activity android:name=".Listings.ListingHistory" />
-        <activity android:name=".Listings.ListingApplicants" />
-        <activity android:name=".EmployerPackage.EmployerProfile" />
-        <activity android:name=".EmployeePackage.EmployeeView" />
-        <activity android:name=".Registration.RegistrationForEmployees" />
-        <activity android:name=".Registration.RegistrationHome" />
-        <activity android:name=".Registration.RegistrationForEmployers" />
-        <activity android:name=".Listings.AddListing" />
-        <activity android:name=".Listings.ListingDetails" />
-        <activity android:name=".Listings.EditEmployerListing" />
-        <activity android:name=".Registration.LoginPage">
+        <activity android:name="com.CSCI.a3130_group_6.Listings.AddListingMap" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeProfile" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.ListingHistory" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.ListingApplicants" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile" />
+        <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeView" />
+        <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationForEmployees" />
+        <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationHome" />
+        <activity android:name="com.CSCI.a3130_group_6.Registration.RegistrationForEmployers" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.AddListing" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.ListingDetails" />
+        <activity android:name="com.CSCI.a3130_group_6.Listings.EditEmployerListing"> </activity>
+        <activity android:name="com.CSCI.a3130_group_6.Registration.LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HelperClases.ImageCapture" />
-
+        <activity android:name="com.CSCI.a3130_group_6.HelperClases.ImageCapture"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.CSCI.android.fileprovider"
@@ -73,7 +69,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"></meta-data>
         </provider>
     </application>
 
