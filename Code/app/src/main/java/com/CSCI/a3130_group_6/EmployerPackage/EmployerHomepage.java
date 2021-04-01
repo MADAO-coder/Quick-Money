@@ -26,8 +26,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class EmployerHomepage extends AppCompatActivity {
 
@@ -35,18 +40,23 @@ public class EmployerHomepage extends AppCompatActivity {
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
     String taskTitle;
-    int count = 0;
+
+    Map<String, Integer> listings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_homepage);
 
+        listings = Collections.synchronizedMap(new HashMap<String, Integer>());
+
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
 
         // database reference to the Listing child of the employer who is currently logged in
         notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
+
+        createPrevListMap(notificationRef);
 
         // listening to any change in data in the database
         notificationRef.addChildEventListener(new ChildEventListener() {
@@ -59,14 +69,22 @@ public class EmployerHomepage extends AppCompatActivity {
                 // getting the parent of the snapshot
                 DatabaseReference parent = snapshot.getRef().getParent();
 
-                System.out.println(previousChildName);
+                // getting the children of the Applied object under the listing that has changed
+                Iterable<DataSnapshot> newList = snapshot.child("Applicants").child("Applied").getChildren();
+
+                int sizeNew = 0;
+                for (Object i: newList) {
+                    sizeNew++;
+                }
 
                 // retrieving the task title to show in the notification
                 taskTitle = (String) snapshot.child("taskTitle").getValue();
 
                 // checking if the parent of the listing matches the current employer who is logged in
                 if (parent.getParent().getKey().equals(LoginPage.validEmployer[0])) {
-                    notification();
+                    if (listings.get(snapshot.getKey()) < sizeNew) {
+                        notification(snapshot.getKey(), sizeNew);
+                    }
                 }
             }
 
@@ -81,35 +99,73 @@ public class EmployerHomepage extends AppCompatActivity {
         });
     }
 
+
+    private void createPrevListMap(DatabaseReference db){
+        HashMap<String, Integer> applicantSizeMap = new HashMap<>();
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> listingItr = snapshot.getChildren().iterator();
+                while (listingItr.hasNext()) {
+                    DataSnapshot ref = listingItr.next();
+                    String key = ref.getKey();
+                    Iterable<DataSnapshot> applicants = ref.child("Applicants").child("Applied").getChildren();
+                    int size = 0;
+                    for (Object i: applicants) {
+                        size++;
+                    }
+                    applicantSizeMap.put(key, size);
+                }
+                setListingObject(applicantSizeMap);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    private void setListingObject(HashMap<String, Integer> list) {
+        this.listings = list;
+    }
+
     /**
      * Function: This method is used to create a push notification on the device
      * Parameters: none
      * Returns: void
      * Citation: Idea from https://www.geeksforgeeks.org/how-to-push-notification-in-android-using-firebase-cloud-messaging/
      */
-    private void notification() {
-        Intent applicationIntent = applicationIntent();
-        PendingIntent pendingIntent
-                = PendingIntent.getActivity(
-                this, 0, applicationIntent,
-                PendingIntent.FLAG_ONE_SHOT);
+    private void notification(String snapshot, int sizeNew) {
+        if (listings.get(snapshot) < sizeNew) {
+            Intent applicationIntent = applicationIntent();
+            PendingIntent pendingIntent
+                    = PendingIntent.getActivity(
+                    this, 0, applicationIntent,
+                    PendingIntent.FLAG_ONE_SHOT);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel =
-                    new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel =
+                        new NotificationChannel("n", "n", NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationManager manager = getSystemService(NotificationManager.class);
+                manager.createNotificationChannel(channel);
+            }
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
+                    .setContentText("Application")
+                    .setSmallIcon(R.drawable.application)
+                    .setAutoCancel(true)
+                    .setContentText("An employee applied to your listing: " + taskTitle)
+                    .setContentIntent(pendingIntent);
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+
+            // creating unique ID based on the key in the hashmap
+            int id = 0;
+            for (char a: snapshot.toCharArray()) {
+                id += (int) a;
+            }
+            id+=listings.get(snapshot);
+            managerCompat.notify(id, builder.build());
+
+            listings.put(snapshot, listings.get(snapshot) + 1);
         }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
-                .setContentText("Application")
-                .setSmallIcon(R.drawable.application)
-                .setAutoCancel(true)
-                .setContentText("An employee applied to your listing: " + taskTitle)
-                .setContentIntent(pendingIntent);
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-        managerCompat.notify(100+count, builder.build());
-        count++;
     }
 
     public Intent applicationIntent(){
