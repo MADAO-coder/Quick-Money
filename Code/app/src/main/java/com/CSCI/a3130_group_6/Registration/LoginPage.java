@@ -29,7 +29,6 @@ public class LoginPage extends AppCompatActivity {
     public static String[] validEmployer = new String[2];
     public static String[] validEmployee = new String[2];
     public static Employee currentEmployee;
-
     public Button loginBt;
     public TextView loginStatus;
     DatabaseReference employerRef = null;

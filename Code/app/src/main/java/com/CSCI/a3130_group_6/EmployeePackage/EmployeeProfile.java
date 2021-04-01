@@ -23,11 +23,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
+import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +54,7 @@ public class EmployeeProfile extends AppCompatActivity {
     FirebaseStorage storage;
     FirebaseDatabase database;
     UserLocation user;
+    TabLayout tab;
 
 
     String userName = validEmployee[0];
@@ -74,7 +79,7 @@ public class EmployeeProfile extends AppCompatActivity {
         setContentView(R.layout.activity_employee_profile);
 
         storage = FirebaseStorage.getInstance();
-        database=FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         // get data from database
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
@@ -84,7 +89,6 @@ public class EmployeeProfile extends AppCompatActivity {
 
         imageView = findViewById(R.id.profilePicture);
         imageButton = findViewById(R.id.profileImageButton);
-
         uploadResume = findViewById(R.id.uploadResume);
         selectResume = findViewById(R.id.seeResume);
 
@@ -119,7 +123,7 @@ public class EmployeeProfile extends AppCompatActivity {
                 else {
                     employee.setName(nameView.getText().toString());
                     employee.setDescription(descriptionBox.getText().toString());
-                    //employee.setUserName(usernameView.getText().toString());
+
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
@@ -129,7 +133,7 @@ public class EmployeeProfile extends AppCompatActivity {
                     user.getLatitude();
                     // updates to db
                     updateToDatabase(employee, user);
-                    //updateLocationToDatabase(user);
+
                 }
 
             }
@@ -159,8 +163,6 @@ public class EmployeeProfile extends AppCompatActivity {
                     else{
                         //permission granted
                         openCamera();
-
-
                     }
                 }
                 else{
@@ -192,6 +194,39 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
             }
         });
+        tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        switchListingHistory();
+                        break;
+                    case "Profile":
+                        profileSwitch();
+                        break;
+                    case "Logout":
+                        LogoutSwitch();
+                        break;
+                    case "Home":
+                        homepageSwitch();
+                        break;
+                    case "Chat":
+                        chatSwitch();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
     }
 
     private void selectPDF() {
@@ -288,7 +323,7 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("resumeUrl", employee.getResumeUrl());
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
-        // employeeRef.setValue(employee);
+
 
         //Location
         Map<String, Object> locationUpdates = new HashMap<>();
@@ -306,7 +341,7 @@ public class EmployeeProfile extends AppCompatActivity {
         // save object user to database to Firebase
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         dbReadEmployee(employeeRef);
-        //statusView.setText("Profile changes refreshed");
+
     }
 
     public void loadProfile(){
@@ -323,8 +358,6 @@ public class EmployeeProfile extends AppCompatActivity {
     public UserLocation getEmployeeLocation(){
         return user;
     }
-
-
 
     //code from loginPage
     //Read data from dataBase and retrieve employee information
@@ -357,12 +390,8 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
                 loadProfile();
             }
-
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-
-                }
+                public void onCancelled(DatabaseError databaseError) {}
             });
         }
 
@@ -457,5 +486,28 @@ public class EmployeeProfile extends AppCompatActivity {
         statusLabel.setText(message);
     }
 
+    public void profileSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(),EmployeeProfile.class);
+        startActivity(switchIntent);
+    }
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployeeHomepage.class);
+        startActivity(switchIntent);
+    }
 
+    public void switchListingHistory() {
+        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
+        startActivity(switchIntent);
+    }
+    public void LogoutSwitch() {
+
+        LoginPage.validEmployee = null;
+        Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_SHORT).show();
+        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivity(switchIntent);
+    }
+    public void chatSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
+        startActivity(switchIntent);
+    }
 }

@@ -8,7 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,10 +19,16 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
+import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
+import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
 import com.CSCI.a3130_group_6.Listings.AddListing;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
+
+import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
+import com.google.android.material.tabs.TabLayout;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,8 +42,13 @@ public class EmployerHomepage extends AppCompatActivity {
     ArrayList<Employee> employees;
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
+
+    Button addTask;
+    TabLayout tab;
+
     String taskTitle;
     int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +57,38 @@ public class EmployerHomepage extends AppCompatActivity {
 
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
+        addTask= findViewById(R.id.addTaskButton);
+        addTask.setOnClickListener(this::addTaskSwitch);
+        tab =findViewById(R.id.tabs);
+
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        switchListingHistory();
+                        break;
+                    case "Profile":
+                        profileSwitch();
+                        break;
+                    case "Logout":
+                        LogoutSwitch();
+                        break;
+                    case "Home":
+                        homepageSwitch();
+                        break;
+                    case "Chat":
+                        chatSwitch();
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
 
         // database reference to the Listing child of the employer who is currently logged in
         notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
@@ -51,10 +96,11 @@ public class EmployerHomepage extends AppCompatActivity {
         // listening to any change in data in the database
         notificationRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
 
             @Override
+
+
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 // getting the parent of the snapshot
                 DatabaseReference parent = snapshot.getRef().getParent();
@@ -69,6 +115,7 @@ public class EmployerHomepage extends AppCompatActivity {
                     notification();
                 }
             }
+
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
@@ -120,8 +167,8 @@ public class EmployerHomepage extends AppCompatActivity {
     public void setEmployeeList(){
         // connect to db, retrieve employees
         employees = new ArrayList<>();
-        // causing bugs (wasn't working before anyway)
-        //dbReadEmployees(employeeRef, employees);
+
+
         String[] employeesString = new String[employees.size()];
         employees.toArray(employeesString);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employeesString);
@@ -129,13 +176,7 @@ public class EmployerHomepage extends AppCompatActivity {
         employeeList.setAdapter(adapter);
     }
 
-    public boolean searchFunctioning(String search){
-        /* irrelevant testing process for unit tests.
-        searchView.setQuery(search, true);
-        return searchView.getQuery().toString().equals(search);
-        */
-        return !search.isEmpty();
-    }
+    public boolean searchFunctioning(String search){ return !search.isEmpty(); }
 
     public boolean checkEmployeeList(String[] employees){
         for(String individual : employees) {
@@ -149,41 +190,44 @@ public class EmployerHomepage extends AppCompatActivity {
     }
 
     /**
-     * Function: This is a method to switch to Employer profile class
-     * Parameters: none
-     * Returns: void
-     *
-     */
-    public void profileSwitch(View view) {
-        Intent switchIntent = new Intent(this, EmployerProfile.class);
-        startActivity(switchIntent);
-    }
-
-    /**
      * Function: This is a method to switch to Add listing page
      * Parameters: none
      * Returns: void
      *
      */
-    public void addTaskSwitch(View view) {
+    public void addTaskSwitch(View v) {
         Intent switchIntent = new Intent(this, AddListing.class);
         startActivity(switchIntent);
     }
-
     /**
-     * Function: This is a method to switch to Employer homepage
+     * Function: This is a method to switch to Employer profile class
      * Parameters: none
      * Returns: void
      *
-     */
-    public void homepageSwitch(View view) {
-        Intent switchIntent = new Intent(this, EmployerHomepage.class);
+    */
+
+    public void profileSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerProfile.class);
+        startActivity(switchIntent);
+    }
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerHomepage.class);
         startActivity(switchIntent);
     }
 
-    public void switchListingHistory(View view) {
-        Intent switchIntent = new Intent(this, ListingHistory.class);
+    public void switchListingHistory() {
+        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
         startActivity(switchIntent);
     }
-
+    public void LogoutSwitch() {
+        ListingHistory.employerRef=null;
+        LoginPage.validEmployee = null;
+        Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_SHORT).show();
+        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivity(switchIntent);
+    }
+    public void chatSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
+        startActivity(switchIntent);
+    }
 }

@@ -12,11 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.CSCI.a3130_group_6.HelperClases.EmployerChatList;
 import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.Listings.ListingDetails;
+import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.SortHelper;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +56,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
     SortHelper sort = new SortHelper();
+    TabLayout tab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +70,42 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         employeeProfile = new EmployeeProfile();
 
-        employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
-        employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
         sortButton = findViewById(R.id.sortButton);
         sortButton.setOnClickListener(this);
 
         dbReadEmployees(employerRef, listings);
         this.showDropDownMenu();
+        tab =findViewById(R.id.tabs);
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        switchListingHistory();
+                        break;
+                    case "Profile":
+                        profileSwitch();
+                        break;
+                    case "Logout":
+                        LogoutSwitch();
+                        break;
+                    case "Home":
+                        homepageSwitch();
+                        break;
+                    case "Chat":
+                        chatSwitch();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
     }
 
     /**
@@ -256,25 +291,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * Function: This method switches intent to the employee homepage
-     * Parameters: View view
-     * Returns: void
-     *
-     */
-    public void homepageSwitch(View view) {
-        Intent switchIntent = new Intent(this, EmployeeHomepage.class);
-        startActivity(switchIntent);
-    }
-
-    /**
-     * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
-     */
-    public void employeeProfileSwitch() {
-        Intent switchIntent = new Intent(this, EmployeeProfile.class);
-        startActivity(switchIntent);
-    }
-
-    /**
      * Method to get the text from the dropdown menu for sort
      * @return
      * The following method has been used from Assignment 4
@@ -286,10 +302,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
 
     public void onClick(View v) {
-        if(v.getId() == R.id.employeeProfileButton){
-         employeeProfileSwitch();
-        }
-        else if (v.getId() == R.id.sortButton) {
+        if (v.getId() == R.id.sortButton) {
             String selectedItem = getSelectedItem();
             if (selectedItem.equals("sort by urgency")) {
                 sortByUrgency();
@@ -300,4 +313,33 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             }
         }
     }
+
+    public void profileSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(),EmployeeProfile.class);
+        startActivity(switchIntent);
+    }
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployeeHomepage.class);
+        startActivity(switchIntent);
+    }
+
+    public void switchListingHistory() {
+        Intent switchIntent = new Intent(getApplicationContext(), ListingHistory.class);
+        startActivity(switchIntent);
+    }
+    public void LogoutSwitch() {
+
+        LoginPage.validEmployee = null;
+        Toast.makeText(getApplicationContext(), "Logging out", Toast.LENGTH_SHORT).show();
+        Intent switchIntent = new Intent(getApplicationContext(), LoginPage.class);
+        startActivity(switchIntent);
+    }
+    public void chatSwitch() {
+        Intent switchIntent = new Intent(getApplicationContext(), EmployerChatList.class);
+        startActivity(switchIntent);
+    }
+
+
+
+
 }
