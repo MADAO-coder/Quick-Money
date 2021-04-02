@@ -12,7 +12,7 @@ import com.CSCI.a3130_group_6.R;
 public class RegistrationHome extends AppCompatActivity implements View.OnClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_home);
 

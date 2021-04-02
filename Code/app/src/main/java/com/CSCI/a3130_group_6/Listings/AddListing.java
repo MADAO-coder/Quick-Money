@@ -55,7 +55,7 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState){
+    protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putString("taskTitle", taskTitle.getText().toString());
         outState.putString("taskDescription", taskDescription.getText().toString());

@@ -57,7 +57,6 @@
         <activity android:name="com.CSCI.a3130_group_6.Registration.LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

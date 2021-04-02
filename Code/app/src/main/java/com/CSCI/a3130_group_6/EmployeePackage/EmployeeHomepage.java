@@ -1,6 +1,7 @@
 package com.CSCI.a3130_group_6.EmployeePackage;
 
-
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.annotation.SuppressLint;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -23,14 +26,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import android.widget.TextView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployee;
 
@@ -40,13 +51,17 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     DataSnapshot listingData;
     ListView taskList;
     Iterator<DataSnapshot> listingItr;
+    ArrayList<Listing> listings;
+    ArrayList<String> keys;
+    ArrayList<String> employers;
+    EditText search;
+    ArrayAdapter<String> adapter;
+    String[] listingsString;
     String [] details;
     List<String> employerName;
+
     Button employeeProfileButton, sortButton;
     private EmployeeProfile employeeProfile;
-    private ArrayList<Listing> listings = new ArrayList<>();
-    private ArrayList<String> keys = new ArrayList<>();
-    private ArrayList<String> employers = new ArrayList<>();
     private UserLocation user;
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
@@ -58,7 +73,13 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_employee_homepage);
 
         taskList = (findViewById(R.id.TaskList));
-
+        listings = new ArrayList<>();
+        keys = new ArrayList<>();
+        employers = new ArrayList<>();
+        employerName = new ArrayList<>();
+        db = FirebaseDatabase.getInstance();
+        search = findViewById(R.id.newSearchBar);
+        TextView searchStatus = findViewById(R.id.searchStatus);
         db = FirebaseDatabase.getInstance();
         employeeRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
@@ -70,7 +91,32 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         sortButton.setOnClickListener(this);
 
         dbReadEmployees(employerRef, listings);
+
         this.showDropDownMenu();
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                EmployeeHomepage.this.adapter.getFilter().filter(s);
+
+                adapter.getFilter().filter(s, new Filter.FilterListener() {
+                    @Override
+                    public void onFilterComplete(int count) {
+                        if (count == 0){
+                            searchStatus.setText("No tasks available based on search");
+                        } else {
+                            searchStatus.setText("");
+                        }
+                    }
+                });
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     /**
@@ -87,7 +133,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 //            listingsString[i] = list.get(i).getTaskTitle() + "\tStatus:" + list.get(i).getStatus() + "\tDate:" + list.get(i).getUrgency();
             listingsString[i] = list.get(i).getTaskTitle();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
         taskList.setAdapter(adapter);
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

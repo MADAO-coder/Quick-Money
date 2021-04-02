@@ -53,43 +53,43 @@ public class ListingDetails extends AppCompatActivity {
         setTextBox();
     }
 
-    protected void setTitleDisplay(String title){
+    public void setTitleDisplay(String title){
         TextView textView = findViewById(R.id.titleInput);
         textView.setText(title);
     }
-    protected void setDescriptionDisplay(String description){
+    public void setDescriptionDisplay(String description){
         TextView textView = findViewById(R.id.descriptionInput);
         textView.setText(description);
     }
-    protected void setUrgencyDisplay(String urgency){
+    public void setUrgencyDisplay(String urgency){
         TextView textView = findViewById(R.id.urgencyInput);
         textView.setText(urgency);
     }
-    protected void setDateDisplay(String date){
+    public void setDateDisplay(String date){
         TextView textView = findViewById(R.id.dateInput);
         textView.setText(date);
     }
-    protected void setPayDisplay(String pay){
+    public void setPayDisplay(String pay){
         TextView textView = findViewById(R.id.payInput);
         textView.setText(pay);
     }
 
-    protected void setStatusDisplay(String status){
+    public void setStatusDisplay(String status){
         TextView textView = findViewById(R.id.statusInput);
         textView.setText(status);
     }
 
-    protected void setLatitudeDisplay(String lat){
+    public void setLatitudeDisplay(String lat){
         TextView textView = findViewById(R.id.latitudeInput);
         textView.setText(lat);
     }
 
-    protected void setLongitudeDisplay(String longitude){
+    public void setLongitudeDisplay(String longitude){
         TextView textView = findViewById(R.id.longitudeInput);
         textView.setText(longitude);
     }
 
-    protected void setTextBox() {
+    public void setTextBox() {
         setTitleDisplay(listing[0]);
         setDescriptionDisplay(listing[1]);
         setUrgencyDisplay(listing[2]);
@@ -111,7 +111,7 @@ public class ListingDetails extends AppCompatActivity {
      * Returns: void
      *
      */
-    protected void applyToListing(){
+    public void applyToListing(){
         // save current employee under listing in database
         // save object user to database to Firebase
         listingRef.child(listing[7]).child("Listing").child(listing[6]).child("Applicants").child("Applied").child(validEmployee[0]).child("Message").setValue(applicationMessage.getText().toString());

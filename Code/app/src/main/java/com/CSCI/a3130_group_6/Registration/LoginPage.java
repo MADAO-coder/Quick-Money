@@ -86,7 +86,7 @@ public class LoginPage extends AppCompatActivity {
         return false;
     }
 
-    protected void switchToReg(){
+    public void switchToReg(){
         Intent intent = new Intent(LoginPage.this, RegistrationHome.class);
         startActivity(intent);
     }
