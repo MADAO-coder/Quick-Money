@@ -63,9 +63,8 @@ public class Listing {
     public void setStatus(String status) {
         this.status = status;
     }
-    public String getStatus(){
-        return (String) status;
-    }
+
+    public String getStatus(){ return this.status; }
 
     public void setTaskTitle(String taskTitle) {
         this.taskTitle = taskTitle;

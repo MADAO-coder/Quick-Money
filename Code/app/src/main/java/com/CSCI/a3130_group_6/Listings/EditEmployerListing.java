@@ -146,17 +146,19 @@ public class EditEmployerListing extends AppCompatActivity {
         switch ((v.getId())) {
             case R.id.submitTask:
                 checkUrgencyRange(EditUrgency.toString().trim());
-                if (isEmptyDate(EditDate.toString()) || isEmptyTaskTitle(EditTask.toString()) || isEmptyTaskDescription(EditTaskDescription.toString().trim()) || isEmptyUrgency(EditUrgency.toString().trim()) || isEmptyPay(EditPay.toString().trim())) {
+                if (isEmptyDate(EditDate.toString()) || isEmptyTaskTitle(EditTask.toString()) ||
+                        isEmptyTaskDescription(EditTaskDescription.toString().trim()) ||
+                        isEmptyUrgency(EditUrgency.toString().trim()) || isEmptyPay(EditPay.toString().trim())) {
                     Toast toast = Toast.makeText(this, "Error: Please ensure all fields are filled.", Toast.LENGTH_LONG);
                     toast.show();
                 } else {
-                    Listing post = new Listing(EditTask.getText().toString(), EditTaskDescription.getText().toString(),EditUrgency.getText().toString(), EditDate.getText().toString(),EditPay.getText().toString(),EditStatus.getText().toString(),listing[6]);
+                    Listing post = new Listing(EditTask.getText().toString(), EditTaskDescription.getText().toString(),EditUrgency.getText().toString(),
+                            EditDate.getText().toString(),EditPay.getText().toString(),EditStatus.getText().toString(),listing[6]);
                     Map<String, Object> postValues = post.toMap();
 
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put(listing[7]+"/Listing/"+ listing[6], postValues);
                     listingRef.updateChildren(childUpdates);
-
                 }
                 break;
             case R.id.backEmployeeHome:

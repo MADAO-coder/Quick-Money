@@ -122,7 +122,7 @@ public class ListingHistory extends AppCompatActivity {
                         details[3] = temp.getDate();
                         details[4] = temp.getPay();
                         details[5] = temp.getStatus();
-                        details[6] = temp.getKey();
+                        details[6] = keys.get(position);
                         details[7] = employerName.get(position);
                         editListing(view);
                     }
