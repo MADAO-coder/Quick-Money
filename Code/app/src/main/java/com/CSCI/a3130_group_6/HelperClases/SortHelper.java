@@ -91,4 +91,36 @@ public class SortHelper {
         }
         return temp;
     }
+
+    public ArrayList<Integer> getSortedPositions(ArrayList<Listing> listings, ArrayList<Listing> locationListing) {
+        ArrayList<Integer> sortPositions = new ArrayList<>();
+        for (int i = 0; i < listings.size(); i++) {
+            for (int j = 0; j <locationListing.size(); j++) {
+                if (listings.get(i) == locationListing.get(j)) {
+                    sortPositions.add(j);
+                    break;
+                } else if (j == locationListing.size() - 1) {
+                    sortPositions.add(-1);
+                }
+            }
+        }
+        return sortPositions;
+    }
+
+    public ArrayList<String> sortArrayListByPosition(ArrayList<String> list, ArrayList<Integer> sortPositions){
+        ArrayList<String> sortedList = new ArrayList<>();
+        int fill = Collections.max(sortPositions);
+        int k = 0;
+        while (k <= fill){
+            sortedList.add("Test");
+            k++;
+        }
+        for(int i = 0; i < sortPositions.size(); i++) {
+            // [-1, 1, 0]
+            if (sortPositions.get(i) != -1) {
+                sortedList.add(sortPositions.get(i), list.get(i));
+            }
+        }
+        return sortedList;
+    }
 }

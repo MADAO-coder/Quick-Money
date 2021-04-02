@@ -3,23 +3,34 @@ package com.CSCI.a3130_group_6.EmployeePackage;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.annotation.SuppressLint;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Filter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
-import com.CSCI.a3130_group_6.Listings.Listing;
-import com.CSCI.a3130_group_6.Listings.ListingDetails;
-import com.CSCI.a3130_group_6.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.CSCI.a3130_group_6.HelperClases.SortHelper;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.CSCI.a3130_group_6.Listings.Listing;
+import com.CSCI.a3130_group_6.Listings.ListingDetails;
+import com.CSCI.a3130_group_6.Listings.ListingHistory;
+import com.CSCI.a3130_group_6.R;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +43,7 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -62,10 +74,16 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
     Button employeeProfileButton, sortButton;
     private EmployeeProfile employeeProfile;
+    ArrayList<Integer> sortPositions = new ArrayList<>();
+
     private UserLocation user;
+
+    private HashMap<String, Listing> keyToListing = new HashMap<>();
+    private HashMap<Listing, String> listingToEmployer = new HashMap<>();
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
     SortHelper sort = new SortHelper();
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +112,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
         this.showDropDownMenu();
 
+
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -117,6 +136,31 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             public void afterTextChanged(Editable s) {
             }
         });
+
+        employerRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                System.out.println(snapshot);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    private Intent applicationIntent(){
+        // ToDo: Route this to a rating page
+        Intent intentToApplication = new Intent(this, ListingHistory.class);
+        return intentToApplication;
     }
 
     /**
@@ -126,32 +170,46 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
      *
      */
     public void setTaskList(ArrayList<Listing> list){
-        String[] listingsString = new String[list.size()];
-        for(int i=0; i<listingsString.length; i++){
+        ArrayList<String> listingsString = new ArrayList<>();
+        for(int i=0; i<list.size(); i++){
 
             //ToDo: check if a task is open or not - do not show the closed tasks - Bryson
-//            listingsString[i] = list.get(i).getTaskTitle() + "\tStatus:" + list.get(i).getStatus() + "\tDate:" + list.get(i).getUrgency();
-            listingsString[i] = list.get(i).getTaskTitle();
+            if (list.get(i).getStatus().equals("OPEN")) {
+                listingsString.add(list.get(i).getTaskTitle());
+            } else {
+                keys.remove(keys.get(i));
+                employers.remove(employers.get(i));
+            }
         }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
+
+
+        String[] stringArray = new String[listingsString.size()];
+        stringArray = listingsString.toArray(stringArray);
+
         taskList.setAdapter(adapter);
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Listing temp = listings.get(position);
-                    UserLocation location = temp.getLocation();
-                    details = new String[10];
-                    details[0] = temp.getTaskTitle();
-                    details[1] = temp.getTaskDescription();
-                    details[2] = temp.getUrgency();
-                    details[3] = temp.getDate();
-                    details[4] = temp.getPay();
-                    details[5] = temp.getStatus();
-                    details[6] = keys.get(position);
-                    details[7] = employers.get(position);
-                    details[8] = location.getLongitude().toString();
-                    details[9] = location.getLatitude().toString();
-                    editListing(view);
+                Listing temp = new Listing();
+                for (int i = 0; i < listings.size(); i++) {
+                    if (listingsString.get(position).equals(listings.get(i).getTaskTitle())) {
+                        temp = listings.get(i);
+                    }
+                }
+                UserLocation location = temp.getLocation();
+                details = new String[10];
+                details[0] = temp.getTaskTitle();
+                details[1] = temp.getTaskDescription();
+                details[2] = temp.getUrgency();
+                details[3] = temp.getDate();
+                details[4] = temp.getPay();
+                details[5] = temp.getStatus();
+                details[6] = keys.get(position);
+                details[7] = employers.get(position);
+                details[8] = location.getLongitude().toString();
+                details[9] = location.getLatitude().toString();
+                editListing(view);
             }
         });
     }
@@ -182,7 +240,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                             keys.add(listing[0].getKey());
                             employers.add(employer[0].getKey());
                             listings.add(listing[0].getValue(Listing.class));
-
                         }
                     }
                 }
@@ -214,7 +271,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
      */
     private void sortByDate(){
         locationListing = sort.sortDatesDescending(locationListing);
-        setTaskList(locationListing);
+        listings = new ArrayList<>(locationListing);
+        setTaskList(listings);
     }
 
     /**
@@ -229,7 +287,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                 return l2.getUrgency().compareTo(l1.getUrgency());
             }
         });
-        setTaskList(locationListing);
+        listings = new ArrayList<>(locationListing);
+        setTaskList(listings);
     }
 
     public void editListing(View view) {
@@ -260,7 +319,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
         // sorting the hashmap based on values
         taskDistance = sort.sortByValue(taskDistance);
-        System.out.println(taskDistance);
 
         // adding all the keys to an arraylist
         locationListing.clear();
@@ -268,8 +326,21 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             locationListing.add(listKey);
         }
 
-        // showing the filtered listings in a textview
-        setTaskList(locationListing);
+        setTaskList(sortAllListsByIndices());
+    }
+
+    private ArrayList<Listing> sortAllListsByIndices() {
+        // getting the indexes for sorted list
+        sortPositions = sort.getSortedPositions(listings, locationListing);
+
+        // sorting keys and employers ArrayList based on indices in sorted listing
+        keys = new ArrayList<>(sort.sortArrayListByPosition(keys, sortPositions));
+        employers = new ArrayList<>(sort.sortArrayListByPosition(employers, sortPositions));
+
+        // updating the original listings ArrayList
+        listings = new ArrayList<>(locationListing);
+
+        return listings;
     }
 
     /**
@@ -342,7 +413,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             } else if (selectedItem.equals("sort by date")) {
                 sortByDate();
             } else if (selectedItem.equals("sort by location")) {
-                dbReadEmployeeLocation(employeeRef);
+                sortByLocation(user);
             }
         }
     }

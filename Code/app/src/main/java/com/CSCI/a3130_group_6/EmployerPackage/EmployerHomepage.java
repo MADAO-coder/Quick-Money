@@ -53,6 +53,8 @@ public class EmployerHomepage extends AppCompatActivity {
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
 
+        // ----  fetch all the listings data
+
         // database reference to the Listing child of the employer who is currently logged in
         notificationRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer").child(LoginPage.validEmployer[0]).child("Listing");
 
