@@ -102,9 +102,6 @@ public class ListingApplicants extends AppCompatActivity {
                             while(applicantItr.hasNext()){
                                 applicant[0] = applicantItr.next();
                                 acceptedUsers.add(applicant[0].getKey());
-                                applicantNames.add(applicant[0].getKey());
-                                // get messages  of applied applicants
-                                applicantMessages.add(applicant[0].getValue().toString());
                             }
                             updateApplicants();
                         }
@@ -159,18 +156,25 @@ public class ListingApplicants extends AppCompatActivity {
     }
 
     public void sendToEmployeeDetails(View view){
+        boolean payOption = false;
+        Intent switchIntent;
         for(int i=0; i<acceptedUsers.size(); i++){
             if(employeeName.equals(acceptedUsers.get(i))){
-                Intent switchIntent = new Intent(this, EmployeeView.class);
-                switchIntent.putExtra("amount", pay);
-                switchIntent.putExtra("key", key);
-                switchIntent.putExtra("employerName", employer);
-                switchIntent.putExtra("employeeName", employeeName);
-                startActivity(switchIntent);
+                payOption = true;
+                break;
             }
         }
-        Intent switchIntent = new Intent(this, ShowApplication.class);
-        switchIntent.putExtra("name", employeeName);
+        if(payOption){
+            switchIntent = new Intent(this, EmployeeView.class);
+            switchIntent.putExtra("amount", pay);
+            switchIntent.putExtra("key", key);
+            switchIntent.putExtra("employerName", employer);
+            switchIntent.putExtra("employeeName", employeeName);
+            startActivity(switchIntent);
+        }else{
+            switchIntent = new Intent(this, ShowApplication.class);
+            switchIntent.putExtra("name", employeeName);
+        }
 
         startActivity(switchIntent);
     }

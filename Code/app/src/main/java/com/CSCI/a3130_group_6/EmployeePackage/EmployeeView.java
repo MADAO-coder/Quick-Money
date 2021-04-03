@@ -140,15 +140,7 @@ public class EmployeeView extends AppCompatActivity {
         radiusView = findViewById(R.id.applicantRadius);
 
         submitButton = (Button) findViewById(R.id.accept);
-        descriptionBox = findViewById(R.id.descriptionInput);
-        usernameView = findViewById(R.id.employeeUsernameInput);
-        passView = findViewById(R.id.employeePassInput);
-        phoneView = findViewById(R.id.employeePhoneNumInput);
-        emailView = findViewById(R.id.employeeEmailInput);
-        radiusView = findViewById(R.id.radiusInput);
         clientIDView = findViewById(R.id.ClientIDInput);
-
-        submitButton = (Button) findViewById(R.id.saveProfileUpdate);
         refreshButton = (Button) findViewById(R.id.employerHome);
         imageButton = findViewById(R.id.profileImageButton);
 
