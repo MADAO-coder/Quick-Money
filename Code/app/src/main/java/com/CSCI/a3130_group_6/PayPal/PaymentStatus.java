@@ -63,7 +63,7 @@ public class PaymentStatus extends AppCompatActivity {
     }
     private void updateWallet(){
         DatabaseReference listingRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/");
-         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Accepted").child(employeeName).setValue(null);
+        //listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Accepted").child(employeeName).setValue(null);
         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Paid").child(employeeName).child("Message").setValue("Payment from a Nigerian Prince");
 
         // update wallet reference under employeeName
