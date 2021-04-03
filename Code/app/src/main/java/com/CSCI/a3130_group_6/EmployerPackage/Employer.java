@@ -8,9 +8,12 @@ public class Employer {
     private String emailAddress;
     private String name;
     private String buisnessName;
+    private double rating;
+
     public Employer(){
 
     }
+
     public Employer(String userName, String password, String phone, String emailAddress, String name, String buisnessName){
         this.userName = userName;
         this.password = password;
@@ -68,4 +71,5 @@ public class Employer {
         this.buisnessName = buisnessName;
     }
 
+    public double getRating() { return this.rating; }
 }
