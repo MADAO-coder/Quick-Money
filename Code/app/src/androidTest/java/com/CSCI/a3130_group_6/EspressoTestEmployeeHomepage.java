@@ -5,7 +5,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeAcceptedListings;
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
-import com.CSCI.a3130_group_6.Listings.AddListingMap;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;

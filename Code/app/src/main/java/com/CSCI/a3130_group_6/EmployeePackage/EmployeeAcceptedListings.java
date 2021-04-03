@@ -1,20 +1,17 @@
 package com.CSCI.a3130_group_6.EmployeePackage;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.CSCI.a3130_group_6.EmployeeRatingEmployer;
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
-import com.CSCI.a3130_group_6.Listings.ListingDetails;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,9 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployee;
 
