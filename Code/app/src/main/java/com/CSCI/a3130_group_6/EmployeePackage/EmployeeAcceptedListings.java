@@ -1,9 +1,13 @@
 package com.CSCI.a3130_group_6.EmployeePackage;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
 import com.CSCI.a3130_group_6.R;
@@ -18,25 +22,33 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployee;
 
 public class EmployeeAcceptedListings extends AppCompatActivity {
 
     DatabaseReference employerRef = null;
-    private List<Employer> employer_list = new ArrayList<>();
+    private ArrayList<Employer> employerList = new ArrayList<>();
     Set<Employer> employerSet = new LinkedHashSet<Employer>();
+    ArrayAdapter<String> adapter;
+    ListView employerRatingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_accepted_listings);
-
+        employerRatingList = findViewById(R.id.employerList);
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployer(employerRef);
     }
 
-    //Read data from dataBase and make employers' userName and password into ArrayList.
+    /**
+     * Function: Read data from employer database reference and add the employer object to a list if
+     *           the employee is working under that employer
+     * Parameters: DatabaseReference db
+     * Return: void
+     */
     public void dbReadEmployer(DatabaseReference db){
 
         db.addValueEventListener(new ValueEventListener() {
@@ -75,11 +87,34 @@ public class EmployeeAcceptedListings extends AppCompatActivity {
                         }
                     }
                 }
-                System.out.println(employerSet);
+                setValueForEmployerList(employerSet);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
+    }
+
+    /**
+     * Function: Method to set the value for the Set and add all its elements to an arrayList
+     * Parameters: Set<Employer> employerSet
+     * Returns: void
+     */
+    private void setValueForEmployerList(Set<Employer> employerSet) {
+        this.employerSet = employerSet;
+        for (Employer e: employerSet){
+            this.employerList.add(e);
+        }
+        setRatingList(employerList);
+    }
+
+    private void setRatingList(ArrayList<Employer> employerList) {
+        ArrayList<String> employerUserNameList = new ArrayList<>();
+        for(int i = 0; i < employerList.size(); i++){
+            employerUserNameList.add(employerList.get(i).getUserName());
+        }
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                employerUserNameList);
+        employerRatingList.setAdapter(adapter);
     }
 }
