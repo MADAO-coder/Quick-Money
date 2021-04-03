@@ -4,12 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.CSCI.a3130_group_6.EmployeeRatingEmployer;
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
+import com.CSCI.a3130_group_6.Listings.ListingDetails;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +38,7 @@ public class EmployeeAcceptedListings extends AppCompatActivity {
     Set<Employer> employerSet = new LinkedHashSet<Employer>();
     ArrayAdapter<String> adapter;
     ListView employerRatingList;
+    String currEmployer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,5 +122,24 @@ public class EmployeeAcceptedListings extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                 employerUserNameList);
         employerRatingList.setAdapter(adapter);
+        clickableListView(employerRatingList, employerUserNameList);
+    }
+
+    private void clickableListView(ListView employerRatingList, ArrayList<String> employerUserNameList){
+        employerRatingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currEmployer = employerUserNameList.get(position);
+                giveRating(view);
+            }
+        });
+    }
+
+    private void giveRating(View view){
+        Bundle bundle = new Bundle();
+        bundle.putString("userName", currEmployer);
+        Intent intent = new Intent(this, EmployeeRatingEmployer.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
