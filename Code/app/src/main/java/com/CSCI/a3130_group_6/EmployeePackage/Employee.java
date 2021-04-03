@@ -8,6 +8,8 @@ public class Employee {
     private String name;
     private String description;
     private String resumeUrl;
+    private String clientID;
+    private String wallet;
 
     public Employee(){
 
@@ -36,12 +38,20 @@ public class Employee {
         return password;
     }
 
+    public String getWallet() {
+        return wallet;
+    }
+
     public void setResumeUrl(String resumeUrl) {
         this.resumeUrl = resumeUrl;
     }
 
     public String getResumeUrl(){
         return resumeUrl;
+    }
+
+    public String getClientID(){
+        return clientID;
     }
 
     public void setPhone(String phone) {
@@ -58,6 +68,11 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
     }
 
     public String getName() {

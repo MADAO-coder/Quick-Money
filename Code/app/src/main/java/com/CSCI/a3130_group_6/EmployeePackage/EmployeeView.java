@@ -2,6 +2,7 @@ package com.CSCI.a3130_group_6.EmployeePackage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.CSCI.a3130_group_6.HelperClases.Config;
+import com.CSCI.a3130_group_6.PayPal.PayActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,13 +23,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EmployeeView extends AppCompatActivity {
     DatabaseReference employeeRef;
-    String employeeName;
-    String description, username, password, phone, email, name, radius;
-    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
+    String description, username, password, phone, email, employeeName, radius, clientID, amount, key, employerName;
+    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
     TextView usernameView, statusView;
     ImageView imageView;
-    Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
+    Button submitButton, refreshButton, imageButton, uploadResume, selectResume, pay;
     UserLocation user;
+    String wallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +37,47 @@ public class EmployeeView extends AppCompatActivity {
         setContentView(R.layout.activity_employee_profile);
         // create based off employee profile? hide buttons + change editable
         Intent intent = getIntent();
-        employeeName = intent.getStringExtra("name");
+        amount = intent.getStringExtra("amount");
+        key = intent.getStringExtra("key");
+        employerName = intent.getStringExtra("employerName");
+        employeeName = intent.getStringExtra("employeeName");
+        pay = (Button) findViewById(R.id.payBtn);
+        pay.setVisibility(View.VISIBLE);
+        pay.setEnabled(true);
         // set database
         employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/"+employeeName);
         // set all views
         setViews();
+
         // disable all buttons
         disableButtons();
         // set fields to uneditable
         disableFields();
+
+        //set onclick for pay button
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendPayment(v);
+            }
+        });
+
         // get data
         getEmployeeDetails(employeeRef);
 
     }
+
+    public void sendPayment(View view){
+        Config.setID(clientID);
+        Intent switchIntent = new Intent(this, PayActivity.class);
+        switchIntent.putExtra("name", username);
+        switchIntent.putExtra("amount", amount);
+        switchIntent.putExtra("key", key);
+        switchIntent.putExtra("employerName", employerName);
+        switchIntent.putExtra("wallet", wallet);
+        startActivity(switchIntent);
+    }
+
     /**
      * Function: This method disables all fields on the employee profile
      * Parameters: None
@@ -74,6 +105,9 @@ public class EmployeeView extends AppCompatActivity {
 
         radiusView.setClickable(false);
         radiusView.setEnabled(false);
+
+        clientIDView.setClickable(false);
+        clientIDView.setEnabled(false);
     }
     /**
      * Function: This method disables all buttons on the employee profile
@@ -106,6 +140,15 @@ public class EmployeeView extends AppCompatActivity {
         radiusView = findViewById(R.id.applicantRadius);
 
         submitButton = (Button) findViewById(R.id.accept);
+        descriptionBox = findViewById(R.id.descriptionInput);
+        usernameView = findViewById(R.id.employeeUsernameInput);
+        passView = findViewById(R.id.employeePassInput);
+        phoneView = findViewById(R.id.employeePhoneNumInput);
+        emailView = findViewById(R.id.employeeEmailInput);
+        radiusView = findViewById(R.id.radiusInput);
+        clientIDView = findViewById(R.id.ClientIDInput);
+
+        submitButton = (Button) findViewById(R.id.saveProfileUpdate);
         refreshButton = (Button) findViewById(R.id.employerHome);
         imageButton = findViewById(R.id.profileImageButton);
 
@@ -119,13 +162,15 @@ public class EmployeeView extends AppCompatActivity {
      *
      */
     public void loadProfile(){
-        nameView.setText(name);
+        nameView.setText(employeeName);
         descriptionBox.setText(description);
         usernameView.setText(username);
         //passView.setText(password);
         phoneView.setText(phone);
         emailView.setText(email);
         radiusView.setText(radius);
+        clientIDView.setText(clientID);
+
     }
     /**
      * Function: This method loads all the variables from the employee database entry
@@ -151,8 +196,10 @@ public class EmployeeView extends AppCompatActivity {
                     //password = employee.getPassword();
                     phone = employee.getPhone();
                     email = employee.getEmail();
-                    name = employee.getName();
+                    employeeName = employee.getName();
                     description = employee.getDescription();
+                    clientID = employee.getClientID();
+                    wallet = employee.getWallet();
                     loadProfile();
                 }
             }

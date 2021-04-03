@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,7 +55,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 
 public class RegistrationForEmployees extends AppCompatActivity implements View.OnClickListener {
-    EditText name, username, password, vpassword, phone, email, inputRadius;
+    EditText name, username, password, vpassword, phone, email, inputRadius, paypalId;
     Listing list;
     TextInputLayout selfDef;
     private Employee employee;
@@ -123,6 +124,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         statusLabel = findViewById(R.id.statusLabel);
         addLocationButton = findViewById(R.id.addLocationButton);
         inputRadius = findViewById(R.id.inputRadius);
+        paypalId = findViewById(R.id.payPalId);
         employeeBt.setOnClickListener(this);
         homeBt.setOnClickListener(this);
         submitBt.setOnClickListener(this);
@@ -221,11 +223,10 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         employees.setEmailAddress(getInputEmailAddress());
         employees.setPhone(getPhoneNumber());
         employees.setName(getName());
-
-        employeeRef = FirebaseDatabase.getInstance().getReference();
-        employeeRef.child("Employee").child(employees.getUserName()).setValue(Employee);
+        employees.setClientID(getClientID());
+        employeeRef.child(employees.getUserName()).setValue(Employee);
         UserLocation present = new UserLocation(userCurrentLocation.latitude, userCurrentLocation.longitude, getInputRadius());
-        employeeRef.child("Employee").child(employees.getUserName()).child("Location").setValue(present);
+        employeeRef.child(employees.getUserName()).child("Location").setValue(present);
     }
 
     public String getInputUserName() {
@@ -249,6 +250,11 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     }
 
     public String getSelfDescription() { return selfDef.toString(); }
+
+
+    public String getClientID(){
+        return paypalId.getText().toString();
+    }
 
     /*
     Changing pages to see employer registration
@@ -525,13 +531,17 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
             else if(!validateRadiusRange(getInputRadius())){
                 createToast("Radius should be between 1 and 25");
             }
+            else if(getClientID()==null || getClientID().equals("")){
+                statusLabel.setText("PayPal ID must be input");
+                createToast("Paypal ID must be input");
+            }
             else {
                 employees.setUserName(getInputUserName());
                 employees.setPassword(getInputPassword());
                 employees.setEmailAddress(getInputEmailAddress());
                 employees.setPhone(getPhoneNumber());
                 employees.setName(getName());
-                employees.setResumeUrl(resumeUrl);
+                employees.setClientID(getClientID());
                 exactAddress.setRadius(getInputRadius());
                 saveEmployeeToDataBase(employees);
                 switchToHome();

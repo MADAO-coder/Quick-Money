@@ -54,13 +54,17 @@
         <activity android:name="com.CSCI.a3130_group_6.Listings.AddListing" />
         <activity android:name="com.CSCI.a3130_group_6.Listings.ListingDetails" />
         <activity android:name="com.CSCI.a3130_group_6.Listings.EditEmployerListing"> </activity>
+        <activity android:name="com.CSCI.a3130_group_6.HelperClases.ImageCapture"/>
+        <activity android:name="com.CSCI.a3130_group_6.PayPal.PayActivity"/>
+        <activity android:name="com.CSCI.a3130_group_6.PayPal.PaymentStatus"/>
         <activity android:name="com.CSCI.a3130_group_6.Registration.LoginPage">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.CSCI.a3130_group_6.HelperClases.ImageCapture"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.CSCI.android.fileprovider"

@@ -58,8 +58,8 @@ public class EmployeeProfile extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
-    String description, username, password, phone, email, name, radius, resume;
-    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
+    String description, username, password, phone, email, name, radius, resume, clientID;
+    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
     TextView usernameView, statusView, selectedPDF;
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
     ImageView imageView;
@@ -114,6 +114,9 @@ public class EmployeeProfile extends AppCompatActivity {
                     setStatusMessage(false,"Error: Please enter a radius between 1-25");
                 }
                 else if (!isRadiusInRange(radiusView.getText().toString().trim())) {
+                    setStatusMessage(false,"Error: Please enter a radius between 1-25");
+                }
+                else if (!isClientIDEmpty(clientIDView.getText().toString().trim())) {
                     setStatusMessage(false,"Error: Please enter a radius between 1-25");
                 }
                 else {
@@ -256,6 +259,7 @@ public class EmployeeProfile extends AppCompatActivity {
         emailView = findViewById(R.id.applicantEmail);
         radiusView = findViewById(R.id.applicantRadius);
         selectedPDF = findViewById(R.id.selectedPDF);
+        clientIDView = findViewById(R.id.ClientIDInput);
 
         submitButton = (Button) findViewById(R.id.accept);
         refreshButton = (Button) findViewById(R.id.employerHome);
@@ -286,6 +290,8 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("phone", employee.getPhone());
         updates.put("description", employee.getDescription());
         updates.put("resumeUrl", employee.getResumeUrl());
+        updates.put("clientID", employee.getClientID());
+        // Add radius to the database
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
         // employeeRef.setValue(employee);
@@ -317,6 +323,7 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView.setText(phone);
         emailView.setText(email);
         radiusView.setText(radius);
+        clientIDView.setText(clientID);
         selectedPDF.setText(resume);
     }
 
@@ -352,6 +359,7 @@ public class EmployeeProfile extends AppCompatActivity {
                         name = employee.getName();
                         description = employee.getDescription();
                         resume = employee.getResumeUrl();
+                        clientID = employee.getClientID();
                         break;
                     }
                 }
@@ -436,7 +444,12 @@ public class EmployeeProfile extends AppCompatActivity {
         return password.isEmpty();
     }
 
-    public static boolean isRadiusInRange (String radius) {
+
+    protected static boolean isClientIDEmpty (String clientID) {
+        return clientID.isEmpty();
+    }
+
+    protected static boolean isRadiusInRange (String radius) {
         if (Integer.valueOf(radius) >= 1 && Integer.valueOf(radius) <= 25 && !radius.isEmpty()) {
             return true;
         }

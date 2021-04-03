@@ -67,8 +67,6 @@ public class ListingHistory extends AppCompatActivity {
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (toggleFlag){
                     NoListing.setText("Switched to edit");
                     toggleFlag=false;
