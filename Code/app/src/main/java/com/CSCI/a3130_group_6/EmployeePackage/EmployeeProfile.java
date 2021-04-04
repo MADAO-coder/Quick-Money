@@ -60,8 +60,9 @@ public class EmployeeProfile extends AppCompatActivity {
 
     String description, username, password, phone, email, name, radius, resume;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
-    TextView usernameView, statusView, selectedPDF;
+    TextView usernameView, statusView, selectedPDF, showRating;
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
+    Double rating;
     ImageView imageView;
     Uri image_uri;
     Uri pdf;
@@ -255,7 +256,7 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView = findViewById(R.id.applicantPhoneNum);
         emailView = findViewById(R.id.applicantEmail);
         radiusView = findViewById(R.id.applicantRadius);
-        selectedPDF = findViewById(R.id.selectedPDF);
+        showRating = findViewById(R.id.employeeRating);
 
         submitButton = (Button) findViewById(R.id.accept);
         refreshButton = (Button) findViewById(R.id.employerHome);
@@ -317,13 +318,19 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView.setText(phone);
         emailView.setText(email);
         radiusView.setText(radius);
-        selectedPDF.setText(resume);
     }
 
     public UserLocation getEmployeeLocation(){
         return user;
     }
 
+    private void setShowRatingView(double rating){
+        if(rating == 0.0){
+            showRating.setText("No Ratings have been given yet");
+        } else {
+            showRating.setText(String.valueOf(rating));
+        }
+    }
 
 
     //code from loginPage
@@ -352,10 +359,16 @@ public class EmployeeProfile extends AppCompatActivity {
                         name = employee.getName();
                         description = employee.getDescription();
                         resume = employee.getResumeUrl();
+                        rating = dataSnapshot.child(validEmployee[0]).child("Rating").
+                                getValue(Double.class);
+                        if (rating == null) {
+                            rating = 0.0;
+                        }
                         break;
                     }
                 }
                 loadProfile();
+                setShowRatingView(rating);
             }
 
                 @Override
