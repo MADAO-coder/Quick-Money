@@ -96,7 +96,8 @@ public class ListingApplicants extends AppCompatActivity {
                                 applicantMessages.add(applicant[0].getValue().toString());
                             }
                             updateApplicants();
-                        } if(lHold[0].getKey().equals("Accepted")){
+                        }
+                        if(lHold[0].getKey().equals("Accepted")){
                             applicantItr = lHold[0].getChildren().iterator();
                             // multiple applicants
                             while(applicantItr.hasNext()){

@@ -176,14 +176,14 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
      */
     public void setTaskList(ArrayList<Listing> list){
         ArrayList<String> listingsString = new ArrayList<>();
+        ArrayList<String> keysFinal = new ArrayList<>();
+        ArrayList<String> employersFinal = new ArrayList<>();
         for(int i=0; i<list.size(); i++){
-
             //ToDo: check if a task is open or not - do not show the closed tasks - Bryson
             if (list.get(i).getStatus().equals("OPEN")) {
                 listingsString.add(list.get(i).getTaskTitle());
-            } else {
-                keys.remove(keys.get(i));
-                employers.remove(employers.get(i));
+                keysFinal.add(keys.get(i));
+                employersFinal.add(employers.get(i));
             }
         }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listingsString);
@@ -197,9 +197,12 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Listing temp = new Listing();
+                String key = "", employerName="";
                 for (int i = 0; i < listings.size(); i++) {
                     if (listingsString.get(position).equals(listings.get(i).getTaskTitle())) {
                         temp = listings.get(i);
+                        key = keysFinal.get(i);
+                        employerName = employersFinal.get(i);
                     }
                 }
                 UserLocation location = temp.getLocation();
@@ -210,8 +213,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                 details[3] = temp.getDate();
                 details[4] = temp.getPay();
                 details[5] = temp.getStatus();
-                details[6] = keys.get(position);
-                details[7] = employers.get(position);
+                details[6] = key;
+                details[7] = employerName;
                 details[8] = location.getLongitude().toString();
                 details[9] = location.getLatitude().toString();
                 editListing(view);
