@@ -276,8 +276,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
      */
     private void sortByDate(){
         locationListing = sort.sortDatesDescending(locationListing);
-        listings = new ArrayList<>(locationListing);
-        setTaskList(listings);
+        setTaskList(sortAllListsByIndices());
     }
 
     /**
@@ -292,8 +291,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                 return l2.getUrgency().compareTo(l1.getUrgency());
             }
         });
-        listings = new ArrayList<>(locationListing);
-        setTaskList(listings);
+        setTaskList(sortAllListsByIndices());
     }
 
     public void editListing(View view) {
