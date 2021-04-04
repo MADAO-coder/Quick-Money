@@ -134,6 +134,7 @@ public class EspressoTestAddListing {
         onView(withId(R.id.dateInput)).check(matches(withText("20/10/2021")));
         onView(withId(R.id.payInput)).check(matches(withText("20")));
     }
+
     @Test
     public void checkIFMovedToAddListingMap(){
         onView(withId(R.id.add_locationBt)).perform(click());
