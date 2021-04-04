@@ -324,6 +324,11 @@ public class EmployeeProfile extends AppCompatActivity {
         return user;
     }
 
+    /**
+     * Function: Method to set the rating in the textView
+     * Parameters: double rating
+     * Return: void
+     */
     private void setShowRatingView(double rating){
         if(rating == 0.0){
             showRating.setText("No Ratings have been given yet");

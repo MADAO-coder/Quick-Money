@@ -8,7 +8,6 @@ public class Employer {
     private String emailAddress;
     private String name;
     private String buisnessName;
-    private double rating;
 
     public Employer(){
 
@@ -70,6 +69,4 @@ public class Employer {
     public void setBuisnessName(String buisnessName) {
         this.buisnessName = buisnessName;
     }
-
-    public double getRating() { return this.rating; }
 }
