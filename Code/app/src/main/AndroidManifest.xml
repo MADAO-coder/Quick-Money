@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.CSCI.a3130_group_6">
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -15,7 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.3130_Group_6">
-        <activity android:name="com.CSCI.a3130_group_6.HelperClases.ShowApplication"></activity>
+        <activity android:name=".EmployeeRatingEmployer"></activity>
+        <activity android:name=".EmployeePackage.EmployeeAcceptedListings" />
+        <activity android:name=".HelperClases.ShowApplication" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,8 +41,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.CSCI.a3130_group_6.HelperClases.MapsActivity"
+            android:name=".HelperClases.MapsActivity"
             android:label="@string/title_activity_maps" />
+
         <activity android:name="com.CSCI.a3130_group_6.Listings.AddListingMap" />
         <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeProfile" />
         <activity android:name="com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage" />
@@ -58,13 +62,15 @@
         <activity android:name="com.CSCI.a3130_group_6.PayPal.PayActivity"/>
         <activity android:name="com.CSCI.a3130_group_6.PayPal.PaymentStatus"/>
         <activity android:name="com.CSCI.a3130_group_6.Registration.LoginPage">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.CSCI.android.fileprovider"
@@ -72,7 +78,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

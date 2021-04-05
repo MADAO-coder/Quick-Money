@@ -25,8 +25,9 @@ import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployer;
 public class EmployerProfile extends AppCompatActivity {
     DatabaseReference employerRef = null;
     String biography, username, password, phone, email, name, business;
+    Double rating;
     EditText nameView, biographyView, usernameView, passwordView, phoneView, emailView, businessView;
-    TextView statusView;
+    TextView statusView, showRating;
     Button submitButton, refreshButton;
 
 
@@ -87,6 +88,7 @@ public class EmployerProfile extends AppCompatActivity {
         emailView = findViewById(R.id.editEmail);
         businessView = findViewById(R.id.editBusiness);
         submitButton = (Button) findViewById(R.id.submitBtn);
+        showRating = findViewById(R.id.showRating);
         refreshButton = (Button) findViewById(R.id.refreshBtn);
     }
 
@@ -124,6 +126,14 @@ public class EmployerProfile extends AppCompatActivity {
         businessView.setText(business);
     }
 
+    private void setShowRatingView(double rating){
+        if(rating == 0.0){
+            showRating.setText("No Ratings have been given yet");
+        } else {
+            showRating.setText(String.valueOf(rating));
+        }
+    }
+
     /**
      * Function: Method to read data from database and retrieve employer information
      * Parameters: DatabaseReference - db
@@ -148,10 +158,16 @@ public class EmployerProfile extends AppCompatActivity {
                             email = employer.getEmailAddress();
                             name = employer.getName();
                             business = employer.getBuisnessName();
+                            rating = dataSnapshot.child(employer.getUserName()).child("Rating").
+                                        getValue(Double.class);
+                            if (rating == null) {
+                                rating = 0.0;
+                            }
                             break;
                     }
                 }
                 loadProfile();
+                setShowRatingView(rating);
             }
 
             @Override

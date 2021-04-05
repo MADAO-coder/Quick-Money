@@ -8,9 +8,11 @@ public class Employer {
     private String emailAddress;
     private String name;
     private String buisnessName;
+
     public Employer(){
 
     }
+
     public Employer(String userName, String password, String phone, String emailAddress, String name, String buisnessName){
         this.userName = userName;
         this.password = password;
@@ -67,5 +69,4 @@ public class Employer {
     public void setBuisnessName(String buisnessName) {
         this.buisnessName = buisnessName;
     }
-
 }

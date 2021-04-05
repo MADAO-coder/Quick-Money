@@ -75,7 +75,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     String [] details;
     List<String> employerName;
 
-    Button employeeProfileButton, sortButton;
+    Button employeeProfileButton, sortButton, acceptedListingButton;
     private EmployeeProfile employeeProfile;
     ArrayList<Integer> sortPositions = new ArrayList<>();
 
@@ -115,6 +115,10 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         walletView = findViewById(R.id.walletView);
         dbReadEmployees(employerRef, listings);
 
+        acceptedListingButton = findViewById(R.id.acceptListingsButton);
+        acceptedListingButton.setOnClickListener(this);
+
+        dbReadEmployees(employerRef, listings);
         this.showDropDownMenu();
 
 
@@ -404,6 +408,14 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     }
 
     /**
+     * Created button just for testing/viewing purposes. Can/will delete after integration of navigation bar
+     */
+    public void employeeAppliedListings() {
+        Intent switchIntent = new Intent(this, EmployeeAcceptedListings.class);
+        startActivity(switchIntent);
+    }
+
+    /**
      * Method to get the text from the dropdown menu for sort
      * @return
      * The following method has been used from Assignment 4
@@ -416,7 +428,10 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
     public void onClick(View v) {
         if(v.getId() == R.id.employeeProfileButton){
-         employeeProfileSwitch();
+            employeeProfileSwitch();
+        }
+        else if(v.getId() == R.id.acceptListingsButton){
+            employeeAppliedListings();
         }
         else if (v.getId() == R.id.sortButton) {
             String selectedItem = getSelectedItem();

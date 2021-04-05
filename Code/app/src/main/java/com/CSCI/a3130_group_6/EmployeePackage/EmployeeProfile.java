@@ -58,10 +58,13 @@ public class EmployeeProfile extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
+
     String description, username, password, phone, email, name, radius, resume, clientID;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
-    TextView usernameView, statusView, selectedPDF;
+    TextView usernameView, statusView, selectedPDF, showRating;
+
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
+    Double rating;
     ImageView imageView;
     Uri image_uri;
     Uri pdf;
@@ -258,8 +261,12 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView = findViewById(R.id.applicantPhoneNum);
         emailView = findViewById(R.id.applicantEmail);
         radiusView = findViewById(R.id.applicantRadius);
+
         selectedPDF = findViewById(R.id.selectedPDF);
         clientIDView = findViewById(R.id.ClientIDInput);
+
+        showRating = findViewById(R.id.employeeRating);
+
 
         submitButton = (Button) findViewById(R.id.accept);
         refreshButton = (Button) findViewById(R.id.employerHome);
@@ -325,12 +332,25 @@ public class EmployeeProfile extends AppCompatActivity {
         radiusView.setText(radius);
         clientIDView.setText(clientID);
         selectedPDF.setText(resume);
+
     }
 
     public UserLocation getEmployeeLocation(){
         return user;
     }
 
+    /**
+     * Function: Method to set the rating in the textView
+     * Parameters: double rating
+     * Return: void
+     */
+    private void setShowRatingView(double rating){
+        if(rating == 0.0){
+            showRating.setText("No Ratings have been given yet");
+        } else {
+            showRating.setText(String.valueOf(rating));
+        }
+    }
 
 
     //code from loginPage
@@ -360,10 +380,16 @@ public class EmployeeProfile extends AppCompatActivity {
                         description = employee.getDescription();
                         resume = employee.getResumeUrl();
                         clientID = employee.getClientID();
+                        rating = dataSnapshot.child(validEmployee[0]).child("Rating").
+                                getValue(Double.class);
+                        if (rating == null) {
+                            rating = 0.0;
+                        }
                         break;
                     }
                 }
                 loadProfile();
+                setShowRatingView(rating);
             }
 
                 @Override
