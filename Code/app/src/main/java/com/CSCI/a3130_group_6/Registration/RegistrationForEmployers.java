@@ -170,7 +170,7 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
                     employers.setEmailAddress(getInputEmailAddress());
                     employers.setPhone(getPhoneNumber());
                     employers.setName(getName());
-                    employers.setBuisnessName(getBusinessName());
+                    employers.setBusinessName(getBusinessName());
                     saveEmployerToDataBase(employers);
                     switchToHome();//Once all registration info correct, switch to loginPage
                     break;

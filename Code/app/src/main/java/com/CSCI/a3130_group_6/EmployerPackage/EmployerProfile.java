@@ -57,7 +57,7 @@ public class EmployerProfile extends AppCompatActivity {
                 employer.setPassword(passwordView.getText().toString());
                 employer.setPhone(phoneView.getText().toString());
                 employer.setEmailAddress(emailView.getText().toString());
-                employer.setBuisnessName(businessView.getText().toString());
+                employer.setBusinessName(businessView.getText().toString());
                 // updates to db, but deletes associated listings
                 updateToDatabase(employer);
             }
@@ -92,6 +92,16 @@ public class EmployerProfile extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submitBtn);
         showRating = findViewById(R.id.showRating);
         refreshButton = (Button) findViewById(R.id.refreshBtn);
+
+        // re-set the new values
+        Employer employer = new Employer();
+        employer.setName(nameView.getText().toString());
+        //employers.setBiography(biography);
+        employer.setUserName(usernameView.getText().toString());
+        employer.setPassword(passwordView.getText().toString());
+        employer.setPhone(phoneView.getText().toString());
+        employer.setEmailAddress(emailView.getText().toString());
+        employer.setBusinessName(businessView.getText().toString());
     }
 
     public void updateToDatabase(Employer employer){
@@ -102,7 +112,7 @@ public class EmployerProfile extends AppCompatActivity {
         updates.put("password", employer.getPassword());
         updates.put("emailAddress", employer.getEmailAddress());
         updates.put("name", employer.getName());
-        updates.put("businessName", employer.getBuisnessName());
+        updates.put("businessName", employer.getBusinessName());
         updates.put("phone", employer.getPhone());
         employerRef.updateChildren(updates);
 
@@ -158,7 +168,7 @@ public class EmployerProfile extends AppCompatActivity {
                             phone = employer.getPhone();
                             email = employer.getEmailAddress();
                             name = employer.getName();
-                            business = employer.getBuisnessName();
+                            business = employer.getBusinessName();
                             rating = dataSnapshot.child(employer.getUserName()).child("Rating").
                                         getValue(Double.class);
                             if (rating == null) {
