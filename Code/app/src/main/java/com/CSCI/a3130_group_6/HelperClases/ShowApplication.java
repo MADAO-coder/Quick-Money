@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,11 +86,26 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
      * Return: void
      */
     private void showResume(){
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.setData(Uri.parse(resumeLink));
-        startActivity(intent);
+        if (resumeLink.equals("")) {
+            createToast("No resume has been added by this employee");
+        } else {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse(resumeLink));
+            startActivity(intent);
+        }
+    }
+
+    /**
+     * Function: Method to create a Toast
+     * Parameters:
+     * Returns: boolean
+     *
+     */
+    private void createToast(String message) {
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.show();
     }
 
     /**
