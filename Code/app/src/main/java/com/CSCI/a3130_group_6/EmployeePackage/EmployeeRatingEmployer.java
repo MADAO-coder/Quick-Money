@@ -1,4 +1,4 @@
-package com.CSCI.a3130_group_6;
+package com.CSCI.a3130_group_6.EmployeePackage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeAcceptedListings;
+import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

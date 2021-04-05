@@ -10,7 +10,6 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.CSCI.a3130_group_6.EmployeeRatingEmployer;
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
