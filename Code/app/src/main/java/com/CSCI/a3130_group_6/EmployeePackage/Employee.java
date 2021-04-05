@@ -51,7 +51,7 @@ public class Employee {
     }
 
     public String getClientID(){
-        return clientID;
+        return this.clientID;
     }
 
     public void setPhone(String phone) {

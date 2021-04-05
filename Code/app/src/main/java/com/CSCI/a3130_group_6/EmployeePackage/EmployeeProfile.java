@@ -101,6 +101,7 @@ public class EmployeeProfile extends AppCompatActivity {
 
                 setStatusMessage(true, "");
 
+                System.out.println(clientIDView.getText().toString().trim());
                 if (isNameEmpty(nameView.getText().toString())) {
                     setStatusMessage(false, "Error: Please fill in name");
                 }
@@ -120,7 +121,7 @@ public class EmployeeProfile extends AppCompatActivity {
                     setStatusMessage(false,"Error: Please enter a radius between 1-25");
                 }
                 else if (!isClientIDEmpty(clientIDView.getText().toString().trim())) {
-                    setStatusMessage(false,"Error: Please enter a radius between 1-25");
+                    setStatusMessage(false,"Error: Please enter a client ID");
                 }
                 else {
                     employee.setName(nameView.getText().toString());
@@ -129,7 +130,8 @@ public class EmployeeProfile extends AppCompatActivity {
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
-                    employee.setResumeUrl(selectedPDF.getText().toString());
+                    employee.setClientID(clientIDView.getText().toString());
+                    //employee.setResumeUrl(selectedPDF.getText().toString());
                     user.setRadius(radiusView.getText().toString());
                     user.getLatitude();
                     user.getLatitude();
@@ -261,9 +263,9 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView = findViewById(R.id.applicantPhoneNum);
         emailView = findViewById(R.id.applicantEmail);
         radiusView = findViewById(R.id.applicantRadius);
+        clientIDView = findViewById(R.id.ClientIDInput);
 
         // selectedPDF = findViewById(R.id.selectedPDF);
-        clientIDView = findViewById(R.id.ClientIDInput);
 
         showRating = findViewById(R.id.employeeRating);
 
@@ -331,7 +333,7 @@ public class EmployeeProfile extends AppCompatActivity {
         emailView.setText(email);
         radiusView.setText(radius);
         clientIDView.setText(clientID);
-        selectedPDF.setText(resume);
+        //selectedPDF.setText(resume);
 
     }
 
@@ -472,7 +474,7 @@ public class EmployeeProfile extends AppCompatActivity {
 
 
     protected static boolean isClientIDEmpty (String clientID) {
-        return clientID.isEmpty();
+        return clientID.length()>=1;
     }
 
     protected static boolean isRadiusInRange (String radius) {
