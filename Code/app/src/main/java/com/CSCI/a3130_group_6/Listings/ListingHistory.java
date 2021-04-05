@@ -189,7 +189,7 @@ public class ListingHistory extends AppCompatActivity {
                                 //DataSnapshot next = listingItr.next();
                                 String listingKey = listing[0].getKey();
                                 Listing value = listing[0].getValue(Listing.class);
-                                value.setKey(listingKey);
+                                //value.setKey(listingKey);
 
                                 // tODO: @tY Your code breaks. Please check for this.
                                 //listings.add(value);

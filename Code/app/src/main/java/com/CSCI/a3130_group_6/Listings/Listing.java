@@ -20,7 +20,7 @@ public class Listing {
     private String status;
     private UserLocation location;
     private static int count = 0;
-    private String key;
+//    private String key;
 
     public UserLocation getLocation() {
         return location;
@@ -40,7 +40,7 @@ public class Listing {
         this.date = date;
         this.pay = pay;
         this.status = status;
-        this.key = key;
+        //this.key = key;
         count ++;
     }
 
@@ -110,13 +110,13 @@ public class Listing {
         Listing.count = count;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
+//    public String getKey() {
+//        return key;
+//    }
+//
+//    public void setKey(String key) {
+//        this.key = key;
+//    }
 
     @Exclude
     public Map<String, Object> toMap() {
@@ -127,7 +127,7 @@ public class Listing {
         result.put("date",date);
         result.put("pay",pay);
         result.put("status",status);
-        result.put("key",key);
+        //result.put("key",key);
         return result;
     }
 }
