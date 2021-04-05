@@ -58,9 +58,11 @@ public class EmployeeProfile extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
-    String description, username, password, phone, email, name, radius, resume;
-    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView;
+
+    String description, username, password, phone, email, name, radius, resume, clientID;
+    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
     TextView usernameView, statusView, selectedPDF, showRating;
+
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
     Double rating;
     ImageView imageView;
@@ -99,6 +101,7 @@ public class EmployeeProfile extends AppCompatActivity {
 
                 setStatusMessage(true, "");
 
+                System.out.println(clientIDView.getText().toString().trim());
                 if (isNameEmpty(nameView.getText().toString())) {
                     setStatusMessage(false, "Error: Please fill in name");
                 }
@@ -117,6 +120,9 @@ public class EmployeeProfile extends AppCompatActivity {
                 else if (!isRadiusInRange(radiusView.getText().toString().trim())) {
                     setStatusMessage(false,"Error: Please enter a radius between 1-25");
                 }
+                else if (isClientIDEmpty(clientIDView.getText().toString().trim())) {
+                    setStatusMessage(false,"Error: Please enter a valid client ID");
+                }
                 else {
                     employee.setName(nameView.getText().toString());
                     employee.setDescription(descriptionBox.getText().toString());
@@ -124,7 +130,8 @@ public class EmployeeProfile extends AppCompatActivity {
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
                     employee.setEmailAddress(emailView.getText().toString());
-                    employee.setResumeUrl(selectedPDF.getText().toString());
+                    employee.setClientID(clientIDView.getText().toString());
+                    //employee.setResumeUrl(selectedPDF.getText().toString());
                     user.setRadius(radiusView.getText().toString());
                     user.getLatitude();
                     user.getLatitude();
@@ -256,24 +263,18 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView = findViewById(R.id.applicantPhoneNum);
         emailView = findViewById(R.id.applicantEmail);
         radiusView = findViewById(R.id.applicantRadius);
+        clientIDView = findViewById(R.id.ClientIDInput);
+
+       // selectedPDF = findViewById(R.id.selectedPDF);
+        clientIDView = findViewById(R.id.ClientIDInput);
+
         showRating = findViewById(R.id.employeeRating);
+
 
         submitButton = (Button) findViewById(R.id.accept);
         refreshButton = (Button) findViewById(R.id.employerHome);
     }
 
-    public void updateLocationToDatabase(UserLocation user) {
-        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
-
-        Map<String, Object> locationUpdates = new HashMap<>();
-        locationUpdates.put("latitude", user.getLatitude());
-        locationUpdates.put("longitude", user.getLongitude());
-        locationUpdates.put("radius", user.getRadius());
-
-        employeeRef.child("Location").updateChildren(locationUpdates);
-        employeeRef.child("Location").setValue(user);
-        setStatusMessage(true, "Profile updated to database!");
-    }
 
     public void updateToDatabase(Employee employee, UserLocation user){
         // save object user to database to Firebase
@@ -286,7 +287,9 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("name", employee.getName());
         updates.put("phone", employee.getPhone());
         updates.put("description", employee.getDescription());
-        updates.put("resumeUrl", employee.getResumeUrl());
+        //updates.put("resumeUrl", employee.getResumeUrl());
+        updates.put("clientID", employee.getClientID());
+        // Add radius to the database
         employeeRef.updateChildren(updates);
         // below sets entirely new employee object
         // employeeRef.setValue(employee);
@@ -318,6 +321,9 @@ public class EmployeeProfile extends AppCompatActivity {
         phoneView.setText(phone);
         emailView.setText(email);
         radiusView.setText(radius);
+        clientIDView.setText(clientID);
+
+        //selectedPDF.setText(resume);
     }
 
     public UserLocation getEmployeeLocation(){
@@ -364,6 +370,7 @@ public class EmployeeProfile extends AppCompatActivity {
                         name = employee.getName();
                         description = employee.getDescription();
                         resume = employee.getResumeUrl();
+                        clientID = employee.getClientID();
                         rating = dataSnapshot.child(validEmployee[0]).child("Rating").
                                 getValue(Double.class);
                         if (rating == null) {
@@ -429,7 +436,7 @@ public class EmployeeProfile extends AppCompatActivity {
         }
         if (requestCode == 86 && resultCode == RESULT_OK && data != null) {
             pdf = data.getData();
-            selectedPDF.setText(data.getData().getLastPathSegment());
+            //selectedPDF.setText(data.getData().getLastPathSegment());
         }
         else {
             Toast.makeText(EmployeeProfile.this, "Please select a file", Toast.LENGTH_SHORT).show();
@@ -454,7 +461,12 @@ public class EmployeeProfile extends AppCompatActivity {
         return password.isEmpty();
     }
 
-    public static boolean isRadiusInRange (String radius) {
+
+    protected static boolean isClientIDEmpty (String clientID) {
+        return clientID.isEmpty();
+    }
+
+    protected static boolean isRadiusInRange (String radius) {
         if (Integer.valueOf(radius) >= 1 && Integer.valueOf(radius) <= 25 && !radius.isEmpty()) {
             return true;
         }

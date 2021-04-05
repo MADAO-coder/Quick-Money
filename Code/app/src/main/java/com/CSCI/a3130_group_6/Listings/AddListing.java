@@ -159,7 +159,7 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
 
                     // creating a list object with relevant entries which have to be added to the database
                     list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(),
-                            date.getText().toString(), pay.getText().toString(), status.getText().toString(),AddListingMap.presentLocation);
+                            date.getText().toString(), pay.getText().toString(), "OPEN",AddListingMap.presentLocation);
 
                     // pushing entries to the database
                     listing.child(String.valueOf(LoginPage.validEmployer[0])).child("Listing").push().setValue(list);

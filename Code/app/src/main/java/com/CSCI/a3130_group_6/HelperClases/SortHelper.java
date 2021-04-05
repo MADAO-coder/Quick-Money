@@ -118,7 +118,7 @@ public class SortHelper {
         for(int i = 0; i < sortPositions.size(); i++) {
             // [-1, 1, 0]
             if (sortPositions.get(i) != -1) {
-                sortedList.add(sortPositions.get(i), list.get(i));
+                sortedList.set(sortPositions.get(i), list.get(i));
             }
         }
         return sortedList;

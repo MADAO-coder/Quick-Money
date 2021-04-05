@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI.a3130_group_6.EmployeePackage.EmployeeView;
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
 import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.CSCI.a3130_group_6.R;
@@ -32,9 +33,10 @@ public class ListingApplicants extends AppCompatActivity {
     FirebaseDatabase db;
     Iterator<DataSnapshot> applicantItr;
     ArrayList<String> applicantUserId;
+    ArrayList<String> acceptedUsers;
 
     // ToDo: Get the names of users who applied to the listing in this arraylist to show in the Listing of applicants - Bryson
-    ArrayList<String> applicantName;
+    ArrayList<String> applicantNames;
     ArrayList<String> applicantMessages;
 
     @Override
@@ -53,8 +55,9 @@ public class ListingApplicants extends AppCompatActivity {
         urgency = intent.getStringExtra("urgency");
 
         applicantUserId = new ArrayList<>();
+        acceptedUsers = new ArrayList<>();
         applicantMessages = new ArrayList<>();
-        applicantName = new ArrayList<>();
+        applicantNames = new ArrayList<>();
 
         applicantStatus = findViewById(R.id.noApplicantsMessage);
         applicantList = findViewById(R.id.applicantList);
@@ -78,29 +81,43 @@ public class ListingApplicants extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> dataItr = dataSnapshot.getChildren().iterator();
                 //Read data from data base.
-                lHold[0] = dataItr.next();
-                // if employers listing has applicants
-                if(lHold[0].getKey().equals("Applied")){
-                    applicantItr = lHold[0].getChildren().iterator();
-                    // multiple applicants
-                    while(applicantItr.hasNext()){
-                        applicant[0] = applicantItr.next();
-                        applicantUserId.add(applicant[0].getKey());
-                        // get messages  of applied applicants
-                        applicantMessages.add(applicant[0].getValue().toString());
+                if(dataItr.hasNext()){
+                    while(dataItr.hasNext()){
+                        lHold[0] = dataItr.next();
+                        // if employers listing has applicants
+                        if(lHold[0].getKey().equals("Applied")){
+                            applicantItr = lHold[0].getChildren().iterator();
+                            // multiple applicants
+                            while(applicantItr.hasNext()){
+                                applicant[0] = applicantItr.next();
+                                applicantUserId.add(applicant[0].getKey());
+                                applicantNames.add(applicant[0].getKey());
+                                // get messages  of applied applicants
+                                applicantMessages.add(applicant[0].getValue().toString());
+                            }
+                            updateApplicants();
+                        }
+                        else if(lHold[0].getKey().equals("Accepted")){
+                            applicantItr = lHold[0].getChildren().iterator();
+                            // multiple applicants
+                            while(applicantItr.hasNext()){
+                                applicant[0] = applicantItr.next();
+                                acceptedUsers.add(applicant[0].getKey());
+                            }
+                            updateApplicants();
+                        }
+                        // no applicants
+                        else if (!lHold[0].getKey().equals("Paid")){
+                            applicantStatus.setVisibility(View.VISIBLE);
+                        }
                     }
-                    updateApplicants();
-                }
-                // no applicants
-                else{
+                }else{
                     applicantStatus.setVisibility(View.VISIBLE);
                 }
+
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 
@@ -131,14 +148,30 @@ public class ListingApplicants extends AppCompatActivity {
                     sendToEmployeeDetails(view);
                 }
             });
-        }else{
-            applicantStatus.setVisibility(View.VISIBLE);
         }
     }
 
     public void sendToEmployeeDetails(View view){
-        Intent switchIntent = new Intent(this, ShowApplication.class);
-        switchIntent.putExtra("name", employeeName);
+        boolean payOption = false;
+        Intent switchIntent;
+        for(int i=0; i<acceptedUsers.size(); i++){
+            if(employeeName.equals(acceptedUsers.get(i))){
+                payOption = true;
+                break;
+            }
+        }
+        if(payOption){
+            switchIntent = new Intent(this, EmployeeView.class);
+            switchIntent.putExtra("amount", pay);
+            switchIntent.putExtra("key", key);
+            switchIntent.putExtra("employerName", employer);
+            switchIntent.putExtra("employeeName", employeeName);
+            startActivity(switchIntent);
+        }else{
+            switchIntent = new Intent(this, ShowApplication.class);
+            switchIntent.putExtra("name", employeeName);
+        }
+
         startActivity(switchIntent);
     }
     public void homepageSwitch(View view) {

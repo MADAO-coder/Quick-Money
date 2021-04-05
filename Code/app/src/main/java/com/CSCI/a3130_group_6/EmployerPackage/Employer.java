@@ -7,7 +7,7 @@ public class Employer {
     private String phone;
     private String emailAddress;
     private String name;
-    private String buisnessName;
+    private String businessName;
 
     public Employer(){
 
@@ -19,7 +19,7 @@ public class Employer {
         this.phone = phone;
         this.emailAddress = emailAddress;
         this.name = name;
-        this.buisnessName = buisnessName;
+        this.businessName = buisnessName;
     }
 
     public String getUserName(){
@@ -34,8 +34,8 @@ public class Employer {
         return phone;
     }
 
-    public String getBuisnessName() {
-        return buisnessName;
+    public String getBusinessName() {
+        return businessName;
     }
 
     public String getName() {
@@ -66,7 +66,7 @@ public class Employer {
         this.name = name;
     }
 
-    public void setBuisnessName(String buisnessName) {
-        this.buisnessName = buisnessName;
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
     }
 }

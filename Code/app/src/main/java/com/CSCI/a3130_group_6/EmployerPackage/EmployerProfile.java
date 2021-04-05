@@ -18,7 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployer;
 
@@ -55,7 +57,7 @@ public class EmployerProfile extends AppCompatActivity {
                 employer.setPassword(passwordView.getText().toString());
                 employer.setPhone(phoneView.getText().toString());
                 employer.setEmailAddress(emailView.getText().toString());
-                employer.setBuisnessName(businessView.getText().toString());
+                employer.setBusinessName(businessView.getText().toString());
                 // updates to db, but deletes associated listings
                 updateToDatabase(employer);
             }
@@ -90,23 +92,32 @@ public class EmployerProfile extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submitBtn);
         showRating = findViewById(R.id.showRating);
         refreshButton = (Button) findViewById(R.id.refreshBtn);
+
+        // re-set the new values
+        Employer employer = new Employer();
+        employer.setName(nameView.getText().toString());
+        //employers.setBiography(biography);
+        employer.setUserName(usernameView.getText().toString());
+        employer.setPassword(passwordView.getText().toString());
+        employer.setPhone(phoneView.getText().toString());
+        employer.setEmailAddress(emailView.getText().toString());
+        employer.setBusinessName(businessView.getText().toString());
     }
 
     public void updateToDatabase(Employer employer){
         // save object user to database to Firebase
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + username);
 
-        /* Map<String, Object> updates = new HashMap<>();
-         * updates.put(username, employer.getUserName());
-         * updates.put("password", employer.getPassword());
-         * updates.put("emailAddress", employer.getEmailAddress());
-         * updates.put("name", employer.getName());
-         * updates.put("businessName", employer.getBuisnessName());
-         * updates.put("phone", employer.getPhone());
-         * employerRef.updateChildren(updates);
-         */
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("password", employer.getPassword());
+        updates.put("emailAddress", employer.getEmailAddress());
+        updates.put("name", employer.getName());
+        updates.put("businessName", employer.getBusinessName());
+        updates.put("phone", employer.getPhone());
+        employerRef.updateChildren(updates);
+
         // below sets entirely new employer object - overwriting any listings
-        employerRef.setValue(employer);
+//        employerRef.setValue(employer);
         statusView.setText("Profile updated to database!");
     }
     public void refreshPage(){
@@ -157,7 +168,7 @@ public class EmployerProfile extends AppCompatActivity {
                             phone = employer.getPhone();
                             email = employer.getEmailAddress();
                             name = employer.getName();
-                            business = employer.getBuisnessName();
+                            business = employer.getBusinessName();
                             rating = dataSnapshot.child(employer.getUserName()).child("Rating").
                                         getValue(Double.class);
                             if (rating == null) {

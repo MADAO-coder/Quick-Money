@@ -67,8 +67,6 @@ public class ListingHistory extends AppCompatActivity {
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (toggleFlag){
                     NoListing.setText("Switched to edit");
                     toggleFlag=false;
@@ -191,7 +189,7 @@ public class ListingHistory extends AppCompatActivity {
                                 //DataSnapshot next = listingItr.next();
                                 String listingKey = listing[0].getKey();
                                 Listing value = listing[0].getValue(Listing.class);
-                                value.setKey(listingKey);
+                                //value.setKey(listingKey);
 
                                 // tODO: @tY Your code breaks. Please check for this.
                                 //listings.add(value);
