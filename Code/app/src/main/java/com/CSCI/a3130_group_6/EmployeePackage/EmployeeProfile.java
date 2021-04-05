@@ -287,7 +287,7 @@ public class EmployeeProfile extends AppCompatActivity {
         updates.put("name", employee.getName());
         updates.put("phone", employee.getPhone());
         updates.put("description", employee.getDescription());
-        updates.put("resumeUrl", employee.getResumeUrl());
+        //updates.put("resumeUrl", employee.getResumeUrl());
         updates.put("clientID", employee.getClientID());
         // Add radius to the database
         employeeRef.updateChildren(updates);
