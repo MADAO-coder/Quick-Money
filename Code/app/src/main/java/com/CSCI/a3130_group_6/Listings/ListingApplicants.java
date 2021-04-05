@@ -97,7 +97,7 @@ public class ListingApplicants extends AppCompatActivity {
                             }
                             updateApplicants();
                         }
-                        if(lHold[0].getKey().equals("Accepted")){
+                        else if(lHold[0].getKey().equals("Accepted")){
                             applicantItr = lHold[0].getChildren().iterator();
                             // multiple applicants
                             while(applicantItr.hasNext()){
@@ -107,7 +107,7 @@ public class ListingApplicants extends AppCompatActivity {
                             updateApplicants();
                         }
                         // no applicants
-                        else{
+                        else if (!lHold[0].getKey().equals("Paid")){
                             applicantStatus.setVisibility(View.VISIBLE);
                         }
                     }
@@ -117,10 +117,7 @@ public class ListingApplicants extends AppCompatActivity {
 
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 
@@ -151,8 +148,6 @@ public class ListingApplicants extends AppCompatActivity {
                     sendToEmployeeDetails(view);
                 }
             });
-        }else{
-            applicantStatus.setVisibility(View.VISIBLE);
         }
     }
 

@@ -262,7 +262,7 @@ public class EmployeeProfile extends AppCompatActivity {
         emailView = findViewById(R.id.applicantEmail);
         radiusView = findViewById(R.id.applicantRadius);
 
-        selectedPDF = findViewById(R.id.selectedPDF);
+        // selectedPDF = findViewById(R.id.selectedPDF);
         clientIDView = findViewById(R.id.ClientIDInput);
 
         showRating = findViewById(R.id.employeeRating);
