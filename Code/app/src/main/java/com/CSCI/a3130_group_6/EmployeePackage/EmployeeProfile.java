@@ -463,7 +463,7 @@ public class EmployeeProfile extends AppCompatActivity {
 
 
     protected static boolean isClientIDEmpty (String clientID) {
-        return clientID.length()>=1;
+        return clientID.isEmpty();
     }
 
     protected static boolean isRadiusInRange (String radius) {
