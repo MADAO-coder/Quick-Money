@@ -46,7 +46,7 @@ public class EmployeeRatingEmployer extends AppCompatActivity implements View.On
      * Returns: boolean
      *
      */
-    protected boolean checkRatingRange(int rating) {
+    public boolean checkRatingRange(int rating) {
         if(rating>5){
             return false;
         }
