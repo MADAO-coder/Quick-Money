@@ -119,8 +119,8 @@ public class EmployeeProfile extends AppCompatActivity {
                 else if (!isRadiusInRange(radiusView.getText().toString().trim())) {
                     setStatusMessage(false,"Error: Please enter a radius between 1-25");
                 }
-                else if (!isClientIDEmpty(clientIDView.getText().toString().trim())) {
-                    setStatusMessage(false,"Error: Please enter a radius between 1-25");
+                else if (isClientIDEmpty(clientIDView.getText().toString().trim())) {
+                    setStatusMessage(false,"Error: Please enter a valid client ID");
                 }
                 else {
                     employee.setName(nameView.getText().toString());
@@ -262,7 +262,7 @@ public class EmployeeProfile extends AppCompatActivity {
         emailView = findViewById(R.id.applicantEmail);
         radiusView = findViewById(R.id.applicantRadius);
 
-        // selectedPDF = findViewById(R.id.selectedPDF);
+       // selectedPDF = findViewById(R.id.selectedPDF);
         clientIDView = findViewById(R.id.ClientIDInput);
 
         showRating = findViewById(R.id.employeeRating);
@@ -272,18 +272,6 @@ public class EmployeeProfile extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.employerHome);
     }
 
-    public void updateLocationToDatabase(UserLocation user) {
-        employeeRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee/" + username);
-
-        Map<String, Object> locationUpdates = new HashMap<>();
-        locationUpdates.put("latitude", user.getLatitude());
-        locationUpdates.put("longitude", user.getLongitude());
-        locationUpdates.put("radius", user.getRadius());
-
-        employeeRef.child("Location").updateChildren(locationUpdates);
-        employeeRef.child("Location").setValue(user);
-        setStatusMessage(true, "Profile updated to database!");
-    }
 
     public void updateToDatabase(Employee employee, UserLocation user){
         // save object user to database to Firebase
@@ -331,7 +319,7 @@ public class EmployeeProfile extends AppCompatActivity {
         emailView.setText(email);
         radiusView.setText(radius);
         clientIDView.setText(clientID);
-        selectedPDF.setText(resume);
+        // selectedPDF.setText(resume);
 
     }
 
@@ -445,7 +433,7 @@ public class EmployeeProfile extends AppCompatActivity {
         }
         if (requestCode == 86 && resultCode == RESULT_OK && data != null) {
             pdf = data.getData();
-            selectedPDF.setText(data.getData().getLastPathSegment());
+            //selectedPDF.setText(data.getData().getLastPathSegment());
         }
         else {
             Toast.makeText(EmployeeProfile.this, "Please select a file", Toast.LENGTH_SHORT).show();
