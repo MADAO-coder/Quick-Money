@@ -154,8 +154,8 @@ public class EditEmployerListing extends AppCompatActivity {
                             EditDate.getText().toString(),EditPay.getText().toString(),EditStatus.getText().toString(),listing[6]);
 
                     Map<String, Object> postValues = new HashMap<>();
-                    postValues.put("password", post.getTaskTitle());
-                    postValues.put("description", post.getTaskDescription());
+                    postValues.put("taskTitle", post.getTaskTitle());
+                    postValues.put("taskDescription", post.getTaskDescription());
                     postValues.put("urgency", post.getUrgency());
                     postValues.put("date", post.getDate());
                     postValues.put("pay", post.getPay());
