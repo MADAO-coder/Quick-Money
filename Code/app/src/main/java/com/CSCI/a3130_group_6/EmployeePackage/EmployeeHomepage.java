@@ -113,7 +113,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         sortButton = findViewById(R.id.sortButton);
         sortButton.setOnClickListener(this);
         walletView = findViewById(R.id.walletView);
-        dbReadEmployees(employerRef, listings);
 
         acceptedListingButton = findViewById(R.id.acceptListingsButton);
         acceptedListingButton.setOnClickListener(this);
