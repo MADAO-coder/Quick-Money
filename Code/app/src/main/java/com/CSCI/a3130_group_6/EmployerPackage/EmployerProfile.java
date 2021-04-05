@@ -18,7 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployer;
 
@@ -96,17 +98,16 @@ public class EmployerProfile extends AppCompatActivity {
         // save object user to database to Firebase
         employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/" + username);
 
-        /* Map<String, Object> updates = new HashMap<>();
-         * updates.put(username, employer.getUserName());
-         * updates.put("password", employer.getPassword());
-         * updates.put("emailAddress", employer.getEmailAddress());
-         * updates.put("name", employer.getName());
-         * updates.put("businessName", employer.getBuisnessName());
-         * updates.put("phone", employer.getPhone());
-         * employerRef.updateChildren(updates);
-         */
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("password", employer.getPassword());
+        updates.put("emailAddress", employer.getEmailAddress());
+        updates.put("name", employer.getName());
+        updates.put("businessName", employer.getBuisnessName());
+        updates.put("phone", employer.getPhone());
+        employerRef.updateChildren(updates);
+
         // below sets entirely new employer object - overwriting any listings
-        employerRef.setValue(employer);
+//        employerRef.setValue(employer);
         statusView.setText("Profile updated to database!");
     }
     public void refreshPage(){
