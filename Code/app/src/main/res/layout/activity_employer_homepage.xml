@@ -12,120 +12,65 @@
     tools:context="com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/Home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/ListingHistory"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:text="Listing" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chat" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/profileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/Logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="Logout" />
-        </com.google.android.material.tabs.TabLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-    <SearchView
-        android:id="@+id/searchBar"
-        android:layout_width="263dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="220dp"
-        android:layout_marginEnd="148dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:inputType="text"
-
-
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <ListView
-        android:id="@+id/employeeList"
-        android:layout_width="405dp"
-        android:layout_height="311dp"
-        android:isScrollContainer="true"
-        android:nestedScrollingEnabled="true"
-        android:scrollIndicators="right"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbars="vertical"
-        android:smoothScrollbar="true"
-        android:verticalScrollbarPosition="right"
-        android:visibility="visible"
+    <Button
+        android:id="@+id/ListingHistory"
+        android:layout_width="134dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginBottom="441dp"
+        android:onClick="switchListingHistory"
+        android:text="Listing History"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        app:layout_constraintVertical_bias="0.593" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/employeeHeader"
-        android:layout_width="411dp"
-        android:layout_height="19dp"
-        android:clickable="false"
-        android:text="Available Workers In Your Area"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/employeeList"
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="96dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="29dp"
+        android:clickable="true"
+        android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        app:layout_constraintVertical_bias="0.678" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/addTaskButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="441dp"
         android:clickable="true"
         android:onClick="addTaskSwitch"
-        android:text="Add Task"
-        app:layout_constraintBottom_toTopOf="@+id/employeeHeader"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
+        android:text="Add Listing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:background="#673AB7"
+        android:onClick="homepageSwitch"
+        android:text="Home"
+        android:theme="@android:style/Theme.Holo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="101dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="46dp"
+        android:onClick="profileSwitch"
+        android:text="Profile"
+        app:layout_constraintEnd_toStartOf="@+id/Logout"
+        app:layout_constraintStart_toEndOf="@+id/homeButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

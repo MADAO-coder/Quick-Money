@@ -61,7 +61,7 @@ public class EmployeeProfile extends AppCompatActivity {
 
 
     String description, username, password, phone, email, name, radius, resume, clientID;
-    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
+    EditText nameView, emailView, phoneView, passView, radiusView, clientIDView;
     TextView usernameView, statusView, selectedPDF, showRating;
 
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
@@ -131,7 +131,6 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
                 else {
                     employee.setName(nameView.getText().toString());
-                    employee.setDescription(descriptionBox.getText().toString());
                     //employee.setUserName(usernameView.getText().toString());
                     employee.setPassword(passView.getText().toString());
                     employee.setPhone(phoneView.getText().toString());
@@ -199,35 +198,35 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
             }
         });
-        tab =findViewById(R.id.tabs);
-        route = new EmployeeNavBarRouting(getApplicationContext());
-        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                switch (tab.getText().toString()) {
-                    case "Listing":
-                        route.switchListingHistory(getApplicationContext());
-                        break;
-                    case "Profile":
-                        route.profileSwitch(getApplicationContext());
-                        break;
-                    case "Logout":
-                        route.LogoutSwitch(getApplicationContext());
-                        break;
-                    case "Home":
-                        route.homepageSwitch(getApplicationContext());
-                        break;
-                    case "Chat":
-                        //route.chatSwitch(getApplicationContext());
-                        break;
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+//        tab =findViewById(R.id.tabs);
+//        route = new EmployeeNavBarRouting(getApplicationContext());
+//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                switch (tab.getText().toString()) {
+//                    case "Listing":
+//                        route.switchListingHistory(getApplicationContext());
+//                        break;
+//                    case "Profile":
+//                        route.profileSwitch(getApplicationContext());
+//                        break;
+//                    case "Logout":
+//                        route.LogoutSwitch(getApplicationContext());
+//                        break;
+//                    case "Home":
+//                        route.homepageSwitch(getApplicationContext());
+//                        break;
+//                    case "Chat":
+//                        //route.chatSwitch(getApplicationContext());
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) { }
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {}
+//        });
     }
 
     private void selectPDF() {
@@ -285,7 +284,6 @@ public class EmployeeProfile extends AppCompatActivity {
     public void setViews(){
         statusView = findViewById(R.id.employeeStatusLabel);
         nameView = findViewById(R.id.applicantName);
-        descriptionBox = findViewById(R.id.applicantDescription);
         usernameView = findViewById(R.id.applicantUserName);
         passView = findViewById(R.id.applicantMessage);
         phoneView = findViewById(R.id.applicantPhoneNum);
@@ -340,7 +338,6 @@ public class EmployeeProfile extends AppCompatActivity {
 
     public void loadProfile(){
         nameView.setText(name);
-        descriptionBox.setText(description);
         usernameView.setText(username);
         passView.setText(password);
         phoneView.setText(phone);

@@ -3,12 +3,15 @@ package com.CSCI.a3130_group_6.EmployerPackage;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,13 +39,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class EmployerHomepage extends AppCompatActivity {
+public class EmployerHomepage extends AppCompatActivity implements View.OnClickListener{
 
     ArrayList<Employee> employees;
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
     String taskTitle;
-    EmployerNavBarRouting route;
+    Button logout;
+
     Map<String, Integer> listings;
     TabLayout tab;
     @Override
@@ -51,6 +55,8 @@ public class EmployerHomepage extends AppCompatActivity {
         setContentView(R.layout.activity_employer_homepage);
 
         listings = Collections.synchronizedMap(new HashMap<String, Integer>());
+        logout = findViewById(R.id.Logout);
+        logout.setOnClickListener(this);
 
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
@@ -101,35 +107,35 @@ public class EmployerHomepage extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
-        tab =findViewById(R.id.tabs);
-        route = new EmployerNavBarRouting(getApplicationContext());
-        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                switch (tab.getText().toString()) {
-                    case "Listing":
-                        route.switchListingHistory(getApplicationContext());
-                        break;
-                    case "Profile":
-                        route.profileSwitch(getApplicationContext());
-                        break;
-                    case "Logout":
-                        route.LogoutSwitch(getApplicationContext());
-                        break;
-                    case "Home":
-                        route.homepageSwitch(getApplicationContext());
-                        break;
-                    case "Chat":
-                        //route.chatSwitch(getApplicationContext());
-                        break;
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+//        tab =findViewById(R.id.tabs);
+//        route = new EmployerNavBarRouting(getApplicationContext());
+//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                switch (tab.getText().toString()) {
+//                    case "Listing":
+//                        route.switchListingHistory(getApplicationContext());
+//                        break;
+//                    case "Profile":
+//                        route.profileSwitch(getApplicationContext());
+//                        break;
+//                    case "Logout":
+//                        route.LogoutSwitch(getApplicationContext());
+//                        break;
+//                    case "Home":
+//                        route.homepageSwitch(getApplicationContext());
+//                        break;
+//                    case "Chat":
+//                        //route.chatSwitch(getApplicationContext());
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) { }
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {}
+//        });
     }
 
 
@@ -215,7 +221,7 @@ public class EmployerHomepage extends AppCompatActivity {
         employees.toArray(employeesString);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employeesString);
         ListView employeeList = (ListView) findViewById(R.id.employeeList);
-        employeeList.setAdapter(adapter);
+        // employeeList.setAdapter(adapter);
     }
 
     public boolean searchFunctioning(String search){
@@ -275,4 +281,18 @@ public class EmployerHomepage extends AppCompatActivity {
         startActivity(switchIntent);
     }
 
+    public void LogoutSwitch(Context context) {
+        Toast.makeText(context, "Logging out", Toast.LENGTH_SHORT).show();
+        ListingHistory.employerRef=null;
+        Intent switchIntent = new Intent(context, LoginPage.class);
+        switchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(switchIntent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.Logout) {
+            LogoutSwitch(this);
+        }
+    }
 }

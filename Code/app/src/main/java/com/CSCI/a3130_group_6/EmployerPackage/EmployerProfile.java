@@ -30,7 +30,7 @@ public class EmployerProfile extends AppCompatActivity {
     DatabaseReference employerRef = null;
     String biography, username, password, phone, email, name, business;
     Double rating;
-    EditText nameView, biographyView, usernameView, passwordView, phoneView, emailView, businessView;
+    EditText nameView, usernameView, passwordView, phoneView, emailView, businessView;
     TextView statusView, showRating;
     Button submitButton, refreshButton;
     TabLayout tab;
@@ -76,38 +76,38 @@ public class EmployerProfile extends AppCompatActivity {
         // asynchronous task function enables front end thread to wait for backend thread
         // need to setup so UI thread waits for backend thread
         // google resources + ask vikash
-        tab =findViewById(R.id.tabs);
-        TabLayout.Tab activeTab = tab.getTabAt(3);
-        activeTab.select();
-        route = new EmployerNavBarRouting(getApplicationContext());
-        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                switch (tab.getText().toString()) {
-                    case "Listing":
-                        route.switchListingHistory(getApplicationContext());
-                        break;
-                    case "Profile":
-                        route.profileSwitch(getApplicationContext());
-                        break;
-                    case "Logout":
-                        route.LogoutSwitch(getApplicationContext());
-                        break;
-                    case "Home":
-                        route.homepageSwitch(getApplicationContext());
-                        break;
-                    case "Chat":
-                        //route.chatSwitch(getApplicationContext());
-                        break;
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+//        tab =findViewById(R.id.tabs);
+//        TabLayout.Tab activeTab = tab.getTabAt(3);
+//        activeTab.select();
+//        route = new EmployerNavBarRouting(getApplicationContext());
+//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                switch (tab.getText().toString()) {
+//                    case "Listing":
+//                        route.switchListingHistory(getApplicationContext());
+//                        break;
+//                    case "Profile":
+//                        route.profileSwitch(getApplicationContext());
+//                        break;
+//                    case "Logout":
+//                        route.LogoutSwitch(getApplicationContext());
+//                        break;
+//                    case "Home":
+//                        route.homepageSwitch(getApplicationContext());
+//                        break;
+//                    case "Chat":
+//                        //route.chatSwitch(getApplicationContext());
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) { }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {}
+//        });
     }
 
     public void switchListingHistory(View view) {
@@ -118,7 +118,6 @@ public class EmployerProfile extends AppCompatActivity {
     public void setViews(){
         statusView = findViewById(R.id.statusView);
         nameView = findViewById(R.id.editName);
-        biographyView = findViewById(R.id.editBiography);
         usernameView = findViewById(R.id.editUsername);
         passwordView = findViewById(R.id.editPassword);
         phoneView = findViewById(R.id.editPhone);
@@ -164,7 +163,6 @@ public class EmployerProfile extends AppCompatActivity {
 
     public void loadProfile(){
         nameView.setText(name);
-        biographyView.setText(biography);
         usernameView.setText(username);
         passwordView.setText(password);
         phoneView.setText(phone);

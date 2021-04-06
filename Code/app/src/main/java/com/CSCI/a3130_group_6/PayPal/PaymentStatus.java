@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
 import com.CSCI.a3130_group_6.HelperClases.PaymentModel;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.DataSnapshot;
@@ -29,12 +30,14 @@ public class PaymentStatus extends AppCompatActivity implements View.OnClickList
     PaymentModel responseData;
     DatabaseReference employeeRef;
     double prevRating = 0;
+    Button homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_status);
-
+        homeButton = findViewById(R.id.button);
+        homeButton.setOnClickListener(this);
 
 
         txtId = findViewById(R.id.txtId);
@@ -97,7 +100,21 @@ public class PaymentStatus extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.submitRating:
                 getPrevRating(employeeRef);
+                break;
+            case R.id.button:
+                homepageSwitch();
         }
+    }
+
+    /**
+     * Function: This method switches intent to the employee homepage
+     * Parameters: View view
+     * Returns: void
+     *
+     */
+    public void homepageSwitch() {
+        Intent switchIntent = new Intent(this, EmployeeHomepage.class);
+        startActivity(switchIntent);
     }
 
     /**

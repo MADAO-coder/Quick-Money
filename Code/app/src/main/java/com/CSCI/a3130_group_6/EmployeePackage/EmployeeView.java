@@ -67,39 +67,39 @@ public class EmployeeView extends AppCompatActivity {
 
         // get data
         getEmployeeDetails(employeeRef);
-        tab =findViewById(R.id.tabs);
-
-        TabLayout.Tab activeTab = tab.getTabAt(3);
-        activeTab.select();
-        route = new EmployeeNavBarRouting(getApplicationContext());
-        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                switch (tab.getText().toString()) {
-                    case "Listing":
-                        route.switchListingHistory(getApplicationContext());
-                        break;
-                    case "Profile":
-                        route.profileSwitch(getApplicationContext());
-                        break;
-                    case "Logout":
-                        route.LogoutSwitch(getApplicationContext());
-                        break;
-                    case "Home":
-                        route.homepageSwitch(getApplicationContext());
-                        break;
-                    case "Chat":
-                        //route.chatSwitch(getApplicationContext());
-                        break;
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+//        tab =findViewById(R.id.tabs);
+//
+//        TabLayout.Tab activeTab = tab.getTabAt(3);
+//        activeTab.select();
+//        route = new EmployeeNavBarRouting(getApplicationContext());
+//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                switch (tab.getText().toString()) {
+//                    case "Listing":
+//                        route.switchListingHistory(getApplicationContext());
+//                        break;
+//                    case "Profile":
+//                        route.profileSwitch(getApplicationContext());
+//                        break;
+//                    case "Logout":
+//                        route.LogoutSwitch(getApplicationContext());
+//                        break;
+//                    case "Home":
+//                        route.homepageSwitch(getApplicationContext());
+//                        break;
+//                    case "Chat":
+//                        //route.chatSwitch(getApplicationContext());
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) { }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {}
+//        });
     }
 
     public void sendPayment(View view){
@@ -122,9 +122,6 @@ public class EmployeeView extends AppCompatActivity {
     public void disableFields(){
         nameView.setClickable(false);
         nameView.setEnabled(false);
-
-        descriptionBox.setClickable(false);
-        descriptionBox.setEnabled(false);
 
         usernameView.setClickable(false);
         usernameView.setEnabled(false);
@@ -167,7 +164,6 @@ public class EmployeeView extends AppCompatActivity {
         nameView = findViewById(R.id.applicantName);
         imageView = findViewById(R.id.profilePicture);
         statusView = findViewById(R.id.employeeStatusLabel);
-        descriptionBox = findViewById(R.id.applicantDescription);
         usernameView = findViewById(R.id.applicantUserName);
         passView = findViewById(R.id.applicantMessage);
         phoneView = findViewById(R.id.applicantPhoneNum);
@@ -189,8 +185,6 @@ public class EmployeeView extends AppCompatActivity {
      */
     public void loadProfile(){
         nameView.setText(employeeName);
-        descriptionBox.setText(description);
-        usernameView.setText(username);
         //passView.setText(password);
         phoneView.setText(phone);
         emailView.setText(email);

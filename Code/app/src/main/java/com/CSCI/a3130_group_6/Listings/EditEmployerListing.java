@@ -50,38 +50,38 @@ public class EditEmployerListing extends AppCompatActivity {
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/"+ listing[7]+"/Listing/"+ listing[6]);
 
         setTextBox();
-        tab =findViewById(R.id.tabs);
-        TabLayout.Tab activeTab = tab.getTabAt(3);
-        activeTab.select();
-        route = new EmployerNavBarRouting(getApplicationContext());
-        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                switch (tab.getText().toString()) {
-                    case "Listing":
-                        route.switchListingHistory(getApplicationContext());
-                        break;
-                    case "Profile":
-                        route.profileSwitch(getApplicationContext());
-                        break;
-                    case "Logout":
-                        route.LogoutSwitch(getApplicationContext());
-                        break;
-                    case "Home":
-                        route.homepageSwitch(getApplicationContext());
-                        break;
-                    case "Chat":
-                        //route.chatSwitch(getApplicationContext());
-                        break;
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+//        tab =findViewById(R.id.tabs);
+//        TabLayout.Tab activeTab = tab.getTabAt(3);
+//        activeTab.select();
+//        route = new EmployerNavBarRouting(getApplicationContext());
+//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                switch (tab.getText().toString()) {
+//                    case "Listing":
+//                        route.switchListingHistory(getApplicationContext());
+//                        break;
+//                    case "Profile":
+//                        route.profileSwitch(getApplicationContext());
+//                        break;
+//                    case "Logout":
+//                        route.LogoutSwitch(getApplicationContext());
+//                        break;
+//                    case "Home":
+//                        route.homepageSwitch(getApplicationContext());
+//                        break;
+//                    case "Chat":
+//                        //route.chatSwitch(getApplicationContext());
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) { }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {}
+//        });
     }
 
     //}
@@ -166,7 +166,23 @@ public class EditEmployerListing extends AppCompatActivity {
         startActivity(switchIntent);
     }
 
+    private boolean checkIfListingStatusValid(String status) {
+        if (status.equals("OPEN") || status.equals("CLOSED")) {
+            return true;
+        }
+        return false;
+    }
 
+    /**
+     * Function: Method to create a Toast
+     * Parameters:
+     * Returns: void
+     *
+     */
+    private void createToast(String message) {
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.show();
+    }
 
     public void onClick(View v) {
         EditText EditTask=findViewById(R.id.titleInput);
@@ -182,6 +198,8 @@ public class EditEmployerListing extends AppCompatActivity {
                         isEmptyUrgency(EditUrgency.toString().trim()) || isEmptyPay(EditPay.toString().trim())) {
                     Toast toast = Toast.makeText(this, "Error: Please ensure all fields are filled.", Toast.LENGTH_LONG);
                     toast.show();
+                } else if (!checkIfListingStatusValid(EditStatus.getText().toString())){
+                    createToast("Please enter OPEN or CLOSED for Listing Status");
                 } else {
                     checkUrgencyRange(EditUrgency.toString().trim());
                     Listing post = new Listing(EditTask.getText().toString(), EditTaskDescription.getText().toString(),EditUrgency.getText().toString(),

@@ -1,131 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/Home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/ListingHistory"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:text="Listing" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chat" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/profileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/Logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="Logout" />
-        </com.google.android.material.tabs.TabLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <Button
         android:id="@+id/seeResume"
         android:layout_width="149dp"
         android:layout_height="50dp"
         android:layout_marginStart="153dp"
-        android:layout_marginTop="22dp"
         android:layout_marginEnd="109dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="29dp"
         android:text="See Resume"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applicantRadius" />
-
-    <TextView
-        android:id="@+id/applicantRadius"
-        android:layout_width="272dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/purple_500"
-        android:ems="10"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/employeeRadius"
-        app:layout_constraintTop_toBottomOf="@+id/applicantMessage" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/employeeRadius"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="47dp"
         android:text="Working Radius"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/accept"
-        app:layout_constraintEnd_toStartOf="@+id/applicantRadius"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/message" />
+        app:layout_constraintTop_toBottomOf="@+id/message" />
 
-
-    <TextView
-        android:id="@+id/applicantMessage"
-        android:layout_width="272dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="30dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:background="@color/purple_500"
-        android:textAlignment="center"
+    <Button
+        android:id="@+id/employerHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:text="Home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/message"
-        app:layout_constraintTop_toBottomOf="@+id/applicantPhoneNum" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="60dp"
         android:text="Message"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/employeeRadius"
-        app:layout_constraintEnd_toStartOf="@+id/applicantMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeePhoneNum" />
 
@@ -133,95 +55,32 @@
         android:id="@+id/employeePhoneNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="41dp"
         android:text="Phone Number"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/message"
-        app:layout_constraintEnd_toStartOf="@+id/applicantPhoneNum"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeEmail" />
-
-    <TextView
-        android:id="@+id/applicantPhoneNum"
-        android:layout_width="272dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/purple_500"
-        android:ems="10"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/applicantMessage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/employeePhoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/applicantEmail" />
-
-    <TextView
-        android:id="@+id/applicantEmail"
-        android:layout_width="272dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/purple_500"
-        android:ems="10"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/applicantPhoneNum"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/employeeEmail"
-        app:layout_constraintTop_toBottomOf="@+id/applicantUserName" />
 
     <TextView
         android:id="@+id/employeeEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="57dp"
         android:text="Email"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/employeePhoneNum"
-        app:layout_constraintEnd_toStartOf="@+id/applicantEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeUserName" />
-
-    <TextView
-        android:id="@+id/applicantUserName"
-        android:layout_width="272dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="1dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:background="@color/purple_500"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/applicantEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/employeeUserName"
-        app:layout_constraintTop_toBottomOf="@+id/applicantName" />
 
     <TextView
         android:id="@+id/employeeUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="41dp"
         android:text="Username"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/employeeEmail"
-        app:layout_constraintEnd_toStartOf="@+id/applicantUserName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeName" />
 
@@ -236,100 +95,126 @@
         android:background="@android:drawable/ic_menu_gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.313"
         tools:srcCompat="@tools:sample/avatars" />
 
 
 
     <TextView
-        android:id="@+id/applicantDescription"
-        android:layout_width="176dp"
-        android:layout_height="78dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="543dp"
-        android:background="@color/purple_500"
-        android:ems="10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/profilePicture"
-        app:layout_constraintTop_toBottomOf="@+id/navBar" />
-
-    <TextView
         android:id="@+id/employeeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="50dp"
         android:text="Name"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/employeeUserName"
-        app:layout_constraintEnd_toStartOf="@+id/applicantName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+        app:layout_constraintTop_toBottomOf="@+id/profileImageButton" />
 
     <TextView
         android:id="@+id/applicantName"
         android:layout_width="272dp"
         android:layout_height="45dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="2dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:background="@color/purple_500"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/applicantUserName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/employeeName"
-        app:layout_constraintTop_toBottomOf="@+id/applicantDescription"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+
+    <TextView
+        android:id="@+id/applicantPhoneNum"
+        android:layout_width="272dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"
+        android:ems="10"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/applicantEmail" />
+
+    <TextView
+        android:id="@+id/applicantUserName"
+        android:layout_width="272dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="3dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/applicantName" />
+
+    <TextView
+        android:id="@+id/applicantMessage"
+        android:layout_width="272dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="2dp"
+
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/applicantPhoneNum" />
+
+    <TextView
+        android:id="@+id/applicantEmail"
+        android:layout_width="272dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="3dp"
+        android:ems="10"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/applicantUserName" />
+
+    <TextView
+        android:id="@+id/applicantRadius"
+        android:layout_width="272dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="3dp"
+        android:ems="10"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/applicantMessage" />
 
     <Button
         android:id="@+id/accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginEnd="142dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="16dp"
         android:text="Accept"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reject"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/reject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="16dp"
         android:text="Reject"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applicantRadius"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/profileImageButton"
         android:layout_width="67dp"
         android:layout_height="33dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="140dp"
         app:icon="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toTopOf="@+id/employeeName"
-        app:layout_constraintEnd_toStartOf="@+id/applicantName"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toEndOf="@+id/employeeName"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicture"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,7 +62,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     Listing list;
     TextInputLayout selfDef;
     private Employee employee;
-    Button homeBt, addPayment, submitBt, employeeBt, imageBtn, uploadResume, selectResume, addLocationButton;
+    Button homeBt, submitBt, employeeBt, imageBtn, uploadResume, selectResume, addLocationButton;
     //creating buttons and display variables
     TextView registrationStatus;
     DatabaseReference employerRef = null;
@@ -122,7 +122,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         vpassword = findViewById(R.id.vpassword);
         phone = findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
         email = findViewById(R.id.email);
-        addPayment = findViewById(R.id.AddPayment);
         submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.Employer);
         homeBt = findViewById(R.id.home2);
@@ -141,7 +140,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
 
         exactAddress = new UserLocation();
         imageBtn = findViewById(R.id.Image);
-        selfDef = findViewById(R.id.SelfDescription);
 
 
         user = new CheckExistingUserName();
@@ -551,6 +549,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
                 employees.setName(getName());
                 employees.setClientID(getClientID());
                 exactAddress.setRadius(getInputRadius());
+                employees.setResumeUrl(resumeUrl);
                 saveEmployeeToDataBase(employees);
                 switchToHome();
             }
@@ -648,19 +647,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
-//                            DatabaseReference reference = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
-//                            reference.child(fileName).child("Resume").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if (task.isSuccessful()) {
-//                                        resumeUrl = result.getResult().toString();
-//                                        System.out.println(resumeUrl);
-//                                        Toast.makeText(RegistrationForEmployees.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();
-//                                    } else {
-//                                        Toast.makeText(RegistrationForEmployees.this, "File failed to upload", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            });
                             resumeUrl = result.getResult().toString();
                             System.out.println(resumeUrl);
                             Toast.makeText(RegistrationForEmployees.this, "File successfully uploaded", Toast.LENGTH_SHORT).show();

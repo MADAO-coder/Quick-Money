@@ -11,123 +11,78 @@
     android:visibility="visible"
     tools:context="com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/Home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/ListingHistory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Listing" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chat" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/profileButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/Logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="Logout" />
-
-        </com.google.android.material.tabs.TabLayout>
-    </com.google.android.material.appbar.AppBarLayout>
 
     <ListView
         android:id="@+id/TaskList"
         android:layout_width="405dp"
         android:layout_height="311dp"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="30dp"
         android:isScrollContainer="true"
         android:nestedScrollingEnabled="true"
         android:scrollIndicators="right"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarStyle="insideOverlay"
+
         android:scrollbars="vertical"
+
         android:smoothScrollbar="true"
-
         android:verticalScrollbarPosition="right"
-
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/employeeHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/searchStatus" />
 
     <TextView
         android:id="@+id/employeeHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="168dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="12dp"
         android:clickable="false"
         android:text="Available Tasks In Your Area"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/TaskList"
+        app:layout_constraintBottom_toTopOf="@+id/searchStatus"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newSearchBar" />
-
-
-    <EditText
-        android:id="@+id/newSearchBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="28dp"
-        android:ems="10"
-        android:hint="Search Tasks"
-        android:inputType="textPersonName"
-
-
-        android:textAlignment="textStart"
-        app:layout_constraintEnd_toStartOf="@+id/sortSpinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/searchStatus"
         android:layout_width="387dp"
         android:layout_height="25dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:textAlignment="center"
         android:textColor="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeHeader" />
+
+    <EditText
+        android:id="@+id/newSearchBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Search Tasks"
+
+
+        android:inputType="textPersonName"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/walletView" />
 
     <Spinner
         android:id="@+id/sortSpinner"
@@ -165,19 +120,29 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/sortSpinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintHorizontal_bias="0.118"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/acceptListingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:text="Accepted Listings"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="24dp"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
