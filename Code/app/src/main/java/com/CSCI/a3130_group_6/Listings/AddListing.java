@@ -27,13 +27,14 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     Listing list;
     AddListingMap map;
     EditText taskTitle, taskDescription, urgency, date, pay;
+    ObjectCreatorListingSingleton objectCreator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
-
+        objectCreator = new ObjectCreatorListingImplementation();
         map = new AddListingMap();
 
         if (savedInstanceState != null) {
@@ -158,8 +159,14 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
                     DatabaseReference listing = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
 
                     // creating a list object with relevant entries which have to be added to the database
-                    list = new Listing(taskTitle.getText().toString(), taskDescription.getText().toString(), urgency.getText().toString(),
-                            date.getText().toString(), pay.getText().toString(), "OPEN",AddListingMap.presentLocation);
+                    list = objectCreator.getListingObject();
+                    list.setTaskTitle(taskTitle.getText().toString());
+                    list.setTaskDescription(taskDescription.getText().toString());
+                    list.setUrgency(urgency.getText().toString());
+                    list.setDate(date.getText().toString());
+                    list.setPay(pay.getText().toString());
+                    list.setStatus("OPEN");
+                    list.setLocation(AddListingMap.presentLocation);
 
                     // pushing entries to the database
                     listing.child(String.valueOf(LoginPage.validEmployer[0])).child("Listing").push().setValue(list);

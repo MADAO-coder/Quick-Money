@@ -33,11 +33,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.PatternsCompat;
 
+import com.CSCI.a3130_group_6.EmployeePackage.ObjectCreatorEmployeeImplementation;
+import com.CSCI.a3130_group_6.EmployeePackage.ObjectCreatorEmployeeSingleton;
 import com.CSCI.a3130_group_6.Listings.AddListingMap;
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
 import com.CSCI.a3130_group_6.HelperClases.ImageCapture;
 import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.HelperClases.PermissionUtil;
+import com.CSCI.a3130_group_6.Listings.ObjectCreatorListingSingleton;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.google.android.gms.maps.model.LatLng;
@@ -67,7 +70,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     TextView statusLabel;
     TextView currentLocationView;
     DatabaseReference employeeRef = null;
-    Employee employees = new Employee();
+    Employee employees;
 
     ImageView imageToUpload;
     Button bUploadImage;
@@ -90,6 +93,8 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     LatLng userCurrentLocation;
     String radius;
     String resumeUrl;
+
+    ObjectCreatorEmployeeSingleton objectCreator;
 
 
     @Override
@@ -160,6 +165,9 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
 
         // get data from database
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
+
+        objectCreator = new ObjectCreatorEmployeeImplementation();
+        employees = objectCreator.getEmployee();
     }
 
     public boolean isUserNameEmpty() {

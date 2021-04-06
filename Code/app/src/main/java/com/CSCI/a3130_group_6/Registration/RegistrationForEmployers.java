@@ -23,8 +23,10 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
     TextView error;
     TextView statusLabel;
     DatabaseReference employerRef = null;
-    Employer employers = new Employer();
+    Employer employers;
     CheckExistingUserName user;
+
+    ObjectCreatorEmployerSingleton objectCreator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,10 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
 
         user = new CheckExistingUserName();
         user.validateUsername(username, error);
+
+        objectCreator = new ObjectCreatorEmployerImplementation();
+        employers = objectCreator.getEmployer();
+
     }
 
     /*
