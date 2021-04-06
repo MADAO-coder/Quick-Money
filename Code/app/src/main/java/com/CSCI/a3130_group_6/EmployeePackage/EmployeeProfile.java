@@ -53,11 +53,9 @@ public class EmployeeProfile extends AppCompatActivity {
     FirebaseStorage storage;
     FirebaseDatabase database;
     UserLocation user;
-
     ObjectCreatorEmployeeSingleton objectCreator;
     String userName = validEmployee[0];
     Employee employee;
-
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
@@ -151,14 +149,7 @@ public class EmployeeProfile extends AppCompatActivity {
             }
         });
         // set button to refresh profile fields on click
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Do something in response to button click
-                refreshPage();
-                setStatusMessage(true, "");
-            }
-        });
+
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override

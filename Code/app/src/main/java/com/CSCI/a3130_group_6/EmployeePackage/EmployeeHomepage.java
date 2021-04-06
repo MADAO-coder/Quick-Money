@@ -160,6 +160,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+
         tab =findViewById(R.id.tabs);
         route = new EmployeeNavBarRouting(getApplicationContext());
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -364,20 +365,20 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         setTaskList(sortAllListsByIndices());
     }
 
+
     private ArrayList<Listing> sortAllListsByIndices() {
         // getting the indexes for sorted list
         sortPositions = sort.getSortedPositions(listings, locationListing);
-
-        // sorting keys and employers ArrayList based on indices in sorted listing
-        keys = new ArrayList<>(sort.sortArrayListByPosition(keys, sortPositions));
-        employers = new ArrayList<>(sort.sortArrayListByPosition(employers, sortPositions));
-
+        if(sortPositions.size()>=1) {
+            // sorting keys and employers ArrayList based on indices in sorted listing
+            keys = new ArrayList<>(sort.sortArrayListByPosition(keys, sortPositions));
+            employers = new ArrayList<>(sort.sortArrayListByPosition(employers, sortPositions));
+        }
         // updating the original listings ArrayList
         listings = new ArrayList<>(locationListing);
 
         return listings;
     }
-
     /**
      * Function: Method to read the employee's location from the database
      * Parameters: DatabaseReferences

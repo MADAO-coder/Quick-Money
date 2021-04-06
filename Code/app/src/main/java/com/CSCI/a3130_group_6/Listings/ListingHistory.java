@@ -82,7 +82,7 @@ public class ListingHistory extends AppCompatActivity {
             }
         });
         tab =findViewById(R.id.tabs);
-        TabLayout.Tab activeTab = tab.getTabAt(3);
+        TabLayout.Tab activeTab = tab.getTabAt(1);
         activeTab.select();
         route = new EmployerNavBarRouting(getApplicationContext());
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
