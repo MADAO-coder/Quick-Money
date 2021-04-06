@@ -5,7 +5,7 @@
     android:id="@+id/txtView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentStatus">
+    tools:context=".PayPal.PaymentStatus">
 
     <TextView
         android:id="@+id/txtId"
@@ -42,5 +42,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="171dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="397dp"
+        android:text="Rate Your Employee (1-5)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/inputRating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtStatus" />
+
+    <EditText
+        android:id="@+id/inputRating"
+        android:layout_width="197dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="301dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="385dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rating"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/submitRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="286dp"
+        android:text="Submit Rating"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputRating" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
