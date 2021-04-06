@@ -25,11 +25,31 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EmployeeView extends AppCompatActivity {
     DatabaseReference employeeRef;
-    String description, username, phone, email, employeeName, radius, clientID, amount, key, employerName;
-    EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
-    TextView usernameView, statusView;
+    String description;
+    String username;
+    String phone;
+    String email;
+    String employeeName;
+    String amount;
+    String key;
+    String employerName;
+    String radius;
+    String clientID;
+    EditText nameView;
+    EditText emailView;
+    EditText phoneView;
+    EditText passView;
+    EditText radiusView;
+    EditText clientIDView;
+    TextView usernameView;
+    TextView statusView;
     ImageView imageView;
-    Button submitButton, refreshButton, imageButton, uploadResume, selectResume, pay;
+    Button submitButton;
+    Button refreshButton;
+    Button imageButton;
+    Button uploadResume;
+    Button selectResume;
+    Button pay;
     UserLocation user;
     String wallet;
     EmployeeNavBarRouting route;
@@ -61,48 +81,15 @@ public class EmployeeView extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendPayment(v);
+                sendPayment();
             }
         });
 
         // get data
         getEmployeeDetails(employeeRef);
-//        tab =findViewById(R.id.tabs);
-//
-//        TabLayout.Tab activeTab = tab.getTabAt(3);
-//        activeTab.select();
-//        route = new EmployeeNavBarRouting(getApplicationContext());
-//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//
-//                switch (tab.getText().toString()) {
-//                    case "Listing":
-//                        route.switchListingHistory(getApplicationContext());
-//                        break;
-//                    case "Profile":
-//                        route.profileSwitch(getApplicationContext());
-//                        break;
-//                    case "Logout":
-//                        route.LogoutSwitch(getApplicationContext());
-//                        break;
-//                    case "Home":
-//                        route.homepageSwitch(getApplicationContext());
-//                        break;
-//                    case "Chat":
-//                        //route.chatSwitch(getApplicationContext());
-//                        break;
-//                }
-//            }
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) { }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {}
-//        });
     }
 
-    public void sendPayment(View view){
+    public void sendPayment(){
         Config.setID(clientID);
         Intent switchIntent = new Intent(this, PayActivity.class);
         switchIntent.putExtra("name", username);
@@ -185,7 +172,6 @@ public class EmployeeView extends AppCompatActivity {
      */
     public void loadProfile(){
         nameView.setText(employeeName);
-        //passView.setText(password);
         phoneView.setText(phone);
         emailView.setText(email);
         radiusView.setText(radius);
@@ -213,7 +199,6 @@ public class EmployeeView extends AppCompatActivity {
                         radius = user.getRadius();
                     }
                     username = employee.getUserName();
-                    //password = employee.getPassword();
                     phone = employee.getPhone();
                     email = employee.getEmail();
                     employeeName = employee.getName();

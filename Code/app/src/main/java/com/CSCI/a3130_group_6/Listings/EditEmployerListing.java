@@ -50,41 +50,7 @@ public class EditEmployerListing extends AppCompatActivity {
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/"+ listing[7]+"/Listing/"+ listing[6]);
 
         setTextBox();
-//        tab =findViewById(R.id.tabs);
-//        TabLayout.Tab activeTab = tab.getTabAt(3);
-//        activeTab.select();
-//        route = new EmployerNavBarRouting(getApplicationContext());
-//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//
-//                switch (tab.getText().toString()) {
-//                    case "Listing":
-//                        route.switchListingHistory(getApplicationContext());
-//                        break;
-//                    case "Profile":
-//                        route.profileSwitch(getApplicationContext());
-//                        break;
-//                    case "Logout":
-//                        route.LogoutSwitch(getApplicationContext());
-//                        break;
-//                    case "Home":
-//                        route.homepageSwitch(getApplicationContext());
-//                        break;
-//                    case "Chat":
-//                        //route.chatSwitch(getApplicationContext());
-//                        break;
-//                }
-//            }
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) { }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {}
-//        });
     }
-
-    //}
 
     public boolean isEmptyTaskTitle(String task) {
         return task.isEmpty();

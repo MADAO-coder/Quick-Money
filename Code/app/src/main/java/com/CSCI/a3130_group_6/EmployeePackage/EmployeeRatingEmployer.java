@@ -71,6 +71,7 @@ public class EmployeeRatingEmployer extends AppCompatActivity implements View.On
             case R.id.submitEmployerRating:
                 getPrevRating(employerRef);
                 acceptedListingsPageSwitch();
+            default:
         }
     }
 
