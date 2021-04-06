@@ -10,7 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
+import com.CSCI.a3130_group_6.HelperClases.EmployerNavBarRouting;
 import com.CSCI.a3130_group_6.R;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,6 +27,8 @@ public class EditEmployerListing extends AppCompatActivity {
 
     DatabaseReference listingRef = null;
     FirebaseDatabase database;
+    TabLayout tab;
+    EmployerNavBarRouting route;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,8 @@ public class EditEmployerListing extends AppCompatActivity {
         listing = extras.getStringArray("details");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_employer_listing);
-        home=findViewById(R.id.employeeHome);
-        switchPage = findViewById(R.id.ListingHistory);
+
         addTask= findViewById(R.id.addTaskButton);
-        logout = findViewById(R.id.Logout);
         home.setOnClickListener(this::onClick);
         switchPage.setOnClickListener(this::onClick);
         logout.setOnClickListener(this::onClick);
@@ -48,6 +50,38 @@ public class EditEmployerListing extends AppCompatActivity {
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/"+ listing[7]+"/Listing/"+ listing[6]);
 
         setTextBox();
+        tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
+        route = new EmployerNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                        //route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     //}
@@ -185,19 +219,6 @@ public class EditEmployerListing extends AppCompatActivity {
 //                    listingRef.updateChildren(childUpdates);
 
                 }
-                break;
-            case R.id.backEmployeeHome:
-            case R.id.ListingHistory:
-                startActivity(new Intent(this, ListingHistory.class));
-                break;
-            case R.id.addTaskButton:
-                startActivity(new Intent(this, AddListing.class));
-                break;
-            case R.id.Logout:
-                //database.
-                break;
-            case R.id.employeeHome:
-                startActivity(new Intent(this, EmployerHomepage.class));
                 break;
         }
 

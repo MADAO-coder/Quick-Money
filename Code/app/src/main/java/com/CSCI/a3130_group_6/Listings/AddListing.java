@@ -14,9 +14,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI.a3130_group_6.HelperClases.EmployerNavBarRouting;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,7 +30,8 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     AddListingMap map;
     EditText taskTitle, taskDescription, urgency, date, pay;
     ObjectCreatorListingSingleton objectCreator;
-
+    TabLayout tab;
+    EmployerNavBarRouting route;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,6 +56,36 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
 
         Button addLocationBt = findViewById(R.id.add_locationBt);
         addLocationBt.setOnClickListener(this);
+        tab =findViewById(R.id.tabs);
+        route = new EmployerNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                        //route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     @Override

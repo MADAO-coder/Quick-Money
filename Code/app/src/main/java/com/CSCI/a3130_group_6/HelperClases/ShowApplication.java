@@ -16,6 +16,7 @@ import com.CSCI.a3130_group_6.EmployerPackage.EmployerHomepage;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,13 +31,14 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
     Button homeButton, accept, reject, seeResume;
     String resumeLink;
     UserLocation user;
-
+    TabLayout tab;
+    EmployerNavBarRouting route;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_application);
-        homeButton = findViewById(R.id.employerHome);
+
 
         accept = findViewById(R.id.accept);
         accept.setOnClickListener(this);
@@ -72,6 +74,38 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
                         + LoginPage.validEmployer[0] + "/Listing/" + listingKey + "/Applicants/");
 
         getEmployeeDetails(employeeRef);
+        tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
+        route = new EmployerNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                       // route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     public void switchToEmployerHome(){
@@ -127,10 +161,7 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.employerHome){
-            switchToEmployerHome();
-        }
-        else if(v.getId() == R.id.seeResume) {
+       if(v.getId() == R.id.seeResume) {
             showResume();
         }
         else if(v.getId() == R.id.accept){

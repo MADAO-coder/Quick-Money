@@ -27,7 +27,7 @@ public class ListingDetails extends AppCompatActivity {
     DatabaseReference listingRef = null;
     FirebaseDatabase database;
 
-    Button home, logout, back, apply;
+    Button apply;
     String [] listing = null;
     EditText applicationMessage;
     UserLocation exactAddress;
@@ -45,15 +45,6 @@ public class ListingDetails extends AppCompatActivity {
 
         applicationMessage = findViewById(R.id.applicationMessage);
 
-        home = findViewById(R.id.employeeHome);
-        home.setOnClickListener(this::onClick);
-
-        logout = findViewById(R.id.Logout);
-        logout.setOnClickListener(this::onClick);
-
-        back = findViewById(R.id.backEmployeeHome);
-        back.setOnClickListener(this::onClick);
-
         apply = findViewById(R.id.applyToListing);
         apply.setOnClickListener(this::onClick);
 
@@ -66,6 +57,38 @@ public class ListingDetails extends AppCompatActivity {
         userCurrentLocation = new LatLng(Double.parseDouble(listing[9]),
                 Double.parseDouble(listing[8]));
         setTextBox();
+        tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
+        route = new EmployerNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                        //route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     public void setTitleDisplay(String title){
@@ -143,17 +166,11 @@ public class ListingDetails extends AppCompatActivity {
 
     public void onClick(View v) {
         switch ((v.getId())) {
-            case R.id.backEmployeeHome:
-            case R.id.employeeHome:
-                startActivity(new Intent(this, EmployeeHomepage.class));
-                break;
             case R.id.applyToListing:
                 applyToListing();
                 Toast.makeText(ListingDetails.this, "You have successfully applied to this listing with your new message", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.Logout:
-                //database.
-                break;
+
         }
 
     }
