@@ -3,11 +3,7 @@ package com.CSCI.a3130_group_6.EmployeePackage;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,14 +17,14 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.HelperClases.SortHelper;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.CSCI.a3130_group_6.Listings.Listing;
 import com.CSCI.a3130_group_6.Listings.ListingDetails;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
+import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationImplementation;
+import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationSingleton;
 import com.CSCI.a3130_group_6.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,25 +34,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.widget.TextView;
-import android.widget.Spinner;
-
-import android.widget.Toast;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import android.widget.TextView;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployee;
 
@@ -80,12 +65,15 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     ArrayList<Integer> sortPositions = new ArrayList<>();
 
     private UserLocation user;
+    ObjectCreatorUserLocationSingleton userLocationObjectCreator;
 
     private HashMap<String, Listing> keyToListing = new HashMap<>();
     private HashMap<Listing, String> listingToEmployer = new HashMap<>();
     ArrayList<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
-    SortHelper sort = new SortHelper();
+
+    SortHelper sort;
+    ObjectCreatorSortHelperSingleton sortHelperObjectCreator;
 
     TextView walletView;
     String wallet;
@@ -94,6 +82,9 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_homepage);
+
+        userLocationObjectCreator = new ObjectCreatorUserLocationImplementation();
+        sortHelperObjectCreator = new ObjectCreatorSortHelperImplementation();
 
         taskList = (findViewById(R.id.TaskList));
         listings = new ArrayList<>();
@@ -116,6 +107,9 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
         acceptedListingButton = findViewById(R.id.acceptListingsButton);
         acceptedListingButton.setOnClickListener(this);
+
+        user= userLocationObjectCreator.getUserLocation();
+        sort = sortHelperObjectCreator.getSortHelper();
 
         dbReadEmployees(employerRef, listings);
         this.showDropDownMenu();
@@ -375,7 +369,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
                         }else{
                             walletView.setText("Wallet: $0");
                         }
-                        user = new UserLocation();
+                        //user = new UserLocation();
                         user = dataSnapshot.child(validEmployee[0]).child("Location").getValue(UserLocation.class);
                         sortByLocation(user);
                     }

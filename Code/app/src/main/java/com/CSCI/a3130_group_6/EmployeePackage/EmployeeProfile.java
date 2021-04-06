@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.CSCI.a3130_group_6.Listings.ObjectCreatorListingSingleton;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,9 +52,9 @@ public class EmployeeProfile extends AppCompatActivity {
     FirebaseDatabase database;
     UserLocation user;
 
-
+    ObjectCreatorEmployeeSingleton objectCreator;
     String userName = validEmployee[0];
-
+    Employee employee;
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
@@ -76,6 +77,8 @@ public class EmployeeProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
 
+        objectCreator = new ObjectCreatorEmployeeImplementation();
+
         storage = FirebaseStorage.getInstance();
         database=FirebaseDatabase.getInstance();
 
@@ -84,6 +87,8 @@ public class EmployeeProfile extends AppCompatActivity {
         dbReadEmployee(employeeRef);
         // set all views
         setViews();
+
+        employee = objectCreator.getEmployee();
 
         imageView = findViewById(R.id.profilePicture);
         imageButton = findViewById(R.id.profileImageButton);
@@ -97,7 +102,7 @@ public class EmployeeProfile extends AppCompatActivity {
             public void onClick(View v) {
                 // Update fields
                 // define new employee object and set fields
-                Employee employee = new Employee();
+                //Employee employee = new Employee();
 
                 setStatusMessage(true, "");
 

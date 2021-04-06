@@ -22,14 +22,6 @@ public class Listing {
     private static int count = 0;
 //    private String key;
 
-    public UserLocation getLocation() {
-        return location;
-    }
-
-    public void setLocation(UserLocation location) {
-        this.location = location;
-    }
-
     public Listing() {}
 
 
@@ -52,6 +44,15 @@ public class Listing {
         this.date = date;
         this.pay = pay;
         this.status = status;
+        this.location = location;
+    }
+
+
+    public UserLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(UserLocation location) {
         this.location = location;
     }
 
@@ -110,13 +111,6 @@ public class Listing {
         Listing.count = count;
     }
 
-//    public String getKey() {
-//        return key;
-//    }
-//
-//    public void setKey(String key) {
-//        this.key = key;
-//    }
 
     @Exclude
     public Map<String, Object> toMap() {
