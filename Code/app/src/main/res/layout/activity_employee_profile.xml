@@ -8,12 +8,8 @@
     tools:context=".EmployeePackage.EmployeeProfile">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent"><![CDATA[">
-
-
-        ]]>
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/seeResume"
