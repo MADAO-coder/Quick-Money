@@ -51,7 +51,6 @@
         android:layout_marginBottom="123dp"
         android:onClick="homepageSwitch"
         android:text="Home"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -275,5 +274,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusInput" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
