@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationForEmployers extends AppCompatActivity implements View.OnClickListener{
     EditText name,username,password,vpassword,phone,email, business;
-    Button homeBt,addPayment,submitBt, employeeBt;
+    Button homeBt,submitBt, employeeBt;
 
     TextView error;
     TextView statusLabel;
@@ -39,7 +39,6 @@ public class RegistrationForEmployers extends AppCompatActivity implements View.
         phone= findViewById(R.id.phone);
         email = findViewById(R.id.email);
         homeBt = findViewById(R.id.Employer);
-        addPayment = findViewById(R.id.AddPayment);
         submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.emp);
         business = findViewById(R.id.business);

@@ -62,7 +62,7 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
     Listing list;
     TextInputLayout selfDef;
     private Employee employee;
-    Button homeBt, addPayment, submitBt, employeeBt, imageBtn, uploadResume, selectResume, addLocationButton;
+    Button homeBt, submitBt, employeeBt, imageBtn, uploadResume, selectResume, addLocationButton;
     //creating buttons and display variables
     TextView registrationStatus;
     DatabaseReference employerRef = null;
@@ -122,7 +122,6 @@ public class RegistrationForEmployees extends AppCompatActivity implements View.
         vpassword = findViewById(R.id.vpassword);
         phone = findViewById(R.id.phone);        //assigning the variables to its associated variable on th view
         email = findViewById(R.id.email);
-        addPayment = findViewById(R.id.AddPayment);
         submitBt = findViewById(R.id.Submit1);
         employeeBt = findViewById(R.id.Employer);
         homeBt = findViewById(R.id.home2);

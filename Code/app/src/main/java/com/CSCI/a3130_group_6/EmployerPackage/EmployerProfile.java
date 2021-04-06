@@ -28,7 +28,7 @@ public class EmployerProfile extends AppCompatActivity {
     DatabaseReference employerRef = null;
     String biography, username, password, phone, email, name, business;
     Double rating;
-    EditText nameView, biographyView, usernameView, passwordView, phoneView, emailView, businessView;
+    EditText nameView, usernameView, passwordView, phoneView, emailView, businessView;
     TextView statusView, showRating;
     Button submitButton, refreshButton;
 
@@ -83,7 +83,6 @@ public class EmployerProfile extends AppCompatActivity {
     public void setViews(){
         statusView = findViewById(R.id.statusView);
         nameView = findViewById(R.id.editName);
-        biographyView = findViewById(R.id.editBiography);
         usernameView = findViewById(R.id.editUsername);
         passwordView = findViewById(R.id.editPassword);
         phoneView = findViewById(R.id.editPhone);
@@ -129,7 +128,6 @@ public class EmployerProfile extends AppCompatActivity {
 
     public void loadProfile(){
         nameView.setText(name);
-        biographyView.setText(biography);
         usernameView.setText(username);
         passwordView.setText(password);
         phoneView.setText(phone);

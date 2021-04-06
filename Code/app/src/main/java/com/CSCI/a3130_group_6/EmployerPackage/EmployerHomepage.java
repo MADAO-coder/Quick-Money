@@ -184,7 +184,7 @@ public class EmployerHomepage extends AppCompatActivity {
         employees.toArray(employeesString);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, employeesString);
         ListView employeeList = (ListView) findViewById(R.id.employeeList);
-        employeeList.setAdapter(adapter);
+        // employeeList.setAdapter(adapter);
     }
 
     public boolean searchFunctioning(String search){

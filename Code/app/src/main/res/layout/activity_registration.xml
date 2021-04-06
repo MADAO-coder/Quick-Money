@@ -49,15 +49,14 @@
         android:id="@+id/Submit1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
         android:layout_marginTop="160dp"
-        android:layout_marginEnd="63dp"
+        android:layout_marginEnd="176dp"
         android:layout_marginBottom="213dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/AddPayment"
-        app:layout_constraintTop_toBottomOf="@+id/business" />
+        app:layout_constraintTop_toBottomOf="@+id/business"
+        app:layout_constraintVertical_bias="0.481" />
 
     <EditText
         android:id="@+id/username"
@@ -215,20 +214,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/AddPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="211dp"
-        android:text="Add Paypal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Submit1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BName" />
 
     <Button
         android:id="@+id/emp"
