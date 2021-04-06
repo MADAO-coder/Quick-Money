@@ -1,5 +1,6 @@
 package com.CSCI.a3130_group_6.Listings;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +12,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployeePackage.EmployeeHomepage;
+import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.CSCI.a3130_group_6.R;
+import com.CSCI.a3130_group_6.Registration.RegistrationForEmployees;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.IOException;
 
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployee;
 
@@ -24,6 +30,10 @@ public class ListingDetails extends AppCompatActivity {
     Button home, logout, back, apply;
     String [] listing = null;
     EditText applicationMessage;
+    UserLocation exactAddress;
+    Activity activity;
+    LatLng userCurrentLocation;
+    TextView showAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,11 @@ public class ListingDetails extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         listingRef = database.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
 
+        showAddress = findViewById(R.id.showAddress);
+        activity = ListingDetails.this;
+
+        userCurrentLocation = new LatLng(Double.parseDouble(listing[9]),
+                Double.parseDouble(listing[8]));
         setTextBox();
     }
 
@@ -79,15 +94,6 @@ public class ListingDetails extends AppCompatActivity {
         textView.setText(status);
     }
 
-    public void setLatitudeDisplay(String lat){
-        TextView textView = findViewById(R.id.latitudeInput);
-        textView.setText(lat);
-    }
-
-    public void setLongitudeDisplay(String longitude){
-        TextView textView = findViewById(R.id.longitudeInput);
-        textView.setText(longitude);
-    }
 
     public void setTextBox() {
         setTitleDisplay(listing[0]);
@@ -96,8 +102,24 @@ public class ListingDetails extends AppCompatActivity {
         setDateDisplay(listing[3]);
         setPayDisplay(listing[4]);
         setStatusDisplay(listing[5]);
-        setLongitudeDisplay(listing[8]);
-        setLatitudeDisplay(listing[9]);
+        try {
+            getAddressFromLocation(userCurrentLocation);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Function: Method to get exact address using latitude and longitude
+     * Parameters: LatLng
+     * Returns: void
+     *
+     */
+    // method to get the exact address from latitude and longitude
+    private void getAddressFromLocation(LatLng currentLocation) throws IOException {
+        exactAddress = new UserLocation(currentLocation, activity);
+        exactAddress.createAddress();
+        showAddress.setText(exactAddress.getAddress());
     }
 
     public void homepageSwitch(View view) {
