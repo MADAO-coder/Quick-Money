@@ -6,6 +6,54 @@
     android:layout_height="match_parent"
     tools:context="com.CSCI.a3130_group_6.EmployerPackage.EmployerProfile">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/Home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Home" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/ListingHistory"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:text="Listing" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/chat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Chat" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/profileButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Profile" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/Logout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:text="Logout" />
+                </com.google.android.material.tabs.TabLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <EditText
             android:id="@+id/editName"
             android:layout_width="122dp"
@@ -174,17 +222,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editUsername" />
 
-        <Button
-            android:id="@+id/ListingHistory"
-            android:layout_width="141dp"
-            android:layout_height="84dp"
-            android:layout_marginBottom="28dp"
-            android:onClick="switchListingHistory"
-            android:text="Listing History"
-            app:layout_constraintBottom_toTopOf="@+id/editName"
-            app:layout_constraintEnd_toStartOf="@+id/editBiography"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/rating"

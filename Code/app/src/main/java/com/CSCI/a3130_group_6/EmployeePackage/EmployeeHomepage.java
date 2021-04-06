@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI.a3130_group_6.HelperClases.EmployeeNavBarRouting;
 import com.CSCI.a3130_group_6.HelperClases.SortHelper;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.CSCI.a3130_group_6.Listings.Listing;
@@ -26,6 +27,7 @@ import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationImplementation;
 import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationSingleton;
 import com.CSCI.a3130_group_6.R;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,6 +79,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
     TextView walletView;
     String wallet;
+    EmployeeNavBarRouting route;
+    TabLayout tab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +103,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         employerRef = db.getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         employeeProfile = new EmployeeProfile();
 
-        employeeProfileButton = findViewById(R.id.employeeProfileButton); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
-        employeeProfileButton.setOnClickListener(this); // CREATED JUST TO VIEWING PURPOSES, CAN DELETE AFTER INTEGRATION OF NAV BAR
+
         sortButton = findViewById(R.id.sortButton);
         sortButton.setOnClickListener(this);
         walletView = findViewById(R.id.walletView);
@@ -156,6 +159,36 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+        tab =findViewById(R.id.tabs);
+        route = new EmployeeNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                        //route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
@@ -332,20 +365,20 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         setTaskList(sortAllListsByIndices());
     }
 
+
     private ArrayList<Listing> sortAllListsByIndices() {
         // getting the indexes for sorted list
         sortPositions = sort.getSortedPositions(listings, locationListing);
-
-        // sorting keys and employers ArrayList based on indices in sorted listing
-        keys = new ArrayList<>(sort.sortArrayListByPosition(keys, sortPositions));
-        employers = new ArrayList<>(sort.sortArrayListByPosition(employers, sortPositions));
-
+        if(sortPositions.size()>=1) {
+            // sorting keys and employers ArrayList based on indices in sorted listing
+            keys = new ArrayList<>(sort.sortArrayListByPosition(keys, sortPositions));
+            employers = new ArrayList<>(sort.sortArrayListByPosition(employers, sortPositions));
+        }
         // updating the original listings ArrayList
         listings = new ArrayList<>(locationListing);
 
         return listings;
     }
-
     /**
      * Function: Method to read the employee's location from the database
      * Parameters: DatabaseReferences
@@ -420,10 +453,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
 
     public void onClick(View v) {
-        if(v.getId() == R.id.employeeProfileButton){
-            employeeProfileSwitch();
-        }
-        else if(v.getId() == R.id.acceptListingsButton){
+        if(v.getId() == R.id.acceptListingsButton){
             employeeAppliedListings();
         }
         else if (v.getId() == R.id.sortButton) {
