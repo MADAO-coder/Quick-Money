@@ -52,7 +52,6 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         applicantEmail = findViewById(R.id.applicantEmail);
         applicantPhoneNum = findViewById(R.id.applicantPhoneNum);
         applicantRadius = findViewById(R.id.applicantRadius);
-        descriptionBox = findViewById(R.id.applicantDescription);
 
         homeButton.setOnClickListener(this);
 
@@ -184,7 +183,6 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
                     phone = employee.getPhone();
                     email = employee.getEmail();
                     name = employee.getName();
-                    description = employee.getDescription();
                     loadProfile();
                 }
             }
@@ -203,7 +201,6 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
      */
     public void loadProfile(){
         applicantName.setText(name);
-        descriptionBox.setText(description);
         employeeUsername.setText(username);
         applicantPhoneNum.setText(phone);
         applicantEmail.setText(email);

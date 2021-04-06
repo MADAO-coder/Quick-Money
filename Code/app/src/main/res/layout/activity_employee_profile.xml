@@ -191,15 +191,13 @@
             android:layout_width="99dp"
             android:layout_height="92dp"
             android:layout_marginStart="22dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="52dp"
             android:layout_marginEnd="261dp"
-            android:layout_marginBottom="542dp"
             android:background="@android:drawable/ic_menu_gallery"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.558"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
@@ -215,23 +213,6 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/applicantDescription"
-            android:layout_width="187dp"
-            android:layout_height="84dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="543dp"
-            android:ems="10"
-            android:hint="Description"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.446"
-            app:layout_constraintStart_toEndOf="@+id/profilePicture"
-            app:layout_constraintTop_toBottomOf="@+id/navBar"
-            app:layout_constraintVertical_bias="0.116" />
 
         <TextView
             android:id="@+id/employeeName"
