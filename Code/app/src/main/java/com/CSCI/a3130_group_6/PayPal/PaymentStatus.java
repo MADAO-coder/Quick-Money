@@ -72,6 +72,7 @@ public class PaymentStatus extends AppCompatActivity implements View.OnClickList
         txtAmount.setText("Amount -- $" + paymentAmount);
 
     }
+
     private void updateWallet(){
         DatabaseReference listingRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer/");
         listingRef.child(employerName).child("Listing").child(listingKey).child("Applicants").child("Accepted").child(employeeName).setValue(null);

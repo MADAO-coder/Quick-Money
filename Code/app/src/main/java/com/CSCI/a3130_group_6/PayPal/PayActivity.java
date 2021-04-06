@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.CSCI.a3130_group_6.HelperClases.Config;
 import com.CSCI.a3130_group_6.R;
+import com.CSCI.a3130_group_6.Registration.RegistrationForEmployers;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -74,6 +75,7 @@ public class PayActivity extends AppCompatActivity {
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
         startActivityForResult(intent,PAYPAL_REQUEST_CODE);
+        switchToEmployer();
     }
 
     @Override
@@ -100,9 +102,10 @@ public class PayActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onDestroy() {
-        stopService(new Intent(this,PayPalService.class));
-        super.onDestroy();
+    public void switchToEmployer() {
+        Intent employer = new Intent(this, PayActivity.class);
+        startActivity(employer);
     }
+
+
 }
