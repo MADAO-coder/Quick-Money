@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.CSCI.a3130_group_6.HelperClases.EmployeeNavBarRouting;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.HelperClases.UserLocation;
 import com.CSCI.a3130_group_6.HelperClases.Config;
 import com.CSCI.a3130_group_6.PayPal.PayActivity;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,14 +25,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EmployeeView extends AppCompatActivity {
     DatabaseReference employeeRef;
-    String description, username, password, phone, email, employeeName, radius, clientID, amount, key, employerName;
+    String description, username, phone, email, employeeName, radius, clientID, amount, key, employerName;
     EditText descriptionBox, nameView, emailView, phoneView, passView, radiusView, clientIDView;
     TextView usernameView, statusView;
     ImageView imageView;
     Button submitButton, refreshButton, imageButton, uploadResume, selectResume, pay;
     UserLocation user;
     String wallet;
-
+    EmployeeNavBarRouting route;
+    TabLayout tab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +67,39 @@ public class EmployeeView extends AppCompatActivity {
 
         // get data
         getEmployeeDetails(employeeRef);
+        tab =findViewById(R.id.tabs);
 
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
+        route = new EmployeeNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                        //route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     public void sendPayment(View view){
@@ -141,7 +176,6 @@ public class EmployeeView extends AppCompatActivity {
 
         submitButton = (Button) findViewById(R.id.accept);
         clientIDView = findViewById(R.id.ClientIDInput);
-        refreshButton = (Button) findViewById(R.id.employerHome);
         imageButton = findViewById(R.id.profileImageButton);
 
         uploadResume = findViewById(R.id.uploadResume);
