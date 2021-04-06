@@ -3,12 +3,15 @@ package com.CSCI.a3130_group_6.EmployerPackage;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,12 +37,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class EmployerHomepage extends AppCompatActivity {
+public class EmployerHomepage extends AppCompatActivity implements View.OnClickListener{
 
     ArrayList<Employee> employees;
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
     String taskTitle;
+    Button logout;
 
     Map<String, Integer> listings;
 
@@ -49,6 +53,8 @@ public class EmployerHomepage extends AppCompatActivity {
         setContentView(R.layout.activity_employer_homepage);
 
         listings = Collections.synchronizedMap(new HashMap<String, Integer>());
+        logout = findViewById(R.id.Logout);
+        logout.setOnClickListener(this);
 
         employeeRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employee");
         setEmployeeList();
@@ -244,4 +250,18 @@ public class EmployerHomepage extends AppCompatActivity {
         startActivity(switchIntent);
     }
 
+    public void LogoutSwitch(Context context) {
+        Toast.makeText(context, "Logging out", Toast.LENGTH_SHORT).show();
+        ListingHistory.employerRef=null;
+        Intent switchIntent = new Intent(context, LoginPage.class);
+        switchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(switchIntent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.Logout) {
+            LogoutSwitch(this);
+        }
+    }
 }

@@ -88,9 +88,6 @@ public class EmployeeView extends AppCompatActivity {
         nameView.setClickable(false);
         nameView.setEnabled(false);
 
-        descriptionBox.setClickable(false);
-        descriptionBox.setEnabled(false);
-
         usernameView.setClickable(false);
         usernameView.setEnabled(false);
 
@@ -154,8 +151,6 @@ public class EmployeeView extends AppCompatActivity {
      */
     public void loadProfile(){
         nameView.setText(employeeName);
-        descriptionBox.setText(description);
-        usernameView.setText(username);
         //passView.setText(password);
         phoneView.setText(phone);
         emailView.setText(email);

@@ -10,14 +10,13 @@
         android:layout_width="149dp"
         android:layout_height="50dp"
         android:layout_marginStart="153dp"
-        android:layout_marginTop="22dp"
         android:layout_marginEnd="109dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="29dp"
         android:text="See Resume"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applicantRadius" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/applicantRadius"
@@ -205,26 +204,21 @@
         android:id="@+id/accept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginEnd="142dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="16dp"
         android:text="Accept"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reject"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/reject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="16dp"
         android:text="Reject"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applicantRadius"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/profileImageButton"

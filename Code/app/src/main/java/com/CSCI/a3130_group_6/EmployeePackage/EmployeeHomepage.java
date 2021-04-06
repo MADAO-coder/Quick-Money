@@ -1,5 +1,6 @@
 package com.CSCI.a3130_group_6.EmployeePackage;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.annotation.SuppressLint;
@@ -26,6 +27,7 @@ import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationImplementation;
 import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationSingleton;
 import com.CSCI.a3130_group_6.R;
+import com.CSCI.a3130_group_6.Registration.LoginPage;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -59,6 +62,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     String[] listingsString;
     String [] details;
     List<String> employerName;
+    Button logout;
 
     Button employeeProfileButton, sortButton, acceptedListingButton;
     private EmployeeProfile employeeProfile;
@@ -110,6 +114,8 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
         user= userLocationObjectCreator.getUserLocation();
         sort = sortHelperObjectCreator.getSortHelper();
+        logout = findViewById(R.id.logout);
+        logout.setOnClickListener(this);
 
         dbReadEmployees(employerRef, listings);
         this.showDropDownMenu();
@@ -418,6 +424,14 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         return itemList.getSelectedItem().toString();
     }
 
+    public void LogoutSwitch(Context context) {
+        Toast.makeText(context, "Logging out", Toast.LENGTH_SHORT).show();
+        ListingHistory.employerRef=null;
+        Intent switchIntent = new Intent(context, LoginPage.class);
+        switchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(switchIntent);
+    }
+
 
     public void onClick(View v) {
         if(v.getId() == R.id.employeeProfileButton){
@@ -425,6 +439,9 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
         }
         else if(v.getId() == R.id.acceptListingsButton){
             employeeAppliedListings();
+        }
+        else if (v.getId() == R.id.logout) {
+            LogoutSwitch(this);
         }
         else if (v.getId() == R.id.sortButton) {
             String selectedItem = getSelectedItem();

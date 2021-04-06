@@ -28,7 +28,7 @@ import java.util.List;
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployer;
 
 public class ListingHistory extends AppCompatActivity {
-    DatabaseReference employerRef = null;
+    public static DatabaseReference employerRef = null;
     FirebaseDatabase database;
     String fireRef;
     public static String listingKey;

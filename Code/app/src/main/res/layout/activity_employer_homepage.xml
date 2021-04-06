@@ -30,7 +30,6 @@
         android:layout_marginTop="9dp"
         android:layout_marginEnd="29dp"
         android:clickable="true"
-        android:onClick="addTaskSwitch"
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
