@@ -29,6 +29,7 @@ import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationImplementation;
 import com.CSCI.a3130_group_6.Listings.ObjectCreatorUserLocationSingleton;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,7 +84,6 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
     TextView walletView;
     String wallet;
     EmployeeNavBarRouting route;
-    TabLayout tab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,35 +166,35 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        tab =findViewById(R.id.tabs);
-        route = new EmployeeNavBarRouting(getApplicationContext());
-        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                switch (tab.getText().toString()) {
-                    case "Listing":
-                        route.switchListingHistory(getApplicationContext());
-                        break;
-                    case "Profile":
-                        route.profileSwitch(getApplicationContext());
-                        break;
-                    case "Logout":
-                        route.LogoutSwitch(getApplicationContext());
-                        break;
-                    case "Home":
-                        route.homepageSwitch(getApplicationContext());
-                        break;
-                    case "Chat":
-                        //route.chatSwitch(getApplicationContext());
-                        break;
-                }
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+////        tab =findViewById(R.id.tabs);
+//        route = new EmployeeNavBarRouting(getApplicationContext());
+////        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                switch (tab.getText().toString()) {
+//                    case "Listing":
+//                        route.switchListingHistory(getApplicationContext());
+//                        break;
+//                    case "Profile":
+//                        route.profileSwitch(getApplicationContext());
+//                        break;
+//                    case "Logout":
+//                        route.LogoutSwitch(getApplicationContext());
+//                        break;
+//                    case "Home":
+//                        route.homepageSwitch(getApplicationContext());
+//                        break;
+//                    case "Chat":
+//                        //route.chatSwitch(getApplicationContext());
+//                        break;
+//                }
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) { }
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {}
+//        });
     }
 
     private Intent applicationIntent(){
