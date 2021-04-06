@@ -17,10 +17,12 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.CSCI.a3130_group_6.EmployeePackage.Employee;
+import com.CSCI.a3130_group_6.HelperClases.EmployerNavBarRouting;
 import com.CSCI.a3130_group_6.Listings.AddListing;
 import com.CSCI.a3130_group_6.Listings.ListingHistory;
 import com.CSCI.a3130_group_6.R;
 import com.CSCI.a3130_group_6.Registration.LoginPage;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,9 +42,9 @@ public class EmployerHomepage extends AppCompatActivity {
     DatabaseReference employeeRef;
     DatabaseReference notificationRef;
     String taskTitle;
-
+    EmployerNavBarRouting route;
     Map<String, Integer> listings;
-
+    TabLayout tab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +100,35 @@ public class EmployerHomepage extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
+        });
+        tab =findViewById(R.id.tabs);
+        route = new EmployerNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                        //route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 

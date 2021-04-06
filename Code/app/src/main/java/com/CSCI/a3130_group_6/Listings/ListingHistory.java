@@ -13,8 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.CSCI.a3130_group_6.EmployerPackage.Employer;
+import com.CSCI.a3130_group_6.HelperClases.EmployerNavBarRouting;
 import com.CSCI.a3130_group_6.HelperClases.ShowApplication;
 import com.CSCI.a3130_group_6.R;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +30,7 @@ import java.util.List;
 import static com.CSCI.a3130_group_6.Registration.LoginPage.validEmployer;
 
 public class ListingHistory extends AppCompatActivity {
-    DatabaseReference employerRef = null;
+    public static DatabaseReference employerRef = null;
     FirebaseDatabase database;
     String fireRef;
     public static String listingKey;
@@ -45,6 +47,8 @@ public class ListingHistory extends AppCompatActivity {
     List<String> employerName;
     Button toggle;
     Boolean toggleFlag;//if true go to applicant false Edit listings
+    TabLayout tab;
+    EmployerNavBarRouting route;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +81,38 @@ public class ListingHistory extends AppCompatActivity {
                 }
             }
         });
+        tab =findViewById(R.id.tabs);
+        TabLayout.Tab activeTab = tab.getTabAt(3);
+        activeTab.select();
+        route = new EmployerNavBarRouting(getApplicationContext());
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
 
+                switch (tab.getText().toString()) {
+                    case "Listing":
+                        route.switchListingHistory(getApplicationContext());
+                        break;
+                    case "Profile":
+                        route.profileSwitch(getApplicationContext());
+                        break;
+                    case "Logout":
+                        route.LogoutSwitch(getApplicationContext());
+                        break;
+                    case "Home":
+                        route.homepageSwitch(getApplicationContext());
+                        break;
+                    case "Chat":
+                       // route.chatSwitch(getApplicationContext());
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
 
-        /* To-Do
-        * change size of list view to fill more of screen
-        * add listings label so know what loaded element is
-        * add open/close status to a listing
-        * add routing to listing history page on each element
-        * */
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     /**
