@@ -2,7 +2,6 @@ package com.CSCI.a3130_group_6.HelperClases;
 import com.CSCI.a3130_group_6.Listings.Listing;
 
 import java.util.*;
-import java.lang.*;
 
 /**
  * Helper class to sort listings by date and location
@@ -20,7 +19,7 @@ public class SortHelper {
      * @return: ArrayList<Listing>
      * Reference: https://www.geeksforgeeks.org/sort-an-array-of-dates-in-ascending-order-using-custom-comparator/
      */
-    public ArrayList<Listing> sortDatesDescending(ArrayList<Listing> arr)
+    public List<Listing> sortDatesDescending(List<Listing> arr)
     {
 
         // Sort the dates using library
@@ -92,7 +91,7 @@ public class SortHelper {
         return temp;
     }
 
-    public ArrayList<Integer> getSortedPositions(ArrayList<Listing> listings, ArrayList<Listing> locationListing) {
+    public ArrayList<Integer> getSortedPositions(ArrayList<Listing> listings, List<Listing> locationListing) {
         ArrayList<Integer> sortPositions = new ArrayList<>();
         for (int i = 0; i < listings.size(); i++) {
             for (int j = 0; j <locationListing.size(); j++) {

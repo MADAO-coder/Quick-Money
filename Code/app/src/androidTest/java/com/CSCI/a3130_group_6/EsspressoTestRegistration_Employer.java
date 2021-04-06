@@ -31,7 +31,6 @@ public class EsspressoTestRegistration_Employer {
 
     @Test
     public void checkIfRegistrationEmployerShows() {
-        onView(withId(R.id.AddPayment)).check(matches(withText("Add Paypal")));
         onView(withId(R.id.Submit1)).check(matches(withText("Submit")));
         onView(withId(R.id.Name)).check(matches(withText("Name")));
         onView(withId(R.id.Username)).check(matches(withText("Username")));

@@ -88,6 +88,7 @@ public class ImageCapture extends AppCompatActivity {
                     Toast.makeText(this, "No permission granted", Toast.LENGTH_SHORT).show();
                 }
             }
+            default:
         }
     }
     public void TakePicture(View view){

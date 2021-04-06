@@ -24,8 +24,8 @@ import java.util.Iterator;
  * @author  Pulkit Garg
  */
 public class CheckExistingUserName {
-    ArrayList employeeList = new ArrayList<>();
-    ArrayList employerList = new ArrayList<>();
+    ArrayList<String> employeeList = new ArrayList<>();
+    ArrayList<String> employerList = new ArrayList<>();
     DatabaseReference employer = null;
     DatabaseReference employee = null;
 
@@ -67,7 +67,7 @@ public class CheckExistingUserName {
      * Returns: Arraylist of usernames
      *
      */
-    private ArrayList getUserNameList(DatabaseReference db, ArrayList list){
+    private ArrayList<String> getUserNameList(DatabaseReference db, ArrayList<String> list){
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -75,8 +75,8 @@ public class CheckExistingUserName {
                 //Read data from data base.
 
                 while (employerItr.hasNext()) {
-                    Employer employer = employerItr.next().getValue(Employer.class);
-                    String employerUserName = employer.getUserName();
+                    Employer employerFromDB = employerItr.next().getValue(Employer.class);
+                    String employerUserName = employerFromDB.getUserName();
                     list.add(employerUserName);
                 }
             }
@@ -118,8 +118,8 @@ public class CheckExistingUserName {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (checkUserNameLength((TextView) error, String.valueOf(s))) {
-                    checkUserNameInDatabase(employerList, employeeList, String.valueOf(s), error);
+                if (checkUserNameLength(error, String.valueOf(s))) {
+                    checkUserNameInDatabase(employeeList, employerList, String.valueOf(s), error);
                 }
             }
 
@@ -136,7 +136,8 @@ public class CheckExistingUserName {
      * Returns:
      *
      */
-    private void checkUserNameInDatabase(ArrayList employeeList, ArrayList employerList, String userName, TextView error){
+    private void checkUserNameInDatabase(ArrayList<String> employeeList, ArrayList<String> employerList,
+                                         String userName, TextView error){
         if(employeeList.contains(userName) || employerList.contains(userName)){
             error.setText("Username already taken. Please enter a different username.");
         }
@@ -153,11 +154,7 @@ public class CheckExistingUserName {
         String text = String.valueOf(error.getText());
         String error1 = "Username already taken. Please enter a different username.";
         String error2 = "Username too short";
-
-        if (text.equals(error1) || text.equals(error2)) {
-            return true;
-        }
-        return false;
+        return (text.equals(error1) || text.equals(error2));
     }
 
 }

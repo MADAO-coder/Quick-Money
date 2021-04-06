@@ -60,11 +60,32 @@ public class EmployeeProfile extends AppCompatActivity {
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
 
-    String description, username, password, phone, email, name, radius, resume, clientID;
-    EditText nameView, emailView, phoneView, passView, radiusView, clientIDView;
-    TextView usernameView, statusView, selectedPDF, showRating;
+    String description;
+    String password;
+    String username;
+    String phone;
+    String email;
+    String name;
+    String radius;
+    String resume;
+    String clientID;
+    EditText nameView;
+    EditText emailView;
+    EditText phoneView;
+    EditText passView;
+    EditText radiusView;
+    EditText clientIDView;
+    TextView usernameView;
+    TextView statusView;
+    TextView selectedPDF;
+    TextView showRating;
 
-    Button submitButton, refreshButton, imageButton, uploadResume, selectResume;
+
+    Button submitButton;
+    Button refreshButton;
+    Button imageButton;
+    Button uploadResume;
+    Button selectResume;
     Double rating;
     ImageView imageView;
     Uri image_uri;
@@ -198,35 +219,6 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
             }
         });
-//        tab =findViewById(R.id.tabs);
-//        route = new EmployeeNavBarRouting(getApplicationContext());
-//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//
-//                switch (tab.getText().toString()) {
-//                    case "Listing":
-//                        route.switchListingHistory(getApplicationContext());
-//                        break;
-//                    case "Profile":
-//                        route.profileSwitch(getApplicationContext());
-//                        break;
-//                    case "Logout":
-//                        route.LogoutSwitch(getApplicationContext());
-//                        break;
-//                    case "Home":
-//                        route.homepageSwitch(getApplicationContext());
-//                        break;
-//                    case "Chat":
-//                        //route.chatSwitch(getApplicationContext());
-//                        break;
-//                }
-//            }
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) { }
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {}
-//        });
     }
 
     private void selectPDF() {

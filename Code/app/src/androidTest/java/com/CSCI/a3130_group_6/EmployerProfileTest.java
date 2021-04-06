@@ -35,17 +35,12 @@ public class EmployerProfileTest {
         // removed below: closing softKeyboard not worth time to debug
         // onView(withId(R.id.editBiography)).perform(typeText("Biography words, please do not be there"));
         onView(withId(R.id.refreshBtn)).perform(ViewActions.click());
-        onView(withId(R.id.editBiography)).check(matches(withText("")));
         onView(withId(R.id.statusView)).check(matches(withText("Profile changes refreshed")));
     }
 
     /** Test Profile Elements below
      * Since log in isn't emulated, these fields will all default to empty on load
      * **/
-    @Test
-    public void testBiography(){
-        onView(withId(R.id.editBiography)).check(matches(withText("")));
-    }
     @Test
     public void testName(){
         onView(withId(R.id.editName)).check(matches(withText("")));

@@ -41,15 +41,12 @@ public class ExampleInstrumentedTest {
     /*** AT-I**/
     @Test
     public void checkIfSearchBarIsShown() {
-        //ActivityScenario<EmployerHomepage> scenario = employerRule.getScenario();
         onView(withId(R.id.searchBar)).check(matches(isDisplayed()));
     }
     @Test
     public void checkIfSearchTextIsCaught(){
-        //ActivityScenario<EmployerHomepage> scenario = employerRule.getScenario();
         onView(withId(R.id.searchBar)).perform(click());
         onView(withId(R.id.searchBar)).perform(typeText("jim"));
-        //check correct element being interacted with. retrieving query unobtainable at this time
         onView(withId(R.id.searchBar)).check(matches(withId(2131231018)));
     }
     /** AT-3*/

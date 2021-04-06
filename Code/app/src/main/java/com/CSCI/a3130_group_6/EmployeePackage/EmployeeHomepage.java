@@ -75,7 +75,7 @@ public class EmployeeHomepage extends AppCompatActivity implements View.OnClickL
 
     private HashMap<String, Listing> keyToListing = new HashMap<>();
     private HashMap<Listing, String> listingToEmployer = new HashMap<>();
-    ArrayList<Listing> locationListing = new ArrayList<>();
+    List<Listing> locationListing = new ArrayList<>();
     DatabaseReference employeeRef;
 
     SortHelper sort;

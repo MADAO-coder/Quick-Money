@@ -31,7 +31,7 @@ public class EmployeeAcceptedListings extends AppCompatActivity {
 
     DatabaseReference employerRef = null;
     private ArrayList<Employer> employerList = new ArrayList<>();
-    Set<Employer> employerSet = new LinkedHashSet<Employer>();
+    Set<Employer> employerSet = new LinkedHashSet<>();
     ArrayAdapter<String> adapter;
     ListView employerRatingList;
     String currEmployer;
@@ -42,37 +42,8 @@ public class EmployeeAcceptedListings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_accepted_listings);
         employerRatingList = findViewById(R.id.employerList);
-        employerRef= FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
+        employerRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://group-6-a830d-default-rtdb.firebaseio.com/Employer");
         dbReadEmployer(employerRef);
-//        tab =findViewById(R.id.tabs);
-//        route = new EmployeeNavBarRouting(getApplicationContext());
-//        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//
-//                switch (tab.getText().toString()) {
-//                    case "Listing":
-//                        route.switchListingHistory(getApplicationContext());
-//                        break;
-//                    case "Profile":
-//                        route.profileSwitch(getApplicationContext());
-//                        break;
-//                    case "Logout":
-//                        route.LogoutSwitch(getApplicationContext());
-//                        break;
-//                    case "Home":
-//                        route.homepageSwitch(getApplicationContext());
-//                        break;
-//                    case "Chat":
-//                        //route.chatSwitch(getApplicationContext());
-//                        break;
-//                }
-//            }
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) { }
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {}
-//        });
     }
 
     /**
@@ -145,7 +116,7 @@ public class EmployeeAcceptedListings extends AppCompatActivity {
         for(int i = 0; i < employerList.size(); i++){
             employerUserNameList.add(employerList.get(i).getUserName());
         }
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 employerUserNameList);
         employerRatingList.setAdapter(adapter);
         clickableListView(employerRatingList, employerUserNameList);
@@ -156,12 +127,12 @@ public class EmployeeAcceptedListings extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currEmployer = employerUserNameList.get(position);
-                giveRating(view);
+                giveRating();
             }
         });
     }
 
-    private void giveRating(View view){
+    private void giveRating(){
         Bundle bundle = new Bundle();
         bundle.putString("userName", currEmployer);
         Intent intent = new Intent(this, EmployeeRatingEmployer.class);
