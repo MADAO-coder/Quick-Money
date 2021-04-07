@@ -136,7 +136,7 @@ public class EmployeeView extends AppCompatActivity {
      */
     public void disableButtons(){
         submitButton.setEnabled(false);
-        refreshButton.setEnabled(false);
+//        refreshButton.setEnabled(false);
         imageButton.setEnabled(false);
         uploadResume.setEnabled(false);
         selectResume.setEnabled(false);

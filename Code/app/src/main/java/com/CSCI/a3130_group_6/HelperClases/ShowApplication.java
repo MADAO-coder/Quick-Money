@@ -54,6 +54,7 @@ public class ShowApplication extends AppCompatActivity implements View.OnClickLi
         applicantEmail = findViewById(R.id.applicantEmail);
         applicantPhoneNum = findViewById(R.id.applicantPhoneNum);
         applicantRadius = findViewById(R.id.applicantRadius);
+        homeButton = findViewById(R.id.employerHome);
 
         homeButton.setOnClickListener(this);
 
