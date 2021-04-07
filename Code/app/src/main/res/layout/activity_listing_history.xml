@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
         android:id="@+id/noListingMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="50dp"
         android:text="No Listings Available"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +21,8 @@
 
     <ListView
         android:id="@+id/employeeList"
-        android:layout_width="348dp"
-        android:layout_height="97dp"
+        android:layout_width="380dp"
+        android:layout_height="450dp"
         android:layout_marginTop="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +38,9 @@
         android:layout_marginStart="86dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="39dp"
+        android:layout_marginBottom="43dp"
         android:text="Toggle Applicant/Edit Listing"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeList" />

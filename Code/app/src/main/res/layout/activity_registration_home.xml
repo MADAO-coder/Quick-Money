@@ -5,7 +5,7 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistrationHome">
+    tools:context="com.CSCI.a3130_group_6.Registration.RegistrationHome">
     <!--This button is meant to send employees to the designated employee registration page-->
     <Button
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ImageCapture"
+    tools:context="com.CSCI.a3130_group_6.HelperClases.ImageCapture"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 

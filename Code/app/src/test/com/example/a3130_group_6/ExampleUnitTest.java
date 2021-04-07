@@ -1,4 +1,4 @@
-package com.example.a3130_group_6;
+package com.CSCI.a3130_group_6;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.a3130_group_6.EmployeeHomepage;
+import com.CSCI.a3130_group_6.EmployeeHomepage;
 
 import org.hamcrest.text.IsEmptyString;
 import org.junit.BeforeClass;
@@ -41,15 +41,12 @@ public class ExampleInstrumentedTest {
     /*** AT-I**/
     @Test
     public void checkIfSearchBarIsShown() {
-        //ActivityScenario<EmployerHomepage> scenario = employerRule.getScenario();
         onView(withId(R.id.searchBar)).check(matches(isDisplayed()));
     }
     @Test
     public void checkIfSearchTextIsCaught(){
-        //ActivityScenario<EmployerHomepage> scenario = employerRule.getScenario();
         onView(withId(R.id.searchBar)).perform(click());
         onView(withId(R.id.searchBar)).perform(typeText("jim"));
-        //check correct element being interacted with. retrieving query unobtainable at this time
         onView(withId(R.id.searchBar)).check(matches(withId(2131231018)));
     }
     /** AT-3*/
